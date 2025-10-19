@@ -1,0 +1,26 @@
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api/v1';
+
+export const USER_ROLES = {
+  ADMIN: 'ADMIN',
+  MANAGER: 'MANAGER',
+  ENGINEER: 'ENGINEER',
+  USER: 'USER',
+};
+
+export const TICKET_STATUS = {
+  OPEN: 'OPEN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  PENDING: 'PENDING',
+  ON_HOLD: 'ON_HOLD',
+  RESOLVED: 'RESOLVED',
+  CLOSED: 'CLOSED',
+  CANCELLED: 'CANCELLED',
+};
+
+export const TICKET_PRIORITY = {
+  CRITICAL: 'CRITICAL',
+  HIGH: 'HIGH',
+  MEDIUM: 'MEDIUM',
+  LOW: 'LOW',
+  PLANNING: 'PLANNING',
+};
