@@ -1,0 +1,705 @@
+/* ============================================
+   EMAIL QUEUE PAGE - SCOPED STYLES
+   All styles prefixed with .email-queue-page
+   to avoid conflicts with other pages
+   FILE: frontend/src/pages/email/EmailQueue.css
+   ============================================ */
+
+/* ============================================
+   PAGE CONTAINER
+   ============================================ */
+.email-queue-page {
+  min-height: 100vh;
+  background-color: #f9fafb;
+  padding: 2rem 0;
+}
+
+.dark .email-queue-page {
+  background-color: #111827;
+}
+
+.email-queue-page .page-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .email-queue-page .page-container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .email-queue-page .page-container {
+    padding: 0 2rem;
+  }
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.email-queue-page .page-header {
+  margin-bottom: 2rem;
+}
+
+.email-queue-page .page-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.dark .email-queue-page .page-title {
+  color: #ffffff;
+}
+
+.email-queue-page .page-description {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.dark .email-queue-page .page-description {
+  color: #9ca3af;
+}
+
+/* ============================================
+   STATISTICS CARDS
+   ============================================ */
+.email-queue-page .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .email-queue-page .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .email-queue-page .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.email-queue-page .stat-card {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.dark .email-queue-page .stat-card {
+  background-color: #1f2937;
+}
+
+.email-queue-page .stat-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.email-queue-page .stat-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.email-queue-page .stat-info {
+  flex: 1;
+}
+
+.email-queue-page .stat-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.dark .email-queue-page .stat-label {
+  color: #9ca3af;
+}
+
+.email-queue-page .stat-value {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.dark .email-queue-page .stat-value {
+  color: #ffffff;
+}
+
+.email-queue-page .stat-icon {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+}
+
+/* ============================================
+   FILTERS SECTION
+   ============================================ */
+.email-queue-page .filters-section {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dark .email-queue-page .filters-section {
+  background-color: #1f2937;
+}
+
+.email-queue-page .filters-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .email-queue-page .filters-row {
+    flex-direction: row;
+  }
+}
+
+.email-queue-page .search-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.email-queue-page .search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  width: 1.25rem;
+  height: 1.25rem;
+  pointer-events: none;
+}
+
+.email-queue-page .search-input {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.dark .email-queue-page .search-input {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #ffffff;
+}
+
+.email-queue-page .search-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.email-queue-page .filter-select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.dark .email-queue-page .filter-select {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #ffffff;
+}
+
+.email-queue-page .filter-select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.email-queue-page .refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #6366f1;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.email-queue-page .refresh-btn:hover:not(:disabled) {
+  background-color: #4f46e5;
+}
+
+.email-queue-page .refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.email-queue-page .refresh-btn .icon-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ============================================
+   BULK ACTIONS
+   ============================================ */
+.email-queue-page .bulk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.dark .email-queue-page .bulk-actions {
+  border-top-color: #374151;
+}
+
+.email-queue-page .bulk-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #ffffff;
+}
+
+.email-queue-page .bulk-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.email-queue-page .bulk-action-btn.retry-all {
+  background-color: #10b981;
+}
+
+.email-queue-page .bulk-action-btn.retry-all:hover:not(:disabled) {
+  background-color: #059669;
+}
+
+.email-queue-page .bulk-action-btn.clear-old {
+  background-color: #ef4444;
+}
+
+.email-queue-page .bulk-action-btn.clear-old:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+/* ============================================
+   TABLE SECTION
+   ============================================ */
+.email-queue-page .table-wrapper {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.dark .email-queue-page .table-wrapper {
+  background-color: #1f2937;
+}
+
+.email-queue-page .table-container {
+  overflow-x: auto;
+}
+
+.email-queue-page table {
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.email-queue-page thead {
+  background-color: #f9fafb;
+}
+
+.dark .email-queue-page thead {
+  background-color: #111827;
+}
+
+.email-queue-page th {
+  padding: 0.75rem 1.5rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dark .email-queue-page th {
+  color: #9ca3af;
+}
+
+.email-queue-page th:last-child {
+  text-align: right;
+}
+
+.email-queue-page tbody {
+  background-color: #ffffff;
+  divide-y: 1px solid #e5e7eb;
+}
+
+.dark .email-queue-page tbody {
+  background-color: #1f2937;
+}
+
+.email-queue-page tbody tr {
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dark .email-queue-page tbody tr {
+  border-bottom-color: #374151;
+}
+
+.email-queue-page tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.dark .email-queue-page tbody tr:hover {
+  background-color: #374151;
+}
+
+.email-queue-page td {
+  padding: 1rem 1.5rem;
+  font-size: 0.875rem;
+  color: #111827;
+  white-space: nowrap;
+}
+
+.dark .email-queue-page td {
+  color: #ffffff;
+}
+
+.email-queue-page .recipient-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.email-queue-page .recipient-email {
+  font-weight: 500;
+}
+
+.email-queue-page .recipient-name {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.dark .email-queue-page .recipient-name {
+  color: #9ca3af;
+}
+
+.email-queue-page .subject-cell {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.email-queue-page .status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.email-queue-page .status-badge.sent {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.dark .email-queue-page .status-badge.sent {
+  background-color: #064e3b;
+  color: #6ee7b7;
+}
+
+.email-queue-page .status-badge.pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.dark .email-queue-page .status-badge.pending {
+  background-color: #78350f;
+  color: #fde68a;
+}
+
+.email-queue-page .status-badge.failed {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.dark .email-queue-page .status-badge.failed {
+  background-color: #7f1d1d;
+  color: #fca5a5;
+}
+
+.email-queue-page .retry-info {
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.dark .email-queue-page .retry-info {
+  color: #9ca3af;
+}
+
+.email-queue-page .actions-cell {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.email-queue-page .action-btn {
+  padding: 0.25rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 0.25rem;
+}
+
+.email-queue-page .action-btn:hover:not(:disabled) {
+  background-color: #f3f4f6;
+}
+
+.dark .email-queue-page .action-btn:hover:not(:disabled) {
+  background-color: #374151;
+}
+
+.email-queue-page .action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.email-queue-page .action-btn.view {
+  color: #2563eb;
+}
+
+.dark .email-queue-page .action-btn.view {
+  color: #60a5fa;
+}
+
+.email-queue-page .action-btn.retry {
+  color: #16a34a;
+}
+
+.dark .email-queue-page .action-btn.retry {
+  color: #4ade80;
+}
+
+.email-queue-page .action-btn.delete {
+  color: #dc2626;
+}
+
+.dark .email-queue-page .action-btn.delete {
+  color: #f87171;
+}
+
+/* ============================================
+   PAGINATION
+   ============================================ */
+.email-queue-page .pagination-wrapper {
+  background-color: #ffffff;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.dark .email-queue-page .pagination-wrapper {
+  background-color: #1f2937;
+  border-top-color: #374151;
+}
+
+.email-queue-page .pagination-info {
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.dark .email-queue-page .pagination-info {
+  color: #d1d5db;
+}
+
+.email-queue-page .pagination-controls {
+  display: flex;
+  gap: 0;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.email-queue-page .pagination-btn {
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: -1px;
+}
+
+.dark .email-queue-page .pagination-btn {
+  background-color: #1f2937;
+  border-color: #4b5563;
+  color: #9ca3af;
+}
+
+.email-queue-page .pagination-btn:first-child {
+  border-top-left-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem;
+  margin-left: 0;
+}
+
+.email-queue-page .pagination-btn:last-child {
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+}
+
+.email-queue-page .pagination-btn:hover:not(:disabled) {
+  background-color: #f9fafb;
+}
+
+.dark .email-queue-page .pagination-btn:hover:not(:disabled) {
+  background-color: #374151;
+}
+
+.email-queue-page .pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.email-queue-page .pagination-btn.active {
+  z-index: 10;
+  background-color: #ede9fe;
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.dark .email-queue-page .pagination-btn.active {
+  background-color: #312e81;
+  color: #c7d2fe;
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+.email-queue-page .empty-state {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  text-align: center;
+}
+
+.dark .email-queue-page .empty-state {
+  background-color: #1f2937;
+}
+
+.email-queue-page .empty-icon {
+  width: 4rem;
+  height: 4rem;
+  color: #9ca3af;
+  margin: 0 auto 1rem;
+}
+
+.dark .email-queue-page .empty-icon {
+  color: #4b5563;
+}
+
+.email-queue-page .empty-title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.dark .email-queue-page .empty-title {
+  color: #ffffff;
+}
+
+.email-queue-page .empty-description {
+  color: #6b7280;
+}
+
+.dark .email-queue-page .empty-description {
+  color: #9ca3af;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   LOADING SKELETON
+   ============================================ */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.email-queue-page .skeleton {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 640px) {
+  .email-queue-page .page-container {
+    padding: 0 0.5rem;
+  }
+
+  .email-queue-page .page-title {
+    font-size: 1.5rem;
+  }
+
+  .email-queue-page .stat-card {
+    padding: 1rem;
+  }
+
+  .email-queue-page .filters-section {
+    padding: 1rem;
+  }
+
+  .email-queue-page table {
+    font-size: 0.75rem;
+  }
+
+  .email-queue-page th,
+  .email-queue-page td {
+    padding: 0.5rem;
+  }
+}

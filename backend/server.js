@@ -1,7 +1,7 @@
 // ============================================
 // Main Server File
 // Entry point for the IT Helpdesk application
-// UPDATED: Added Email Queue routes
+// UPDATED: Added Email Queue + Email Templates routes + Background Jobs
 // ============================================
 
 const express = require('express');
@@ -18,6 +18,11 @@ const logger = require('./utils/logger');
 const { testConnection, closePool } = require('./config/database');
 const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
 const requestLogger = require('./middleware/requestLogger');
+
+// ============================================
+// IMPORT BACKGROUND JOBS
+// ============================================
+const emailProcessorJob = require('./jobs/emailProcessor.job');
 
 // Initialize Express app
 const app = express();
@@ -223,7 +228,8 @@ app.get('/', (req, res) => {
       analytics: `${config.apiPrefix}/analytics`,
       profile: `${config.apiPrefix}/profile`,
       settings: `${config.apiPrefix}/settings`,
-      emailQueue: `${config.apiPrefix}/email-queue` // ← NEW
+      emailQueue: `${config.apiPrefix}/email-queue`,
+      emailTemplates: `${config.apiPrefix}/email-templates` // ← NEW
     }
   });
 });
@@ -247,7 +253,8 @@ const dashboardRoutes = require('./routes/dashboard.routes');
 const notificationsRoutes = require('./routes/notifications.routes');
 const profileRoutes = require('./routes/profile.routes');
 const settingsRoutes = require('./routes/settings.routes');
-const emailQueueRoutes = require('./routes/emailQueue.routes'); // ← NEW
+const emailQueueRoutes = require('./routes/emailQueue.routes');
+const emailTemplatesRoutes = require('./routes/emailTemplates.routes'); // ← NEW
 
 // Mount routes
 app.use(`${config.apiPrefix}/auth`, authRoutes);
@@ -262,7 +269,8 @@ app.use(`${config.apiPrefix}/dashboard`, dashboardRoutes);
 app.use(`${config.apiPrefix}/notifications`, notificationsRoutes);
 app.use(`${config.apiPrefix}/profile`, profileRoutes);
 app.use(`${config.apiPrefix}/settings`, settingsRoutes);
-app.use(`${config.apiPrefix}/email-queue`, emailQueueRoutes); // ← NEW
+app.use(`${config.apiPrefix}/email-queue`, emailQueueRoutes);
+app.use(`${config.apiPrefix}/email-templates`, emailTemplatesRoutes); // ← NEW
 
 logger.success('API routes initialized', { 
   prefix: config.apiPrefix,
@@ -279,7 +287,8 @@ logger.success('API routes initialized', {
     'notifications',
     'profile',
     'settings',
-    'email-queue' // ← NEW
+    'email-queue',
+    'email-templates' // ← NEW
   ]
 });
 
@@ -371,8 +380,19 @@ const startServer = async () => {
       logger.info('🔗 Attachments endpoint: /api/v1/tickets/:id/attachments');
       logger.info('👥 Users endpoint: /api/v1/users');
       logger.info('👤 Profile endpoint: /api/v1/profile');
-      logger.info('📧 Email Queue endpoint: /api/v1/email-queue'); // ← NEW
+      logger.info('📧 Email Queue endpoint: /api/v1/email-queue');
+      logger.info('📝 Email Templates endpoint: /api/v1/email-templates'); // ← NEW
       logger.info('Press CTRL+C to stop the server');
+      logger.separator();
+      
+      // ============================================
+      // START BACKGROUND JOBS
+      // ============================================
+      logger.separator('STARTING BACKGROUND JOBS');
+      
+      // Start email processor job
+      emailProcessorJob.start();
+      
       logger.separator();
     });
 
@@ -391,6 +411,10 @@ const startServer = async () => {
     const gracefulShutdown = async (signal) => {
       logger.separator('GRACEFUL SHUTDOWN');
       logger.warn(`${signal} received, closing server gracefully`);
+      
+      // Stop background jobs
+      logger.info('Stopping background jobs...');
+      emailProcessorJob.stop();
       
       server.close(async () => {
         logger.info('HTTP server closed');

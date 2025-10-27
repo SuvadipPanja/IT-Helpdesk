@@ -1,5 +1,5 @@
 // ============================================
-// EMAIL QUEUE SERVICE
+// EMAIL QUEUE SERVICE - FIXED
 // Manages email queue, sending, and retries
 // FILE: backend/services/emailQueue.service.js
 // ============================================
@@ -14,30 +14,69 @@ const settingsService = require('./settings.service');
 // ============================================
 const createTransporter = async () => {
   try {
-    const settings = await settingsService.getAllSettings();
-    const emailSettings = settings.email || {};
+    const emailSettings = await settingsService.getByCategory('email');
 
-    if (!emailSettings.smtp_enabled || emailSettings.smtp_enabled === 'false') {
-      logger.warn('SMTP is disabled in settings');
+    logger.info('📧 Email settings loaded:', {
+      smtp_enabled: emailSettings.smtp_enabled,
+      smtp_host: emailSettings.smtp_host,
+      smtp_port: emailSettings.smtp_port,
+      smtp_username: emailSettings.smtp_username,
+      smtp_encryption: emailSettings.smtp_encryption,
+      has_password: !!emailSettings.smtp_password
+    });
+
+    // Convert smtp_enabled to boolean (handles string/number/boolean)
+    const smtpEnabled = emailSettings.smtp_enabled === true || 
+                        emailSettings.smtp_enabled === 'true' || 
+                        emailSettings.smtp_enabled === 1 || 
+                        emailSettings.smtp_enabled === '1';
+
+    if (!smtpEnabled) {
+      logger.warn('⚠️ SMTP is disabled in settings');
       return null;
     }
 
-    const transporter = nodemailer.createTransporter({
-      host: emailSettings.smtp_host || 'smtp.gmail.com',
+    if (!emailSettings.smtp_host || !emailSettings.smtp_username || !emailSettings.smtp_password) {
+      logger.error('❌ SMTP settings incomplete', {
+        has_host: !!emailSettings.smtp_host,
+        has_username: !!emailSettings.smtp_username,
+        has_password: !!emailSettings.smtp_password
+      });
+      return null;
+    }
+
+    const isSecure = emailSettings.smtp_encryption === 'SSL' || 
+                     emailSettings.smtp_encryption === 'ssl';
+
+    const transportConfig = {
+      host: emailSettings.smtp_host,
       port: parseInt(emailSettings.smtp_port) || 587,
-      secure: emailSettings.smtp_encryption === 'SSL' || emailSettings.smtp_encryption === 'ssl',
+      secure: isSecure,
       auth: {
         user: emailSettings.smtp_username,
         pass: emailSettings.smtp_password,
       },
       tls: {
-        rejectUnauthorized: emailSettings.smtp_tls_verify !== 'false'
+        rejectUnauthorized: false // For Gmail with app passwords
       }
+    };
+
+    logger.info('🔧 Creating transporter with config:', {
+      host: transportConfig.host,
+      port: transportConfig.port,
+      secure: transportConfig.secure,
+      user: transportConfig.auth.user
     });
+
+    const transporter = nodemailer.createTransport(transportConfig); // ✅ FIXED HERE
+
+    // Verify transporter
+    await transporter.verify();
+    logger.success('✅ SMTP transporter created and verified successfully');
 
     return transporter;
   } catch (error) {
-    logger.error('Failed to create email transporter', error);
+    logger.error('❌ Failed to create email transporter', error);
     return null;
   }
 };
@@ -65,8 +104,7 @@ const addToQueue = async ({
       subject
     });
 
-    const settings = await settingsService.getAllSettings();
-    const emailSettings = settings.email || {};
+    const emailSettings = await settingsService.getByCategory('email');
 
     const query = `
       INSERT INTO email_queue (
@@ -123,8 +161,8 @@ const addToQueue = async ({
       priority,
       smtpHost: emailSettings.smtp_host || 'smtp.gmail.com',
       smtpPort: emailSettings.smtp_port || 587,
-      fromEmail: emailSettings.from_email || emailSettings.smtp_username,
-      fromName: emailSettings.from_name || 'IT Helpdesk',
+      fromEmail: emailSettings.email_from_address || emailSettings.smtp_username,
+      fromName: emailSettings.email_from_name || 'IT Helpdesk',
       metadata: metadata ? JSON.stringify(metadata) : null
     });
 

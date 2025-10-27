@@ -1,18 +1,14 @@
 // ============================================
-// Tickets Controller
-// Handles ticket management operations
-// UPDATED: Added email notifications for all ticket events
+// Tickets Controller - FIXED VERSION
+// Fixed: Changed getAllSettings() to getByCategory()
 // ============================================
 
-const { executeQuery, executeProcedure } = require('../config/database');
-const { 
-  createResponse, 
-  getPaginationMeta,
-} = require('../utils/helpers');
+const { executeQuery } = require('../config/database');
+const { createResponse, getPaginationMeta } = require('../utils/helpers');
 const logger = require('../utils/logger');
 const sql = require('mssql');
-const emailQueueService = require('../services/emailQueue.service');
 const settingsService = require('../services/settings.service');
+const emailQueueService = require('../services/emailQueue.service');
 
 /**
  * Get all tickets with pagination and filters
@@ -147,8 +143,8 @@ const getTickets = async (req, res, next) => {
         d.department_id,
         d.department_name,
         
-        (SELECT COUNT(*) FROM ticket_comments WHERE ticket_id = t.ticket_id) as comment_count,
-        (SELECT COUNT(*) FROM ticket_attachments WHERE ticket_id = t.ticket_id) as attachment_count
+        (SELECT COUNT(*) FROM ticket_comments WHERE ticket_id = t.ticket_id) as comments_count,
+        (SELECT COUNT(*) FROM ticket_attachments WHERE ticket_id = t.ticket_id) as attachments_count
         
       FROM tickets t
       LEFT JOIN ticket_categories tc ON t.category_id = tc.category_id
@@ -531,14 +527,16 @@ const createTicket = async (req, res, next) => {
 
     logger.success('Notifications created');
 
-    // ✅ NEW: Send email to admins/managers
+    // ✅ FIXED: Send email to admins/managers
     try {
       logger.try('Sending ticket creation emails');
 
-      const settings = await settingsService.getAllSettings();
-      const notificationSettings = settings.notifications || {};
+      // ✅ FIXED: Use getByCategory instead of getAllSettings
+      const emailSettings = await settingsService.getByCategory('email');
+      const notificationSettings = await settingsService.getByCategory('notification');
+      const generalSettings = await settingsService.getByCategory('general');
 
-      if (notificationSettings.notify_on_ticket_created !== 'false') {
+      if (notificationSettings.notify_on_ticket_created !== 'false' && notificationSettings.notify_on_ticket_created !== false) {
         const adminQuery = `
           SELECT u.user_id, u.email, u.first_name + ' ' + u.last_name as full_name
           FROM users u
@@ -572,7 +570,6 @@ const createTicket = async (req, res, next) => {
         const ticketDetails = await executeQuery(ticketDetailsQuery, { ticketId });
         const ticket = ticketDetails.recordset[0];
 
-        const generalSettings = settings.general || {};
         const appUrl = process.env.APP_URL || 'http://localhost:5173';
 
         for (const admin of admins.recordset) {
@@ -760,15 +757,16 @@ const updateTicket = async (req, res, next) => {
     
     await executeQuery(activityQuery, { ticketId, userId });
 
-    // ✅ NEW: Send email if status changed
+    // ✅ FIXED: Send email if status changed
     if (status_id !== undefined && status_id !== oldStatusId) {
       try {
         logger.try('Sending status change email');
 
-        const settings = await settingsService.getAllSettings();
-        const notificationSettings = settings.notifications || {};
+        // ✅ FIXED: Use getByCategory instead of getAllSettings
+        const notificationSettings = await settingsService.getByCategory('notification');
+        const generalSettings = await settingsService.getByCategory('general');
 
-        if (notificationSettings.notify_on_ticket_updated !== 'false') {
+        if (notificationSettings.notify_on_ticket_updated !== 'false' && notificationSettings.notify_on_ticket_updated !== false) {
           const statusQuery = `
             SELECT 
               t.ticket_number,
@@ -787,16 +785,15 @@ const updateTicket = async (req, res, next) => {
             WHERE t.ticket_id = @ticketId
           `;
 
-          const statusResult = await executeQuery(statusQuery, { 
-            ticketId, 
+          const statusResult = await executeQuery(statusQuery, {
+            ticketId,
             oldStatusId,
             newStatusId: status_id,
-            userId 
+            userId,
           });
 
           if (statusResult.recordset.length > 0 && statusResult.recordset[0].requester_email) {
             const statusInfo = statusResult.recordset[0];
-            const generalSettings = settings.general || {};
             const appUrl = process.env.APP_URL || 'http://localhost:5173';
 
             await emailQueueService.sendTemplatedEmail(
@@ -854,16 +851,18 @@ const assignTicket = async (req, res, next) => {
     const userId = req.user.user_id;
 
     logger.separator('TICKET ASSIGNMENT');
-    logger.try('Assigning ticket to engineer', {
+    logger.try('Assigning ticket', {
       ticketId,
       assignedTo: assigned_to,
-      assignedBy: userId,
+      userId,
     });
 
-    if (!req.user.permissions || !req.user.permissions.can_assign_tickets) {
-      logger.warn('Unauthorized assignment attempt', { 
-        userId, 
-        ticketId,
+    // Check permission
+    const canAssign = req.user.permissions?.can_assign_tickets || false;
+
+    if (!canAssign) {
+      logger.warn('Unauthorized assignment attempt', {
+        userId,
         hasPermissions: !!req.user.permissions,
         canAssign: req.user.permissions?.can_assign_tickets
       });
@@ -1002,14 +1001,15 @@ const assignTicket = async (req, res, next) => {
 
       logger.success('Notification sent to assigned engineer');
 
-      // ✅ NEW: Send email to assigned engineer
+      // ✅ FIXED: Send email to assigned engineer
       try {
         logger.try('Sending ticket assignment email');
 
-        const settings = await settingsService.getAllSettings();
-        const notificationSettings = settings.notifications || {};
+        // ✅ FIXED: Use getByCategory instead of getAllSettings
+        const notificationSettings = await settingsService.getByCategory('notification');
+        const generalSettings = await settingsService.getByCategory('general');
 
-        if (notificationSettings.notify_on_ticket_assigned !== 'false') {
+        if (notificationSettings.notify_on_ticket_assigned !== 'false' && notificationSettings.notify_on_ticket_assigned !== false) {
           const engineerQuery = `
             SELECT u.email, u.first_name + ' ' + u.last_name as full_name
             FROM users u
@@ -1035,7 +1035,6 @@ const assignTicket = async (req, res, next) => {
             const ticketDetails = await executeQuery(ticketDetailsQuery, { ticketId });
             const ticketInfo = ticketDetails.recordset[0];
 
-            const generalSettings = settings.general || {};
             const appUrl = process.env.APP_URL || 'http://localhost:5173';
 
             await emailQueueService.sendTemplatedEmail(
@@ -1069,7 +1068,7 @@ const assignTicket = async (req, res, next) => {
     }
 
     logger.separator('TICKET ASSIGNED SUCCESSFULLY');
-    logger.success('Ticket assignment completed', {
+    logger.success('Assignment completed', {
       ticketId,
       ticketNumber: ticket.ticket_number,
       assignedTo: assigned_to,
@@ -1100,11 +1099,13 @@ const addComment = async (req, res, next) => {
     const { comment_text, is_internal } = req.body;
     const userId = req.user.user_id;
 
-    logger.try('Adding comment to ticket', {
-      ticketId,
-      userId,
-      isInternal: is_internal,
-    });
+    logger.try('Adding comment to ticket', { ticketId, userId });
+
+    if (!comment_text || comment_text.trim().length === 0) {
+      return res.status(400).json(
+        createResponse(false, 'Comment text is required')
+      );
+    }
 
     // Check if ticket exists
     const ticketCheck = await executeQuery(
@@ -1117,8 +1118,6 @@ const addComment = async (req, res, next) => {
         createResponse(false, 'Ticket not found')
       );
     }
-
-    const ticket = ticketCheck.recordset[0];
 
     // Insert comment
     const insertQuery = `
@@ -1138,6 +1137,8 @@ const addComment = async (req, res, next) => {
 
     const commentId = result.recordset[0].comment_id;
 
+    logger.success('Comment added successfully');
+
     // Log activity
     const activityQuery = `
       INSERT INTO ticket_activities (
@@ -1145,94 +1146,92 @@ const addComment = async (req, res, next) => {
       )
       VALUES (@ticketId, 'COMMENTED', 'Comment added', @userId)
     `;
-    
+
     await executeQuery(activityQuery, { ticketId, userId });
 
-    // ✅ NEW: Send email notification for comment
-    if (!is_internal) {
-      try {
-        logger.try('Sending comment notification email');
+    // ✅ FIXED: Send email to requester and assigned engineer
+    try {
+      logger.try('Sending comment notification emails');
 
-        const settings = await settingsService.getAllSettings();
-        const notificationSettings = settings.notifications || {};
+      // ✅ FIXED: Use getByCategory instead of getAllSettings
+      const notificationSettings = await settingsService.getByCategory('notification');
+      const generalSettings = await settingsService.getByCategory('general');
 
-        if (notificationSettings.notify_on_comment_added !== 'false') {
-          const commentDetailsQuery = `
-            SELECT 
-              t.ticket_number,
-              t.requester_id,
-              t.assigned_to,
-              requester.email as requester_email,
-              requester.first_name + ' ' + requester.last_name as requester_name,
-              engineer.email as engineer_email,
-              engineer.first_name + ' ' + engineer.last_name as engineer_name,
-              commenter.first_name + ' ' + commenter.last_name as commenter_name
-            FROM tickets t
-            LEFT JOIN users requester ON t.requester_id = requester.user_id
-            LEFT JOIN users engineer ON t.assigned_to = engineer.user_id
-            LEFT JOIN users commenter ON commenter.user_id = @userId
-            WHERE t.ticket_id = @ticketId
-          `;
+      if (notificationSettings.notify_on_ticket_commented !== 'false' && notificationSettings.notify_on_ticket_commented !== false) {
+        const commentDetailsQuery = `
+          SELECT 
+            t.ticket_number,
+            t.requester_id,
+            t.assigned_to,
+            requester.email as requester_email,
+            requester.first_name + ' ' + requester.last_name as requester_name,
+            engineer.email as engineer_email,
+            engineer.first_name + ' ' + engineer.last_name as engineer_name,
+            commenter.first_name + ' ' + commenter.last_name as commenter_name
+          FROM tickets t
+          LEFT JOIN users requester ON t.requester_id = requester.user_id
+          LEFT JOIN users engineer ON t.assigned_to = engineer.user_id
+          LEFT JOIN users commenter ON commenter.user_id = @userId
+          WHERE t.ticket_id = @ticketId
+        `;
 
-          const commentDetails = await executeQuery(commentDetailsQuery, { ticketId, userId });
+        const commentDetails = await executeQuery(commentDetailsQuery, { ticketId, userId });
 
-          if (commentDetails.recordset.length > 0) {
-            const details = commentDetails.recordset[0];
-            const generalSettings = settings.general || {};
-            const appUrl = process.env.APP_URL || 'http://localhost:5173';
+        if (commentDetails.recordset.length > 0) {
+          const details = commentDetails.recordset[0];
+          const appUrl = process.env.APP_URL || 'http://localhost:5173';
 
-            // Send to requester (if not the commenter)
-            if (details.requester_id !== userId && details.requester_email) {
-              await emailQueueService.sendTemplatedEmail(
-                'TICKET_COMMENT_ADDED',
-                details.requester_email,
-                {
-                  ticket_number: details.ticket_number,
-                  commenter_name: details.commenter_name,
-                  comment_text: comment_text.substring(0, 200) + (comment_text.length > 200 ? '...' : ''),
-                  ticket_url: `${appUrl}/tickets/${ticketId}`,
-                  system_name: generalSettings.system_name || 'IT Helpdesk'
-                },
-                {
-                  recipientName: details.requester_name,
-                  recipientUserId: details.requester_id,
-                  emailType: 'TICKET_COMMENT_ADDED',
-                  relatedEntityType: 'TICKET',
-                  relatedEntityId: ticketId,
-                  priority: 3
-                }
-              );
-            }
-
-            // Send to assigned engineer (if exists and not the commenter)
-            if (details.assigned_to && details.assigned_to !== userId && details.engineer_email) {
-              await emailQueueService.sendTemplatedEmail(
-                'TICKET_COMMENT_ADDED',
-                details.engineer_email,
-                {
-                  ticket_number: details.ticket_number,
-                  commenter_name: details.commenter_name,
-                  comment_text: comment_text.substring(0, 200) + (comment_text.length > 200 ? '...' : ''),
-                  ticket_url: `${appUrl}/tickets/${ticketId}`,
-                  system_name: generalSettings.system_name || 'IT Helpdesk'
-                },
-                {
-                  recipientName: details.engineer_name,
-                  recipientUserId: details.assigned_to,
-                  emailType: 'TICKET_COMMENT_ADDED',
-                  relatedEntityType: 'TICKET',
-                  relatedEntityId: ticketId,
-                  priority: 3
-                }
-              );
-            }
-
-            logger.success('Comment notification emails queued');
+          // Send to requester (if not the commenter)
+          if (details.requester_id !== userId && details.requester_email) {
+            await emailQueueService.sendTemplatedEmail(
+              'TICKET_COMMENT_ADDED',
+              details.requester_email,
+              {
+                ticket_number: details.ticket_number,
+                commenter_name: details.commenter_name,
+                comment_text: comment_text.substring(0, 200) + (comment_text.length > 200 ? '...' : ''),
+                ticket_url: `${appUrl}/tickets/${ticketId}`,
+                system_name: generalSettings.system_name || 'IT Helpdesk'
+              },
+              {
+                recipientName: details.requester_name,
+                recipientUserId: details.requester_id,
+                emailType: 'TICKET_COMMENT_ADDED',
+                relatedEntityType: 'TICKET',
+                relatedEntityId: ticketId,
+                priority: 3
+              }
+            );
           }
+
+          // Send to assigned engineer (if exists and not the commenter)
+          if (details.assigned_to && details.assigned_to !== userId && details.engineer_email) {
+            await emailQueueService.sendTemplatedEmail(
+              'TICKET_COMMENT_ADDED',
+              details.engineer_email,
+              {
+                ticket_number: details.ticket_number,
+                commenter_name: details.commenter_name,
+                comment_text: comment_text.substring(0, 200) + (comment_text.length > 200 ? '...' : ''),
+                ticket_url: `${appUrl}/tickets/${ticketId}`,
+                system_name: generalSettings.system_name || 'IT Helpdesk'
+              },
+              {
+                recipientName: details.engineer_name,
+                recipientUserId: details.assigned_to,
+                emailType: 'TICKET_COMMENT_ADDED',
+                relatedEntityType: 'TICKET',
+                relatedEntityId: ticketId,
+                priority: 3
+              }
+            );
+          }
+
+          logger.success('Comment notification emails queued');
         }
-      } catch (emailError) {
-        logger.error('Failed to send comment notification emails', emailError);
       }
+    } catch (emailError) {
+      logger.error('Failed to send comment notification emails', emailError);
     }
 
     logger.success('Comment added successfully', {

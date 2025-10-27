@@ -2,9 +2,11 @@
 // SETTINGS PAGE - COMPLETE IMPLEMENTATION
 // All 91 settings from database organized in 10 tabs
 // UI matches Dashboard/Users/Tickets design perfectly
+// UPDATED: Added Email Queue Management + Email Templates buttons
 // ============================================
 
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { 
   Settings as SettingsIcon, 
@@ -33,13 +35,15 @@ import {
   MessageSquare,
   Zap,
   Tag,
-  HelpCircle
+  HelpCircle,
+  ListOrdered
 } from 'lucide-react';
 import api from '../../services/api';
 import '../../styles/Settings.css';
 
 const Settings = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('general');
   const [settings, setSettings] = useState({});
   const [loading, setLoading] = useState(true);
@@ -194,6 +198,16 @@ const Settings = () => {
     } finally {
       setSendingTestEmail(false);
     }
+  };
+
+  // Navigate to Email Queue
+  const handleGoToEmailQueue = () => {
+    navigate('/email-queue');
+  };
+
+  // Navigate to Email Templates
+  const handleGoToEmailTemplates = () => {
+    navigate('/email-templates');
   };
 
   // Permission check
@@ -493,6 +507,76 @@ const Settings = () => {
             {/* ==================== EMAIL TAB ==================== */}
             {activeTab === 'email' && (
               <div className="settings-form">
+                {/* Email Management Tools */}
+                <div className="settings-section">
+                  <div className="settings-section-header">
+                    <ListOrdered />
+                    <h3>Email Management Tools</h3>
+                  </div>
+                  <div className="settings-section-content">
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Mail size={16} />
+                        Email Queue & Templates
+                      </label>
+                      <p className="form-hint">
+                        Monitor email delivery status and manage email templates
+                      </p>
+                      <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem', flexWrap: 'wrap' }}>
+                        {/* Email Queue Button */}
+                        <button 
+                          className="btn-email-management"
+                          onClick={handleGoToEmailQueue}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            padding: '10px 16px',
+                            backgroundColor: '#6366f1',
+                            color: '#ffffff',
+                            border: 'none',
+                            borderRadius: '6px',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            cursor: 'pointer',
+                            transition: 'background-color 0.2s'
+                          }}
+                          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#4f46e5'}
+                          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#6366f1'}
+                        >
+                          <ListOrdered size={18} />
+                          Email Queue
+                        </button>
+
+                        {/* Email Templates Button - NEW */}
+                        <button 
+                          className="btn-email-management"
+                          onClick={handleGoToEmailTemplates}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            padding: '10px 16px',
+                            backgroundColor: '#8b5cf6',
+                            color: '#ffffff',
+                            border: 'none',
+                            borderRadius: '6px',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            cursor: 'pointer',
+                            transition: 'background-color 0.2s'
+                          }}
+                          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#7c3aed'}
+                          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#8b5cf6'}
+                        >
+                          <FileText size={18} />
+                          Email Templates
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 {/* SMTP Configuration */}
                 <div className="settings-section">
                   <div className="settings-section-header">
@@ -788,7 +872,6 @@ const Settings = () => {
             )}
 
             {/* ==================== REMAINING TABS ==================== */}
-            {/* For brevity, showing placeholder structure */}
             
             {activeTab === 'ticket' && (
               <div className="settings-form">

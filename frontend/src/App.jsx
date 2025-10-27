@@ -1,7 +1,7 @@
 // ============================================
 // MAIN APP COMPONENT
 // Root component with all providers and routes
-// UPDATED: Loads settings on app start
+// UPDATED: Loads settings on app start + Email Queue + Email Templates routes
 // ============================================
 
 import { useEffect, useState } from 'react';
@@ -26,6 +26,8 @@ import AllNotifications from './pages/notifications/AllNotifications';
 import Profile from './pages/profile/Profile';
 import ChangePassword from './pages/profile/ChangePassword';
 import Settings from './pages/settings/Settings';
+import EmailQueue from './pages/email/EmailQueue';
+import EmailTemplates from './pages/email/EmailTemplates'; // ← NEW
 import settingsLoader from './utils/settingsLoader';
 import { Shield } from 'lucide-react';
 
@@ -313,6 +315,36 @@ function App() {
                 <ProtectedRoute requiredPermission="can_manage_system">
                   <Layout>
                     <Settings />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+
+            {/* ============================================
+                PROTECTED ROUTES - EMAIL QUEUE
+                Requires: can_manage_system permission
+                ============================================ */}
+            <Route
+              path="/email-queue"
+              element={
+                <ProtectedRoute requiredPermission="can_manage_system">
+                  <Layout>
+                    <EmailQueue />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+
+            {/* ============================================
+                PROTECTED ROUTES - EMAIL TEMPLATES
+                Requires: can_manage_system permission
+                ============================================ */}
+            <Route
+              path="/email-templates"
+              element={
+                <ProtectedRoute requiredPermission="can_manage_system">
+                  <Layout>
+                    <EmailTemplates />
                   </Layout>
                 </ProtectedRoute>
               }
