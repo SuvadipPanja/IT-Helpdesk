@@ -1,0 +1,424 @@
+2025-10-31 17:21:16.315 [INFO] [SYSTEM] ℹ️ Initializing security middleware
+2025-10-31 17:21:16.317 [SUCCESS] [OPERATION] ✅ CORS enabled | {
+2025-10-31 17:21:16.334 [SUCCESS] [OPERATION] ✅ Body parsers initialized
+2025-10-31 17:21:16.321 [SUCCESS] [OPERATION] ✅ Rate limiting enabled | {
+2025-10-31 17:21:16.335 [SUCCESS] [OPERATION] ✅ Response compression enabled
+2025-10-31 17:21:16.336 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-10-31 17:21:16.333 [INFO] [SYSTEM] ℹ️ Initializing body parsers
+2025-10-31 17:21:16.339 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-10-31 17:21:16.338 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-10-31 17:21:16.341 [SUCCESS] [OPERATION] ✅ Static file serving enabled with CORS | {
+2025-10-31 17:21:16.381 [SUCCESS] [OPERATION] ✅ API routes initialized | {
+2025-10-31 17:21:16.384 [INFO] [SYSTEM] ℹ️ Starting IT Helpdesk Backend Server
+2025-10-31 17:21:16.343 [INFO] [SYSTEM] ℹ️ Initializing API routes
+2025-10-31 17:21:16.340 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-10-31 17:21:16.384 [INFO] [SYSTEM] ℹ️ Environment | {
+2025-10-31 17:21:16.385 [INFO] [SYSTEM] ℹ️ Node Version | {
+2025-10-31 17:21:16.386 [INFO] [SYSTEM] ℹ️ Platform | {
+2025-10-31 17:21:16.386 [TRY] [OPERATION] 🔄 Testing database connection
+2025-10-31 17:21:16.382 [SUCCESS] [OPERATION] ✅ Error handlers initialized
+2025-10-31 17:21:16.521 [SUCCESS] [OPERATION] ✅ Database connection test passed
+2025-10-31 17:21:16.524 [SUCCESS] [OPERATION] ✅ Server is running on port 5000
+2025-10-31 17:21:16.521 [INFO] [SYSTEM] ℹ️ Database details | {
+2025-10-31 17:21:16.524 [SUCCESS] [OPERATION] ✅ API Base URL: http://localhost:5000/api/v1
+2025-10-31 17:21:16.524 [SUCCESS] [OPERATION] ✅ Health Check: http://localhost:5000/health
+2025-10-31 17:21:16.524 [SUCCESS] [OPERATION] ✅ Test Uploads: http://localhost:5000/test-uploads
+2025-10-31 17:21:16.524 [INFO] [SYSTEM] ℹ️ Server Details | {
+2025-10-31 17:21:16.526 [INFO] [SYSTEM] ℹ️ 🎉 IT Helpdesk Backend is ready to accept requests!
+2025-10-31 17:21:16.526 [INFO] [SYSTEM] ℹ️ 📂 File uploads enabled at: /uploads
+2025-10-31 17:21:16.526 [INFO] [SYSTEM] ℹ️ 🖼️ Profile pictures: /uploads/profiles
+2025-10-31 17:21:16.526 [INFO] [SYSTEM] ℹ️ 📎 Ticket attachments: /uploads/tickets
+2025-10-31 17:21:16.526 [INFO] [SYSTEM] ℹ️ 🔓 CORS enabled for cross-origin requests
+2025-10-31 17:21:16.527 [INFO] [SYSTEM] ℹ️ 👥 Users endpoint: /api/v1/users
+2025-10-31 17:21:16.527 [INFO] [SYSTEM] ℹ️ 🔗 Attachments endpoint: /api/v1/tickets/:id/attachments
+2025-10-31 17:21:16.527 [INFO] [SYSTEM] ℹ️ 👤 Profile endpoint: /api/v1/profile
+2025-10-31 17:21:16.527 [INFO] [SYSTEM] ℹ️ 📧 Email Queue endpoint: /api/v1/email-queue
+2025-10-31 17:21:16.527 [INFO] [SYSTEM] ℹ️ ✅ Ticket Approvals endpoint: /api/v1/ticket-approvals
+2025-10-31 17:21:16.528 [INFO] [SYSTEM] ℹ️ Press CTRL+C to stop the server
+2025-10-31 17:21:16.528 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Job...
+2025-10-31 17:21:16.527 [INFO] [SYSTEM] ℹ️ 📝 Email Templates endpoint: /api/v1/email-templates
+2025-10-31 17:21:16.528 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Cron Job
+2025-10-31 17:21:16.528 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 5 minutes (*/5 * * * *)
+2025-10-31 17:21:16.534 [SUCCESS] [OPERATION] ✅ ✅ Email Processor Cron Job started successfully
+2025-10-31 17:21:16.535 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Job...
+2025-10-31 17:21:16.535 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Cron Job
+2025-10-31 17:21:16.535 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Job...
+2025-10-31 17:21:16.536 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Tickets Cron Job
+2025-10-31 17:21:16.536 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-10-31 17:21:16.550 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
+2025-10-31 17:21:16.552 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2025-10-31 17:21:16.550 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2025-10-31 17:21:16.556 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-10-31 17:21:16.557 [INFO] [SYSTEM] ℹ️ 📊 Status: Disabled
+2025-10-31 17:21:16.558 [WARN] [SYSTEM] ⚠️ ⚠️ Auto-Close job is DISABLED in settings
+2025-10-31 17:21:21.539 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-10-31 17:21:21.536 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-10-31 17:21:21.552 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-10-31 17:21:21.551 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-10-31 17:21:26.568 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [35]
+2025-10-31 17:21:26.568 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2025-10-31 17:25:00.031 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-10-31 17:25:00.031 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-10-31 17:25:00.128 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-10-31 17:25:00.129 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+{"timestamp":"2025-10-31 17:42:52.695 IST","level":"INFO","message":"Initializing security middleware"}
+{"timestamp":"2025-10-31 17:42:52.697 IST","level":"SUCCESS","message":"CORS enabled","origin":"http://localhost:5173"}
+{"timestamp":"2025-10-31 17:42:52.699 IST","level":"SUCCESS","message":"Rate limiting enabled","window":"15 minutes","max":10000000}
+{"timestamp":"2025-10-31 17:42:52.700 IST","level":"INFO","message":"Initializing body parsers"}
+{"timestamp":"2025-10-31 17:42:52.701 IST","level":"SUCCESS","message":"Body parsers initialized"}
+{"timestamp":"2025-10-31 17:42:52.702 IST","level":"SUCCESS","message":"Response compression enabled"}
+{"timestamp":"2025-10-31 17:42:52.702 IST","level":"INFO","message":"Directory exists","path":"D:\\Project\\it-helpdesk\\backend\\uploads"}
+{"timestamp":"2025-10-31 17:42:52.703 IST","level":"INFO","message":"Directory exists","path":"D:\\Project\\it-helpdesk\\backend\\uploads\\tickets"}
+{"timestamp":"2025-10-31 17:42:52.703 IST","level":"INFO","message":"Directory exists","path":"D:\\Project\\it-helpdesk\\backend\\uploads\\profiles"}
+{"timestamp":"2025-10-31 17:42:52.704 IST","level":"INFO","message":"Directory exists","path":"D:\\Project\\it-helpdesk\\backend\\uploads\\documents"}
+{"timestamp":"2025-10-31 17:42:52.705 IST","level":"SUCCESS","message":"Static file serving enabled with CORS","path":"/uploads","dir":"D:\\Project\\it-helpdesk\\backend\\uploads"}
+{"timestamp":"2025-10-31 17:42:52.706 IST","level":"INFO","message":"Initializing API routes"}
+{"timestamp":"2025-10-31 17:42:52.744 IST","level":"SUCCESS","message":"API routes initialized","prefix":"/api/v1","routes":["auth","users","system","tickets","attachments","departments","roles","analytics","dashboard","notifications","profile","settings","email-queue","email-templates","ticket-approvals"]}
+{"timestamp":"2025-10-31 17:42:52.745 IST","level":"SUCCESS","message":"Error handlers initialized"}
+{"timestamp":"2025-10-31 17:42:52.746 IST","level":"INFO","message":"============================================================\nSERVER INITIALIZATION\n============================================================"}
+{"timestamp":"2025-10-31 17:42:52.746 IST","level":"INFO","message":"Starting IT Helpdesk Backend Server"}
+{"timestamp":"2025-10-31 17:42:52.746 IST","level":"INFO","message":"Environment","env":"development"}
+{"timestamp":"2025-10-31 17:42:52.747 IST","level":"INFO","message":"Node Version","version":"v22.18.0"}
+{"timestamp":"2025-10-31 17:42:52.747 IST","level":"INFO","message":"Platform","platform":"win32"}
+{"timestamp":"2025-10-31 17:42:52.747 IST","level":"INFO","message":"============================================================\nDATABASE CONNECTION TEST\n============================================================"}
+{"timestamp":"2025-10-31 17:42:52.748 IST","level":"TRY","message":"Testing database connection"}
+{"timestamp":"2025-10-31 17:42:52.934 IST","level":"SUCCESS","message":"Database connection test passed"}
+{"timestamp":"2025-10-31 17:42:52.934 IST","level":"INFO","message":"Database details","server":"localhost","database":"ITHelpdesk","user":"root"}
+{"timestamp":"2025-10-31 17:42:52.935 IST","level":"INFO","message":"============================================================"}
+{"timestamp":"2025-10-31 17:42:52.939 IST","level":"INFO","message":"============================================================\nSERVER STARTED SUCCESSFULLY\n============================================================"}
+{"timestamp":"2025-10-31 17:42:52.939 IST","level":"SUCCESS","message":"Server is running on port 5000"}
+{"timestamp":"2025-10-31 17:42:52.940 IST","level":"SUCCESS","message":"API Base URL: http://localhost:5000/api/v1"}
+{"timestamp":"2025-10-31 17:42:52.940 IST","level":"SUCCESS","message":"Health Check: http://localhost:5000/health"}
+{"timestamp":"2025-10-31 17:42:52.941 IST","level":"SUCCESS","message":"Test Uploads: http://localhost:5000/test-uploads"}
+{"timestamp":"2025-10-31 17:42:52.942 IST","level":"INFO","message":"Server Details","port":5000,"environment":"development","apiPrefix":"/api/v1","pid":22624,"uploadDir":"D:\\Project\\it-helpdesk\\backend\\uploads"}
+{"timestamp":"2025-10-31 17:42:52.942 IST","level":"INFO","message":"============================================================"}
+{"timestamp":"2025-10-31 17:42:52.943 IST","level":"INFO","message":"🎉 IT Helpdesk Backend is ready to accept requests!"}
+{"timestamp":"2025-10-31 17:42:52.943 IST","level":"INFO","message":"📂 File uploads enabled at: /uploads"}
+{"timestamp":"2025-10-31 17:42:52.944 IST","level":"INFO","message":"🖼️ Profile pictures: /uploads/profiles"}
+{"timestamp":"2025-10-31 17:42:52.945 IST","level":"INFO","message":"📎 Ticket attachments: /uploads/tickets"}
+{"timestamp":"2025-10-31 17:42:52.945 IST","level":"INFO","message":"🔓 CORS enabled for cross-origin requests"}
+{"timestamp":"2025-10-31 17:42:52.946 IST","level":"INFO","message":"🔗 Attachments endpoint: /api/v1/tickets/:id/attachments"}
+{"timestamp":"2025-10-31 17:42:52.946 IST","level":"INFO","message":"👥 Users endpoint: /api/v1/users"}
+{"timestamp":"2025-10-31 17:42:52.947 IST","level":"INFO","message":"👤 Profile endpoint: /api/v1/profile"}
+{"timestamp":"2025-10-31 17:42:52.948 IST","level":"INFO","message":"📧 Email Queue endpoint: /api/v1/email-queue"}
+{"timestamp":"2025-10-31 17:42:52.949 IST","level":"INFO","message":"📝 Email Templates endpoint: /api/v1/email-templates"}
+{"timestamp":"2025-10-31 17:42:52.949 IST","level":"INFO","message":"✅ Ticket Approvals endpoint: /api/v1/ticket-approvals"}
+{"timestamp":"2025-10-31 17:42:52.950 IST","level":"INFO","message":"Press CTRL+C to stop the server"}
+{"timestamp":"2025-10-31 17:42:52.951 IST","level":"INFO","message":"============================================================"}
+{"timestamp":"2025-10-31 17:42:52.951 IST","level":"INFO","message":"============================================================\nSTARTING BACKGROUND JOBS\n============================================================"}
+{"timestamp":"2025-10-31 17:42:52.952 IST","level":"INFO","message":"📧 Starting Email Processor Job..."}
+{"timestamp":"2025-10-31 17:42:52.952 IST","level":"INFO","message":"📧 Starting Email Processor Cron Job"}
+{"timestamp":"2025-10-31 17:42:52.953 IST","level":"INFO","message":"⏰ Schedule: Every 5 minutes (*/5 * * * *)"}
+{"timestamp":"2025-10-31 17:42:52.976 IST","level":"SUCCESS","message":"✅ Email Processor Cron Job started successfully"}
+{"timestamp":"2025-10-31 17:42:52.976 IST","level":"INFO","message":"🚨 Starting Auto-Escalation Job..."}
+{"timestamp":"2025-10-31 17:42:52.977 IST","level":"INFO","message":"🚨 Starting Auto-Escalation Cron Job"}
+{"timestamp":"2025-10-31 17:42:52.978 IST","level":"INFO","message":"🔒 Starting Auto-Close Job..."}
+{"timestamp":"2025-10-31 17:42:52.979 IST","level":"INFO","message":"🔒 Starting Auto-Close Tickets Cron Job"}
+{"timestamp":"2025-10-31 17:42:52.980 IST","level":"TRY","message":"Loading all settings from database"}
+{"timestamp":"2025-10-31 17:42:52.981 IST","level":"INFO","message":"============================================================"}
+{"timestamp":"2025-10-31 17:42:53.005 IST","level":"SUCCESS","message":"Settings loaded into cache","count":94,"categories":11}
+{"timestamp":"2025-10-31 17:42:53.006 IST","level":"INFO","message":"📊 Status: Disabled"}
+{"timestamp":"2025-10-31 17:42:53.007 IST","level":"WARN","message":"⚠️  Auto-Close job is DISABLED in settings"}
+{"timestamp":"2025-10-31 17:42:53.010 IST","level":"INFO","message":"⏰ Schedule: 0 */1 * * *"}
+{"timestamp":"2025-10-31 17:42:53.011 IST","level":"INFO","message":"📊 Status: Enabled"}
+{"timestamp":"2025-10-31 17:42:53.014 IST","level":"SUCCESS","message":"✅ Auto-Escalation Cron Job started successfully"}
+{"timestamp":"2025-10-31 17:42:57.992 IST","level":"INFO","message":"============================================================\nEMAIL PROCESSOR JOB\n============================================================"}
+{"timestamp":"2025-10-31 17:42:57.993 IST","level":"INFO","message":"🔄 Processing pending emails..."}
+{"timestamp":"2025-10-31 17:42:57.994 IST","level":"TRY","message":"Processing pending emails in queue"}
+{"timestamp":"2025-10-31 17:42:58.028 IST","level":"INFO","message":"No pending emails to process"}
+{"timestamp":"2025-10-31 17:42:58.029 IST","level":"INFO","message":"📭 No pending emails to process"}
+{"timestamp":"2025-10-31 17:42:58.029 IST","level":"INFO","message":"============================================================"}
+{"timestamp":"2025-10-31 17:43:03.053 IST","level":"INFO","message":"============================================================\nAUTO-ESCALATION JOB\n============================================================"}
+{"timestamp":"2025-10-31 17:43:03.054 IST","level":"INFO","message":"🔄 Processing auto-escalation (Execution ID: 36)"}
+{"timestamp":"2025-10-31 17:43:03.056 IST","level":"INFO","message":"⏸️  Auto-escalation is DISABLED in settings"}
+{"timestamp":"2025-10-31 17:43:03.067 IST","level":"INFO","message":"============================================================"}
+{"timestamp":"2025-10-31 17:43:35.022 IST","level":"INFO","message":"============================================================\nGRACEFUL SHUTDOWN\n============================================================"}
+{"timestamp":"2025-10-31 17:43:35.024 IST","level":"WARN","message":"SIGINT received, closing server gracefully"}
+{"timestamp":"2025-10-31 17:43:35.027 IST","level":"INFO","message":"Stopping background jobs..."}
+{"timestamp":"2025-10-31 17:43:35.029 IST","level":"INFO","message":"🛑 Email Processor Cron Job stopped"}
+{"timestamp":"2025-10-31 17:43:35.034 IST","level":"INFO","message":"🛑 Auto-Escalation Cron Job stopped"}
+{"timestamp":"2025-10-31 17:43:35.037 IST","level":"INFO","message":"HTTP server closed"}
+{"timestamp":"2025-10-31 17:43:35.038 IST","level":"INFO","message":"Database connections closed"}
+{"timestamp":"2025-10-31 17:43:35.039 IST","level":"SUCCESS","message":"Shutdown complete"}
+{"timestamp":"2025-10-31 17:43:35.040 IST","level":"INFO","message":"============================================================"}
+2025-10-31 17:43:36.977 [INFO] [SYSTEM] ℹ️ Initializing security middleware
+2025-10-31 17:43:36.980 [SUCCESS] [OPERATION] ✅ CORS enabled | {
+2025-10-31 17:43:36.995 [INFO] [SYSTEM] ℹ️ Initializing body parsers
+2025-10-31 17:43:36.983 [SUCCESS] [OPERATION] ✅ Rate limiting enabled | {
+2025-10-31 17:43:36.996 [SUCCESS] [OPERATION] ✅ Body parsers initialized
+2025-10-31 17:43:36.998 [SUCCESS] [OPERATION] ✅ Response compression enabled
+2025-10-31 17:43:36.999 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-10-31 17:43:37.000 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-10-31 17:43:37.000 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-10-31 17:43:37.001 [SUCCESS] [OPERATION] ✅ Static file serving enabled with CORS | {
+2025-10-31 17:43:37.001 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-10-31 17:43:37.002 [INFO] [SYSTEM] ℹ️ Initializing API routes
+2025-10-31 17:43:37.041 [SUCCESS] [OPERATION] ✅ API routes initialized | {
+2025-10-31 17:43:37.043 [INFO] [SYSTEM] ℹ️ Starting IT Helpdesk Backend Server
+2025-10-31 17:43:37.042 [SUCCESS] [OPERATION] ✅ Error handlers initialized
+2025-10-31 17:43:37.043 [INFO] [SYSTEM] ℹ️ Environment | {
+2025-10-31 17:43:37.043 [INFO] [SYSTEM] ℹ️ Node Version | {
+2025-10-31 17:43:37.045 [TRY] [OPERATION] 🔄 Testing database connection
+2025-10-31 17:43:37.044 [INFO] [SYSTEM] ℹ️ Platform | {
+2025-10-31 17:43:37.168 [SUCCESS] [OPERATION] ✅ Server is running on port 5000
+2025-10-31 17:43:37.163 [INFO] [SYSTEM] ℹ️ Database details | {
+2025-10-31 17:43:37.168 [SUCCESS] [OPERATION] ✅ API Base URL: http://localhost:5000/api/v1
+2025-10-31 17:43:37.169 [SUCCESS] [OPERATION] ✅ Test Uploads: http://localhost:5000/test-uploads
+2025-10-31 17:43:37.162 [SUCCESS] [OPERATION] ✅ Database connection test passed
+2025-10-31 17:43:37.170 [INFO] [SYSTEM] ℹ️ Server Details | {
+2025-10-31 17:43:37.169 [SUCCESS] [OPERATION] ✅ Health Check: http://localhost:5000/health
+2025-10-31 17:43:37.172 [INFO] [SYSTEM] ℹ️ 🎉 IT Helpdesk Backend is ready to accept requests!
+2025-10-31 17:43:37.173 [INFO] [SYSTEM] ℹ️ 📎 Ticket attachments: /uploads/tickets
+2025-10-31 17:43:37.173 [INFO] [SYSTEM] ℹ️ 🔗 Attachments endpoint: /api/v1/tickets/:id/attachments
+2025-10-31 17:43:37.174 [INFO] [SYSTEM] ℹ️ 👥 Users endpoint: /api/v1/users
+2025-10-31 17:43:37.175 [INFO] [SYSTEM] ℹ️ 📧 Email Queue endpoint: /api/v1/email-queue
+2025-10-31 17:43:37.175 [INFO] [SYSTEM] ℹ️ 📝 Email Templates endpoint: /api/v1/email-templates
+2025-10-31 17:43:37.174 [INFO] [SYSTEM] ℹ️ 👤 Profile endpoint: /api/v1/profile
+2025-10-31 17:43:37.176 [INFO] [SYSTEM] ℹ️ ✅ Ticket Approvals endpoint: /api/v1/ticket-approvals
+2025-10-31 17:43:37.176 [INFO] [SYSTEM] ℹ️ Press CTRL+C to stop the server
+2025-10-31 17:43:37.172 [INFO] [SYSTEM] ℹ️ 📂 File uploads enabled at: /uploads
+2025-10-31 17:43:37.173 [INFO] [SYSTEM] ℹ️ 🔓 CORS enabled for cross-origin requests
+2025-10-31 17:43:37.178 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Cron Job
+2025-10-31 17:43:37.177 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Job...
+2025-10-31 17:43:37.189 [SUCCESS] [OPERATION] ✅ ✅ Email Processor Cron Job started successfully
+2025-10-31 17:43:37.178 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 5 minutes (*/5 * * * *)
+2025-10-31 17:43:37.172 [INFO] [SYSTEM] ℹ️ 🖼️ Profile pictures: /uploads/profiles
+2025-10-31 17:43:37.190 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Job...
+2025-10-31 17:43:37.191 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Cron Job
+2025-10-31 17:43:37.192 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Job...
+2025-10-31 17:43:37.192 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Tickets Cron Job
+2025-10-31 17:43:37.193 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-10-31 17:43:37.221 [INFO] [SYSTEM] ℹ️ 📊 Status: Disabled
+2025-10-31 17:43:37.220 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-10-31 17:43:37.221 [WARN] [SYSTEM] ⚠️ ⚠️ Auto-Close job is DISABLED in settings
+2025-10-31 17:43:37.224 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
+2025-10-31 17:43:37.224 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2025-10-31 17:43:37.227 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2025-10-31 17:43:42.196 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-10-31 17:43:42.198 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-10-31 17:43:42.233 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-10-31 17:43:42.234 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-10-31 17:43:44.838 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:43:44.827 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:43:44.842 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:43:44.843 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:43:44.838 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:43:44.872 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:43:44.881 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:43:44.884 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-10-31 17:43:44.883 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:43:44.893 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-10-31 17:43:44.899 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-10-31 17:43:47.271 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [37]
+2025-10-31 17:43:47.271 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2025-10-31 17:44:29.413 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:44:29.418 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-10-31 17:44:29.421 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-10-31 17:44:29.419 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-10-31 17:44:29.493 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:44:29.495 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:44:29.495 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:44:29.498 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:44:29.499 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:44:29.619 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:44:29.633 [TRY] [OPERATION] 🔄 Fetching notifications | {
+2025-10-31 17:44:29.628 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:44:29.633 [INFO] [SYSTEM] ℹ️ Regular user viewing own notifications | {
+2025-10-31 17:44:29.631 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:44:29.659 [SUCCESS] [OPERATION] ✅ Notifications fetched successfully | {
+2025-10-31 17:44:29.668 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-10-31 17:44:29.673 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:44:29.674 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:44:29.673 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:44:29.671 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:44:29.675 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:44:29.687 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:44:29.691 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:44:29.692 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:44:29.694 [INFO] [SYSTEM] ℹ️ Regular user viewing own notifications | {
+2025-10-31 17:44:29.694 [TRY] [OPERATION] 🔄 Fetching notifications | {
+2025-10-31 17:44:29.705 [SUCCESS] [OPERATION] ✅ Notifications fetched successfully | {
+2025-10-31 17:44:29.710 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-10-31 17:44:31.308 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:44:31.311 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:44:31.311 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:44:31.313 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:44:31.319 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:44:31.374 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:44:31.384 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-10-31 17:44:31.383 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:44:31.378 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:44:31.391 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-10-31 17:44:31.390 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-10-31 17:44:43.411 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:44:43.418 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:44:43.418 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:44:43.419 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:44:43.420 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:44:43.457 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:44:43.463 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:44:43.466 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:44:43.468 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-10-31 17:44:43.477 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-10-31 17:44:43.474 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-10-31 17:44:45.904 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:44:45.910 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-10-31 17:44:45.911 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-10-31 17:44:45.910 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-10-31 17:44:45.942 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:44:45.944 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:44:45.945 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:44:45.944 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:44:45.949 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:44:45.956 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:44:45.958 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:44:45.959 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:44:45.960 [TRY] [OPERATION] 🔄 Fetching notifications | {
+2025-10-31 17:44:45.960 [INFO] [SYSTEM] ℹ️ Regular user viewing own notifications | {
+2025-10-31 17:44:45.975 [SUCCESS] [OPERATION] ✅ Notifications fetched successfully | {
+2025-10-31 17:44:45.978 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-10-31 17:44:45.991 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:44:45.992 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:44:45.993 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:44:45.992 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:44:45.995 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:44:46.003 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:44:46.011 [TRY] [OPERATION] 🔄 Fetching notifications | {
+2025-10-31 17:44:46.010 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:44:46.007 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:44:46.012 [INFO] [SYSTEM] ℹ️ Regular user viewing own notifications | {
+2025-10-31 17:44:46.026 [SUCCESS] [OPERATION] ✅ Notifications fetched successfully | {
+2025-10-31 17:44:46.032 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-10-31 17:44:47.542 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:44:47.543 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:44:47.543 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:44:47.544 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:44:47.545 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:44:47.578 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:44:47.582 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:44:47.583 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:44:47.586 [TRY] [OPERATION] 🔄 Fetching dashboard statistics | {
+2025-10-31 17:44:47.586 [TRY] [OPERATION] 🔄 Calculating total tickets
+2025-10-31 17:44:47.590 [TRY] [OPERATION] 🔄 Calculating tickets by status
+2025-10-31 17:44:47.589 [SUCCESS] [OPERATION] ✅ Total tickets calculated | {
+2025-10-31 17:44:47.601 [TRY] [OPERATION] 🔄 Calculating total active users
+2025-10-31 17:44:47.600 [SUCCESS] [OPERATION] ✅ Status counts calculated | {
+2025-10-31 17:44:47.605 [SUCCESS] [OPERATION] ✅ Total users calculated | {
+2025-10-31 17:44:47.605 [TRY] [OPERATION] 🔄 Fetching recent tickets
+2025-10-31 17:44:47.615 [SUCCESS] [OPERATION] ✅ Recent tickets fetched | {
+2025-10-31 17:44:47.616 [TRY] [OPERATION] 🔄 Calculating tickets by priority
+2025-10-31 17:44:47.624 [SUCCESS] [OPERATION] ✅ Priority counts calculated
+2025-10-31 17:44:47.624 [TRY] [OPERATION] 🔄 Calculating my assigned tickets
+2025-10-31 17:44:47.636 [SUCCESS] [OPERATION] ✅ My assigned tickets calculated | {
+2025-10-31 17:44:47.637 [SUCCESS] [OPERATION] ✅ Dashboard statistics compiled successfully | {
+2025-10-31 17:44:47.639 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-10-31 17:44:47.640 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:44:47.641 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:44:47.642 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:44:47.641 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:44:47.642 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:44:47.650 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:44:47.652 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:44:47.655 [TRY] [OPERATION] 🔄 Fetching dashboard statistics | {
+2025-10-31 17:44:47.654 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:44:47.655 [TRY] [OPERATION] 🔄 Calculating total tickets
+2025-10-31 17:44:47.659 [SUCCESS] [OPERATION] ✅ Total tickets calculated | {
+2025-10-31 17:44:47.660 [TRY] [OPERATION] 🔄 Calculating tickets by status
+2025-10-31 17:44:47.663 [SUCCESS] [OPERATION] ✅ Status counts calculated | {
+2025-10-31 17:44:47.665 [TRY] [OPERATION] 🔄 Calculating total active users
+2025-10-31 17:44:47.667 [SUCCESS] [OPERATION] ✅ Total users calculated | {
+2025-10-31 17:44:47.667 [TRY] [OPERATION] 🔄 Fetching recent tickets
+2025-10-31 17:44:47.670 [SUCCESS] [OPERATION] ✅ Recent tickets fetched | {
+2025-10-31 17:44:47.670 [TRY] [OPERATION] 🔄 Calculating tickets by priority
+2025-10-31 17:44:47.674 [TRY] [OPERATION] 🔄 Calculating my assigned tickets
+2025-10-31 17:44:47.673 [SUCCESS] [OPERATION] ✅ Priority counts calculated
+2025-10-31 17:44:47.676 [SUCCESS] [OPERATION] ✅ My assigned tickets calculated | {
+2025-10-31 17:44:47.677 [SUCCESS] [OPERATION] ✅ Dashboard statistics compiled successfully | {
+2025-10-31 17:44:47.680 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-10-31 17:45:00.031 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-10-31 17:45:00.030 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-10-31 17:45:00.060 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-10-31 17:45:00.060 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-10-31 17:45:26.994 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:45:27.001 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:45:27.001 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:45:27.005 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:45:27.006 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:45:27.047 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:45:27.051 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:45:27.053 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:45:27.054 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-10-31 17:45:27.059 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-10-31 17:45:27.062 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-10-31 17:45:28.461 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:45:28.461 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:45:28.459 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:45:28.462 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:45:28.464 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:45:28.466 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:45:28.468 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:45:28.468 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:45:28.469 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:45:28.470 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:45:28.508 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:45:28.509 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:45:28.519 [TRY] [OPERATION] 🔄 Fetching all settings | {
+2025-10-31 17:45:28.519 [SUCCESS] [OPERATION] ✅ All settings retrieved | {
+2025-10-31 17:45:28.516 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:45:28.518 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:45:28.521 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-10-31 17:45:28.524 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:45:28.525 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:45:28.527 [TRY] [OPERATION] 🔄 Fetching lookup data for settings | {
+2025-10-31 17:45:28.531 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:45:28.531 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:45:28.527 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:45:28.533 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:45:28.532 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:45:28.544 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:45:28.549 [SUCCESS] [OPERATION] ✅ Lookup data fetched successfully | {
+2025-10-31 17:45:28.552 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:45:28.553 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:45:28.554 [TRY] [OPERATION] 🔄 Fetching all settings | {
+2025-10-31 17:45:28.554 [SUCCESS] [OPERATION] ✅ All settings retrieved | {
+2025-10-31 17:45:28.555 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-10-31 17:45:28.558 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-10-31 17:45:28.561 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-10-31 17:45:28.564 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-10-31 17:45:28.564 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-10-31 17:45:28.565 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-10-31 17:45:28.566 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-10-31 17:45:28.572 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-10-31 17:45:28.575 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-10-31 17:45:28.576 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-10-31 17:45:28.578 [TRY] [OPERATION] 🔄 Fetching lookup data for settings | {
+2025-10-31 17:45:28.587 [SUCCESS] [OPERATION] ✅ Lookup data fetched successfully | {
+2025-10-31 17:45:28.589 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-10-31 17:50:00.032 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-10-31 17:50:00.033 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-10-31 17:50:00.171 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-10-31 17:50:00.170 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-10-31 18:05:00.050 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-10-31 18:05:00.050 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-10-31 18:05:00.164 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-10-31 18:05:00.163 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-10-31 18:10:00.015 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-10-31 18:10:00.016 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-10-31 18:10:00.135 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-10-31 18:10:00.134 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-10-31 18:15:00.027 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-10-31 18:15:00.026 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-10-31 18:15:00.171 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-10-31 18:15:00.171 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-10-31 18:20:00.025 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-10-31 18:20:00.029 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-10-31 18:20:00.972 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-10-31 18:20:00.973 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-10-31 18:25:00.020 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-10-31 18:25:00.019 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-10-31 18:25:00.128 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-10-31 18:25:00.127 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-10-31 18:30:00.028 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-10-31 18:30:00.029 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-10-31 18:30:00.237 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-10-31 18:30:00.237 [INFO] [SYSTEM] ℹ️ No pending emails to process
