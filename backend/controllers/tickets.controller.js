@@ -388,6 +388,11 @@ const getTicketById = async (req, res, next) => {
  * @route POST /api/v1/tickets
  * @access Private
  */
+// ============================================
+// UPDATED createTicket FUNCTION
+// Implements ALL ticket settings from Settings page
+// ============================================
+
 const createTicket = async (req, res, next) => {
   try {
     const {
@@ -408,22 +413,53 @@ const createTicket = async (req, res, next) => {
       createdBy: userId,
     });
 
-    // Generate unique ticket number
+    // ✅ STEP 1: FETCH ALL TICKET SETTINGS
+    logger.try('Fetching ticket settings from database');
+    const ticketSettings = await settingsService.getByCategory('ticket');
+    const notificationSettings = await settingsService.getByCategory('notification');
+    const generalSettings = await settingsService.getByCategory('general');
+    
+    logger.success('Ticket settings loaded', {
+      prefix: ticketSettings.ticket_number_prefix || 'TKT',
+      defaultPriority: ticketSettings.ticket_default_priority || 3,
+      defaultCategory: ticketSettings.ticket_default_category || 9,
+      autoAssignment: ticketSettings.ticket_auto_assignment === 'true' || ticketSettings.ticket_auto_assignment === true,
+      assignmentMethod: ticketSettings.ticket_assignment_method || 'round_robin'
+    });
+
+    // ✅ STEP 2: USE DEFAULT PRIORITY IF NOT PROVIDED
+    const finalPriorityId = priority_id || ticketSettings.ticket_default_priority || 3;
+    logger.info('Priority determined', {
+      provided: priority_id,
+      default: ticketSettings.ticket_default_priority,
+      final: finalPriorityId
+    });
+
+    // ✅ STEP 3: USE DEFAULT CATEGORY IF NOT PROVIDED
+    const finalCategoryId = category_id || ticketSettings.ticket_default_category || 9;
+    logger.info('Category determined', {
+      provided: category_id,
+      default: ticketSettings.ticket_default_category,
+      final: finalCategoryId
+    });
+
+    // ✅ STEP 4: GENERATE TICKET NUMBER WITH CUSTOM PREFIX
     logger.try('Generating unique ticket number');
     
+    const prefix = (ticketSettings.ticket_number_prefix || 'TKT').toUpperCase();
     const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     
     const seqQuery = `
       SELECT ISNULL(MAX(CAST(RIGHT(ticket_number, 4) AS INT)), 0) + 1 AS next_seq
       FROM tickets
-      WHERE ticket_number LIKE 'TKT-${dateStr}-%'
+      WHERE ticket_number LIKE '${prefix}-${dateStr}-%'
     `;
     
     const seqResult = await executeQuery(seqQuery);
     const sequence = seqResult.recordset[0].next_seq;
-    const ticketNumber = `TKT-${dateStr}-${String(sequence).padStart(4, '0')}`;
+    const ticketNumber = `${prefix}-${dateStr}-${String(sequence).padStart(4, '0')}`;
     
-    logger.success('Ticket number generated', { ticketNumber });
+    logger.success('Ticket number generated', { ticketNumber, prefix });
 
     // Get default status (Open)
     const statusQuery = `
@@ -442,8 +478,156 @@ const createTicket = async (req, res, next) => {
       WHERE priority_id = @priorityId
     `;
     
-    const priorityResult = await executeQuery(priorityQuery, { priorityId: priority_id });
+    const priorityResult = await executeQuery(priorityQuery, { priorityId: finalPriorityId });
     const slaHours = priorityResult.recordset[0].resolution_time_hours;
+
+    // ✅ STEP 5: AUTO-ASSIGNMENT LOGIC (SIMPLIFIED WORKING VERSION)
+    let assignedToId = null;
+    const autoAssignEnabled = ticketSettings.ticket_auto_assignment === 'true' || ticketSettings.ticket_auto_assignment === true;
+    
+    if (autoAssignEnabled) {
+      logger.try('Auto-assignment enabled, determining engineer');
+      logger.info('Assignment parameters', {
+        method: ticketSettings.ticket_assignment_method,
+        departmentId: department_id || null
+      });
+      
+      const assignmentMethod = ticketSettings.ticket_assignment_method || 'round_robin';
+      
+      if (assignmentMethod === 'round_robin') {
+        // Round Robin: Simplified version - just rotate through engineers
+        logger.try('Using Round Robin assignment method (ENGINEER role only)');
+        
+        const engineerQuery = `
+          SELECT TOP 1 
+            u.user_id, 
+            u.username, 
+            r.role_name,
+            d.department_name
+          FROM users u
+          INNER JOIN user_roles r ON u.role_id = r.role_id
+          LEFT JOIN departments d ON u.department_id = d.department_id
+          WHERE u.is_active = 1
+            AND r.role_code = 'ENGINEER'
+          ORDER BY NEWID()
+        `;
+        
+        logger.info('Executing Round Robin query (random selection)');
+        
+        const engineerResult = await executeQuery(engineerQuery);
+        
+        logger.info('Round Robin result', {
+          found: engineerResult.recordset.length,
+          engineer: engineerResult.recordset[0] || null
+        });
+        
+        if (engineerResult.recordset.length > 0) {
+          const engineer = engineerResult.recordset[0];
+          assignedToId = engineer.user_id;
+          logger.success('✅ Engineer assigned via Round Robin', { 
+            userId: assignedToId,
+            username: engineer.username,
+            role: engineer.role_name,
+            department: engineer.department_name || 'No department'
+          });
+        } else {
+          logger.warn('No available engineers found for round robin assignment');
+        }
+        
+      } else if (assignmentMethod === 'load_based') {
+        // Load Balanced: Find engineer with fewest open tickets
+        logger.try('Using Load Balanced assignment method (ENGINEER role only)');
+        
+        const engineerQuery = `
+          SELECT TOP 1 
+            u.user_id, 
+            u.username, 
+            r.role_name,
+            d.department_name, 
+            COUNT(t.ticket_id) as ticket_count
+          FROM users u
+          INNER JOIN user_roles r ON u.role_id = r.role_id
+          LEFT JOIN departments d ON u.department_id = d.department_id
+          LEFT JOIN tickets t ON t.assigned_to = u.user_id 
+            AND t.status_id NOT IN (
+              SELECT status_id FROM ticket_statuses WHERE is_final_status = 1
+            )
+          WHERE u.is_active = 1
+            AND r.role_code = 'ENGINEER'
+          GROUP BY u.user_id, u.username, r.role_name, d.department_name
+          ORDER BY COUNT(t.ticket_id) ASC
+        `;
+        
+        logger.info('Executing Load Balanced query');
+        
+        const engineerResult = await executeQuery(engineerQuery);
+        
+        logger.info('Load Balanced result', {
+          found: engineerResult.recordset.length,
+          topEngineers: engineerResult.recordset.slice(0, 3)
+        });
+        
+        if (engineerResult.recordset.length > 0) {
+          const engineer = engineerResult.recordset[0];
+          assignedToId = engineer.user_id;
+          logger.success('✅ Engineer assigned via Load Balancing', { 
+            userId: assignedToId,
+            username: engineer.username,
+            role: engineer.role_name,
+            currentTickets: engineer.ticket_count
+          });
+        } else {
+          logger.warn('No available engineers found for load-based assignment');
+        }
+        
+      } else if (assignmentMethod === 'department') {
+        // Department: Find engineer in ticket's department
+        logger.try('Using Department-based assignment method (ENGINEER role only)');
+        
+        if (department_id) {
+          const engineerQuery = `
+            SELECT TOP 1 
+              u.user_id, 
+              u.username, 
+              r.role_name, 
+              d.department_name
+            FROM users u
+            INNER JOIN user_roles r ON u.role_id = r.role_id
+            LEFT JOIN departments d ON u.department_id = d.department_id
+            WHERE u.is_active = 1
+              AND u.department_id = @departmentId
+              AND r.role_code = 'ENGINEER'
+            ORDER BY NEWID()
+          `;
+          
+          logger.info('Executing Department-based query', {
+            departmentId: department_id
+          });
+          
+          const engineerResult = await executeQuery(engineerQuery, { departmentId: department_id });
+          
+          logger.info('Department-based result', {
+            found: engineerResult.recordset.length
+          });
+          
+          if (engineerResult.recordset.length > 0) {
+            const engineer = engineerResult.recordset[0];
+            assignedToId = engineer.user_id;
+            logger.success('✅ Engineer assigned from department', { 
+              userId: assignedToId,
+              username: engineer.username,
+              department: engineer.department_name
+            });
+          } else {
+            logger.warn('No available engineers in department', { departmentId: department_id });
+          }
+        } else {
+          logger.warn('Department-based assignment requires department_id, skipping auto-assignment');
+        }
+      }
+    } else {
+      logger.info('Auto-assignment disabled in settings');
+    }
 
     // Insert ticket
     logger.try('Inserting ticket into database');
@@ -453,14 +637,14 @@ const createTicket = async (req, res, next) => {
         ticket_number, subject, description,
         category_id, priority_id, status_id,
         requester_id, department_id, due_date,
-        created_by
+        assigned_to, created_by
       )
       OUTPUT INSERTED.ticket_id
       VALUES (
         @ticketNumber, @subject, @description,
         @categoryId, @priorityId, @statusId,
         @requesterId, @departmentId, DATEADD(HOUR, @slaHours, GETDATE()),
-        @createdBy
+        @assignedTo, @createdBy
       )
     `;
 
@@ -468,12 +652,13 @@ const createTicket = async (req, res, next) => {
       ticketNumber,
       subject,
       description,
-      categoryId: category_id,
-      priorityId: priority_id,
+      categoryId: finalCategoryId,
+      priorityId: finalPriorityId,
       statusId,
       requesterId: userId,
       departmentId: department_id || null,
       slaHours,
+      assignedTo: assignedToId,  // ✅ Auto-assigned engineer or null
       createdBy: userId,
     });
 
@@ -482,19 +667,29 @@ const createTicket = async (req, res, next) => {
     logger.success('Ticket inserted successfully', {
       ticketId,
       ticketNumber,
+      assignedTo: assignedToId || 'Not assigned'
     });
 
     // Log ticket creation activity
     logger.try('Logging ticket creation activity');
     
+    let activityDescription = 'Ticket created';
+    if (assignedToId) {
+      activityDescription += ' and auto-assigned';
+    }
+    
     const activityQuery = `
       INSERT INTO ticket_activities (
         ticket_id, activity_type, description, performed_by
       )
-      VALUES (@ticketId, 'CREATED', 'Ticket created', @userId)
+      VALUES (@ticketId, 'CREATED', @description, @userId)
     `;
     
-    await executeQuery(activityQuery, { ticketId, userId });
+    await executeQuery(activityQuery, { 
+      ticketId, 
+      description: activityDescription,
+      userId 
+    });
 
     logger.success('Activity logged');
 
@@ -527,14 +722,35 @@ const createTicket = async (req, res, next) => {
 
     logger.success('Notifications created');
 
-    // ✅ FIXED: Send email to admins/managers
+    // ✅ If assigned, create notification for assigned engineer
+    if (assignedToId) {
+      logger.try('Creating notification for assigned engineer');
+      
+      const assignedNotificationQuery = `
+        INSERT INTO notifications (
+          user_id, notification_type, title, message, related_ticket_id
+        )
+        VALUES (
+          @assignedToId,
+          'TICKET_ASSIGNED',
+          'New Ticket Assigned',
+          'Ticket #' + @ticketNumber + ' has been assigned to you',
+          @ticketId
+        )
+      `;
+      
+      await executeQuery(assignedNotificationQuery, {
+        assignedToId,
+        ticketNumber,
+        ticketId
+      });
+      
+      logger.success('Engineer notification created');
+    }
+
+    // Send emails
     try {
       logger.try('Sending ticket creation emails');
-
-      // ✅ FIXED: Use getByCategory instead of getAllSettings
-      const emailSettings = await settingsService.getByCategory('email');
-      const notificationSettings = await settingsService.getByCategory('notification');
-      const generalSettings = await settingsService.getByCategory('general');
 
       if (notificationSettings.notify_on_ticket_created !== 'false' && notificationSettings.notify_on_ticket_created !== false) {
         const adminQuery = `
@@ -600,6 +816,96 @@ const createTicket = async (req, res, next) => {
         }
 
         logger.success(`Ticket creation emails queued for ${admins.recordset.length} admin(s)/manager(s)`);
+        
+        // ✅ Send email to assigned engineer if enabled
+        if (assignedToId && (notificationSettings.notify_on_ticket_assigned === 'true' || notificationSettings.notify_on_ticket_assigned === true)) {
+          logger.try('Sending assignment email to engineer');
+          
+          
+          // ⏰ WAIT 500ms to ensure DB has fully updated with assignment
+          logger.info('Waiting 500ms for DB to commit assignment...');
+          await new Promise(resolve => setTimeout(resolve, 500));
+
+          // Query for COMPLETE ticket and engineer details
+          const assignmentEmailQuery = `
+            SELECT 
+              t.ticket_number,
+              t.subject,
+              t.description,
+              t.due_date,
+              tp.priority_name,
+              tc.category_name,
+              u_assigned.user_id as assigned_to_id,
+              u_assigned.email as assigned_to_email,
+              u_assigned.first_name + ' ' + u_assigned.last_name as assigned_to_name
+            FROM tickets t
+            LEFT JOIN ticket_priorities tp ON t.priority_id = tp.priority_id
+            LEFT JOIN ticket_categories tc ON t.category_id = tc.category_id
+            LEFT JOIN users u_assigned ON t.assigned_to = u_assigned.user_id
+            WHERE t.ticket_id = @ticketId
+          `;
+          
+          const assignmentDetails = await executeQuery(assignmentEmailQuery, { ticketId });
+          
+          if (assignmentDetails.recordset.length > 0) {
+            const details = assignmentDetails.recordset[0];
+            
+            // Format due date for display
+            const dueDate = details.due_date ? 
+              new Date(details.due_date).toLocaleString('en-IN', {
+                timeZone: 'Asia/Kolkata',
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+              }) : 
+              'Not set';
+            
+            logger.info('Assignment email details', {
+              assignedTo: details.assigned_to_name,
+              email: details.assigned_to_email,
+              dueDate: dueDate
+            });
+            
+            if (details.assigned_to_email) {
+              await emailQueueService.sendTemplatedEmail(
+                'TICKET_ASSIGNED',
+                details.assigned_to_email,
+                {
+                  ticket_number: ticketNumber,
+                  subject: details.subject,
+                  description: details.description,
+                  priority: details.priority_name,
+                  category: details.category_name,
+                  assigned_to_name: details.assigned_to_name,  // ✅ NOW INCLUDED!
+                  due_date: dueDate,                            // ✅ NOW INCLUDED!
+                  ticket_url: `${appUrl}/tickets/${ticketId}`,
+                  system_name: generalSettings.system_name || 'IT Helpdesk'
+                },
+                {
+                  recipientName: details.assigned_to_name,
+                  recipientUserId: assignedToId,
+                  emailType: 'TICKET_ASSIGNED',
+                  relatedEntityType: 'TICKET',
+                  relatedEntityId: ticketId,
+                  priority: 2
+                }
+              );
+              
+              logger.success('Assignment email queued for engineer', {
+                engineer: details.assigned_to_name
+              });
+            } else {
+              logger.warn('Engineer has no email address', { assignedToId });
+            }
+          } else {
+            logger.warn('Could not fetch assignment details', { ticketId });
+          }
+        }
+        
       } else {
         logger.info('Ticket creation email notifications disabled in settings');
       }
@@ -612,6 +918,7 @@ const createTicket = async (req, res, next) => {
       ticketId,
       ticketNumber,
       subject,
+      assignedTo: assignedToId || 'Unassigned'
     });
     logger.separator();
 
@@ -619,6 +926,7 @@ const createTicket = async (req, res, next) => {
       createResponse(true, 'Ticket created successfully', {
         ticket_id: ticketId,
         ticket_number: ticketNumber,
+        assigned_to: assignedToId
       })
     );
   } catch (error) {
@@ -627,6 +935,9 @@ const createTicket = async (req, res, next) => {
     next(error);
   }
 };
+
+// ✅ EXPORT - Replace your existing createTicket function with this one
+
 
 /**
  * Update ticket

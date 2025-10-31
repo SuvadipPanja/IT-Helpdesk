@@ -369,13 +369,75 @@ const getDashboardStats = async (req, res, next) => {
   }
 };
 
+// ============================================
+// ✅ NEW FUNCTION FOR SETTINGS PAGE
+// Get priorities and categories for Settings dropdown
+// ============================================
+/**
+ * Get lookups for Settings page (priorities + categories)
+ * @route GET /api/v1/system/lookups/settings
+ * @access Private (Admin only)
+ */
+const getLookupsForSettings = async (req, res, next) => {
+  try {
+    logger.try('Fetching lookup data for settings', { 
+      userId: req.user?.user_id 
+    });
+
+    // Fetch priorities
+    const prioritiesQuery = `
+      SELECT 
+        priority_id,
+        priority_name,
+        priority_level,
+        color_code
+      FROM ticket_priorities
+      WHERE is_active = 1
+      ORDER BY priority_level ASC
+    `;
+
+    const prioritiesResult = await executeQuery(prioritiesQuery);
+    const priorities = prioritiesResult.recordset;
+
+    // Fetch categories
+    const categoriesQuery = `
+      SELECT 
+        category_id,
+        category_name
+      FROM ticket_categories
+      WHERE is_active = 1
+      ORDER BY category_name ASC
+    `;
+
+    const categoriesResult = await executeQuery(categoriesQuery);
+    const categories = categoriesResult.recordset;
+
+    logger.success('Lookup data fetched successfully', {
+      priorities: priorities.length,
+      categories: categories.length
+    });
+
+    return res.status(200).json(
+      createResponse(true, 'Lookups fetched successfully', {
+        priorities,
+        categories
+      })
+    );
+
+  } catch (error) {
+    logger.error('Error fetching lookup data', error);
+    next(error);
+  }
+};
+
 module.exports = {
   getCategories,
   getPriorities,
   getStatuses,
-  getRoles,  // ← ALREADY EXPORTED (No change needed)
+  getRoles,
   getDepartments,
   getEngineers,
   getSettings,
   getDashboardStats,
+  getLookupsForSettings,  // ✅ NEW EXPORT
 };

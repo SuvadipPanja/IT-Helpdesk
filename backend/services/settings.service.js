@@ -1,7 +1,7 @@
 // ============================================
-// SETTINGS SERVICE - FIXED
+// SETTINGS SERVICE - CRITICAL FIX
 // Centralized settings management with caching
-// FIXES: Proper data structure for frontend
+// CRITICAL FIX: Boolean string 'false' handling
 // ============================================
 
 const { executeQuery } = require('../config/database');
@@ -212,10 +212,16 @@ const getAll = async (includeMetadata = false, forceRefresh = false) => {
 
 // ============================================
 // SET/UPDATE SINGLE SETTING
+// ✅ CRITICAL FIX: Proper boolean string handling
 // ============================================
 const set = async (key, value, userId = null) => {
   try {
-    logger.try('Updating setting', { key, value: typeof value === 'string' && value.length > 50 ? value.substring(0, 50) + '...' : value, userId });
+    logger.try('Updating setting', { 
+      key, 
+      value: typeof value === 'string' && value.length > 50 ? value.substring(0, 50) + '...' : value,
+      valueType: typeof value,
+      userId 
+    });
 
     // Get setting type from cache or database
     let settingType = 'string';
@@ -231,11 +237,26 @@ const set = async (key, value, userId = null) => {
       }
     }
 
-    // Convert value to string for storage
+    // ✅ CRITICAL FIX: Convert value to string for storage
     let storedValue = value;
     switch (settingType) {
       case 'boolean':
-        storedValue = value ? 'true' : 'false';
+        // ✅ FIX: Explicitly check for falsy values first
+        // This prevents string 'false' from being treated as truthy
+        if (value === 'false' || value === false || value === 0 || value === '0' || value === null) {
+          storedValue = 'false';
+        } else if (value === 'true' || value === true || value === 1 || value === '1') {
+          storedValue = 'true';
+        } else {
+          // Fallback for unexpected values
+          storedValue = value ? 'true' : 'false';
+        }
+        logger.try('Boolean conversion', { 
+          key, 
+          inputValue: value, 
+          inputType: typeof value, 
+          storedValue 
+        });
         break;
       case 'number':
         storedValue = String(value);
@@ -271,7 +292,11 @@ const set = async (key, value, userId = null) => {
     // Reload cache to ensure consistency
     await loadAllSettings();
 
-    logger.success('Setting updated successfully', { key });
+    logger.success('Setting updated successfully', { 
+      key, 
+      storedValue,
+      rowsAffected: result.rowsAffected[0]
+    });
 
     return true;
   } catch (error) {
@@ -287,6 +312,7 @@ const setMany = async (settings, userId = null) => {
   try {
     logger.try('Updating multiple settings', {
       count: Object.keys(settings).length,
+      settingKeys: Object.keys(settings),
       userId,
     });
 
@@ -301,7 +327,8 @@ const setMany = async (settings, userId = null) => {
 
     logger.success('Multiple settings updated successfully', {
       total: Object.keys(settings).length,
-      successful: successCount
+      successful: successCount,
+      failed: Object.keys(settings).length - successCount
     });
 
     return true;

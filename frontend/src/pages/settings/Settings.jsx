@@ -54,6 +54,11 @@ const Settings = () => {
   const [testResult, setTestResult] = useState(null);
   const [testEmail, setTestEmail] = useState('');
   const [sendingTestEmail, setSendingTestEmail] = useState(false);
+  // ✅ NEW STATE - For Tickets tab dropdowns
+  const [priorities, setPriorities] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loadingLookups, setLoadingLookups] = useState(false);
+
 
   // Tab configuration with icons
   const tabs = [
@@ -72,6 +77,7 @@ const Settings = () => {
   // Fetch settings on mount
   useEffect(() => {
     fetchSettings();
+    fetchLookups(); // ✅ Fetch priorities and categories
   }, []);
 
   const fetchSettings = async () => {
@@ -92,6 +98,22 @@ const Settings = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  // ✅ NEW FUNCTION - Fetch priorities and categories for Tickets tab
+  const fetchLookups = async () => {
+    setLoadingLookups(true);
+    try {
+      const response = await api.get('/system/lookups/settings');
+      if (response.data.success) {
+        setPriorities(response.data.data.priorities);
+        setCategories(response.data.data.categories);
+      }
+    } catch (error) {
+      console.error('Failed to fetch lookups:', error);
+    } finally {
+      setLoadingLookups(false);
     }
   };
 
@@ -658,7 +680,7 @@ const Settings = () => {
                           className="form-input"
                           value={settings.email?.smtp_password?.value || ''}
                           onChange={(e) => handleSettingChange('email', 'smtp_password', e.target.value)}
-                          placeholder="••••••••"
+                          placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                           autoComplete="new-password"
                         />
                         <button
@@ -875,17 +897,357 @@ const Settings = () => {
             
             {activeTab === 'ticket' && (
               <div className="settings-form">
+                {/* Ticket Configuration Section */}
                 <div className="settings-section">
                   <div className="settings-section-header">
                     <Ticket />
                     <h3>Ticket Configuration</h3>
                   </div>
                   <div className="settings-section-content">
-                    <div className="settings-content-placeholder">
-                      <div className="placeholder-header">
-                        <HelpCircle size={48} style={{ color: '#cbd5e1', marginBottom: '16px' }} />
-                        <h3>Ticket Settings</h3>
-                        <p>Ticket management configuration will be available here</p>
+                    <div className="form-grid">
+                      {/* Ticket Number Prefix */}
+                      <div className="form-group">
+                        <label className="form-label">
+                          <Tag size={16} />
+                          Ticket Number Prefix
+                        </label>
+                        <input
+                          type="text"
+                          className="form-input"
+                          value={settings.ticket?.ticket_number_prefix?.value ?? ''}
+                          onChange={(e) => {
+                            const value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
+                            handleSettingChange('ticket', 'ticket_number_prefix', value);
+                          }}
+                          placeholder="TKT"
+                          maxLength="10"
+                          style={{ textTransform: 'uppercase' }}
+                        />
+                        <small className="form-help">Prefix for ticket numbers (e.g., TKT-001, SUP-001). Alphanumeric only.</small>
+                      </div>
+
+                      {/* Default Priority */}
+                      <div className="form-group">
+                        <label className="form-label">
+                          <AlertTriangle size={16} />
+                          Default Priority
+                        </label>
+                        <select
+                          className="form-select"
+                          value={settings.ticket?.ticket_default_priority?.value || '3'}
+                          onChange={(e) => handleSettingChange('ticket', 'ticket_default_priority', e.target.value)}
+                        >
+                          {loadingLookups ? (
+                            <option>Loading...</option>
+                          ) : (
+                            priorities.map(priority => (
+                              <option key={priority.priority_id} value={priority.priority_id}>
+                                {priority.priority_name}
+                              </option>
+                            ))
+                          )}
+                        </select>
+                        <small className="form-help">Default priority for new tickets</small>
+                      </div>
+
+                      {/* Default Category */}
+                      <div className="form-group">
+                        <label className="form-label">
+                          <ListOrdered size={16} />
+                          Default Category
+                        </label>
+                        <select
+                          className="form-select"
+                          value={settings.ticket?.ticket_default_category?.value || '9'}
+                          onChange={(e) => handleSettingChange('ticket', 'ticket_default_category', e.target.value)}
+                        >
+                          {loadingLookups ? (
+                            <option>Loading...</option>
+                          ) : (
+                            categories.map(category => (
+                              <option key={category.category_id} value={category.category_id}>
+                                {category.category_name}
+                              </option>
+                            ))
+                          )}
+                        </select>
+                        <small className="form-help">Default category for new tickets</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Auto-Assignment Section */}
+                <div className="settings-section">
+                  <div className="settings-section-header">
+                    <User />
+                    <h3>Auto-Assignment</h3>
+                  </div>
+                  <div className="settings-section-content">
+                    <div className="form-grid">
+                      {/* Enable Auto-Assignment */}
+                      <div className="form-group">
+                        <label className="form-label">
+                          <Zap size={16} />
+                          Enable Auto-Assignment
+                        </label>
+                        <select
+                          className="form-select"
+                          value={String(settings.ticket?.ticket_auto_assignment?.value || 'false')}
+                          onChange={(e) => handleSettingChange('ticket', 'ticket_auto_assignment', e.target.value)}
+                        >
+                          <option value="true">Enabled</option>
+                          <option value="false">Disabled</option>
+                        </select>
+                        <small className="form-help">Automatically assign tickets to engineers</small>
+                      </div>
+
+                      {/* Assignment Method */}
+                      <div className="form-group">
+                        <label className="form-label">
+                          <RefreshCw size={16} />
+                          Assignment Method
+                        </label>
+                        <select
+                          className="form-select"
+                          value={settings.ticket?.ticket_assignment_method?.value || 'round_robin'}
+                          onChange={(e) => handleSettingChange('ticket', 'ticket_assignment_method', e.target.value)}
+                          disabled={String(settings.ticket?.ticket_auto_assignment?.value) !== 'true'}
+                        >
+                          <option value="round_robin">Round Robin</option>
+                          <option value="load_based">Load Balanced</option>
+                          <option value="department">By Department</option>
+                        </select>
+                        <small className="form-help">How tickets are distributed to engineers</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Auto-Escalation Section */}
+                <div className="settings-section">
+                  <div className="settings-section-header">
+                    <AlertCircle />
+                    <h3>Auto-Escalation</h3>
+                  </div>
+                  <div className="settings-section-content">
+                    <div className="form-grid">
+                      {/* Enable Auto-Escalation */}
+                      <div className="form-group">
+                        <label className="form-label">
+                          <AlertTriangle size={16} />
+                          Enable Auto-Escalation
+                        </label>
+                        <select
+                          className="form-select"
+                          value={String(settings.ticket?.ticket_auto_escalate?.value || 'false')}
+                          onChange={(e) => handleSettingChange('ticket', 'ticket_auto_escalate', e.target.value)}
+                        >
+                          <option value="true">Enabled</option>
+                          <option value="false">Disabled</option>
+                        </select>
+                        <small className="form-help">Automatically escalate unresolved tickets</small>
+                      </div>
+
+                      {/* Escalation Hours */}
+                      <div className="form-group">
+                        <label className="form-label">
+                          <Clock size={16} />
+                          Escalation Threshold (Hours)
+                        </label>
+                        <input
+                          type="number"
+                          className="form-input"
+                          value={settings.ticket?.ticket_escalate_hours?.value || '24'}
+                          onChange={(e) => handleSettingChange('ticket', 'ticket_escalate_hours', e.target.value)}
+                          min="1"
+                          max="168"
+                          disabled={String(settings.ticket?.ticket_auto_escalate?.value) !== 'true'}
+                        />
+                        <small className="form-help">Hours before escalating unresolved tickets</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Auto-Close & Permissions Section */}
+                <div className="settings-section">
+                  <div className="settings-section-header">
+                    <Lock />
+                    <h3>Ticket Lifecycle & Permissions</h3>
+                  </div>
+                  <div className="settings-section-content">
+                    <div className="form-grid">
+                      {/* Auto-Close Days */}
+                      <div className="form-group">
+                        <label className="form-label">
+                          <Calendar size={16} />
+                          Auto-Close After (Days)
+                        </label>
+                        <input
+                          type="number"
+                          className="form-input"
+                          value={settings.ticket?.ticket_auto_close_days?.value || '30'}
+                          onChange={(e) => handleSettingChange('ticket', 'ticket_auto_close_days', e.target.value)}
+                          min="1"
+                          max="365"
+                        />
+                        <small className="form-help">Days to wait before auto-closing resolved tickets</small>
+                      </div>
+
+                      {/* Allow User Close */}
+                      <div className="form-group">
+                        <label className="form-label">
+                          <User size={16} />
+                          Allow Users to Close Tickets
+                        </label>
+                        <select
+                          className="form-select"
+                          value={String(settings.ticket?.ticket_allow_user_close?.value || 'false')}
+                          onChange={(e) => handleSettingChange('ticket', 'ticket_allow_user_close', e.target.value)}
+                        >
+                          <option value="true">Allowed</option>
+                          <option value="false">Not Allowed</option>
+                        </select>
+                        <small className="form-help">Let users close their own tickets</small>
+                      </div>
+
+                      {/* Require Approval to Close */}
+                      <div className="form-group">
+                        <label className="form-label">
+                          <Shield size={16} />
+                          Require Manager Approval to Close
+                        </label>
+                        <select
+                          className="form-select"
+                          value={String(settings.ticket?.ticket_require_approval_close?.value || 'false')}
+                          onChange={(e) => handleSettingChange('ticket', 'ticket_require_approval_close', e.target.value)}
+                        >
+                          <option value="true">Required</option>
+                          <option value="false">Not Required</option>
+                        </select>
+                        <small className="form-help">Require manager approval before closing tickets</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Job Status Section - Developed by Suvadip Panja */}
+                <div className="settings-section">
+                  <div className="settings-section-header">
+                    <Zap />
+                    <h3>Background Jobs Status</h3>
+                  </div>
+                  <div className="settings-section-content">
+                    <div className="form-grid">
+                      {/* Auto-Escalation Job Status */}
+                      <div className="form-group">
+                        <label className="form-label">
+                          <AlertCircle size={16} />
+                          Auto-Escalation Job
+                        </label>
+                        <div style={{ 
+                          padding: '12px 16px', 
+                          backgroundColor: String(settings.ticket?.ticket_auto_escalate?.value) === 'true' ? '#dcfce7' : '#fee2e2',
+                          border: `1px solid ${String(settings.ticket?.ticket_auto_escalate?.value) === 'true' ? '#86efac' : '#fca5a5'}`,
+                          borderRadius: '8px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '10px',
+                          marginTop: '8px'
+                        }}>
+                          <div style={{
+                            width: '10px',
+                            height: '10px',
+                            borderRadius: '50%',
+                            backgroundColor: String(settings.ticket?.ticket_auto_escalate?.value) === 'true' ? '#22c55e' : '#ef4444',
+                            flexShrink: 0
+                          }} />
+                          <span style={{ 
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            color: String(settings.ticket?.ticket_auto_escalate?.value) === 'true' ? '#166534' : '#991b1b',
+                            flex: 1
+                          }}>
+                            {String(settings.ticket?.ticket_auto_escalate?.value) === 'true' ? '✅ Running' : '⏸️ Stopped'}
+                          </span>
+                          <span style={{ 
+                            fontSize: '12px',
+                            color: '#64748b',
+                            fontWeight: '500'
+                          }}>
+                            Schedule: Every hour
+                          </span>
+                        </div>
+                        <small className="form-help">Background job that automatically escalates old tickets</small>
+                      </div>
+
+                      {/* Email Processor Job Status */}
+                      <div className="form-group">
+                        <label className="form-label">
+                          <Mail size={16} />
+                          Email Processor Job
+                        </label>
+                        <div style={{ 
+                          padding: '12px 16px', 
+                          backgroundColor: '#dcfce7',
+                          border: '1px solid #86efac',
+                          borderRadius: '8px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '10px',
+                          marginTop: '8px'
+                        }}>
+                          <div style={{
+                            width: '10px',
+                            height: '10px',
+                            borderRadius: '50%',
+                            backgroundColor: '#22c55e',
+                            flexShrink: 0
+                          }} />
+                          <span style={{ 
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            color: '#166534',
+                            flex: 1
+                          }}>
+                            ✅ Running
+                          </span>
+                          <span style={{ 
+                            fontSize: '12px',
+                            color: '#64748b',
+                            fontWeight: '500'
+                          }}>
+                            Schedule: Every 5 minutes
+                          </span>
+                        </div>
+                        <small className="form-help">Background job that sends queued emails</small>
+                      </div>
+                    </div>
+
+                    {/* Info Box */}
+                    <div style={{ 
+                      marginTop: '20px',
+                      padding: '14px 18px',
+                      backgroundColor: '#f0f9ff',
+                      border: '1px solid #bae6fd',
+                      borderRadius: '8px',
+                      display: 'flex',
+                      gap: '12px',
+                      alignItems: 'flex-start'
+                    }}>
+                      <HelpCircle size={18} style={{ color: '#0369a1', flexShrink: 0, marginTop: '2px' }} />
+                      <div>
+                        <p style={{ 
+                          fontSize: '13px',
+                          color: '#0369a1',
+                          margin: 0,
+                          lineHeight: '1.6',
+                          fontWeight: '500'
+                        }}>
+                          <strong>💡 Quick Tip:</strong> Enable auto-escalation above to activate the background job. 
+                          Changes to threshold hours apply immediately without requiring a server restart.
+                        </p>
                       </div>
                     </div>
                   </div>

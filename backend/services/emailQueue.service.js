@@ -1,6 +1,8 @@
 // ============================================
-// EMAIL QUEUE SERVICE - FIXED
+// EMAIL QUEUE SERVICE - ENHANCED
 // Manages email queue, sending, and retries
+// Creator: Suvadip Panja
+// Project: Enterprise IT Helpdesk & Ticket Management System
 // FILE: backend/services/emailQueue.service.js
 // ============================================
 
@@ -61,14 +63,14 @@ const createTransporter = async () => {
       }
     };
 
-    logger.info('🔧 Creating transporter with config:', {
+    logger.info('📧 Creating transporter with config:', {
       host: transportConfig.host,
       port: transportConfig.port,
       secure: transportConfig.secure,
       user: transportConfig.auth.user
     });
 
-    const transporter = nodemailer.createTransport(transportConfig); // ✅ FIXED HERE
+    const transporter = nodemailer.createTransport(transportConfig);
 
     // Verify transporter
     await transporter.verify();
@@ -225,15 +227,24 @@ const processSingleEmail = async (emailId) => {
       return false;
     }
 
-    // Send email
+    // Send email with proper HTML content type
     const mailOptions = {
       from: `"${email.from_name}" <${email.from_email}>`,
       to: email.recipient_email,
       subject: email.subject,
-      html: email.body
+      html: email.body,
+      // ✅ FIXED: Add proper headers for HTML email
+      headers: {
+        'Content-Type': 'text/html; charset=UTF-8',
+        'X-Priority': email.priority <= 2 ? '1' : '3'
+      }
     };
 
-    logger.try('Sending email via SMTP', { emailId, to: email.recipient_email });
+    logger.try('Sending email via SMTP', { 
+      emailId, 
+      to: email.recipient_email,
+      subject: email.subject
+    });
 
     await transporter.sendMail(mailOptions);
 
@@ -330,39 +341,40 @@ const retryEmail = async (emailId) => {
   try {
     logger.try('Retrying failed email', { emailId });
 
-    // Reset retry count and status
+    // Reset status to pending
     await executeQuery(`
       UPDATE email_queue
       SET 
         status = 'PENDING',
-        retry_count = 0,
-        next_retry_at = NULL,
-        error_message = NULL
+        error_message = NULL,
+        last_error_at = NULL,
+        next_retry_at = GETDATE()
       WHERE email_id = @emailId
-        AND status = 'FAILED'
     `, { emailId });
 
-    // Try sending immediately
-    return await processSingleEmail(emailId);
+    // Process immediately
+    const success = await processSingleEmail(emailId);
+
+    logger.success('Email retry completed', { emailId, success });
+    return success;
 
   } catch (error) {
-    logger.error('Failed to retry email', error);
-    return false;
+    logger.error('Failed to retry email', { emailId, error });
+    throw error;
   }
 };
 
 // ============================================
-// GET EMAIL QUEUE STATISTICS
+// GET QUEUE STATISTICS
 // ============================================
 const getQueueStats = async () => {
   try {
     const query = `
       SELECT 
-        COUNT(*) as total_emails,
-        SUM(CASE WHEN status = 'SENT' THEN 1 ELSE 0 END) as sent_count,
-        SUM(CASE WHEN status = 'FAILED' THEN 1 ELSE 0 END) as failed_count,
-        SUM(CASE WHEN status = 'PENDING' THEN 1 ELSE 0 END) as pending_count,
-        AVG(CASE WHEN status = 'SENT' THEN DATEDIFF(SECOND, created_at, sent_at) ELSE NULL END) as avg_send_time_seconds
+        COUNT(*) as total,
+        SUM(CASE WHEN status = 'PENDING' THEN 1 ELSE 0 END) as pending,
+        SUM(CASE WHEN status = 'SENT' THEN 1 ELSE 0 END) as sent,
+        SUM(CASE WHEN status = 'FAILED' THEN 1 ELSE 0 END) as failed
       FROM email_queue
     `;
 
@@ -371,12 +383,12 @@ const getQueueStats = async () => {
 
   } catch (error) {
     logger.error('Failed to get queue stats', error);
-    return null;
+    throw error;
   }
 };
 
 // ============================================
-// GET EMAIL TEMPLATE
+// GET TEMPLATE BY KEY
 // ============================================
 const getTemplate = async (templateKey) => {
   try {
@@ -390,41 +402,85 @@ const getTemplate = async (templateKey) => {
     const result = await executeQuery(query, { templateKey });
 
     if (result.recordset.length === 0) {
-      logger.warn('Email template not found', { templateKey });
+      logger.warn('Template not found', { templateKey });
       return null;
     }
 
     return result.recordset[0];
 
   } catch (error) {
-    logger.error('Failed to get email template', error);
+    logger.error('Failed to get template', { templateKey, error });
     return null;
   }
 };
 
 // ============================================
-// RENDER TEMPLATE WITH VARIABLES
+// RENDER TEMPLATE WITH VARIABLES - ENHANCED
 // ============================================
 const renderTemplate = (template, variables) => {
   let subject = template.subject_template;
   let body = template.body_template;
 
+  // Log variables being used
+  logger.info('📝 Rendering template with variables:', {
+    templateKey: template.template_key,
+    variablesProvided: Object.keys(variables),
+    variableCount: Object.keys(variables).length
+  });
+
   // Replace all {{variable}} with actual values
   for (const [key, value] of Object.entries(variables)) {
     const placeholder = `{{${key}}}`;
-    subject = subject.replace(new RegExp(placeholder, 'g'), value || '');
-    body = body.replace(new RegExp(placeholder, 'g'), value || '');
+    
+    // Convert value to string, handle null/undefined
+    let replacementValue = '';
+    
+    if (value === null || value === undefined) {
+      replacementValue = '';
+      logger.warn(`Variable '${key}' is null/undefined, replacing with empty string`);
+    } else if (typeof value === 'object') {
+      replacementValue = JSON.stringify(value);
+    } else {
+      replacementValue = String(value);
+    }
+
+    // Count replacements for logging
+    const subjectMatches = (subject.match(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g')) || []).length;
+    const bodyMatches = (body.match(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g')) || []).length;
+    
+    if (subjectMatches > 0 || bodyMatches > 0) {
+      logger.info(`✅ Replacing '${placeholder}' with '${replacementValue}' (${subjectMatches + bodyMatches} occurrences)`);
+    }
+
+    // Replace in subject and body (case-sensitive, global)
+    subject = subject.split(placeholder).join(replacementValue);
+    body = body.split(placeholder).join(replacementValue);
   }
+
+  // Check for any remaining unreplaced variables
+  const subjectUnreplaced = subject.match(/\{\{[^}]+\}\}/g) || [];
+  const bodyUnreplaced = body.match(/\{\{[^}]+\}\}/g) || [];
+  
+  if (subjectUnreplaced.length > 0 || bodyUnreplaced.length > 0) {
+    const allUnreplaced = [...new Set([...subjectUnreplaced, ...bodyUnreplaced])];
+    logger.warn('⚠️ Unreplaced variables found:', allUnreplaced);
+  }
+
+  logger.success('Template rendered successfully');
 
   return { subject, body };
 };
 
 // ============================================
-// SEND TEMPLATED EMAIL
+// SEND TEMPLATED EMAIL - ENHANCED
 // ============================================
 const sendTemplatedEmail = async (templateKey, recipientEmail, variables, options = {}) => {
   try {
-    logger.try('Sending templated email', { templateKey, recipient: recipientEmail });
+    logger.try('Sending templated email', { 
+      templateKey, 
+      recipient: recipientEmail,
+      variablesCount: Object.keys(variables).length 
+    });
 
     // Get template
     const template = await getTemplate(templateKey);
@@ -434,8 +490,15 @@ const sendTemplatedEmail = async (templateKey, recipientEmail, variables, option
       return null;
     }
 
+    // ✅ ENHANCED: Merge recipient name into variables if provided
+    const allVariables = {
+      ...variables,
+      // If recipientName provided in options, add as user_name variable
+      ...(options.recipientName ? { user_name: options.recipientName } : {})
+    };
+
     // Render template
-    const { subject, body } = renderTemplate(template, variables);
+    const { subject, body } = renderTemplate(template, allVariables);
 
     // Add to queue
     const emailId = await addToQueue({
@@ -452,6 +515,7 @@ const sendTemplatedEmail = async (templateKey, recipientEmail, variables, option
       metadata: options.metadata || null
     });
 
+    logger.success('Templated email queued', { emailId, templateKey });
     return emailId;
 
   } catch (error) {

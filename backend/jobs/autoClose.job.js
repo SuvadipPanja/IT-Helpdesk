@@ -1,0 +1,397 @@
+// ============================================
+// AUTO-CLOSE TICKETS JOB
+// Automatically close tickets that have been resolved for X days
+// Runs on configurable schedule via cron
+// Developed by: Suvadip Panja
+// FILE: backend/jobs/autoClose.job.js
+// ============================================
+
+const cron = require('node-cron');
+const { executeQuery } = require('../config/database');
+const emailQueueService = require('../services/emailQueue.service');
+const settingsService = require('../services/settings.service');
+const logger = require('../utils/logger');
+
+class AutoCloseJob {
+  constructor() {
+    this.isRunning = false;
+    this.cronExpression = '0 0 * * *'; // Default: Every day at midnight
+    this.job = null;
+    this.jobEnabled = false;
+  }
+
+  // ============================================
+  // START THE CRON JOB
+  // ============================================
+  async start() {
+    try {
+      logger.info('🔒 Starting Auto-Close Tickets Cron Job');
+      
+      // Check if job is enabled
+      const enabled = await settingsService.get('ticket_auto_close_enabled');
+      this.jobEnabled = enabled === 'true' || enabled === true;
+      
+      logger.info(`📊 Status: ${this.jobEnabled ? 'Enabled' : 'Disabled'}`);
+
+      if (!this.jobEnabled) {
+        logger.warn('⚠️  Auto-Close job is DISABLED in settings');
+        return;
+      }
+
+      this.job = cron.schedule(this.cronExpression, async () => {
+        await this.runAutoClose();
+      });
+
+      logger.success('✅ Auto-Close Cron Job started successfully');
+      logger.info(`⏰ Schedule: ${this.cronExpression} (Daily at midnight)`);
+      
+      // Run immediately on start after 10 seconds for testing
+      setTimeout(() => this.runAutoClose(), 10000);
+      
+    } catch (error) {
+      logger.error('❌ Failed to start Auto-Close Cron Job', error);
+    }
+  }
+
+  // ============================================
+  // STOP THE CRON JOB
+  // ============================================
+  stop() {
+    try {
+      if (this.job) {
+        this.job.stop();
+        logger.info('🛑 Auto-Close Cron Job stopped');
+      }
+    } catch (error) {
+      logger.error('❌ Failed to stop Auto-Close Cron Job', error);
+    }
+  }
+
+  // ============================================
+  // MAIN AUTO-CLOSE LOGIC
+  // ============================================
+  async runAutoClose() {
+    if (this.isRunning) {
+      logger.warn('⚠️  Auto-Close job already running, skipping...');
+      return;
+    }
+
+    this.isRunning = true;
+    const startTime = Date.now();
+    
+    logger.info('');
+    logger.info('================================================');
+    logger.info('🔒 AUTO-CLOSE JOB STARTED');
+    logger.info(`⏰ Execution Time: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST`);
+    logger.info('================================================');
+
+    try {
+      // Get settings - FIXED: Use correct function name
+      const autoCloseDays = await settingsService.get('ticket_auto_close_days') || 30;
+      const requireApproval = await settingsService.get('ticket_require_approval_close');
+      
+      logger.info(`📅 Auto-close threshold: ${autoCloseDays} days`);
+      logger.info(`🔐 Approval required: ${requireApproval === 'true' ? 'Yes' : 'No'}`);
+
+      // Find tickets to auto-close
+      const tickets = await this.findTicketsToClose(autoCloseDays, requireApproval);
+      
+      logger.info(`🎫 Found ${tickets.length} tickets eligible for auto-close`);
+
+      if (tickets.length === 0) {
+        logger.info('✅ No tickets to auto-close');
+        return;
+      }
+
+      // Close each ticket
+      let successCount = 0;
+      let failCount = 0;
+
+      for (const ticket of tickets) {
+        try {
+          await this.closeTicket(ticket);
+          successCount++;
+          logger.info(`✅ Closed ticket: ${ticket.ticket_number}`);
+        } catch (error) {
+          failCount++;
+          logger.error(`❌ Failed to close ticket ${ticket.ticket_number}:`, error);
+        }
+      }
+
+      // Log execution to database
+      await this.logJobExecution(successCount, failCount, tickets.length);
+
+      logger.info('');
+      logger.info('================================================');
+      logger.info('📊 AUTO-CLOSE JOB SUMMARY');
+      logger.info(`✅ Successfully closed: ${successCount} tickets`);
+      logger.info(`❌ Failed to close: ${failCount} tickets`);
+      logger.info(`⏱️  Duration: ${Date.now() - startTime}ms`);
+      logger.info('================================================');
+      logger.info('');
+
+    } catch (error) {
+      logger.error('❌ Auto-Close job failed:', error);
+    } finally {
+      this.isRunning = false;
+    }
+  }
+
+  // ============================================
+  // FIND TICKETS ELIGIBLE FOR AUTO-CLOSE
+  // ============================================
+  async findTicketsToClose(autoCloseDays, requireApproval) {
+    try {
+      // Get the "Resolved" status ID (usually 6)
+      const resolvedStatusQuery = `
+        SELECT status_id 
+        FROM ticket_statuses 
+        WHERE status_name = 'Resolved'
+      `;
+      const resolvedStatus = await executeQuery(resolvedStatusQuery);
+      
+      if (resolvedStatus.recordset.length === 0) {
+        logger.error('❌ Resolved status not found in database');
+        return [];
+      }
+
+      const resolvedStatusId = resolvedStatus.recordset[0].status_id;
+
+      // Build query based on approval requirement
+      let query;
+      
+      if (requireApproval === 'true') {
+        // Only close tickets that are resolved AND approved
+        query = `
+          SELECT 
+            t.ticket_id,
+            t.ticket_number,
+            t.subject,
+            t.status_id,
+            t.updated_at,
+            t.created_by,
+            t.assigned_to,
+            t.closure_approved_at,
+            u.email as creator_email,
+            u.full_name as creator_name,
+            a.email as assignee_email,
+            a.full_name as assignee_name
+          FROM tickets t
+          LEFT JOIN users u ON t.created_by = u.user_id
+          LEFT JOIN users a ON t.assigned_to = a.user_id
+          WHERE t.status_id = @resolvedStatusId
+            AND t.auto_closed = 0
+            AND t.closure_approved_at IS NOT NULL
+            AND DATEDIFF(DAY, t.closure_approved_at, GETDATE()) >= @autoCloseDays
+          ORDER BY t.updated_at ASC
+        `;
+      } else {
+        // Close any resolved ticket after X days
+        query = `
+          SELECT 
+            t.ticket_id,
+            t.ticket_number,
+            t.subject,
+            t.status_id,
+            t.updated_at,
+            t.created_by,
+            t.assigned_to,
+            u.email as creator_email,
+            u.full_name as creator_name,
+            a.email as assignee_email,
+            a.full_name as assignee_name
+          FROM tickets t
+          LEFT JOIN users u ON t.created_by = u.user_id
+          LEFT JOIN users a ON t.assigned_to = a.user_id
+          WHERE t.status_id = @resolvedStatusId
+            AND t.auto_closed = 0
+            AND DATEDIFF(DAY, t.updated_at, GETDATE()) >= @autoCloseDays
+          ORDER BY t.updated_at ASC
+        `;
+      }
+
+      const result = await executeQuery(query, {
+        resolvedStatusId,
+        autoCloseDays: parseInt(autoCloseDays)
+      });
+
+      return result.recordset;
+
+    } catch (error) {
+      logger.error('Failed to find tickets for auto-close:', error);
+      return [];
+    }
+  }
+
+  // ============================================
+  // CLOSE A TICKET
+  // ============================================
+  async closeTicket(ticket) {
+    try {
+      // Get the "Closed" status ID (usually 7)
+      const closedStatusQuery = `
+        SELECT status_id 
+        FROM ticket_statuses 
+        WHERE status_name = 'Closed'
+      `;
+      const closedStatus = await executeQuery(closedStatusQuery);
+      
+      if (closedStatus.recordset.length === 0) {
+        throw new Error('Closed status not found in database');
+      }
+
+      const closedStatusId = closedStatus.recordset[0].status_id;
+
+      // Update ticket to closed
+      const updateQuery = `
+        UPDATE tickets
+        SET 
+          status_id = @closedStatusId,
+          auto_closed = 1,
+          updated_at = GETDATE()
+        WHERE ticket_id = @ticketId
+      `;
+
+      await executeQuery(updateQuery, {
+        closedStatusId,
+        ticketId: ticket.ticket_id
+      });
+
+      // Log activity
+      await this.logActivity(ticket);
+
+      // Send email notification
+      await this.sendClosureEmail(ticket);
+
+    } catch (error) {
+      throw new Error(`Failed to close ticket: ${error.message}`);
+    }
+  }
+
+  // ============================================
+  // LOG TICKET ACTIVITY
+  // ============================================
+  async logActivity(ticket) {
+    try {
+      const activityQuery = `
+        INSERT INTO ticket_activities (
+          ticket_id,
+          activity_type,
+          description,
+          created_at
+        )
+        VALUES (
+          @ticketId,
+          'status_change',
+          'Ticket automatically closed after being resolved for the configured period',
+          GETDATE()
+        )
+      `;
+
+      await executeQuery(activityQuery, {
+        ticketId: ticket.ticket_id
+      });
+
+    } catch (error) {
+      logger.error(`Failed to log activity for ticket ${ticket.ticket_number}:`, error);
+    }
+  }
+
+  // ============================================
+  // SEND CLOSURE EMAIL NOTIFICATION
+  // ============================================
+  async sendClosureEmail(ticket) {
+    try {
+      // Check if email notifications are enabled
+      const emailEnabled = await settingsService.get('email_ticket_closed');
+      if (emailEnabled !== 'true') {
+        return;
+      }
+
+      // Send to ticket creator
+      if (ticket.creator_email) {
+        await emailQueueService.queueEmail({
+          template_name: 'ticket_closed',
+          recipient_email: ticket.creator_email,
+          recipient_name: ticket.creator_name,
+          ticket_id: ticket.ticket_id,
+          ticket_number: ticket.ticket_number,
+          subject: ticket.subject,
+          is_auto_closed: true
+        });
+      }
+
+      // Send to assignee if different from creator
+      if (ticket.assignee_email && ticket.assignee_email !== ticket.creator_email) {
+        await emailQueueService.queueEmail({
+          template_name: 'ticket_closed',
+          recipient_email: ticket.assignee_email,
+          recipient_name: ticket.assignee_name,
+          ticket_id: ticket.ticket_id,
+          ticket_number: ticket.ticket_number,
+          subject: ticket.subject,
+          is_auto_closed: true
+        });
+      }
+
+    } catch (error) {
+      logger.error(`Failed to send closure email for ticket ${ticket.ticket_number}:`, error);
+    }
+  }
+
+  // ============================================
+  // LOG JOB EXECUTION TO DATABASE
+  // ============================================
+  async logJobExecution(successCount, failCount, totalFound) {
+    try {
+      // Note: This requires a job_executions table
+      // If it doesn't exist, this will fail silently
+      const logQuery = `
+        IF OBJECT_ID('job_executions', 'U') IS NOT NULL
+        BEGIN
+          INSERT INTO job_executions (
+            job_name,
+            status,
+            started_at,
+            completed_at,
+            duration_ms,
+            records_processed,
+            records_failed,
+            execution_details
+          )
+          VALUES (
+            'auto-close',
+            @status,
+            @startedAt,
+            GETDATE(),
+            @duration,
+            @successCount,
+            @failCount,
+            @details
+          )
+        END
+      `;
+
+      await executeQuery(logQuery, {
+        status: failCount === 0 ? 'success' : 'partial',
+        startedAt: new Date(),
+        duration: 0,
+        successCount,
+        failCount,
+        details: JSON.stringify({
+          totalFound,
+          successCount,
+          failCount,
+          message: failCount === 0 ? 'All tickets closed successfully' : `${successCount} closed, ${failCount} failed`
+        })
+      });
+
+    } catch (error) {
+      // Silently fail if table doesn't exist
+      logger.debug('Could not log job execution (table may not exist):', error.message);
+    }
+  }
+}
+
+// Export singleton instance
+module.exports = new AutoCloseJob();

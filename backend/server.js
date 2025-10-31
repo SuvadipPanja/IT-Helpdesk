@@ -1,7 +1,9 @@
 // ============================================
 // Main Server File
 // Entry point for the IT Helpdesk application
-// UPDATED: Added Email Queue + Email Templates routes + Background Jobs
+// UPDATED: Added Auto-Close Job + Ticket Approvals Routes
+// Developed by: Suvadip Panja
+// Date: October 29, 2025
 // ============================================
 
 const express = require('express');
@@ -23,6 +25,8 @@ const requestLogger = require('./middleware/requestLogger');
 // IMPORT BACKGROUND JOBS
 // ============================================
 const emailProcessorJob = require('./jobs/emailProcessor.job');
+const autoEscalationJob = require('./jobs/autoEscalation.job');
+const autoCloseJob = require('./jobs/autoClose.job'); // ← NEW! Auto-close tickets job
 
 // Initialize Express app
 const app = express();
@@ -37,13 +41,13 @@ logger.info('Initializing security middleware');
 app.use(helmet({
   contentSecurityPolicy: false, // Disable for development
   crossOriginEmbedderPolicy: false,
-  crossOriginResourcePolicy: false, // ADDED: Allow cross-origin resources
+  crossOriginResourcePolicy: false, // Allow cross-origin resources
 }));
 
 // CORS - Cross-Origin Resource Sharing
 app.use(cors(config.cors));
 
-// FIXED: Additional CORS headers for static files
+// Additional CORS headers for static files
 app.use((req, res, next) => {
   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -128,8 +132,7 @@ const createUploadDirectories = () => {
 createUploadDirectories();
 
 // ============================================
-// Static Files - FIXED with CORS headers
-// Serve uploaded files with proper CORS configuration
+// Static Files - Serve with CORS headers
 // ============================================
 
 const uploadDir = path.join(__dirname, 'uploads');
@@ -140,7 +143,7 @@ app.use('/uploads', express.static(uploadDir, {
     // Log each file request for debugging
     console.log('📁 Serving static file:', filePath);
     
-    // CRITICAL: Add CORS headers for cross-origin access
+    // Add CORS headers for cross-origin access
     res.set('Access-Control-Allow-Origin', '*');
     res.set('Cross-Origin-Resource-Policy', 'cross-origin');
     res.set('Cache-Control', 'public, max-age=31536000');
@@ -229,7 +232,8 @@ app.get('/', (req, res) => {
       profile: `${config.apiPrefix}/profile`,
       settings: `${config.apiPrefix}/settings`,
       emailQueue: `${config.apiPrefix}/email-queue`,
-      emailTemplates: `${config.apiPrefix}/email-templates` // ← NEW
+      emailTemplates: `${config.apiPrefix}/email-templates`,
+      ticketApprovals: `${config.apiPrefix}/ticket-approvals` // ← NEW!
     }
   });
 });
@@ -254,7 +258,8 @@ const notificationsRoutes = require('./routes/notifications.routes');
 const profileRoutes = require('./routes/profile.routes');
 const settingsRoutes = require('./routes/settings.routes');
 const emailQueueRoutes = require('./routes/emailQueue.routes');
-const emailTemplatesRoutes = require('./routes/emailTemplates.routes'); // ← NEW
+const emailTemplatesRoutes = require('./routes/emailTemplates.routes');
+const ticketApprovalsRoutes = require('./routes/ticketApprovals.routes'); // ← NEW!
 
 // Mount routes
 app.use(`${config.apiPrefix}/auth`, authRoutes);
@@ -270,7 +275,8 @@ app.use(`${config.apiPrefix}/notifications`, notificationsRoutes);
 app.use(`${config.apiPrefix}/profile`, profileRoutes);
 app.use(`${config.apiPrefix}/settings`, settingsRoutes);
 app.use(`${config.apiPrefix}/email-queue`, emailQueueRoutes);
-app.use(`${config.apiPrefix}/email-templates`, emailTemplatesRoutes); // ← NEW
+app.use(`${config.apiPrefix}/email-templates`, emailTemplatesRoutes);
+app.use(`${config.apiPrefix}/ticket-approvals`, ticketApprovalsRoutes); // ← NEW!
 
 logger.success('API routes initialized', { 
   prefix: config.apiPrefix,
@@ -288,7 +294,8 @@ logger.success('API routes initialized', {
     'profile',
     'settings',
     'email-queue',
-    'email-templates' // ← NEW
+    'email-templates',
+    'ticket-approvals' // ← NEW!
   ]
 });
 
@@ -381,7 +388,8 @@ const startServer = async () => {
       logger.info('👥 Users endpoint: /api/v1/users');
       logger.info('👤 Profile endpoint: /api/v1/profile');
       logger.info('📧 Email Queue endpoint: /api/v1/email-queue');
-      logger.info('📝 Email Templates endpoint: /api/v1/email-templates'); // ← NEW
+      logger.info('📝 Email Templates endpoint: /api/v1/email-templates');
+      logger.info('✅ Ticket Approvals endpoint: /api/v1/ticket-approvals'); // ← NEW!
       logger.info('Press CTRL+C to stop the server');
       logger.separator();
       
@@ -391,7 +399,16 @@ const startServer = async () => {
       logger.separator('STARTING BACKGROUND JOBS');
       
       // Start email processor job
+      logger.info('📧 Starting Email Processor Job...');
       emailProcessorJob.start();
+      
+      // Start auto-escalation job
+      logger.info('🚨 Starting Auto-Escalation Job...');
+      autoEscalationJob.start();
+      
+      // Start auto-close job
+      logger.info('🔒 Starting Auto-Close Job...');
+      autoCloseJob.start(); // ← NEW!
       
       logger.separator();
     });
@@ -415,6 +432,8 @@ const startServer = async () => {
       // Stop background jobs
       logger.info('Stopping background jobs...');
       emailProcessorJob.stop();
+      autoEscalationJob.stop();
+      autoCloseJob.stop(); // ← NEW!
       
       server.close(async () => {
         logger.info('HTTP server closed');

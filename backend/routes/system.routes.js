@@ -8,10 +8,11 @@ const {
   getCategories,
   getPriorities,
   getStatuses,
-  getRoles,  // ← ADDED THIS LINE
+  getRoles,
   getDepartments,
   getEngineers,
-  getDashboardStats
+  getDashboardStats,
+  getLookupsForSettings  // ✅ NEW IMPORT
 } = require('../controllers/system.controller');
 const { authenticate } = require('../middleware/auth');
 
@@ -22,11 +23,14 @@ router.use(authenticate);
 router.get('/categories', getCategories);
 router.get('/priorities', getPriorities);
 router.get('/statuses', getStatuses);
-router.get('/roles', getRoles);  // ← ADDED THIS LINE
+router.get('/roles', getRoles);
 router.get('/departments', getDepartments);
 router.get('/engineers', getEngineers);
 
 // Dashboard statistics
 router.get('/dashboard-stats', getDashboardStats);
+
+// ✅ NEW ROUTE - Lookups for Settings page
+router.get('/lookups/settings', getLookupsForSettings);
 
 module.exports = router;
