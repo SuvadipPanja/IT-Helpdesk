@@ -3702,3 +3702,26 @@
 2025-11-01 14:48:04.617 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
 2025-11-01 14:48:04.618 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
 2025-11-01 14:48:04.623 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2025-11-01 14:48:09.580 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-11-01 14:48:09.592 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-01 14:48:09.579 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-11-01 14:48:09.591 [INFO] [SYSTEM] ℹ️ Processing 1 pending emails
+2025-11-01 14:48:09.617 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-01 14:48:09.620 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-01 14:48:11.778 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2025-11-01 14:48:11.779 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2025-11-01 14:48:14.626 [INFO] [SYSTEM] ℹ️ ================================================
+2025-11-01 14:48:14.629 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 1/11/2025, 2:48:14 pm IST
+2025-11-01 14:48:14.630 [INFO] [SYSTEM] ℹ️ ================================================
+2025-11-01 14:48:14.631 [INFO] [SYSTEM] ℹ️ 📅 Auto-close threshold: 30 days
+2025-11-01 14:48:14.625 [INFO] [SYSTEM] ℹ️ 
+2025-11-01 14:48:14.637 [INFO] [SYSTEM] ℹ️ 🔐 Approval required: No
+2025-11-01 14:48:14.627 [INFO] [SYSTEM] ℹ️ 🔒 AUTO-CLOSE JOB STARTED
+2025-11-01 14:48:14.676 [INFO] [SYSTEM] ℹ️ ✅ No tickets to auto-close
+2025-11-01 14:48:14.665 [ERROR] 🚨 Failed to find tickets for auto-close: | {
+2025-11-01 14:48:14.678 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [46]
+2025-11-01 14:48:14.675 [INFO] [SYSTEM] ℹ️ 🎫 Found 0 tickets eligible for auto-close
+2025-11-01 14:48:14.679 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2025-11-01 14:48:15.785 [SUCCESS] [OPERATION] ✅ Processed 1/1 emails successfully
+2025-11-01 14:48:15.785 [SUCCESS] [OPERATION] ✅ ✅ Processed 1 emails in 6205ms
+2025-11-01 14:48:15.784 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
