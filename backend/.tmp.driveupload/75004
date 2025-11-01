@@ -531,3 +531,67 @@
 2025-11-01 12:51:18.262 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
 2025-11-01 12:51:18.262 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
 2025-11-01 12:51:18.264 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2025-11-01 12:51:23.233 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-01 12:51:23.237 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-01 12:51:23.244 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-01 12:51:23.237 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-01 12:51:23.242 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-01 12:51:23.257 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-11-01 12:51:23.258 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-11-01 12:51:23.272 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-11-01 12:51:23.272 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-01 12:51:23.276 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-01 12:51:23.282 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-01 12:51:23.284 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-01 12:51:23.284 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-01 12:51:23.291 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-01 12:51:23.559 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-11-01 12:51:23.555 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-11-01 12:51:23.552 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-01 12:51:23.555 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-11-01 12:51:23.585 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-01 12:51:23.589 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-01 12:51:23.587 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-01 12:51:23.587 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-01 12:51:23.593 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-01 12:51:23.596 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-01 12:51:23.594 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-01 12:51:23.596 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-01 12:51:23.597 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-01 12:51:23.597 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-01 12:51:23.611 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-01 12:51:23.612 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-01 12:51:23.616 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-01 12:51:23.618 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-01 12:51:23.627 [TRY] [OPERATION] 🔄 Fetching all settings | {
+2025-11-01 12:51:23.627 [SUCCESS] [OPERATION] ✅ All settings retrieved | {
+2025-11-01 12:51:23.630 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-11-01 12:51:23.633 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-01 12:51:23.635 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-01 12:51:23.636 [TRY] [OPERATION] 🔄 Fetching lookup data for settings | {
+2025-11-01 12:51:23.639 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-01 12:51:23.638 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-01 12:51:23.640 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-01 12:51:23.637 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-01 12:51:23.639 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-01 12:51:23.654 [SUCCESS] [OPERATION] ✅ Lookup data fetched successfully | {
+2025-11-01 12:51:23.657 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-01 12:51:23.661 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-01 12:51:23.666 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-01 12:51:23.665 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-01 12:51:23.667 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-01 12:51:23.666 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-01 12:51:23.667 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-01 12:51:23.669 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-01 12:51:23.672 [TRY] [OPERATION] 🔄 Fetching all settings | {
+2025-11-01 12:51:23.671 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-01 12:51:23.675 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-11-01 12:51:23.672 [SUCCESS] [OPERATION] ✅ All settings retrieved | {
+2025-11-01 12:51:23.685 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-01 12:51:23.687 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-01 12:51:23.689 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-01 12:51:23.692 [TRY] [OPERATION] 🔄 Fetching lookup data for settings | {
+2025-11-01 12:51:23.698 [SUCCESS] [OPERATION] ✅ Lookup data fetched successfully | {
+2025-11-01 12:51:23.701 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-01 12:51:28.279 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2025-11-01 12:51:28.278 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [41]
