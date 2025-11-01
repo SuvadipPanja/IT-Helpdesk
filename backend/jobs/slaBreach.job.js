@@ -1,0 +1,603 @@
+// ============================================
+// SLA BREACH DETECTION JOB
+// Monitors all tickets for SLA violations and sends alerts
+// Runs every 15 minutes via cron
+// Developed by: Suvadip Panja
+// Created: November 01, 2025
+// FILE: backend/jobs/slaBreach.job.js
+// ============================================
+
+const cron = require('node-cron');
+const { executeQuery } = require('../config/database');
+const emailQueueService = require('../services/emailQueue.service');
+const settingsService = require('../services/settings.service');
+const slaService = require('../services/sla.service');
+const logger = require('../utils/logger');
+
+class SlaBreachJob {
+  constructor() {
+    this.isRunning = false;
+    this.cronExpression = '*/15 * * * *'; // Every 15 minutes
+    this.job = null;
+    this.jobEnabled = true;
+    this.warningThreshold = 80; // Default 80% of SLA
+  }
+
+  // ============================================
+  // START THE CRON JOB
+  // ============================================
+  async start() {
+    try {
+      logger.info('⚠️ Starting SLA Breach Detection Cron Job');
+      
+      // Load settings
+      await this.loadSettings();
+      
+      logger.info(`⏰ Schedule: Every 15 minutes (${this.cronExpression})`);
+      logger.info(`📊 Status: ${this.jobEnabled ? 'Enabled' : 'Disabled'}`);
+      logger.info(`⚠️ Warning Threshold: ${this.warningThreshold}%`);
+
+      if (!this.jobEnabled) {
+        logger.warn('⚠️ SLA Breach Detection is DISABLED in settings');
+        return;
+      }
+
+      // Schedule the job
+      this.job = cron.schedule(this.cronExpression, async () => {
+        await this.checkSlaBreaches();
+      });
+
+      logger.success('✅ SLA Breach Detection Cron Job started successfully');
+      
+      // Run immediately on start after 10 seconds for testing
+      setTimeout(() => this.checkSlaBreaches(), 10000);
+      
+    } catch (error) {
+      logger.error('❌ Failed to start SLA Breach Detection Cron Job', error);
+    }
+  }
+
+  // ============================================
+  // STOP THE CRON JOB
+  // ============================================
+  stop() {
+    try {
+      if (this.job) {
+        this.job.stop();
+        logger.info('🛑 SLA Breach Detection Cron Job stopped');
+      }
+    } catch (error) {
+      logger.error('❌ Failed to stop SLA Breach Detection Cron Job', error);
+    }
+  }
+
+  // ============================================
+  // LOAD SETTINGS FROM DATABASE
+  // ============================================
+  async loadSettings() {
+    try {
+      // Check if job is enabled
+      const enabled = await settingsService.get('sla_monitoring_enabled');
+      this.jobEnabled = enabled === 'true' || enabled === true;
+
+      // Get warning threshold
+      const threshold = await settingsService.get('sla_warning_threshold');
+      this.warningThreshold = parseInt(threshold) || 80;
+
+    } catch (error) {
+      logger.error('Failed to load SLA settings', error);
+      // Use defaults
+      this.jobEnabled = true;
+      this.warningThreshold = 80;
+    }
+  }
+
+  // ============================================
+  // MAIN SLA BREACH CHECK LOGIC
+  // ============================================
+  async checkSlaBreaches() {
+    if (this.isRunning) {
+      logger.warn('⚠️ SLA check already running, skipping...');
+      return;
+    }
+
+    this.isRunning = true;
+    const startTime = Date.now();
+    
+    logger.separator('SLA BREACH DETECTION');
+    logger.info('🔍 Starting SLA breach check');
+    logger.info(`⏰ Execution Time: ${new Date().toLocaleString('en-IN', { 
+      timeZone: 'Asia/Kolkata',
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    })} IST`);
+    logger.separator();
+
+    try {
+      // Get all open tickets with due dates
+      const tickets = await this.getOpenTickets();
+      
+      logger.info(`🎫 Found ${tickets.length} open tickets to check`);
+
+      if (tickets.length === 0) {
+        logger.info('✅ No open tickets to check');
+        logger.separator();
+        this.isRunning = false;
+        return;
+      }
+
+      let warningsCount = 0;
+      let breachesCount = 0;
+      let okCount = 0;
+
+      // Check each ticket
+      for (const ticket of tickets) {
+        try {
+          const slaStatus = await this.calculateSlaStatus(ticket);
+          
+          if (slaStatus.percentage >= 100) {
+            // SLA BREACHED!
+            await this.handleSlaBreach(ticket, slaStatus);
+            breachesCount++;
+          } else if (slaStatus.percentage >= this.warningThreshold) {
+            // SLA WARNING
+            await this.handleSlaWarning(ticket, slaStatus);
+            warningsCount++;
+          } else {
+            // OK - No action needed
+            okCount++;
+          }
+
+        } catch (error) {
+          logger.error(`Failed to check SLA for ticket ${ticket.ticket_number}`, error);
+        }
+      }
+
+      // Log summary
+      const duration = Date.now() - startTime;
+      
+      logger.separator('SLA CHECK SUMMARY');
+      logger.info(`✅ OK: ${okCount} tickets`);
+      logger.warn(`⚠️ Warnings: ${warningsCount} tickets`);
+      logger.error(`🔴 Breaches: ${breachesCount} tickets`);
+      logger.info(`⏱️ Duration: ${duration}ms`);
+      logger.separator();
+
+    } catch (error) {
+      logger.error('❌ SLA breach check failed', error);
+      logger.separator();
+    } finally {
+      this.isRunning = false;
+    }
+  }
+
+  // ============================================
+  // GET ALL OPEN TICKETS
+  // ============================================
+  async getOpenTickets() {
+    try {
+      const query = `
+        SELECT 
+          t.ticket_id,
+          t.ticket_number,
+          t.subject,
+          t.description,
+          t.created_at,
+          t.due_date,
+          t.first_response_at,
+          t.sla_breach_notified_at,
+          t.sla_warning_sent_at,
+          
+          tp.priority_id,
+          tp.priority_name,
+          tp.priority_code,
+          tp.response_time_hours,
+          tp.resolution_time_hours,
+          
+          tc.category_name,
+          
+          ts.status_name,
+          ts.is_final_status,
+          
+          requester.user_id as requester_id,
+          requester.email as requester_email,
+          requester.first_name + ' ' + requester.last_name as requester_name,
+          
+          assignee.user_id as assigned_to_id,
+          assignee.email as assigned_to_email,
+          assignee.first_name + ' ' + assignee.last_name as assigned_to_name,
+          
+          d.department_name
+          
+        FROM tickets t
+        INNER JOIN ticket_priorities tp ON t.priority_id = tp.priority_id
+        INNER JOIN ticket_categories tc ON t.category_id = tc.category_id
+        INNER JOIN ticket_statuses ts ON t.status_id = ts.status_id
+        LEFT JOIN users requester ON t.requester_id = requester.user_id
+        LEFT JOIN users assignee ON t.assigned_to = assignee.user_id
+        LEFT JOIN departments d ON t.department_id = d.department_id
+        
+        WHERE ts.is_final_status = 0
+          AND t.due_date IS NOT NULL
+        
+        ORDER BY t.due_date ASC
+      `;
+
+      const result = await executeQuery(query);
+      return result.recordset;
+
+    } catch (error) {
+      logger.error('Failed to get open tickets', error);
+      return [];
+    }
+  }
+
+  // ============================================
+  // CALCULATE SLA STATUS FOR A TICKET
+  // ============================================
+  async calculateSlaStatus(ticket) {
+    try {
+      const now = new Date();
+      const createdAt = new Date(ticket.created_at);
+      const dueDate = new Date(ticket.due_date);
+
+      // Calculate total SLA hours from priority settings
+      const totalSlaHours = ticket.resolution_time_hours;
+
+      // Calculate elapsed business hours using SLA service
+      const elapsedHours = await slaService.calculateBusinessHoursBetween(
+        createdAt,
+        now
+      );
+
+      // Calculate remaining hours
+      const remainingHours = totalSlaHours - elapsedHours;
+
+      // Calculate SLA percentage
+      const percentage = (elapsedHours / totalSlaHours) * 100;
+
+      // Determine status
+      let status = 'OK';
+      if (percentage >= 100) {
+        status = 'BREACHED';
+      } else if (percentage >= this.warningThreshold) {
+        status = 'WARNING';
+      }
+
+      return {
+        percentage: Math.round(percentage * 10) / 10, // Round to 1 decimal
+        elapsedHours: Math.round(elapsedHours * 10) / 10,
+        totalHours: totalSlaHours,
+        remainingHours: Math.round(remainingHours * 10) / 10,
+        status,
+        dueDate,
+        isOverdue: now > dueDate
+      };
+
+    } catch (error) {
+      logger.error('Failed to calculate SLA status', error);
+      throw error;
+    }
+  }
+
+  // ============================================
+  // HANDLE SLA BREACH
+  // ============================================
+  async handleSlaBreach(ticket, slaStatus) {
+    try {
+      logger.error(`🔴 SLA BREACH: ${ticket.ticket_number}`, {
+        subject: ticket.subject,
+        percentage: `${slaStatus.percentage}%`,
+        elapsed: `${slaStatus.elapsedHours}h`,
+        total: `${slaStatus.totalHours}h`
+      });
+
+      // Check if breach notification already sent
+      if (ticket.sla_breach_notified_at) {
+        logger.debug('Breach notification already sent, skipping');
+        return;
+      }
+
+      // Update ticket - mark as breached
+      const updateQuery = `
+        UPDATE tickets
+        SET 
+          sla_breach_notified_at = GETDATE(),
+          resolution_sla_met = 0
+        WHERE ticket_id = @ticketId
+      `;
+
+      await executeQuery(updateQuery, { ticketId: ticket.ticket_id });
+
+      // Log activity
+      await this.logSlaActivity(
+        ticket.ticket_id,
+        'SLA_BREACH',
+        `SLA breached at ${slaStatus.percentage}% (${slaStatus.elapsedHours}h / ${slaStatus.totalHours}h)`
+      );
+
+      // Send email notification
+      await this.sendBreachEmail(ticket, slaStatus);
+
+      logger.success(`✅ Breach notification sent for ${ticket.ticket_number}`);
+
+    } catch (error) {
+      logger.error(`Failed to handle SLA breach for ${ticket.ticket_number}`, error);
+    }
+  }
+
+  // ============================================
+  // HANDLE SLA WARNING
+  // ============================================
+  async handleSlaWarning(ticket, slaStatus) {
+    try {
+      logger.warn(`⚠️ SLA WARNING: ${ticket.ticket_number}`, {
+        subject: ticket.subject,
+        percentage: `${slaStatus.percentage}%`,
+        remaining: `${slaStatus.remainingHours}h`
+      });
+
+      // Check if warning already sent
+      if (ticket.sla_warning_sent_at) {
+        logger.debug('Warning already sent, skipping');
+        return;
+      }
+
+      // Update ticket - mark warning sent
+      const updateQuery = `
+        UPDATE tickets
+        SET sla_warning_sent_at = GETDATE()
+        WHERE ticket_id = @ticketId
+      `;
+
+      await executeQuery(updateQuery, { ticketId: ticket.ticket_id });
+
+      // Log activity
+      await this.logSlaActivity(
+        ticket.ticket_id,
+        'SLA_WARNING',
+        `SLA warning at ${slaStatus.percentage}% - ${slaStatus.remainingHours}h remaining`
+      );
+
+      // Send warning email
+      await this.sendWarningEmail(ticket, slaStatus);
+
+      logger.success(`✅ Warning notification sent for ${ticket.ticket_number}`);
+
+    } catch (error) {
+      logger.error(`Failed to handle SLA warning for ${ticket.ticket_number}`, error);
+    }
+  }
+
+  // ============================================
+  // SEND SLA BREACH EMAIL
+  // ============================================
+  async sendBreachEmail(ticket, slaStatus) {
+    try {
+      // Check if email notifications are enabled
+      const emailEnabled = await settingsService.get('notify_on_sla_breach');
+      if (emailEnabled === 'false' || emailEnabled === false) {
+        logger.debug('SLA breach emails disabled in settings');
+        return;
+      }
+
+      const generalSettings = await settingsService.getByCategory('general');
+      const appUrl = process.env.APP_URL || 'http://localhost:5173';
+
+      // Format due date
+      const dueDateFormatted = new Date(slaStatus.dueDate).toLocaleString('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+
+      const emailData = {
+        ticket_number: ticket.ticket_number,
+        subject: ticket.subject,
+        priority: ticket.priority_name,
+        category: ticket.category_name,
+        sla_percentage: `${slaStatus.percentage}%`,
+        elapsed_hours: slaStatus.elapsedHours,
+        total_hours: slaStatus.totalHours,
+        due_date: dueDateFormatted,
+        ticket_url: `${appUrl}/tickets/${ticket.ticket_id}`,
+        system_name: generalSettings.system_name || 'IT Helpdesk'
+      };
+
+      // Send to assigned engineer
+      if (ticket.assigned_to_email) {
+        await emailQueueService.sendTemplatedEmail(
+          'SLA_BREACH',
+          ticket.assigned_to_email,
+          emailData,
+          {
+            recipientName: ticket.assigned_to_name,
+            recipientUserId: ticket.assigned_to_id,
+            emailType: 'SLA_BREACH',
+            relatedEntityType: 'TICKET',
+            relatedEntityId: ticket.ticket_id,
+            priority: 1 // High priority
+          }
+        );
+
+        logger.info(`📧 Breach email sent to engineer: ${ticket.assigned_to_email}`);
+      }
+
+      // Send to ticket requester
+      if (ticket.requester_email && ticket.requester_email !== ticket.assigned_to_email) {
+        await emailQueueService.sendTemplatedEmail(
+          'SLA_BREACH',
+          ticket.requester_email,
+          emailData,
+          {
+            recipientName: ticket.requester_name,
+            recipientUserId: ticket.requester_id,
+            emailType: 'SLA_BREACH',
+            relatedEntityType: 'TICKET',
+            relatedEntityId: ticket.ticket_id,
+            priority: 1
+          }
+        );
+
+        logger.info(`📧 Breach email sent to requester: ${ticket.requester_email}`);
+      }
+
+      // Send to managers/admins
+      const managersQuery = `
+        SELECT 
+          u.user_id,
+          u.email,
+          u.first_name + ' ' + u.last_name as full_name
+        FROM users u
+        INNER JOIN user_roles r ON u.role_id = r.role_id
+        WHERE r.role_code IN ('ADMIN', 'MANAGER')
+          AND u.is_active = 1
+          AND u.email IS NOT NULL
+      `;
+
+      const managers = await executeQuery(managersQuery);
+
+      for (const manager of managers.recordset) {
+        await emailQueueService.sendTemplatedEmail(
+          'SLA_BREACH',
+          manager.email,
+          emailData,
+          {
+            recipientName: manager.full_name,
+            recipientUserId: manager.user_id,
+            emailType: 'SLA_BREACH',
+            relatedEntityType: 'TICKET',
+            relatedEntityId: ticket.ticket_id,
+            priority: 1
+          }
+        );
+      }
+
+      logger.info(`📧 Breach emails sent to ${managers.recordset.length} manager(s)`);
+
+    } catch (error) {
+      logger.error('Failed to send breach email', error);
+    }
+  }
+
+  // ============================================
+  // SEND SLA WARNING EMAIL
+  // ============================================
+  async sendWarningEmail(ticket, slaStatus) {
+    try {
+      // Check if email notifications are enabled
+      const emailEnabled = await settingsService.get('notify_on_sla_warning');
+      if (emailEnabled === 'false' || emailEnabled === false) {
+        logger.debug('SLA warning emails disabled in settings');
+        return;
+      }
+
+      const generalSettings = await settingsService.getByCategory('general');
+      const appUrl = process.env.APP_URL || 'http://localhost:5173';
+
+      // Format due date
+      const dueDateFormatted = new Date(slaStatus.dueDate).toLocaleString('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+
+      const emailData = {
+        ticket_number: ticket.ticket_number,
+        subject: ticket.subject,
+        priority: ticket.priority_name,
+        category: ticket.category_name,
+        sla_percentage: `${slaStatus.percentage}%`,
+        remaining_hours: slaStatus.remainingHours,
+        total_hours: slaStatus.totalHours,
+        due_date: dueDateFormatted,
+        ticket_url: `${appUrl}/tickets/${ticket.ticket_id}`,
+        system_name: generalSettings.system_name || 'IT Helpdesk'
+      };
+
+      // Send to assigned engineer only (warning is primarily for them)
+      if (ticket.assigned_to_email) {
+        await emailQueueService.sendTemplatedEmail(
+          'SLA_WARNING',
+          ticket.assigned_to_email,
+          emailData,
+          {
+            recipientName: ticket.assigned_to_name,
+            recipientUserId: ticket.assigned_to_id,
+            emailType: 'SLA_WARNING',
+            relatedEntityType: 'TICKET',
+            relatedEntityId: ticket.ticket_id,
+            priority: 2
+          }
+        );
+
+        logger.info(`📧 Warning email sent to engineer: ${ticket.assigned_to_email}`);
+      }
+
+    } catch (error) {
+      logger.error('Failed to send warning email', error);
+    }
+  }
+
+  // ============================================
+  // LOG SLA ACTIVITY
+  // ============================================
+  async logSlaActivity(ticketId, activityType, description) {
+    try {
+      const activityQuery = `
+        INSERT INTO ticket_activities (
+          ticket_id,
+          activity_type,
+          description,
+          performed_at
+        )
+        VALUES (
+          @ticketId,
+          @activityType,
+          @description,
+          GETDATE()
+        )
+      `;
+
+      await executeQuery(activityQuery, {
+        ticketId,
+        activityType,
+        description
+      });
+
+    } catch (error) {
+      logger.error('Failed to log SLA activity', error);
+    }
+  }
+
+  // ============================================
+  // GET JOB STATUS
+  // ============================================
+  getStatus() {
+    return {
+      isRunning: this.isRunning,
+      isEnabled: this.jobEnabled,
+      schedule: this.cronExpression,
+      warningThreshold: this.warningThreshold,
+      isActive: this.job ? true : false
+    };
+  }
+}
+
+// ============================================
+// EXPORT SINGLETON INSTANCE
+// ============================================
+module.exports = new SlaBreachJob();
