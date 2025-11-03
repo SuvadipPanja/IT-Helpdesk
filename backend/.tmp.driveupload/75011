@@ -1350,3 +1350,14 @@
 2025-11-03 13:53:47.450 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
 2025-11-03 13:53:47.449 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
 2025-11-03 13:53:52.579 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
+2025-11-03 13:53:57.284 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-03 13:53:57.292 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-03 13:53:57.292 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-03 13:53:57.294 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-03 13:53:57.295 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-03 13:53:57.312 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-03 13:53:57.315 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-03 13:53:57.316 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-03 13:53:57.321 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-03 13:53:57.323 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-03 13:53:57.325 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
