@@ -37,6 +37,8 @@ const TicketsList = () => {
 
   // Read status from URL parameter
   const statusFromUrl = searchParams.get('status');
+  const slaStatusFromUrl = searchParams.get('sla_status');  // ← NEW: Read SLA status from URL
+  const isEscalatedFromUrl = searchParams.get('is_escalated');  // ← NEW: Read escalated flag from URL
 
   // State management
   const [tickets, setTickets] = useState([]);
@@ -57,7 +59,8 @@ const TicketsList = () => {
     category_id: '',
     assigned_to: '',
     requester_id: '',
-    sla_status: ''  // ← ADDED FOR SLA FILTER
+    sla_status: '',  // ← ADDED FOR SLA FILTER
+    is_escalated: ''  // ← ADDED FOR ESCALATED FILTER
   });
 
   // Dropdown options state
@@ -92,6 +95,32 @@ const TicketsList = () => {
       }
     }
   }, [statusFromUrl, statuses]);
+
+  // ============================================
+  // NEW: Apply SLA filter from URL parameter
+  // ============================================
+  useEffect(() => {
+    if (slaStatusFromUrl) {
+      setFilters(prev => ({
+        ...prev,
+        sla_status: slaStatusFromUrl
+      }));
+      setShowFilters(true);
+    }
+  }, [slaStatusFromUrl]);
+
+  // ============================================
+  // NEW: Apply escalated filter from URL parameter
+  // ============================================
+  useEffect(() => {
+    if (isEscalatedFromUrl) {
+      setFilters(prev => ({
+        ...prev,
+        is_escalated: isEscalatedFromUrl
+      }));
+      setShowFilters(true);
+    }
+  }, [isEscalatedFromUrl]);
 
   // Fetch tickets when filters change
   useEffect(() => {
@@ -201,7 +230,8 @@ const TicketsList = () => {
       category_id: '',
       assigned_to: '',
       requester_id: '',
-      sla_status: ''  // ← ADDED FOR SLA
+      sla_status: '',  // ← ADDED FOR SLA
+      is_escalated: ''  // ← ADDED FOR ESCALATED
     });
     setCurrentPage(1);
   };
