@@ -1272,3 +1272,80 @@
 2025-11-03 13:53:36.534 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2025-11-03 13:53:36.565 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2025-11-03 13:53:36.569 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-03 13:53:44.678 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-03 13:53:44.681 [DEBUG] 🐛 Request Body | {
+2025-11-03 13:53:44.682 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-03 13:53:44.681 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-03 13:53:44.684 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-03 13:53:44.688 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-03 13:53:44.696 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-03 13:53:44.698 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-03 13:53:44.704 [TRY] [OPERATION] 🔄 Updating ticket | {
+2025-11-03 13:53:44.699 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-03 13:53:44.727 [TRY] [OPERATION] 🔄 Sending status change email
+2025-11-03 13:53:44.735 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-11-03 13:53:44.777 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251030-0001' (2 occurrences)
+2025-11-03 13:53:44.775 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-11-03 13:53:44.778 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'test 29' (1 occurrences)
+2025-11-03 13:53:44.778 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{old_status}}' with 'Resolved' (1 occurrences)
+2025-11-03 13:53:44.779 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{new_status}}' with 'Escalated' (2 occurrences)
+2025-11-03 13:53:44.779 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/39' (1 occurrences)
+2025-11-03 13:53:44.780 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-11-03 13:53:44.780 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{user_name}}' with 'Administrator ..' (1 occurrences)
+2025-11-03 13:53:44.781 [WARN] [SYSTEM] ⚠️ ⚠️ Unreplaced variables found: | {
+2025-11-03 13:53:44.782 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-11-03 13:53:44.782 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-11-03 13:53:44.809 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-11-03 13:53:44.809 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-11-03 13:53:44.810 [SUCCESS] [OPERATION] ✅ Status change email queued
+2025-11-03 13:53:44.811 [SUCCESS] [OPERATION] ✅ Ticket updated | {
+2025-11-03 13:53:44.812 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-03 13:53:44.813 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-03 13:53:44.822 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-03 13:53:44.821 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-03 13:53:46.380 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-03 13:53:46.399 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-03 13:53:46.399 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-03 13:53:46.400 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-03 13:53:46.404 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-03 13:53:46.406 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-03 13:53:46.408 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-03 13:53:46.408 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-03 13:53:46.409 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-03 13:53:46.410 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-03 13:53:46.429 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-03 13:53:46.431 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-03 13:53:46.444 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-03 13:53:46.451 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-03 13:53:46.455 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2025-11-03 13:53:46.458 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-03 13:53:46.456 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-03 13:53:46.459 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2025-11-03 13:53:46.473 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2025-11-03 13:53:46.494 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-03 13:53:46.492 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-03 13:53:46.475 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-03 13:53:46.494 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-03 13:53:46.495 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-03 13:53:46.496 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-03 13:53:46.513 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-03 13:53:46.514 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2025-11-03 13:53:46.521 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-03 13:53:46.525 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-03 13:53:46.526 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-03 13:53:46.528 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2025-11-03 13:53:46.529 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-03 13:53:46.531 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-03 13:53:46.531 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-03 13:53:46.539 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-03 13:53:46.533 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-03 13:53:46.559 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-03 13:53:46.557 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2025-11-03 13:53:46.565 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-03 13:53:46.567 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-03 13:53:46.574 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-03 13:53:46.577 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2025-11-03 13:53:46.604 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2025-11-03 13:53:46.606 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-03 13:53:47.450 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2025-11-03 13:53:47.449 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
