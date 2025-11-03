@@ -26,7 +26,9 @@ import {
   EyeOff,
   MoreVertical,
   RefreshCw,
-  UserCheck
+  UserCheck,
+  TrendingUp,  // ← ADDED FOR SLA
+  XCircle      // ← ADDED FOR SLA
 } from 'lucide-react';
 import api from '../../services/api';
 import '../../styles/TicketDetail.css';
@@ -265,6 +267,84 @@ const TicketDetail = () => {
     return <Icon size={20} />;
   };
 
+  // ============================================
+  // SLA HELPER FUNCTIONS - NEW
+  // ============================================
+  
+  // Calculate SLA percentage and status
+  const calculateSlaStatus = (ticket) => {
+    if (!ticket.due_date || !ticket.created_at) {
+      return { status: 'none', percentage: 0, color: '#94a3b8', label: 'No SLA' };
+    }
+
+    const now = new Date();
+    const created = new Date(ticket.created_at);
+    const due = new Date(ticket.due_date);
+    
+    const totalTime = due - created;
+    const elapsed = now - created;
+    const percentage = Math.min((elapsed / totalTime) * 100, 100);
+
+    // Check if breached
+    if (ticket.sla_breach_notified_at || now > due) {
+      return { status: 'breached', percentage: 100, color: '#ef4444', label: 'Breached' };
+    }
+
+    // Check if in warning zone (80% default)
+    const warningThreshold = 80;
+    if (percentage >= warningThreshold) {
+      return { status: 'warning', percentage, color: '#f59e0b', label: 'At Risk' };
+    }
+
+    // All good
+    return { status: 'ok', percentage, color: '#10b981', label: 'On Track' };
+  };
+
+  // Format time remaining
+  const formatTimeRemaining = (ticket) => {
+    if (!ticket.due_date) return 'No SLA';
+
+    const now = new Date();
+    const due = new Date(ticket.due_date);
+    const diff = due - now;
+
+    if (diff < 0) {
+      const hours = Math.abs(Math.floor(diff / (1000 * 60 * 60)));
+      const days = Math.floor(hours / 24);
+      if (days > 0) {
+        return `Overdue by ${days}d ${hours % 24}h`;
+      }
+      return `Overdue by ${hours}h`;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    if (days > 0) return `${days}d ${hours}h remaining`;
+    if (hours > 0) return `${hours}h ${mins}m remaining`;
+    return `${mins}m remaining`;
+  };
+
+  // Format total SLA time
+  const formatTotalSlaTime = (ticket) => {
+    if (!ticket.due_date || !ticket.created_at) return 'N/A';
+
+    const created = new Date(ticket.created_at);
+    const due = new Date(ticket.due_date);
+    const diff = due - created;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+    if (days > 0) return `${days}d ${hours}h`;
+    return `${hours}h`;
+  };
+
+  // ============================================
+  // END SLA HELPER FUNCTIONS
+  // ============================================
+
   // Get file icon
   const getFileIcon = (fileName) => {
     const ext = fileName.split('.').pop().toLowerCase();
@@ -336,6 +416,9 @@ const TicketDetail = () => {
     );
   }
 
+  // Calculate SLA for display
+  const slaData = calculateSlaStatus(ticket);
+
   return (
     <div className="ticket-detail-page">
       {/* Header */}
@@ -379,7 +462,7 @@ const TicketDetail = () => {
       <div className="ticket-detail-content">
         {/* Left Column - Ticket Info */}
         <div className="ticket-info-section">
-          {/* Status and Priority */}
+          {/* Status, Priority, and SLA Badges */}
           <div className="ticket-badges">
             <div className={`status-badge-large ${getStatusColor(ticket.status_code)}`}>
               {getStatusIcon(ticket.status_code)}
@@ -391,7 +474,72 @@ const TicketDetail = () => {
               ) : null}
               <span>{ticket.priority_name}</span>
             </div>
+            {/* SLA Badge - NEW */}
+            <div 
+              className={`sla-badge-large sla-${slaData.status}`}
+              style={{ borderColor: slaData.color, color: slaData.color }}
+            >
+              {slaData.status === 'breached' && <XCircle size={18} />}
+              {slaData.status === 'warning' && <AlertTriangle size={18} />}
+              {slaData.status === 'ok' && <CheckCircle size={18} />}
+              {slaData.status === 'none' && <Clock size={18} />}
+              <span>{slaData.label}</span>
+            </div>
           </div>
+
+          {/* SLA Detail Card - NEW */}
+          {slaData.status !== 'none' && (
+            <div className="detail-card sla-card">
+              <h2 className="detail-card-title">
+                <TrendingUp size={18} />
+                SLA Information
+              </h2>
+              
+              <div className="sla-progress-section">
+                <div className="sla-progress-header">
+                  <span className="sla-progress-label">Time Elapsed</span>
+                  <span className="sla-progress-percentage" style={{ color: slaData.color }}>
+                    {Math.round(slaData.percentage)}%
+                  </span>
+                </div>
+                <div className="sla-progress-bar-large">
+                  <div 
+                    className="sla-progress-fill-large"
+                    style={{ 
+                      width: `${Math.min(slaData.percentage, 100)}%`,
+                      backgroundColor: slaData.color 
+                    }}
+                  />
+                </div>
+                <div className="sla-time-remaining-large" style={{ color: slaData.color }}>
+                  {formatTimeRemaining(ticket)}
+                </div>
+              </div>
+
+              <div className="sla-details-grid">
+                <div className="sla-detail-item">
+                  <label>Total SLA Time</label>
+                  <p>{formatTotalSlaTime(ticket)}</p>
+                </div>
+                <div className="sla-detail-item">
+                  <label>Started At</label>
+                  <p>{formatDate(ticket.created_at)}</p>
+                </div>
+                <div className="sla-detail-item">
+                  <label>Due By</label>
+                  <p className={slaData.status === 'breached' ? 'text-danger' : ''}>
+                    {formatDate(ticket.due_date)}
+                  </p>
+                </div>
+                {ticket.sla_breach_notified_at && (
+                  <div className="sla-detail-item">
+                    <label>Breached At</label>
+                    <p className="text-danger">{formatDate(ticket.sla_breach_notified_at)}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Ticket Details Card */}
           <div className="detail-card">
