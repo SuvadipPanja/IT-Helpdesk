@@ -1,0 +1,272 @@
+2025-11-04 14:35:19.141 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-04 14:35:19.145 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-04 14:35:19.145 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-11-04 14:35:19.261 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-04 14:35:19.264 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-11-04 14:35:19.263 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-11-04 14:35:19.297 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-04 14:35:19.299 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-04 14:35:19.298 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-04 14:35:19.301 [WARN] [SYSTEM] ⚠️ JWT token expired | {
+2025-11-04 14:35:19.311 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-11-04 14:35:19.306 [ERROR] 🚨 Authentication middleware error | {
+2025-11-04 14:35:19.314 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-04 14:35:19.318 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-04 14:35:19.318 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-04 14:35:19.320 [WARN] [SYSTEM] ⚠️ JWT token expired | {
+2025-11-04 14:35:19.330 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-11-04 14:35:19.326 [ERROR] 🚨 Authentication middleware error | {
+2025-11-04 14:35:19.479 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-11-04 14:35:19.479 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-11-04 14:35:19.481 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-11-04 14:35:19.477 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-04 14:40:00.019 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-11-04 14:40:00.019 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-11-04 14:40:00.068 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-11-04 14:40:00.069 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-04 14:45:00.018 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-11-04 14:45:00.019 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-11-04 14:45:00.020 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2025-11-04 14:45:00.021 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 04/11/2025, 02:45:00 pm IST
+2025-11-04 14:45:00.021 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2025-11-04 14:45:00.084 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2025-11-04 14:45:00.085 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-11-04 14:45:00.086 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-04 14:45:00.097 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2025-11-04 14:45:00.097 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251015-0001 | {
+2025-11-04 14:45:00.096 [INFO] [SYSTEM] ℹ️ 🎫 Found 15 open tickets to check
+2025-11-04 14:45:00.097 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 14:45:00.098 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2025-11-04 14:45:00.098 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 14:45:00.098 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0007 | {
+2025-11-04 14:45:00.098 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 14:45:00.098 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0010 | {
+2025-11-04 14:45:00.099 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 14:45:00.099 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2025-11-04 14:45:00.099 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 14:45:00.099 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2025-11-04 14:45:00.099 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 14:45:00.099 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0006 | {
+2025-11-04 14:45:00.100 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 14:45:00.100 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2025-11-04 14:45:00.100 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 14:45:00.101 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0009 | {
+2025-11-04 14:45:00.101 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 14:45:00.101 [WARN] [SYSTEM] ⚠️ ⚠️ SLA WARNING: TKT-20251028-0001 | {
+2025-11-04 14:45:00.113 [SUCCESS] [OPERATION] ✅ ✅ Warning notification sent for TKT-20251028-0001
+2025-11-04 14:45:00.110 [ERROR] 🚨 Failed to log SLA activity | {
+2025-11-04 14:45:00.113 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251030-0001 | {
+2025-11-04 14:45:00.119 [ERROR] 🚨 Failed to log SLA activity | {
+2025-11-04 14:45:00.120 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-11-04 14:45:00.124 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-11-04 14:45:00.124 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'test 29' (1 occurrences)
+2025-11-04 14:45:00.124 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251030-0001' (3 occurrences)
+2025-11-04 14:45:00.124 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Medium' (1 occurrences)
+2025-11-04 14:45:00.124 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '124%' (1 occurrences)
+2025-11-04 14:45:00.124 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '29.8' (1 occurrences)
+2025-11-04 14:45:00.124 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '31/10/2025, 08:54 pm' (1 occurrences)
+2025-11-04 14:45:00.124 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/39' (1 occurrences)
+2025-11-04 14:45:00.125 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-11-04 14:45:00.124 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '24' (1 occurrences)
+2025-11-04 14:45:00.125 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-11-04 14:45:00.125 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-11-04 14:45:00.125 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-04 14:45:00.127 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-04 14:45:00.134 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-11-04 14:45:00.134 [INFO] [SYSTEM] ℹ️ 📧 Breach email queued for engineer: monpanja100@gmail.com
+2025-11-04 14:45:00.134 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-04 14:45:00.133 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-11-04 14:45:00.134 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-11-04 14:45:00.136 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-11-04 14:45:00.138 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '124%' (1 occurrences)
+2025-11-04 14:45:00.138 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'test 29' (1 occurrences)
+2025-11-04 14:45:00.137 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251030-0001' (3 occurrences)
+2025-11-04 14:45:00.139 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '24' (1 occurrences)
+2025-11-04 14:45:00.138 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '29.8' (1 occurrences)
+2025-11-04 14:45:00.139 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '31/10/2025, 08:54 pm' (1 occurrences)
+2025-11-04 14:45:00.139 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/39' (1 occurrences)
+2025-11-04 14:45:00.139 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-11-04 14:45:00.138 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Medium' (1 occurrences)
+2025-11-04 14:45:00.139 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-11-04 14:45:00.139 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-11-04 14:45:00.141 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-04 14:45:00.140 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-04 14:45:00.158 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-11-04 14:45:00.158 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-11-04 14:45:00.159 [INFO] [SYSTEM] ℹ️ 📧 Breach email queued for requester: panja.suvadip@gmail.com
+2025-11-04 14:45:00.159 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-04 14:45:00.165 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-04 14:45:00.166 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-04 14:45:00.172 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-11-04 14:45:00.175 [ERROR] 🚨 ❌ Failed to create email transporter | {
+2025-11-04 14:45:00.176 [ERROR] 🚨 Cannot send email - SMTP not configured
+2025-11-04 14:45:00.180 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-11-04 14:45:00.181 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251030-0001' (3 occurrences)
+2025-11-04 14:45:00.181 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'test 29' (1 occurrences)
+2025-11-04 14:45:00.181 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Medium' (1 occurrences)
+2025-11-04 14:45:00.181 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '124%' (1 occurrences)
+2025-11-04 14:45:00.182 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '24' (1 occurrences)
+2025-11-04 14:45:00.181 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '29.8' (1 occurrences)
+2025-11-04 14:45:00.182 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/39' (1 occurrences)
+2025-11-04 14:45:00.182 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-11-04 14:45:00.182 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-11-04 14:45:00.182 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-11-04 14:45:00.182 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '31/10/2025, 08:54 pm' (1 occurrences)
+2025-11-04 14:45:00.190 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-11-04 14:45:00.191 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-11-04 14:45:00.191 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-11-04 14:45:00.191 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-04 14:45:00.196 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251030-0001' (3 occurrences)
+2025-11-04 14:45:00.196 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Medium' (1 occurrences)
+2025-11-04 14:45:00.195 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-11-04 14:45:00.196 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'test 29' (1 occurrences)
+2025-11-04 14:45:00.196 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '124%' (1 occurrences)
+2025-11-04 14:45:00.197 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '31/10/2025, 08:54 pm' (1 occurrences)
+2025-11-04 14:45:00.197 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/39' (1 occurrences)
+2025-11-04 14:45:00.197 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '29.8' (1 occurrences)
+2025-11-04 14:45:00.198 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-11-04 14:45:00.198 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-11-04 14:45:00.197 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-11-04 14:45:00.197 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '24' (1 occurrences)
+2025-11-04 14:45:00.200 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-04 14:45:00.198 [ERROR] 🚨 ❌ Failed to create email transporter | {
+2025-11-04 14:45:00.201 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-04 14:45:00.199 [ERROR] 🚨 Cannot send email - SMTP not configured
+2025-11-04 14:45:00.205 [ERROR] 🚨 ❌ Failed to create email transporter | {
+2025-11-04 14:45:00.205 [ERROR] 🚨 Cannot send email - SMTP not configured
+2025-11-04 14:45:00.210 [SUCCESS] [OPERATION] ✅ ✅ Breach notification sent for ABCD-20251030-0001
+2025-11-04 14:45:00.208 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-11-04 14:45:00.210 [INFO] [SYSTEM] ℹ️ 📧 Breach emails queued for 2 manager(s)
+2025-11-04 14:45:00.209 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-11-04 14:45:00.211 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-04 14:45:00.210 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251101-0001 | {
+2025-11-04 14:45:00.218 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-04 14:45:00.217 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-04 14:45:00.222 [ERROR] 🚨 ❌ Failed to create email transporter | {
+2025-11-04 14:45:00.223 [ERROR] 🚨 Cannot send email - SMTP not configured
+2025-11-04 14:45:00.226 [ERROR] 🚨 Failed to log SLA activity | {
+2025-11-04 14:45:00.227 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-11-04 14:45:00.232 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'SLA Test Ticket 1' (1 occurrences)
+2025-11-04 14:45:00.232 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251101-0001' (3 occurrences)
+2025-11-04 14:45:00.233 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'High' (1 occurrences)
+2025-11-04 14:45:00.233 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '8' (1 occurrences)
+2025-11-04 14:45:00.233 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '13.8' (1 occurrences)
+2025-11-04 14:45:00.233 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '171.9%' (1 occurrences)
+2025-11-04 14:45:00.231 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-11-04 14:45:00.233 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '03/11/2025, 05:00 pm' (1 occurrences)
+2025-11-04 14:45:00.234 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/40' (1 occurrences)
+2025-11-04 14:45:00.234 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-11-04 14:45:00.234 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-11-04 14:45:00.234 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-11-04 14:45:00.245 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-11-04 14:45:00.245 [INFO] [SYSTEM] ℹ️ 📧 Breach email queued for requester: panja.suvadip@gmail.com
+2025-11-04 14:45:00.244 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-11-04 14:45:00.245 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-04 14:45:00.249 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-04 14:45:00.248 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-11-04 14:45:00.249 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-04 14:45:00.253 [ERROR] 🚨 ❌ Failed to create email transporter | {
+2025-11-04 14:45:00.254 [ERROR] 🚨 Cannot send email - SMTP not configured
+2025-11-04 14:45:00.256 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251101-0001' (3 occurrences)
+2025-11-04 14:45:00.255 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-11-04 14:45:00.257 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'High' (1 occurrences)
+2025-11-04 14:45:00.257 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '171.9%' (1 occurrences)
+2025-11-04 14:45:00.256 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'SLA Test Ticket 1' (1 occurrences)
+2025-11-04 14:45:00.257 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '8' (1 occurrences)
+2025-11-04 14:45:00.257 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '13.8' (1 occurrences)
+2025-11-04 14:45:00.257 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/40' (1 occurrences)
+2025-11-04 14:45:00.257 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '03/11/2025, 05:00 pm' (1 occurrences)
+2025-11-04 14:45:00.257 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-11-04 14:45:00.258 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-11-04 14:45:00.258 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-11-04 14:45:00.262 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-11-04 14:45:00.264 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-11-04 14:45:00.265 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-04 14:45:00.264 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-11-04 14:45:00.269 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'SLA Test Ticket 1' (1 occurrences)
+2025-11-04 14:45:00.270 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'High' (1 occurrences)
+2025-11-04 14:45:00.270 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '171.9%' (1 occurrences)
+2025-11-04 14:45:00.269 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251101-0001' (3 occurrences)
+2025-11-04 14:45:00.270 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/40' (1 occurrences)
+2025-11-04 14:45:00.270 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-11-04 14:45:00.270 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '13.8' (1 occurrences)
+2025-11-04 14:45:00.270 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '03/11/2025, 05:00 pm' (1 occurrences)
+2025-11-04 14:45:00.270 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '8' (1 occurrences)
+2025-11-04 14:45:00.271 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-11-04 14:45:00.269 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-11-04 14:45:00.271 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-11-04 14:45:00.273 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-04 14:45:00.273 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-04 14:45:00.276 [ERROR] 🚨 Cannot send email - SMTP not configured
+2025-11-04 14:45:00.276 [ERROR] 🚨 ❌ Failed to create email transporter | {
+2025-11-04 14:45:00.279 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-11-04 14:45:00.279 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-11-04 14:45:00.280 [INFO] [SYSTEM] ℹ️ 📧 Breach emails queued for 2 manager(s)
+2025-11-04 14:45:00.280 [INFO] [SYSTEM] ℹ️ ✅ OK: 3 tickets
+2025-11-04 14:45:00.280 [SUCCESS] [OPERATION] ✅ ✅ Breach notification sent for ABCD-20251101-0001
+2025-11-04 14:45:00.281 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 1 tickets (threshold: 90%)
+2025-11-04 14:45:00.281 [ERROR] 🚨 🔴 Breaches: 11 tickets
+2025-11-04 14:45:00.282 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-04 14:45:00.281 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 261ms
+2025-11-04 14:45:00.289 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-04 14:45:00.288 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-04 14:45:00.292 [ERROR] 🚨 Cannot send email - SMTP not configured
+2025-11-04 14:45:00.291 [ERROR] 🚨 ❌ Failed to create email transporter | {
+2025-11-04 14:55:00.017 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-11-04 14:55:00.017 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-11-04 14:55:00.067 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-04 14:55:00.067 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-11-04 15:00:00.024 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-11-04 15:00:00.025 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2025-11-04 15:00:00.026 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 04/11/2025, 03:00:00 pm IST
+2025-11-04 15:00:00.027 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2025-11-04 15:00:00.023 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-11-04 15:00:00.084 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-04 15:00:00.083 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [64]
+2025-11-04 15:00:00.085 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-11-04 15:00:00.085 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-04 15:00:00.087 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2025-11-04 15:00:00.093 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-04 15:00:00.093 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2025-11-04 15:00:00.108 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2025-11-04 15:00:00.108 [INFO] [SYSTEM] ℹ️ 🎫 Found 15 open tickets to check
+2025-11-04 15:00:00.108 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251015-0001 | {
+2025-11-04 15:00:00.109 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 15:00:00.109 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2025-11-04 15:00:00.109 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 15:00:00.109 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0007 | {
+2025-11-04 15:00:00.110 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 15:00:00.110 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 15:00:00.110 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2025-11-04 15:00:00.111 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 15:00:00.110 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0010 | {
+2025-11-04 15:00:00.111 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 15:00:00.111 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2025-11-04 15:00:00.113 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 15:00:00.113 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2025-11-04 15:00:00.114 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 15:00:00.115 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 15:00:00.115 [WARN] [SYSTEM] ⚠️ ⚠️ SLA WARNING: TKT-20251028-0001 | {
+2025-11-04 15:00:00.114 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0009 | {
+2025-11-04 15:00:00.116 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251030-0001 | {
+2025-11-04 15:00:00.116 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 15:00:00.116 [DEBUG] 🐛 Warning already sent, skipping
+2025-11-04 15:00:00.112 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0006 | {
+2025-11-04 15:00:00.117 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-04 15:00:00.117 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 1 tickets (threshold: 90%)
+2025-11-04 15:00:00.117 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251101-0001 | {
+2025-11-04 15:00:00.117 [ERROR] 🚨 🔴 Breaches: 11 tickets
+2025-11-04 15:00:00.118 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 93ms
+2025-11-04 15:00:00.117 [INFO] [SYSTEM] ℹ️ ✅ OK: 3 tickets
+2025-11-04 15:00:29.281 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-04 15:00:29.271 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-04 15:00:29.285 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-11-04 15:00:29.281 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
+2025-11-04 15:00:29.485 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-04 15:00:29.486 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-11-04 15:00:29.487 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-11-04 15:00:29.486 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-11-04 15:05:00.025 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-11-04 15:05:00.026 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-11-04 15:05:00.100 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-04 15:05:00.099 [INFO] [SYSTEM] ℹ️ No pending emails to process
