@@ -2,3 +2,66 @@
 2025-11-05 09:25:00.021 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2025-11-05 09:25:00.074 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2025-11-05 09:25:00.075 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-05 09:34:04.710 [INFO] [SYSTEM] ℹ️ Initializing security middleware
+2025-11-05 09:34:04.712 [SUCCESS] [OPERATION] ✅ CORS enabled | {
+2025-11-05 09:34:04.714 [SUCCESS] [OPERATION] ✅ Rate limiting enabled | {
+2025-11-05 09:34:04.724 [INFO] [SYSTEM] ℹ️ Initializing body parsers
+2025-11-05 09:34:04.726 [SUCCESS] [OPERATION] ✅ Response compression enabled
+2025-11-05 09:34:04.726 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-11-05 09:34:04.725 [SUCCESS] [OPERATION] ✅ Body parsers initialized
+2025-11-05 09:34:04.727 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-11-05 09:34:04.727 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-11-05 09:34:04.727 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-11-05 09:34:04.728 [SUCCESS] [OPERATION] ✅ Static file serving enabled with CORS | {
+2025-11-05 09:34:04.728 [INFO] [SYSTEM] ℹ️ Initializing API routes
+2025-11-05 09:34:04.790 [SUCCESS] [OPERATION] ✅ API routes initialized | {
+2025-11-05 09:34:04.791 [SUCCESS] [OPERATION] ✅ Error handlers initialized
+2025-11-05 09:34:04.793 [INFO] [SYSTEM] ℹ️ Node Version | {
+2025-11-05 09:34:04.793 [INFO] [SYSTEM] ℹ️ Platform | {
+2025-11-05 09:34:04.792 [INFO] [SYSTEM] ℹ️ Starting IT Helpdesk Backend Server
+2025-11-05 09:34:04.794 [TRY] [OPERATION] 🔄 Testing database connection
+2025-11-05 09:34:04.792 [INFO] [SYSTEM] ℹ️ Environment | {
+2025-11-05 09:34:04.875 [SUCCESS] [OPERATION] ✅ Database connection test passed
+2025-11-05 09:34:04.877 [SUCCESS] [OPERATION] ✅ API Base URL: http://localhost:5000/api/v1
+2025-11-05 09:34:04.878 [SUCCESS] [OPERATION] ✅ Test Uploads: http://localhost:5000/test-uploads
+2025-11-05 09:34:04.878 [INFO] [SYSTEM] ℹ️ 🎉 IT Helpdesk Backend is ready to accept requests!
+2025-11-05 09:34:04.875 [INFO] [SYSTEM] ℹ️ Database details | {
+2025-11-05 09:34:04.877 [SUCCESS] [OPERATION] ✅ Server is running on port 5000
+2025-11-05 09:34:04.878 [INFO] [SYSTEM] ℹ️ 📂 File uploads enabled at: /uploads
+2025-11-05 09:34:04.878 [SUCCESS] [OPERATION] ✅ Health Check: http://localhost:5000/health
+2025-11-05 09:34:04.878 [INFO] [SYSTEM] ℹ️ Server Details | {
+2025-11-05 09:34:04.879 [INFO] [SYSTEM] ℹ️ 🔓 CORS enabled for cross-origin requests
+2025-11-05 09:34:04.878 [INFO] [SYSTEM] ℹ️ 🖼️ Profile pictures: /uploads/profiles
+2025-11-05 09:34:04.879 [INFO] [SYSTEM] ℹ️ 🔗 Attachments endpoint: /api/v1/tickets/:id/attachments
+2025-11-05 09:34:04.879 [INFO] [SYSTEM] ℹ️ 📎 Ticket attachments: /uploads/tickets
+2025-11-05 09:34:04.880 [INFO] [SYSTEM] ℹ️ 📧 Email Queue endpoint: /api/v1/email-queue
+2025-11-05 09:34:04.880 [INFO] [SYSTEM] ℹ️ 📝 Email Templates endpoint: /api/v1/email-templates
+2025-11-05 09:34:04.881 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Job...
+2025-11-05 09:34:04.879 [INFO] [SYSTEM] ℹ️ 👤 Profile endpoint: /api/v1/profile
+2025-11-05 09:34:04.880 [INFO] [SYSTEM] ℹ️ Press CTRL+C to stop the server
+2025-11-05 09:34:04.879 [INFO] [SYSTEM] ℹ️ 👥 Users endpoint: /api/v1/users
+2025-11-05 09:34:04.887 [SUCCESS] [OPERATION] ✅ ✅ Email Processor Cron Job started successfully
+2025-11-05 09:34:04.881 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 5 minutes (*/5 * * * *)
+2025-11-05 09:34:04.880 [INFO] [SYSTEM] ℹ️ ✅ Ticket Approvals endpoint: /api/v1/ticket-approvals
+2025-11-05 09:34:04.887 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Job...
+2025-11-05 09:34:04.888 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Cron Job
+2025-11-05 09:34:04.888 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Tickets Cron Job
+2025-11-05 09:34:04.888 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Job...
+2025-11-05 09:34:04.888 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Job...
+2025-11-05 09:34:04.881 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Cron Job
+2025-11-05 09:34:04.888 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-05 09:34:04.888 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Cron Job
+2025-11-05 09:34:04.888 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2025-11-05 09:34:04.904 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-05 09:34:04.905 [INFO] [SYSTEM] ℹ️ 📊 Status: Disabled
+2025-11-05 09:34:04.905 [WARN] [SYSTEM] ⚠️ ⚠️ Auto-Close job is DISABLED in settings
+2025-11-05 09:34:04.908 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 15 minutes (*/15 * * * *)
+2025-11-05 09:34:04.908 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2025-11-05 09:34:04.909 [INFO] [SYSTEM] ℹ️ ⚠️ Warning Threshold: 90%
+2025-11-05 09:34:04.909 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2025-11-05 09:34:04.909 [INFO] [SYSTEM] ℹ️ 📅 Working Days: mon, tue, wed, thu, fri, sat
+2025-11-05 09:34:04.910 [SUCCESS] [OPERATION] ✅ ✅ SLA Breach Detection Cron Job started successfully
+2025-11-05 09:34:04.909 [INFO] [SYSTEM] ℹ️ 🕐 Business Hours: 09:00 - 17:00
+2025-11-05 09:34:04.915 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
+2025-11-05 09:34:04.915 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2025-11-05 09:34:04.917 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
