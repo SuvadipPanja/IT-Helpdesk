@@ -129,3 +129,76 @@
 2025-11-05 10:25:00.023 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2025-11-05 10:25:00.030 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2025-11-05 10:25:00.030 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-05 10:25:09.524 [DEBUG] 🐛 Request Body | {
+2025-11-05 10:25:09.526 [TRY] [OPERATION] 🔄 User attempting to login | {
+2025-11-05 10:25:09.522 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:25:09.526 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2025-11-05 10:25:09.534 [TRY] [OPERATION] 🔄 Verifying password
+2025-11-05 10:25:09.606 [SUCCESS] [OPERATION] ✅ Password comparison successful - Match found
+2025-11-05 10:25:09.609 [TRY] [OPERATION] 🔄 Generating JWT token
+2025-11-05 10:25:09.608 [SUCCESS] [OPERATION] ✅ Password verified successfully
+2025-11-05 10:25:09.534 [SUCCESS] [OPERATION] ✅ User found in database | {
+2025-11-05 10:25:09.612 [SUCCESS] [OPERATION] ✅ JWT token generated successfully | {
+2025-11-05 10:25:09.613 [SUCCESS] [OPERATION] ✅ JWT token generated successfully
+2025-11-05 10:25:09.534 [TRY] [OPERATION] 🔄 Comparing password with hash
+2025-11-05 10:25:09.613 [TRY] [OPERATION] 🔄 Creating user session record
+2025-11-05 10:25:09.609 [TRY] [OPERATION] 🔄 Generating JWT token | {
+2025-11-05 10:25:09.622 [TRY] [OPERATION] 🔄 Updating last login timestamp
+2025-11-05 10:25:09.621 [SUCCESS] [OPERATION] ✅ Session record created
+2025-11-05 10:25:09.631 [TRY] [OPERATION] 🔄 Creating login notification
+2025-11-05 10:25:09.631 [TRY] [OPERATION] 🔄 Creating notification | {
+2025-11-05 10:25:09.630 [SUCCESS] [OPERATION] ✅ Last login timestamp updated
+2025-11-05 10:25:09.638 [SUCCESS] [OPERATION] ✅ Notification created | {
+2025-11-05 10:25:09.639 [SUCCESS] [OPERATION] ✅ Login notification created
+2025-11-05 10:25:09.642 [SUCCESS] [OPERATION] ✅ User logged in successfully | {
+2025-11-05 10:25:09.643 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:25:09.663 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:25:09.664 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:25:09.664 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:25:09.667 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:25:09.668 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:25:09.678 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:25:09.683 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:25:09.685 [TRY] [OPERATION] 🔄 Calculating total tickets
+2025-11-05 10:25:09.682 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:25:09.685 [TRY] [OPERATION] 🔄 Fetching dashboard statistics | {
+2025-11-05 10:25:09.689 [SUCCESS] [OPERATION] ✅ Total tickets calculated | {
+2025-11-05 10:25:09.690 [TRY] [OPERATION] 🔄 Calculating tickets by status
+2025-11-05 10:25:09.699 [SUCCESS] [OPERATION] ✅ Status counts calculated | {
+2025-11-05 10:25:09.700 [TRY] [OPERATION] 🔄 Calculating escalated tickets
+2025-11-05 10:25:09.704 [SUCCESS] [OPERATION] ✅ Escalated tickets calculated | {
+2025-11-05 10:25:09.705 [TRY] [OPERATION] 🔄 Calculating SLA statistics
+2025-11-05 10:25:09.728 [SUCCESS] [OPERATION] ✅ SLA statistics calculated | {
+2025-11-05 10:25:09.729 [TRY] [OPERATION] 🔄 Fetching recent tickets
+2025-11-05 10:25:09.737 [SUCCESS] [OPERATION] ✅ Recent tickets fetched | {
+2025-11-05 10:25:09.737 [TRY] [OPERATION] 🔄 Calculating tickets by priority
+2025-11-05 10:25:09.745 [SUCCESS] [OPERATION] ✅ Priority counts calculated
+2025-11-05 10:25:09.746 [TRY] [OPERATION] 🔄 Calculating my assigned tickets
+2025-11-05 10:25:09.750 [SUCCESS] [OPERATION] ✅ My assigned tickets calculated | {
+2025-11-05 10:25:09.751 [SUCCESS] [OPERATION] ✅ Dashboard statistics compiled successfully | {
+2025-11-05 10:25:09.754 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:25:09.759 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:25:09.761 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:25:09.760 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:25:09.760 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:25:09.761 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:25:09.770 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:25:09.777 [TRY] [OPERATION] 🔄 Fetching dashboard statistics | {
+2025-11-05 10:25:09.777 [TRY] [OPERATION] 🔄 Calculating total tickets
+2025-11-05 10:25:09.773 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:25:09.775 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:25:09.779 [SUCCESS] [OPERATION] ✅ Total tickets calculated | {
+2025-11-05 10:25:09.780 [TRY] [OPERATION] 🔄 Calculating tickets by status
+2025-11-05 10:25:09.782 [SUCCESS] [OPERATION] ✅ Status counts calculated | {
+2025-11-05 10:25:09.783 [TRY] [OPERATION] 🔄 Calculating escalated tickets
+2025-11-05 10:25:09.786 [SUCCESS] [OPERATION] ✅ Escalated tickets calculated | {
+2025-11-05 10:25:09.786 [TRY] [OPERATION] 🔄 Calculating SLA statistics
+2025-11-05 10:25:09.793 [SUCCESS] [OPERATION] ✅ SLA statistics calculated | {
+2025-11-05 10:25:09.794 [TRY] [OPERATION] 🔄 Fetching recent tickets
+2025-11-05 10:25:09.797 [TRY] [OPERATION] 🔄 Calculating tickets by priority
+2025-11-05 10:25:09.797 [SUCCESS] [OPERATION] ✅ Recent tickets fetched | {
+2025-11-05 10:25:09.799 [SUCCESS] [OPERATION] ✅ Priority counts calculated
+2025-11-05 10:25:09.799 [TRY] [OPERATION] 🔄 Calculating my assigned tickets
+2025-11-05 10:25:09.801 [SUCCESS] [OPERATION] ✅ My assigned tickets calculated | {
+2025-11-05 10:25:09.802 [SUCCESS] [OPERATION] ✅ Dashboard statistics compiled successfully | {
+2025-11-05 10:25:09.808 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
