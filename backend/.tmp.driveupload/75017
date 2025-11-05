@@ -1073,3 +1073,235 @@
 2025-11-05 10:25:57.780 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2025-11-05 10:25:57.793 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2025-11-05 10:25:57.796 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:01.350 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:01.351 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:01.352 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:01.352 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:01.351 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:01.364 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:01.369 [TRY] [OPERATION] 🔄 Fetching dashboard statistics | {
+2025-11-05 10:26:01.367 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:01.368 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:01.369 [TRY] [OPERATION] 🔄 Calculating total tickets
+2025-11-05 10:26:01.371 [SUCCESS] [OPERATION] ✅ Total tickets calculated | {
+2025-11-05 10:26:01.372 [TRY] [OPERATION] 🔄 Calculating tickets by status
+2025-11-05 10:26:01.377 [TRY] [OPERATION] 🔄 Calculating escalated tickets
+2025-11-05 10:26:01.377 [SUCCESS] [OPERATION] ✅ Status counts calculated | {
+2025-11-05 10:26:01.379 [SUCCESS] [OPERATION] ✅ Escalated tickets calculated | {
+2025-11-05 10:26:01.379 [TRY] [OPERATION] 🔄 Calculating SLA statistics
+2025-11-05 10:26:01.382 [TRY] [OPERATION] 🔄 Fetching recent tickets
+2025-11-05 10:26:01.382 [SUCCESS] [OPERATION] ✅ SLA statistics calculated | {
+2025-11-05 10:26:01.385 [TRY] [OPERATION] 🔄 Calculating tickets by priority
+2025-11-05 10:26:01.384 [SUCCESS] [OPERATION] ✅ Recent tickets fetched | {
+2025-11-05 10:26:01.386 [TRY] [OPERATION] 🔄 Calculating my assigned tickets
+2025-11-05 10:26:01.386 [SUCCESS] [OPERATION] ✅ Priority counts calculated
+2025-11-05 10:26:01.389 [SUCCESS] [OPERATION] ✅ My assigned tickets calculated | {
+2025-11-05 10:26:01.391 [SUCCESS] [OPERATION] ✅ Dashboard statistics compiled successfully | {
+2025-11-05 10:26:01.393 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:01.395 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:01.396 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:01.396 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:01.397 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:01.396 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:01.401 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:01.403 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:01.404 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:01.405 [TRY] [OPERATION] 🔄 Fetching dashboard statistics | {
+2025-11-05 10:26:01.405 [TRY] [OPERATION] 🔄 Calculating total tickets
+2025-11-05 10:26:01.408 [SUCCESS] [OPERATION] ✅ Total tickets calculated | {
+2025-11-05 10:26:01.409 [TRY] [OPERATION] 🔄 Calculating tickets by status
+2025-11-05 10:26:01.413 [TRY] [OPERATION] 🔄 Calculating escalated tickets
+2025-11-05 10:26:01.412 [SUCCESS] [OPERATION] ✅ Status counts calculated | {
+2025-11-05 10:26:01.415 [SUCCESS] [OPERATION] ✅ Escalated tickets calculated | {
+2025-11-05 10:26:01.416 [TRY] [OPERATION] 🔄 Calculating SLA statistics
+2025-11-05 10:26:01.419 [SUCCESS] [OPERATION] ✅ SLA statistics calculated | {
+2025-11-05 10:26:01.420 [TRY] [OPERATION] 🔄 Fetching recent tickets
+2025-11-05 10:26:01.425 [TRY] [OPERATION] 🔄 Calculating tickets by priority
+2025-11-05 10:26:01.424 [SUCCESS] [OPERATION] ✅ Recent tickets fetched | {
+2025-11-05 10:26:01.429 [TRY] [OPERATION] 🔄 Calculating my assigned tickets
+2025-11-05 10:26:01.428 [SUCCESS] [OPERATION] ✅ Priority counts calculated
+2025-11-05 10:26:01.431 [SUCCESS] [OPERATION] ✅ Dashboard statistics compiled successfully | {
+2025-11-05 10:26:01.431 [SUCCESS] [OPERATION] ✅ My assigned tickets calculated | {
+2025-11-05 10:26:01.433 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:03.911 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:03.914 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:03.913 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:03.914 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:03.913 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:03.915 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:03.917 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:03.918 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:03.918 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:03.917 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:03.920 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:03.920 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:03.919 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:03.919 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:03.919 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:03.921 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:03.921 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:03.920 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:03.920 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:03.921 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:03.923 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:03.924 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:03.924 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:03.925 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:03.926 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:03.937 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:03.938 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:03.938 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:03.942 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:03.946 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:03.947 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:03.948 [TRY] [OPERATION] 🔄 Fetching ticket statuses | {
+2025-11-05 10:26:03.948 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:03.949 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:03.950 [TRY] [OPERATION] 🔄 Fetching ticket priorities | {
+2025-11-05 10:26:03.946 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:03.951 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:03.951 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:03.952 [TRY] [OPERATION] 🔄 Fetching ticket categories | {
+2025-11-05 10:26:03.957 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:03.955 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:03.958 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2025-11-05 10:26:03.959 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:03.962 [SUCCESS] [OPERATION] ✅ Ticket statuses fetched successfully | {
+2025-11-05 10:26:03.960 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:03.961 [TRY] [OPERATION] 🔄 Fetching tickets list | {
+2025-11-05 10:26:03.965 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:03.964 [SUCCESS] [OPERATION] ✅ Ticket priorities fetched successfully | {
+2025-11-05 10:26:03.967 [SUCCESS] [OPERATION] ✅ Ticket categories fetched successfully | {
+2025-11-05 10:26:03.968 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:03.969 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:03.969 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:03.970 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:03.970 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:03.971 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:03.976 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:03.975 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2025-11-05 10:26:03.978 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:03.979 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:03.980 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:03.980 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:03.981 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:03.985 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:03.982 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:03.986 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:03.986 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:03.988 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:03.987 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:03.992 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:03.993 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:03.993 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:03.994 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:03.995 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:04.001 [SUCCESS] [OPERATION] ✅ Tickets fetched successfully | {
+2025-11-05 10:26:04.006 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:04.011 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:04.011 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:04.012 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:04.012 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:04.014 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:04.019 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:04.017 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:04.020 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:04.020 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:04.020 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:04.021 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:04.029 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:04.030 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:04.036 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:04.044 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:04.045 [TRY] [OPERATION] 🔄 Fetching ticket priorities | {
+2025-11-05 10:26:04.042 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:04.047 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:04.049 [TRY] [OPERATION] 🔄 Fetching ticket statuses | {
+2025-11-05 10:26:04.048 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:04.050 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:04.052 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:04.052 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2025-11-05 10:26:04.054 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:04.060 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:04.058 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:04.061 [TRY] [OPERATION] 🔄 Fetching ticket categories | {
+2025-11-05 10:26:04.062 [SUCCESS] [OPERATION] ✅ Ticket priorities fetched successfully | {
+2025-11-05 10:26:04.066 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:04.063 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:04.067 [SUCCESS] [OPERATION] ✅ Ticket statuses fetched successfully | {
+2025-11-05 10:26:04.071 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:04.074 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:04.070 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2025-11-05 10:26:04.075 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:04.076 [TRY] [OPERATION] 🔄 Fetching tickets list | {
+2025-11-05 10:26:04.077 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:04.080 [SUCCESS] [OPERATION] ✅ Ticket categories fetched successfully | {
+2025-11-05 10:26:04.082 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:04.083 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:04.083 [TRY] [OPERATION] 🔄 Fetching tickets list | {
+2025-11-05 10:26:04.084 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:04.096 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:04.094 [SUCCESS] [OPERATION] ✅ Tickets fetched successfully | {
+2025-11-05 10:26:04.102 [SUCCESS] [OPERATION] ✅ Tickets fetched successfully | {
+2025-11-05 10:26:04.108 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:04.111 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:04.114 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:04.114 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:04.115 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:04.116 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:04.122 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:04.125 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:04.126 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:04.127 [TRY] [OPERATION] 🔄 Fetching tickets list | {
+2025-11-05 10:26:04.131 [SUCCESS] [OPERATION] ✅ Tickets fetched successfully | {
+2025-11-05 10:26:04.132 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:05.975 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:05.973 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:05.975 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:05.976 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:05.977 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:05.983 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:05.995 [TRY] [OPERATION] 🔄 Calculating total tickets
+2025-11-05 10:26:05.987 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:05.991 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:05.994 [TRY] [OPERATION] 🔄 Fetching dashboard statistics | {
+2025-11-05 10:26:06.002 [SUCCESS] [OPERATION] ✅ Total tickets calculated | {
+2025-11-05 10:26:06.003 [TRY] [OPERATION] 🔄 Calculating tickets by status
+2025-11-05 10:26:06.005 [TRY] [OPERATION] 🔄 Calculating escalated tickets
+2025-11-05 10:26:06.004 [SUCCESS] [OPERATION] ✅ Status counts calculated | {
+2025-11-05 10:26:06.008 [SUCCESS] [OPERATION] ✅ Escalated tickets calculated | {
+2025-11-05 10:26:06.009 [TRY] [OPERATION] 🔄 Calculating SLA statistics
+2025-11-05 10:26:06.011 [SUCCESS] [OPERATION] ✅ SLA statistics calculated | {
+2025-11-05 10:26:06.011 [TRY] [OPERATION] 🔄 Fetching recent tickets
+2025-11-05 10:26:06.014 [TRY] [OPERATION] 🔄 Calculating tickets by priority
+2025-11-05 10:26:06.013 [SUCCESS] [OPERATION] ✅ Recent tickets fetched | {
+2025-11-05 10:26:06.015 [SUCCESS] [OPERATION] ✅ Priority counts calculated
+2025-11-05 10:26:06.016 [TRY] [OPERATION] 🔄 Calculating my assigned tickets
+2025-11-05 10:26:06.018 [SUCCESS] [OPERATION] ✅ Dashboard statistics compiled successfully | {
+2025-11-05 10:26:06.018 [SUCCESS] [OPERATION] ✅ My assigned tickets calculated | {
+2025-11-05 10:26:06.020 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 10:26:06.023 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 10:26:06.024 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 10:26:06.024 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 10:26:06.025 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 10:26:06.025 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 10:26:06.031 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 10:26:06.034 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 10:26:06.033 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 10:26:06.035 [TRY] [OPERATION] 🔄 Fetching dashboard statistics | {
+2025-11-05 10:26:06.035 [TRY] [OPERATION] 🔄 Calculating total tickets
+2025-11-05 10:26:06.037 [SUCCESS] [OPERATION] ✅ Total tickets calculated | {
+2025-11-05 10:26:06.038 [TRY] [OPERATION] 🔄 Calculating tickets by status
+2025-11-05 10:26:06.045 [TRY] [OPERATION] 🔄 Calculating escalated tickets
+2025-11-05 10:26:06.044 [SUCCESS] [OPERATION] ✅ Status counts calculated | {
+2025-11-05 10:26:06.048 [TRY] [OPERATION] 🔄 Calculating SLA statistics
+2025-11-05 10:26:06.047 [SUCCESS] [OPERATION] ✅ Escalated tickets calculated | {
+2025-11-05 10:26:06.050 [TRY] [OPERATION] 🔄 Fetching recent tickets
+2025-11-05 10:26:06.049 [SUCCESS] [OPERATION] ✅ SLA statistics calculated | {
+2025-11-05 10:26:06.052 [SUCCESS] [OPERATION] ✅ Recent tickets fetched | {
+2025-11-05 10:26:06.053 [TRY] [OPERATION] 🔄 Calculating tickets by priority
+2025-11-05 10:26:06.055 [SUCCESS] [OPERATION] ✅ Priority counts calculated
+2025-11-05 10:26:06.055 [TRY] [OPERATION] 🔄 Calculating my assigned tickets
+2025-11-05 10:26:06.061 [SUCCESS] [OPERATION] ✅ Dashboard statistics compiled successfully | {
+2025-11-05 10:26:06.060 [SUCCESS] [OPERATION] ✅ My assigned tickets calculated | {
+2025-11-05 10:26:06.063 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
