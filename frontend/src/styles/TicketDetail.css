@@ -1347,3 +1347,112 @@
     gap: 8px; /* SMALLER GAP ON MOBILE */
   }
 }
+/* ============================================
+   ⭐ PHASE 3 FIX: SLA CLOSED TICKET DISPLAY
+   Special styling for resolved/closed tickets
+   Added at the end - does not affect other styles
+   ============================================ */
+
+/* Closed Status Container */
+.ticket-detail-page .sla-closed-status {
+  padding: 16px;
+  background: white;
+  border-radius: 8px;
+}
+
+/* Final Badge - Large prominent display */
+.ticket-detail-page .sla-final-badge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border: 2px solid;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.ticket-detail-page .sla-final-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-detail-page .sla-final-badge svg {
+  flex-shrink: 0;
+}
+
+.ticket-detail-page .sla-final-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ticket-detail-page .sla-final-label {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.ticket-detail-page .sla-final-description {
+  font-size: 14px;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+/* SLA Met - Green theme with animation */
+.ticket-detail-page .sla-closed-status .sla-final-badge[style*="240, 253, 244"] {
+  animation: success-pulse 2s ease-in-out;
+}
+
+@keyframes success-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* SLA Breached - Red theme with pulse */
+.ticket-detail-page .sla-closed-status .sla-final-badge[style*="254, 242, 242"] {
+  animation: breach-pulse 1.5s ease-in-out;
+}
+
+@keyframes breach-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* Update SLA badge to handle 'met' status */
+.ticket-detail-page .sla-badge-large.sla-met {
+  color: #10b981;
+  border-color: #10b981;
+  background: #f0fdf4;
+}
+
+/* ============================================
+   RESPONSIVE - CLOSED STATUS
+   ============================================ */
+@media (max-width: 768px) {
+  .ticket-detail-page .sla-final-badge {
+    padding: 16px 18px;
+    gap: 12px;
+  }
+
+  .ticket-detail-page .sla-final-badge svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ticket-detail-page .sla-final-label {
+    font-size: 16px;
+  }
+
+  .ticket-detail-page .sla-final-description {
+    font-size: 13px;
+  }
+}
