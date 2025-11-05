@@ -13850,3 +13850,68 @@
 2025-11-05 14:19:54.598 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2025-11-05 14:19:54.617 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2025-11-05 14:19:54.620 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 14:20:00.023 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-11-05 14:20:00.024 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-11-05 14:20:00.033 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-11-05 14:20:00.034 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-05 14:20:03.716 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 14:20:03.718 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 14:20:03.718 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 14:20:03.717 [DEBUG] 🐛 Request Body | {
+2025-11-05 14:20:03.719 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 14:20:03.720 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 14:20:03.729 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 14:20:03.734 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 14:20:03.737 [TRY] [OPERATION] 🔄 Updating ticket | {
+2025-11-05 14:20:03.732 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 14:20:03.752 [TRY] [OPERATION] 🔄 Sending status change email notification
+2025-11-05 14:20:03.760 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-11-05 14:20:03.762 [WARN] [SYSTEM] ⚠️ Template not found | {
+2025-11-05 14:20:03.763 [ERROR] 🚨 Template not found | {
+2025-11-05 14:20:03.765 [SUCCESS] [OPERATION] ✅ Ticket updated | {
+2025-11-05 14:20:03.764 [SUCCESS] [OPERATION] ✅ Status change email queued
+2025-11-05 14:20:03.766 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 14:20:05.823 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 14:20:05.827 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 14:20:05.825 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 14:20:05.824 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 14:20:05.826 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 14:20:05.828 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 14:20:05.827 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 14:20:05.828 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 14:20:05.829 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 14:20:05.830 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 14:20:05.840 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 14:20:05.843 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 14:20:05.846 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2025-11-05 14:20:05.845 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 14:20:05.849 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 14:20:05.855 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 14:20:05.858 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2025-11-05 14:20:05.857 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 14:20:05.862 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2025-11-05 14:20:05.865 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 14:20:05.867 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 14:20:05.869 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 14:20:05.869 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 14:20:05.872 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 14:20:05.871 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 14:20:05.877 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2025-11-05 14:20:05.879 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 14:20:05.880 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 14:20:05.885 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-05 14:20:05.884 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-05 14:20:05.885 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-05 14:20:05.887 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-05 14:20:05.888 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-05 14:20:05.890 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 14:20:05.891 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 14:20:05.892 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2025-11-05 14:20:05.898 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2025-11-05 14:20:05.901 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-05 14:20:05.906 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-05 14:20:05.911 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-05 14:20:05.914 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2025-11-05 14:20:05.912 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-05 14:20:05.927 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2025-11-05 14:20:05.929 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
