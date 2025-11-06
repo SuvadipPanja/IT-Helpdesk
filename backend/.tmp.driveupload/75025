@@ -2137,3 +2137,105 @@
 2025-11-06 13:55:00.044 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2025-11-06 13:55:00.051 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2025-11-06 13:55:00.052 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-06 13:55:09.000 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-06 13:55:09.013 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-06 13:55:09.006 [DEBUG] 🐛 Request Body | {
+2025-11-06 13:55:09.013 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-06 13:55:09.016 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-06 13:55:09.015 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-06 13:55:09.029 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-06 13:55:09.035 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-06 13:55:09.036 [TRY] [OPERATION] 🔄 Fetching all settings from database
+2025-11-06 13:55:09.033 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-06 13:55:09.036 [TRY] [OPERATION] 🔄 Creating new ticket | {
+2025-11-06 13:55:09.037 [SUCCESS] [OPERATION] ✅ All settings loaded | {
+2025-11-06 13:55:09.038 [INFO] [SYSTEM] ℹ️ Priority determined | {
+2025-11-06 13:55:09.043 [TRY] [OPERATION] 🔄 Generating unique ticket number
+2025-11-06 13:55:09.039 [INFO] [SYSTEM] ℹ️ Category determined | {
+2025-11-06 13:55:09.049 [SUCCESS] [OPERATION] ✅ Ticket number generated | {
+2025-11-06 13:55:09.054 [TRY] [OPERATION] 🔄 Calculating due date based on SLA configuration
+2025-11-06 13:55:09.063 [SUCCESS] [OPERATION] ✅ ✅ SLA TRACKING IS ENABLED
+2025-11-06 13:55:09.061 [INFO] [SYSTEM] ℹ️ 🔍 SLA Configuration Check | {
+2025-11-06 13:55:09.064 [INFO] [SYSTEM] ℹ️ 📊 Using BUSINESS HOURS calculation for due date
+2025-11-06 13:55:09.066 [INFO] [SYSTEM] ℹ️ 📅 Calculating SLA due date | {
+2025-11-06 13:55:09.064 [INFO] [SYSTEM] ℹ️ 📅 SLA Parameters | {
+2025-11-06 13:55:09.068 [INFO] [SYSTEM] ℹ️ 🔄 Loading SLA settings from database...
+2025-11-06 13:55:09.071 [INFO] [SYSTEM] ℹ️ 🔧 SLA Calculation Parameters | {
+2025-11-06 13:55:09.069 [SUCCESS] [OPERATION] ✅ ✅ SLA settings loaded successfully | {
+2025-11-06 13:55:09.079 [SUCCESS] [OPERATION] ✅ ✅ SLA due date calculated successfully | {
+2025-11-06 13:55:09.083 [SUCCESS] [OPERATION] ✅ ✅ Due date calculated using BUSINESS HOURS | {
+2025-11-06 13:55:09.085 [TRY] [OPERATION] 🔄 Inserting ticket into database
+2025-11-06 13:55:09.103 [TRY] [OPERATION] 🔄 Logging ticket creation activity
+2025-11-06 13:55:09.102 [SUCCESS] [OPERATION] ✅ Ticket inserted successfully | {
+2025-11-06 13:55:09.113 [SUCCESS] [OPERATION] ✅ Activity logged
+2025-11-06 13:55:09.113 [TRY] [OPERATION] 🔄 Creating notification for administrators
+2025-11-06 13:55:09.130 [SUCCESS] [OPERATION] ✅ Notifications created for administrators
+2025-11-06 13:55:09.130 [TRY] [OPERATION] 🔄 Sending ticket creation email notifications
+2025-11-06 13:55:09.140 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-11-06 13:55:09.150 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-11-06 13:55:09.151 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251106-0002' (2 occurrences)
+2025-11-06 13:55:09.152 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'jddbejnlces ' (2 occurrences)
+2025-11-06 13:55:09.154 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{requester_name}}' with 'Administrator ..' (1 occurrences)
+2025-11-06 13:55:09.153 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Planning' (1 occurrences)
+2025-11-06 13:55:09.154 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{requester_email}}' with 'panja.suvadip@gmail.com' (1 occurrences)
+2025-11-06 13:55:09.155 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{created_at}}' with '06/11/2025, 07:25 pm' (1 occurrences)
+2025-11-06 13:55:09.155 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/47' (1 occurrences)
+2025-11-06 13:55:09.156 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-11-06 13:55:09.152 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{description}}' with 'ljfewd cdsjlhcwb' (1 occurrences)
+2025-11-06 13:55:09.156 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-11-06 13:55:09.162 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-11-06 13:55:09.153 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{category}}' with 'Other' (1 occurrences)
+2025-11-06 13:55:09.171 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-11-06 13:55:09.170 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-11-06 13:55:09.176 [SUCCESS] [OPERATION] ✅ New ticket created | {
+2025-11-06 13:55:09.172 [SUCCESS] [OPERATION] ✅ Email notifications queued | {
+2025-11-06 13:55:09.179 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-06 13:55:09.181 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-06 13:55:09.187 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-06 13:55:09.188 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-06 13:55:11.222 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-06 13:55:11.227 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-06 13:55:11.230 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-06 13:55:11.227 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-06 13:55:11.231 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-06 13:55:11.233 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-06 13:55:11.233 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-06 13:55:11.229 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-06 13:55:11.235 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-06 13:55:11.236 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-06 13:55:11.271 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-06 13:55:11.272 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-06 13:55:11.281 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-06 13:55:11.284 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-06 13:55:11.287 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2025-11-06 13:55:11.298 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-06 13:55:11.294 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-06 13:55:11.300 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2025-11-06 13:55:11.301 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2025-11-06 13:55:11.301 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2025-11-06 13:55:11.316 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2025-11-06 13:55:11.318 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-06 13:55:11.328 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-06 13:55:11.323 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-06 13:55:11.328 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-06 13:55:11.329 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-06 13:55:11.330 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-06 13:55:11.352 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-06 13:55:11.353 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2025-11-06 13:55:11.360 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-06 13:55:11.362 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-06 13:55:11.365 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2025-11-06 13:55:11.366 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-06 13:55:11.380 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-06 13:55:11.382 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-06 13:55:11.382 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-06 13:55:11.384 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-06 13:55:11.384 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-06 13:55:11.388 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2025-11-06 13:55:11.395 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-06 13:55:11.419 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-06 13:55:11.427 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-06 13:55:11.423 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-06 13:55:11.429 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2025-11-06 13:55:11.450 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2025-11-06 13:55:11.453 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
