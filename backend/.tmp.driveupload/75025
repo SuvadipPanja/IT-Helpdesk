@@ -14392,3 +14392,12 @@
 2025-11-06 18:24:05.562 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
 2025-11-06 18:24:05.559 [TRY] [OPERATION] 🔄 Fetching public settings
 2025-11-06 18:24:05.568 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-11-06 18:24:09.579 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-06 18:24:09.583 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2025-11-06 18:24:09.583 [TRY] [OPERATION] 🔄 User attempting to login | {
+2025-11-06 18:24:09.581 [DEBUG] 🐛 Request Body | {
+2025-11-06 18:24:09.590 [SUCCESS] [OPERATION] ✅ User found in database | {
+2025-11-06 18:24:09.592 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-06 18:24:09.600 [WARN] [SYSTEM] ⚠️ Login failed - Account is locked | {
+2025-11-06 18:24:09.608 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
+2025-11-06 18:24:09.616 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
