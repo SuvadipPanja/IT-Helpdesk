@@ -13134,3 +13134,20 @@
 2025-11-06 18:15:17.860 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
 2025-11-06 18:15:17.859 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
 2025-11-06 18:15:17.848 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-06 18:15:28.175 [DEBUG] 🐛 Request Body | {
+2025-11-06 18:15:28.174 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-06 18:15:28.178 [TRY] [OPERATION] 🔄 User attempting to login | {
+2025-11-06 18:15:28.178 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2025-11-06 18:15:28.181 [SUCCESS] [OPERATION] ✅ User found in database | {
+2025-11-06 18:15:28.182 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-06 18:15:28.185 [TRY] [OPERATION] 🔄 Comparing password with hash
+2025-11-06 18:15:28.185 [TRY] [OPERATION] 🔄 Verifying password
+2025-11-06 18:15:28.317 [WARN] [SYSTEM] ⚠️ Password comparison completed - No match
+2025-11-06 18:15:28.349 [WARN] [SYSTEM] ⚠️ Login failed - Invalid password | {
+2025-11-06 18:15:28.347 [INFO] [SYSTEM] ℹ️ Failed login attempt recorded | {
+2025-11-06 18:15:28.355 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
+2025-11-06 18:15:28.361 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-11-06 18:15:28.627 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-06 18:15:28.628 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-11-06 18:15:28.630 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-11-06 18:15:28.629 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
