@@ -1,14 +1,14 @@
 // ============================================
 // HEADER COMPONENT
-// Top navigation bar with notifications and user menu
-// Now connected to real Notification API
-// UPDATED: Removed search bar, added logo, reordered layout
+// Top navigation bar with announcement ticker, notifications and user menu
+// UPDATED: Added announcement ticker in center section
 // ============================================
 
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/notifications/NotificationContext';
+import { getSetting } from '../../utils/settingsLoader';
 import '../../styles/Header.css';
 import {
   Menu,
@@ -22,6 +22,8 @@ import {
   Trash2,
   Eye,
   CheckCheck,
+  AlertCircle,
+  X
 } from 'lucide-react';
 
 // ============================================
@@ -31,16 +33,25 @@ const Header = ({ toggleSidebar }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   
-  // Debug: Log user info when component mounts
+  // ============================================
+  // ANNOUNCEMENT SETTINGS
+  // ============================================
+  const announcementEnabled = getSetting('announcement_enabled', 'false') === 'true';
+  const announcementText = getSetting('system_announcement', '');
+  const [announcementDismissed, setAnnouncementDismissed] = useState(false);
+  
+  // Debug logging
   useEffect(() => {
-    console.log('🔍 Header - Current user:', user);
-    console.log('🔍 Header - User role:', user?.role_code);
-    console.log('🔍 Header - User role name:', user?.role_name);
-  }, [user]);
+    console.log('📢 Header Announcement:', { 
+      enabled: announcementEnabled, 
+      text: announcementText,
+      dismissed: announcementDismissed,
+      willShow: announcementEnabled && announcementText && !announcementDismissed
+    });
+  }, [announcementEnabled, announcementText, announcementDismissed]);
   
   // ============================================
   // NOTIFICATION CONTEXT
-  // Access real notification data and functions
   // ============================================
   const {
     notifications,
@@ -99,20 +110,16 @@ const Header = ({ toggleSidebar }) => {
 
   // ============================================
   // TOGGLE NOTIFICATIONS DROPDOWN
-  // Fetches notifications when opened
-  // FIXED: Always fetch when opening, not just when empty
   // ============================================
   const toggleNotifications = async () => {
     const newState = !showNotifications;
     setShowNotifications(newState);
     setShowUserMenu(false);
 
-    // ALWAYS fetch fresh notifications when opening dropdown
     if (newState) {
       setLoadingNotifications(true);
       try {
-        await fetchNotifications(1, 20); // Get first 20 notifications
-        console.log('✅ Notifications fetched successfully');
+        await fetchNotifications(1, 20);
       } catch (error) {
         console.error('❌ Error fetching notifications:', error);
       } finally {
@@ -123,15 +130,12 @@ const Header = ({ toggleSidebar }) => {
 
   // ============================================
   // HANDLE NOTIFICATION CLICK
-  // Mark as read and navigate to related ticket
   // ============================================
   const handleNotificationClick = async (notification) => {
-    // Mark as read if unread
     if (!notification.is_read) {
       await markAsRead(notification.notification_id);
     }
 
-    // Navigate to related ticket if exists
     if (notification.related_ticket_id) {
       navigate(`/tickets/${notification.related_ticket_id}`);
       setShowNotifications(false);
@@ -142,7 +146,7 @@ const Header = ({ toggleSidebar }) => {
   // HANDLE DELETE NOTIFICATION
   // ============================================
   const handleDeleteNotification = async (e, notificationId) => {
-    e.stopPropagation(); // Prevent notification click
+    e.stopPropagation();
     await deleteNotification(notificationId);
   };
 
@@ -155,7 +159,6 @@ const Header = ({ toggleSidebar }) => {
 
   // ============================================
   // FORMAT TIME AGO
-  // Helper function to display relative time
   // ============================================
   const formatTimeAgo = (dateString) => {
     const date = new Date(dateString);
@@ -171,28 +174,18 @@ const Header = ({ toggleSidebar }) => {
 
   // ============================================
   // GET NOTIFICATION ICON
-  // Returns appropriate icon based on notification type
   // ============================================
   const getNotificationIcon = (type) => {
     switch (type) {
-      case 'TICKET_CREATED':
-        return '🎫';
-      case 'TICKET_ASSIGNED':
-        return '👤';
-      case 'TICKET_UPDATED':
-        return '🔄';
-      case 'TICKET_COMMENTED':
-        return '💬';
-      case 'TICKET_RESOLVED':
-        return '✅';
-      case 'TICKET_CLOSED':
-        return '🔒';
-      case 'LOGIN':
-        return '🔐';
-      case 'PASSWORD_CHANGED':
-        return '🔑';
-      default:
-        return '📢';
+      case 'TICKET_CREATED': return '🎫';
+      case 'TICKET_ASSIGNED': return '👤';
+      case 'TICKET_UPDATED': return '🔄';
+      case 'TICKET_COMMENTED': return '💬';
+      case 'TICKET_RESOLVED': return '✅';
+      case 'TICKET_CLOSED': return '🔒';
+      case 'LOGIN': return '🔐';
+      case 'PASSWORD_CHANGED': return '🔑';
+      default: return '📢';
     }
   };
 
@@ -201,7 +194,9 @@ const Header = ({ toggleSidebar }) => {
   // ============================================
   return (
     <header className="header">
-      {/* Left Section - Hamburger Menu Only */}
+      {/* ============================================
+          LEFT SECTION - Hamburger Menu
+          ============================================ */}
       <div className="header-left">
         <button 
           className="btn-icon-header hamburger-btn"
@@ -211,13 +206,48 @@ const Header = ({ toggleSidebar }) => {
           <Menu size={20} />
         </button>
       </div>
+
+      {/* ============================================
+          CENTER SECTION - Announcement Ticker
+          ============================================ */}
+      <div className="header-center">
+        {announcementEnabled && announcementText && !announcementDismissed && (
+          <div className="announcement-ticker-container">
+            <div className="announcement-ticker-wrapper">
+              {/* First Copy */}
+              <div className="announcement-ticker-content">
+                <AlertCircle size={16} className="announcement-ticker-icon" />
+                <span className="announcement-badge">NEW</span>
+                <span className="announcement-ticker-text">{announcementText}</span>
+                <span className="announcement-separator"></span>
+              </div>
+              {/* Second Copy - for seamless loop */}
+              <div className="announcement-ticker-content">
+                <AlertCircle size={16} className="announcement-ticker-icon" />
+                <span className="announcement-badge">NEW</span>
+                <span className="announcement-ticker-text">{announcementText}</span>
+                <span className="announcement-separator"></span>
+              </div>
+            </div>
+            {/* Close Button */}
+            <button 
+              className="announcement-ticker-close"
+              onClick={() => setAnnouncementDismissed(true)}
+              aria-label="Dismiss announcement"
+            >
+              <X size={14} />
+            </button>
+          </div>
+        )}
+      </div>
 	  
-      {/* Right Section - Notifications & User Menu */}
+      {/* ============================================
+          RIGHT SECTION - Notifications & User Menu
+          ============================================ */}
       <div className="header-right">
         
         {/* ============================================
             NOTIFICATIONS DROPDOWN
-            Connected to real API via NotificationContext
             ============================================ */}
         <div className="header-dropdown" ref={notificationsRef}>
           <button 
@@ -227,7 +257,7 @@ const Header = ({ toggleSidebar }) => {
           >
             <Bell size={20} />
             {unreadCount > 0 && (
-              <span className="notification-badge">{unreadCount}</span>
+              <span className="notification-badge">{unreadCount > 99 ? '99+' : unreadCount}</span>
             )}
           </button>
 
@@ -251,20 +281,17 @@ const Header = ({ toggleSidebar }) => {
               {/* Dropdown Body */}
               <div className="dropdown-body">
                 {loadingNotifications ? (
-                  // Loading State
                   <div className="empty-notifications">
                     <Bell size={32} className="empty-icon" />
                     <p>Loading notifications...</p>
                   </div>
                 ) : notifications.length === 0 ? (
-                  // Empty State
                   <div className="empty-notifications">
                     <Bell size={32} className="empty-icon" />
                     <p>No notifications</p>
                     <small>You're all caught up!</small>
                   </div>
                 ) : (
-                  // Notifications List
                   notifications.map((notification) => (
                     <div 
                       key={notification.notification_id} 
@@ -272,12 +299,10 @@ const Header = ({ toggleSidebar }) => {
                       onClick={() => handleNotificationClick(notification)}
                       style={{ cursor: 'pointer' }}
                     >
-                      {/* Notification Icon */}
                       <div className="notification-icon">
                         {getNotificationIcon(notification.notification_type)}
                       </div>
 
-                      {/* Notification Content */}
                       <div className="notification-content">
                         <h4>{notification.title}</h4>
                         <p>{notification.message}</p>
@@ -293,7 +318,6 @@ const Header = ({ toggleSidebar }) => {
                         </div>
                       </div>
 
-                      {/* Action Buttons */}
                       <div className="notification-actions">
                         {!notification.is_read && (
                           <button
@@ -307,12 +331,7 @@ const Header = ({ toggleSidebar }) => {
                             <Eye size={14} />
                           </button>
                         )}
-                        {/* Only Administrator can delete - WITH DEBUG */}
-                        {(() => {
-                          const isAdministrator = user?.role_code === 'Administrator';
-                          console.log(`🗑️ Delete button check - User: ${user?.username}, Role: ${user?.role_code}, Is Administrator: ${isAdministrator}`);
-                          return isAdministrator;
-                        })() && (
+                        {user?.role_code === 'Administrator' && (
                           <button
                             className="btn-icon-tiny btn-danger-tiny"
                             onClick={(e) => handleDeleteNotification(e, notification.notification_id)}
@@ -323,7 +342,6 @@ const Header = ({ toggleSidebar }) => {
                         )}
                       </div>
 					  
-                      {/* Unread Indicator Dot */}
                       {!notification.is_read && <div className="notification-dot"></div>}
                     </div>
                   ))
@@ -360,7 +378,11 @@ const Header = ({ toggleSidebar }) => {
               {user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'U'}
             </div>
             <div className="user-info-header">
-              <span className="user-name">{user?.first_name && user?.last_name ? `${user.first_name} ${user.last_name}` : user?.username}</span>
+              <span className="user-name">
+                {user?.first_name && user?.last_name 
+                  ? `${user.first_name} ${user.last_name}` 
+                  : user?.username}
+              </span>
               <span className="user-role">{user?.role_name}</span>
             </div>
             <ChevronDown size={16} className={`chevron-icon ${showUserMenu ? 'rotated' : ''}`} />
@@ -374,7 +396,11 @@ const Header = ({ toggleSidebar }) => {
                   {user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'U'}
                 </div>
                 <div className="user-info-dropdown">
-                  <h4>{user?.first_name && user?.last_name ? `${user.first_name} ${user.last_name}` : user?.username}</h4>
+                  <h4>
+                    {user?.first_name && user?.last_name 
+                      ? `${user.first_name} ${user.last_name}` 
+                      : user?.username}
+                  </h4>
                   <p>{user?.email}</p>
                   <span className={`role-badge-small role-${user?.role_code?.toLowerCase()}`}>
                     {user?.role_name}
@@ -448,7 +474,4 @@ const Header = ({ toggleSidebar }) => {
   );
 };
 
-// ============================================
-// EXPORT COMPONENT
-// ============================================
 export default Header;
