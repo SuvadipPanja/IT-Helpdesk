@@ -7108,3 +7108,18 @@
 2025-11-06 16:16:24.471 [TRY] [OPERATION] 🔄 Fetching unread count | {
 2025-11-06 16:16:24.478 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-06 16:16:24.480 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-06 16:16:34.037 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-06 16:16:34.039 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-06 16:16:34.039 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-06 16:16:34.041 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-06 16:16:34.042 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-06 16:16:34.046 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-06 16:16:34.049 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-06 16:16:34.055 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-06 16:16:34.060 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-06 16:16:34.062 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-06 16:16:34.063 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-06 16:16:34.065 [INFO] [SYSTEM] ℹ️ Regular user viewing own notifications | {
+2025-11-06 16:16:34.065 [TRY] [OPERATION] 🔄 Fetching notifications | {
+2025-11-06 16:16:34.079 [SUCCESS] [OPERATION] ✅ Notifications fetched successfully | {
+2025-11-06 16:16:34.083 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
