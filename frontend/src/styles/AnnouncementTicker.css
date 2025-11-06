@@ -1,0 +1,421 @@
+/* ============================================
+   ANNOUNCEMENT TICKER - HEADER INTEGRATION
+   Smooth scrolling announcement banner inside top header
+   Scrolls from right to left with gradient fade effects
+   ============================================ */
+
+/* ============================================
+   TICKER CONTAINER - Positioned in Header Center
+   ============================================ */
+.announcement-ticker-container {
+  flex: 1;
+  max-width: calc(100% - 200px); /* Leave space for header elements */
+  margin: 0 20px;
+  height: 42px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  border-radius: 21px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  display: flex;
+  align-items: center;
+}
+
+/* Gradient Fade on Left and Right Edges */
+.announcement-ticker-container::before,
+.announcement-ticker-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.announcement-ticker-container::before {
+  left: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+
+.announcement-ticker-container::after {
+  right: 0;
+  background: linear-gradient(to left, white, transparent);
+}
+
+/* ============================================
+   TICKER WRAPPER - Enables Scrolling Animation
+   ============================================ */
+.announcement-ticker-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  white-space: nowrap;
+  animation: scrollTicker 30s linear infinite;
+  padding: 0 100%; /* Create seamless loop effect */
+}
+
+/* Pause animation on hover for better readability */
+.announcement-ticker-container:hover .announcement-ticker-wrapper {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   TICKER CONTENT - The Actual Announcement
+   ============================================ */
+.announcement-ticker-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 40px;
+  white-space: nowrap;
+}
+
+/* Icon Styling */
+.announcement-ticker-icon {
+  flex-shrink: 0;
+  color: #667eea;
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* Text Styling */
+.announcement-ticker-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Badge for "NEW" or "IMPORTANT" labels */
+.announcement-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 8px;
+  animation: badgeShine 3s ease-in-out infinite;
+}
+
+@keyframes badgeShine {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(102, 126, 234, 0);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(102, 126, 234, 0.6);
+  }
+}
+
+/* Separator Dots */
+.announcement-separator {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  margin: 0 20px;
+}
+
+/* ============================================
+   SCROLLING ANIMATION - Right to Left
+   ============================================ */
+@keyframes scrollTicker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ============================================
+   CLOSE BUTTON - Optional Dismiss
+   ============================================ */
+.announcement-ticker-close {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: all 0.2s ease;
+  color: #64748b;
+}
+
+.announcement-ticker-close:hover {
+  background: white;
+  border-color: #667eea;
+  color: #667eea;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.announcement-ticker-close:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* ============================================
+   VARIANT STYLES - Different Types
+   ============================================ */
+
+/* Info Variant (Default - Blue) */
+.announcement-ticker-container.ticker-info {
+  background: linear-gradient(135deg, #3b82f615 0%, #2563eb15 100%);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.announcement-ticker-container.ticker-info .announcement-ticker-icon {
+  color: #3b82f6;
+}
+
+/* Success Variant (Green) */
+.announcement-ticker-container.ticker-success {
+  background: linear-gradient(135deg, #10b98115 0%, #05966915 100%);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.announcement-ticker-container.ticker-success .announcement-ticker-icon {
+  color: #10b981;
+}
+
+/* Warning Variant (Orange) */
+.announcement-ticker-container.ticker-warning {
+  background: linear-gradient(135deg, #f59e0b15 0%, #d9770615 100%);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.announcement-ticker-container.ticker-warning .announcement-ticker-icon {
+  color: #f59e0b;
+}
+
+/* Error Variant (Red) */
+.announcement-ticker-container.ticker-error {
+  background: linear-gradient(135deg, #ef444415 0%, #dc262615 100%);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.announcement-ticker-container.ticker-error .announcement-ticker-icon {
+  color: #ef4444;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .announcement-ticker-container {
+    max-width: calc(100% - 150px);
+    margin: 0 15px;
+  }
+
+  .announcement-ticker-text {
+    font-size: 13px;
+  }
+
+  .announcement-ticker-content {
+    gap: 10px;
+    padding: 0 30px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .announcement-ticker-container {
+    max-width: calc(100% - 100px);
+    margin: 0 10px;
+    height: 38px;
+  }
+
+  .announcement-ticker-text {
+    font-size: 12px;
+  }
+
+  .announcement-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+
+  .announcement-ticker-content {
+    gap: 8px;
+    padding: 0 25px;
+  }
+
+  .announcement-ticker-close {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Faster scroll on mobile for shorter viewport */
+  .announcement-ticker-wrapper {
+    animation-duration: 20s;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .announcement-ticker-container {
+    max-width: calc(100% - 80px);
+    margin: 0 8px;
+    height: 36px;
+  }
+
+  .announcement-ticker-text {
+    font-size: 11px;
+  }
+
+  .announcement-badge {
+    display: none; /* Hide badge on very small screens */
+  }
+
+  .announcement-separator {
+    margin: 0 15px;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .announcement-ticker-wrapper {
+    animation: none;
+  }
+
+  .announcement-ticker-icon {
+    animation: none;
+  }
+
+  .announcement-badge {
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .announcement-ticker-container {
+    border-width: 2px;
+    border-color: currentColor;
+  }
+
+  .announcement-ticker-text {
+    font-weight: 700;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.announcement-ticker-close:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* ============================================
+   HIDE TICKER ON PRINT
+   ============================================ */
+@media print {
+  .announcement-ticker-container {
+    display: none;
+  }
+}
+
+/* ============================================
+   LOADING/SHIMMER EFFECT (Optional)
+   For when announcement is being fetched
+   ============================================ */
+.announcement-ticker-loading {
+  background: linear-gradient(
+    90deg,
+    rgba(102, 126, 234, 0.05) 0%,
+    rgba(118, 75, 162, 0.1) 50%,
+    rgba(102, 126, 234, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerLoading 2s infinite;
+}
+
+@keyframes shimmerLoading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ============================================
+   NOTES FOR IMPLEMENTATION
+   ============================================ */
+
+/*
+USAGE EXAMPLE IN Header.jsx:
+
+<div className="header-center">
+  {announcementEnabled && announcementText && !dismissed && (
+    <div className="announcement-ticker-container ticker-info">
+      <div className="announcement-ticker-wrapper">
+        <div className="announcement-ticker-content">
+          <AlertCircle size={16} className="announcement-ticker-icon" />
+          <span className="announcement-badge">NEW</span>
+          <span className="announcement-ticker-text">{announcementText}</span>
+          <span className="announcement-separator"></span>
+        </div>
+        <div className="announcement-ticker-content">
+          <AlertCircle size={16} className="announcement-ticker-icon" />
+          <span className="announcement-badge">NEW</span>
+          <span className="announcement-ticker-text">{announcementText}</span>
+          <span className="announcement-separator"></span>
+        </div>
+      </div>
+      <button 
+        className="announcement-ticker-close"
+        onClick={() => setDismissed(true)}
+        aria-label="Dismiss announcement"
+      >
+        <X size={14} />
+      </button>
+    </div>
+  )}
+</div>
+
+VARIANT CLASSES:
+- ticker-info (default - blue)
+- ticker-success (green)
+- ticker-warning (orange)
+- ticker-error (red)
+
+FEATURES:
+- Seamless infinite scrolling from right to left
+- Pauses on hover for readability
+- Gradient fade on edges
+- Animated icon and badge
+- Responsive design
+- Accessibility compliant
+- Optional close button
+*/
