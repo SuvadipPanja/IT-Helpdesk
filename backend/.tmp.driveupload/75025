@@ -3448,3 +3448,29 @@
 2025-11-06 15:25:47.380 [TRY] [OPERATION] 🔄 User attempting to logout | {
 2025-11-06 15:25:47.392 [SUCCESS] [OPERATION] ✅ User session invalidated | {
 2025-11-06 15:25:47.394 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-06 15:25:52.386 [DEBUG] 🐛 Request Body | {
+2025-11-06 15:25:52.384 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-06 15:25:52.391 [TRY] [OPERATION] 🔄 User attempting to login | {
+2025-11-06 15:25:52.391 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2025-11-06 15:25:52.404 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-06 15:25:52.401 [SUCCESS] [OPERATION] ✅ User found in database | {
+2025-11-06 15:25:52.410 [TRY] [OPERATION] 🔄 Comparing password with hash
+2025-11-06 15:25:52.410 [TRY] [OPERATION] 🔄 Verifying password
+2025-11-06 15:25:52.540 [WARN] [SYSTEM] ⚠️ Password comparison completed - No match
+2025-11-06 15:25:52.557 [ERROR] 🚨 Handle failed login error | {
+2025-11-06 15:25:52.563 [ERROR] 🚨 Login controller error | {
+2025-11-06 15:25:52.578 [ERROR] 🚨 📤 Response Sent | {
+2025-11-06 15:25:52.568 [ERROR] 🚨 Error Handler Caught Exception | {
+2025-11-06 15:25:56.195 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-06 15:25:56.199 [DEBUG] 🐛 Request Body | {
+2025-11-06 15:25:56.201 [TRY] [OPERATION] 🔄 User attempting to login | {
+2025-11-06 15:25:56.201 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2025-11-06 15:25:56.211 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-06 15:25:56.209 [SUCCESS] [OPERATION] ✅ User found in database | {
+2025-11-06 15:25:56.215 [TRY] [OPERATION] 🔄 Verifying password
+2025-11-06 15:25:56.215 [TRY] [OPERATION] 🔄 Comparing password with hash
+2025-11-06 15:25:56.363 [WARN] [SYSTEM] ⚠️ Password comparison completed - No match
+2025-11-06 15:25:56.375 [ERROR] 🚨 Handle failed login error | {
+2025-11-06 15:25:56.380 [ERROR] 🚨 Login controller error | {
+2025-11-06 15:25:56.384 [ERROR] 🚨 Error Handler Caught Exception | {
+2025-11-06 15:25:56.393 [ERROR] 🚨 📤 Response Sent | {
