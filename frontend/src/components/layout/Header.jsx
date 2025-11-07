@@ -1,6 +1,6 @@
 // ============================================
 // HEADER COMPONENT
-// Top navigation bar with scrolling announcement ticker, notifications and user menu
+// Simple scrolling announcement ticker with clean design
 // Developer: Suvadip Panja
 // ============================================
 
@@ -22,7 +22,6 @@ import {
   Trash2,
   Eye,
   CheckCheck,
-  AlertCircle,
   X
 } from 'lucide-react';
 
@@ -40,22 +39,12 @@ const Header = ({ toggleSidebar }) => {
   const announcementText = getSetting('system_announcement', '');
   const [announcementDismissed, setAnnouncementDismissed] = useState(false);
   
-  // Parse announcement enabled (handle multiple formats)
+  // Parse announcement enabled
   const announcementEnabled = 
     announcementEnabledRaw === 'true' || 
     announcementEnabledRaw === true || 
     announcementEnabledRaw === 1 ||
     announcementEnabledRaw === '1';
-  
-  // Debug logging
-  useEffect(() => {
-    console.log('📢 Header Announcement:', { 
-      enabled: announcementEnabled, 
-      text: announcementText,
-      dismissed: announcementDismissed,
-      willShow: announcementEnabled && announcementText && !announcementDismissed
-    });
-  }, [announcementEnabled, announcementText, announcementDismissed]);
   
   // ============================================
   // NOTIFICATION CONTEXT
@@ -215,26 +204,20 @@ const Header = ({ toggleSidebar }) => {
       </div>
 
       {/* ============================================
-          CENTER SECTION - Scrolling Announcement Ticker
+          CENTER SECTION - Simple Scrolling Announcement
           ============================================ */}
       <div className="header-center">
         {announcementEnabled && announcementText && !announcementDismissed && (
-          <div className="announcement-ticker">
-            <div className="ticker-icon">
-              <Bell size={16} />
-            </div>
-            <div className="ticker-content">
-              <div className="ticker-text">
-                <span>{announcementText}</span>
-                <span>{announcementText}</span>
-                <span>{announcementText}</span>
-              </div>
+          <div className="announcement-ticker-simple">
+            <div className="ticker-scroll">
+              <span className="ticker-item">{announcementText}</span>
+              <span className="ticker-item">{announcementText}</span>
+              <span className="ticker-item">{announcementText}</span>
             </div>
             <button 
-              className="ticker-close"
+              className="ticker-close-simple"
               onClick={() => setAnnouncementDismissed(true)}
               aria-label="Dismiss"
-              title="Dismiss"
             >
               <X size={14} />
             </button>
@@ -264,7 +247,6 @@ const Header = ({ toggleSidebar }) => {
 
           {showNotifications && (
             <div className="dropdown-menu notifications-menu">
-              {/* Dropdown Header */}
               <div className="dropdown-header">
                 <h3>Notifications</h3>
                 {notifications.length > 0 && unreadCount > 0 && (
@@ -279,7 +261,6 @@ const Header = ({ toggleSidebar }) => {
                 )}
               </div>
 
-              {/* Dropdown Body */}
               <div className="dropdown-body">
                 {loadingNotifications ? (
                   <div className="empty-notifications">
@@ -349,7 +330,6 @@ const Header = ({ toggleSidebar }) => {
                 )}
               </div>
 
-              {/* Dropdown Footer */}
               {notifications.length > 0 && (
                 <div className="dropdown-footer">
                   <button 
@@ -391,7 +371,6 @@ const Header = ({ toggleSidebar }) => {
 
           {showUserMenu && (
             <div className="dropdown-menu user-dropdown-menu">
-              {/* User Info Header */}
               <div className="dropdown-header-user">
                 <div className="user-avatar-large">
                   {user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'U'}
@@ -409,7 +388,6 @@ const Header = ({ toggleSidebar }) => {
                 </div>
               </div>
 
-              {/* Menu Items */}
               <div className="dropdown-body-menu">
                 <button 
                   className="dropdown-item"
