@@ -13020,3 +13020,19 @@
 2025-11-07 17:13:28.379 [WARN] [SYSTEM] ⚠️ Login failed - Account is locked | {
 2025-11-07 17:13:28.387 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
 2025-11-07 17:13:28.390 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-11-07 17:13:35.303 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-07 17:13:35.308 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-07 17:13:35.308 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-07 17:13:35.309 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-07 17:13:35.310 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-07 17:13:35.318 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-07 17:13:35.318 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-07 17:13:35.324 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-07 17:13:35.331 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-07 17:13:35.342 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-07 17:13:35.347 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-07 17:13:35.351 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-07 17:13:35.350 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-07 17:13:35.349 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-07 17:13:35.356 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-07 17:13:35.358 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
