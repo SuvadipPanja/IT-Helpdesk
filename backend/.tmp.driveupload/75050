@@ -10076,3 +10076,34 @@
 2025-11-07 16:55:53.594 [TRY] [OPERATION] 🔄 Fetching public settings
 2025-11-07 16:55:53.594 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
 2025-11-07 16:55:53.595 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-11-07 16:56:04.306 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-07 16:56:04.308 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2025-11-07 16:56:04.308 [TRY] [OPERATION] 🔄 User attempting to login | {
+2025-11-07 16:56:04.307 [DEBUG] 🐛 Request Body | {
+2025-11-07 16:56:04.312 [SUCCESS] [OPERATION] ✅ User found in database | {
+2025-11-07 16:56:04.313 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-07 16:56:04.315 [TRY] [OPERATION] 🔄 Comparing password with hash
+2025-11-07 16:56:04.380 [WARN] [SYSTEM] ⚠️ Password comparison completed - No match
+2025-11-07 16:56:04.315 [TRY] [OPERATION] 🔄 Verifying password
+2025-11-07 16:56:04.390 [INFO] [SYSTEM] ℹ️ Failed login attempt recorded | {
+2025-11-07 16:56:04.391 [WARN] [SYSTEM] ⚠️ Login failed - Invalid password | {
+2025-11-07 16:56:04.397 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-11-07 16:56:04.396 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
+2025-11-07 16:56:04.549 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-07 16:56:04.551 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-11-07 16:56:04.552 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-11-07 16:56:04.551 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-11-07 16:56:06.949 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-07 16:56:06.950 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-07 16:56:06.948 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-07 16:56:06.955 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-07 16:56:06.949 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-07 16:56:06.968 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-07 16:56:06.973 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-07 16:56:06.978 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-07 16:56:06.981 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-07 16:56:06.986 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-07 16:56:06.985 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-07 16:56:06.984 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-07 16:56:06.991 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-07 16:56:06.993 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
