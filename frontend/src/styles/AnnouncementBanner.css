@@ -1,0 +1,84 @@
+/* ============================================
+   SYSTEM ANNOUNCEMENT BANNER
+   Developer: Suvadip Panja
+   ============================================ */
+
+.announcement-banner {
+  position: sticky;
+  top: 70px; /* Below header */
+  left: 0;
+  right: 0;
+  z-index: 90;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.announcement-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.announcement-icon {
+  flex-shrink: 0;
+  color: white;
+}
+
+.announcement-text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  line-height: 1.5;
+}
+
+.announcement-close {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.announcement-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .announcement-banner {
+    padding: 10px 16px;
+    top: 60px;
+  }
+
+  .announcement-text {
+    font-size: 13px;
+  }
+}
