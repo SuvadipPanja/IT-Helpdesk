@@ -14485,3 +14485,63 @@
 2025-11-07 17:23:11.872 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2025-11-07 17:23:11.874 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-07 17:23:11.875 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-07 17:23:24.663 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-07 17:23:24.661 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-07 17:23:24.663 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-07 17:23:24.666 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-07 17:23:24.664 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-07 17:23:24.670 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-07 17:23:24.672 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-07 17:23:24.677 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-07 17:23:24.679 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-07 17:23:24.683 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-07 17:23:24.682 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-07 17:23:24.684 [TRY] [OPERATION] 🔄 Fetching dashboard statistics | {
+2025-11-07 17:23:24.684 [TRY] [OPERATION] 🔄 Calculating total tickets
+2025-11-07 17:23:24.688 [TRY] [OPERATION] 🔄 Calculating tickets by status
+2025-11-07 17:23:24.687 [SUCCESS] [OPERATION] ✅ Total tickets calculated | {
+2025-11-07 17:23:24.692 [TRY] [OPERATION] 🔄 Calculating escalated tickets
+2025-11-07 17:23:24.691 [SUCCESS] [OPERATION] ✅ Status counts calculated | {
+2025-11-07 17:23:24.695 [SUCCESS] [OPERATION] ✅ Escalated tickets calculated | {
+2025-11-07 17:23:24.695 [TRY] [OPERATION] 🔄 Calculating total active users
+2025-11-07 17:23:24.700 [TRY] [OPERATION] 🔄 Calculating SLA statistics
+2025-11-07 17:23:24.699 [SUCCESS] [OPERATION] ✅ Total users calculated | {
+2025-11-07 17:23:24.705 [TRY] [OPERATION] 🔄 Fetching recent tickets
+2025-11-07 17:23:24.704 [SUCCESS] [OPERATION] ✅ SLA statistics calculated | {
+2025-11-07 17:23:24.709 [SUCCESS] [OPERATION] ✅ Recent tickets fetched | {
+2025-11-07 17:23:24.710 [TRY] [OPERATION] 🔄 Calculating tickets by priority
+2025-11-07 17:23:24.713 [SUCCESS] [OPERATION] ✅ Priority counts calculated
+2025-11-07 17:23:24.714 [TRY] [OPERATION] 🔄 Calculating my assigned tickets
+2025-11-07 17:23:24.720 [SUCCESS] [OPERATION] ✅ Dashboard statistics compiled successfully | {
+2025-11-07 17:23:24.719 [SUCCESS] [OPERATION] ✅ My assigned tickets calculated | {
+2025-11-07 17:23:24.721 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-07 17:23:24.723 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-07 17:23:24.724 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-07 17:23:24.724 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-07 17:23:24.724 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-07 17:23:24.725 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-07 17:23:24.727 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-07 17:23:24.729 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-07 17:23:24.734 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-07 17:23:24.735 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-07 17:23:24.736 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-07 17:23:24.737 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-07 17:23:24.738 [TRY] [OPERATION] 🔄 Calculating total tickets
+2025-11-07 17:23:24.738 [TRY] [OPERATION] 🔄 Fetching dashboard statistics | {
+2025-11-07 17:23:24.741 [TRY] [OPERATION] 🔄 Calculating tickets by status
+2025-11-07 17:23:24.740 [SUCCESS] [OPERATION] ✅ Total tickets calculated | {
+2025-11-07 17:23:24.743 [TRY] [OPERATION] 🔄 Calculating escalated tickets
+2025-11-07 17:23:24.742 [SUCCESS] [OPERATION] ✅ Status counts calculated | {
+2025-11-07 17:23:24.745 [SUCCESS] [OPERATION] ✅ Escalated tickets calculated | {
+2025-11-07 17:23:24.745 [TRY] [OPERATION] 🔄 Calculating total active users
+2025-11-07 17:23:24.747 [SUCCESS] [OPERATION] ✅ Total users calculated | {
+2025-11-07 17:23:24.747 [TRY] [OPERATION] 🔄 Calculating SLA statistics
+2025-11-07 17:23:24.751 [SUCCESS] [OPERATION] ✅ SLA statistics calculated | {
+2025-11-07 17:23:24.752 [TRY] [OPERATION] 🔄 Fetching recent tickets
+2025-11-07 17:23:24.754 [SUCCESS] [OPERATION] ✅ Recent tickets fetched | {
+2025-11-07 17:23:24.755 [TRY] [OPERATION] 🔄 Calculating tickets by priority
+2025-11-07 17:23:24.756 [SUCCESS] [OPERATION] ✅ Priority counts calculated
+2025-11-07 17:23:24.756 [TRY] [OPERATION] 🔄 Calculating my assigned tickets
+2025-11-07 17:23:24.758 [SUCCESS] [OPERATION] ✅ My assigned tickets calculated | {
+2025-11-07 17:23:24.758 [SUCCESS] [OPERATION] ✅ Dashboard statistics compiled successfully | {
+2025-11-07 17:23:24.759 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
