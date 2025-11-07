@@ -1,12 +1,12 @@
 // ============================================
-// LOGIN PAGE - DEBUG VERSION
-// User authentication with error visibility
+// LOGIN PAGE
+// Error persists even if component remounts
 // Developer: Suvadip Panja
 // ============================================
 
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, User, Eye, EyeOff, AlertCircle, Shield, CheckCircle } from 'lucide-react';
+import { Lock, User, Eye, EyeOff, AlertCircle, Shield } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { getSetting } from '../../utils/settingsLoader';
 import '../../styles/Login.css';
@@ -22,15 +22,9 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [errorSetTime, setErrorSetTime] = useState(null);
   
-  // Timer to control error visibility - stays for 10 seconds
+  // Timer to control error visibility
   const errorTimerRef = useRef(null);
-  const renderCountRef = useRef(0);
-
-  // Track component renders
-  renderCountRef.current += 1;
-  console.log(`🔄 Login component render #${renderCountRef.current}`);
 
   // ============================================
   // HOOKS & SETTINGS
@@ -46,10 +40,45 @@ const Login = () => {
   const maintenanceMessage = getSetting('maintenance_message', 'System is under maintenance. Please check back later.');
 
   // ============================================
-  // CLEANUP TIMER ON UNMOUNT
+  // RESTORE ERROR FROM SESSIONSTORAGE ON MOUNT
+  // This ensures error survives component remounts
+  // Developer: Suvadip Panja
   // ============================================
   useEffect(() => {
     console.log('✅ Login component mounted');
+    
+    // Check if there's a persisted error
+    const persistedError = sessionStorage.getItem('login_error');
+    const errorTimestamp = sessionStorage.getItem('login_error_timestamp');
+    
+    if (persistedError && errorTimestamp) {
+      const errorAge = Date.now() - parseInt(errorTimestamp);
+      const remainingTime = 10000 - errorAge; // 10 seconds total
+      
+      console.log('🔄 Restoring persisted error:', persistedError);
+      console.log('⏰ Error age:', errorAge, 'ms');
+      console.log('⏰ Remaining time:', remainingTime, 'ms');
+      
+      if (remainingTime > 0) {
+        // Error is still within 10 second window
+        setError(persistedError);
+        
+        // Set timer for remaining time
+        errorTimerRef.current = setTimeout(() => {
+          console.log('⏰ Timer expired - clearing error');
+          setError('');
+          sessionStorage.removeItem('login_error');
+          sessionStorage.removeItem('login_error_timestamp');
+          errorTimerRef.current = null;
+        }, remainingTime);
+      } else {
+        // Error is older than 10 seconds, clear it
+        console.log('🧹 Error expired, clearing from storage');
+        sessionStorage.removeItem('login_error');
+        sessionStorage.removeItem('login_error_timestamp');
+      }
+    }
+    
     return () => {
       console.log('🗑️ Login component unmounting');
       if (errorTimerRef.current) {
@@ -59,37 +88,27 @@ const Login = () => {
   }, []);
 
   // ============================================
-  // MONITOR ERROR CHANGES
-  // ============================================
-  useEffect(() => {
-    if (error) {
-      console.log('🔴 ERROR STATE CHANGED:', error);
-      console.log('⏰ Error set at:', new Date().toLocaleTimeString());
-    } else {
-      console.log('✅ ERROR CLEARED');
-    }
-  }, [error]);
-
-  // ============================================
-  // SET ERROR WITH 10-SECOND AUTO-CLEAR
+  // SET ERROR WITH PERSISTENCE
+  // Stores in sessionStorage so it survives remounts
   // Developer: Suvadip Panja
   // ============================================
   const setErrorWithTimer = (errorMessage) => {
-    const timestamp = new Date().toLocaleTimeString();
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('🔴 SETTING ERROR:', errorMessage);
-    console.log('⏰ Time:', timestamp);
+    console.log('⏰ Time:', new Date().toLocaleTimeString());
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     
     // Clear any existing timer
     if (errorTimerRef.current) {
-      console.log('⚠️ Clearing existing error timer');
       clearTimeout(errorTimerRef.current);
     }
 
-    // Set the error
+    // Store error in sessionStorage with timestamp
+    sessionStorage.setItem('login_error', errorMessage);
+    sessionStorage.setItem('login_error_timestamp', Date.now().toString());
+    
+    // Set the error in state
     setError(errorMessage);
-    setErrorSetTime(timestamp);
 
     // Auto-clear after 10 seconds
     errorTimerRef.current = setTimeout(() => {
@@ -97,29 +116,27 @@ const Login = () => {
       console.log('⏰ 10 SECONDS PASSED - Auto-clearing error');
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       setError('');
-      setErrorSetTime(null);
+      sessionStorage.removeItem('login_error');
+      sessionStorage.removeItem('login_error_timestamp');
       errorTimerRef.current = null;
     }, 10000); // 10 seconds
 
-    console.log('✅ Error timer set for 10 seconds');
+    console.log('✅ Error persisted to sessionStorage');
+    console.log('✅ Timer set for 10 seconds');
   };
 
   // ============================================
-  // HANDLE INPUT CHANGE - NO ERROR CLEARING!
-  // Developer: Suvadip Panja
+  // HANDLE INPUT CHANGE
+  // Error stays visible even while typing
   // ============================================
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(`⌨️ User typing in ${name}:`, value.substring(0, 3) + '...');
-    
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
     
-    // CRITICAL: DO NOT CLEAR ERROR WHILE TYPING!
-    // Error should stay visible for full 10 seconds
-    console.log('💡 Error NOT cleared (will auto-clear after 10 seconds)');
+    // Don't clear error while typing
   };
 
   // ============================================
@@ -131,84 +148,71 @@ const Login = () => {
     console.log('🚀 FORM SUBMIT TRIGGERED');
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     
-    // CRITICAL: Prevent page refresh
+    // Prevent page refresh
     if (e && e.preventDefault) {
       e.preventDefault();
-      console.log('✅ preventDefault() called');
     }
     if (e && e.stopPropagation) {
       e.stopPropagation();
-      console.log('✅ stopPropagation() called');
     }
     
     // Check maintenance mode
     if (maintenanceMode) {
-      console.log('🔧 Maintenance mode active');
       setErrorWithTimer(maintenanceMessage);
       return;
     }
     
     // Validate inputs
     if (!formData.username.trim() || !formData.password.trim()) {
-      console.log('❌ Validation failed: Empty fields');
       setErrorWithTimer('Please enter both username and password');
       return;
     }
     
-    // Clear error and start loading
-    console.log('🧹 Clearing any existing errors');
+    // Clear error and storage
     setError('');
-    setErrorSetTime(null);
+    sessionStorage.removeItem('login_error');
+    sessionStorage.removeItem('login_error_timestamp');
     if (errorTimerRef.current) {
       clearTimeout(errorTimerRef.current);
       errorTimerRef.current = null;
     }
     
-    console.log('⏳ Setting loading state to true');
     setLoading(true);
 
     try {
       console.log('📡 Calling login API...');
       const response = await login(formData.username, formData.password);
       
-      console.log('📥 Login response received:', response);
+      console.log('📥 Login response:', response);
       
       if (response && response.success) {
         console.log('✅ LOGIN SUCCESS!');
-        console.log('🚀 Navigating to dashboard...');
         navigate('/dashboard');
       } else {
         console.log('❌ LOGIN FAILED');
-        const errorMsg = response?.message || 'Invalid username or password';
-        console.log('📝 Error message:', errorMsg);
-        setErrorWithTimer(errorMsg);
+        setErrorWithTimer(response?.message || 'Invalid username or password');
       }
     } catch (err) {
-      console.log('💥 EXCEPTION CAUGHT:', err);
+      console.error('💥 EXCEPTION:', err);
       
       let errorMsg = 'An error occurred. Please try again.';
       
       if (err.response) {
-        console.log('📡 Server responded with error');
         errorMsg = err.response.data?.message || 'Invalid username or password';
       } else if (err.request) {
-        console.log('🔌 No response from server');
         errorMsg = 'Cannot connect to server. Please try again.';
       } else {
-        console.log('⚠️ Request setup error');
         errorMsg = err.message || 'An error occurred. Please try again.';
       }
       
       setErrorWithTimer(errorMsg);
     } finally {
-      console.log('⏳ Setting loading state to false');
       setLoading(false);
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       console.log('🏁 FORM SUBMIT COMPLETED');
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     }
     
-    // Return false to prevent any default behavior
     return false;
   };
 
@@ -232,28 +236,6 @@ const Login = () => {
           <p className="login-subtitle">{systemTitle}</p>
         </div>
 
-        {/* DEBUG INFO - Remove after testing */}
-        <div style={{
-          background: 'rgba(59, 130, 246, 0.1)',
-          border: '1px solid rgba(59, 130, 246, 0.3)',
-          borderRadius: '8px',
-          padding: '10px',
-          marginBottom: '15px',
-          fontSize: '11px',
-          color: 'rgba(255, 255, 255, 0.8)'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '5px' }}>
-            <CheckCircle size={14} />
-            <strong>Debug Mode Active</strong>
-          </div>
-          <div>Renders: {renderCountRef.current}</div>
-          <div>Error: {error ? '🔴 YES' : '✅ NO'}</div>
-          {errorSetTime && <div>Set at: {errorSetTime}</div>}
-          <div style={{ fontSize: '10px', marginTop: '5px', opacity: 0.7 }}>
-            Open Console (F12) to see detailed logs
-          </div>
-        </div>
-
         {/* MAINTENANCE MODE WARNING */}
         {maintenanceMode && (
           <div className="maintenance-warning">
@@ -271,7 +253,7 @@ const Login = () => {
           className="login-form" 
           noValidate
         >
-          {/* ERROR MESSAGE - Visible for 10 seconds */}
+          {/* ERROR MESSAGE - Persists across remounts */}
           {error && (
             <div className={`error-message ${maintenanceMode ? 'maintenance-error' : ''}`}>
               <AlertCircle size={18} />
