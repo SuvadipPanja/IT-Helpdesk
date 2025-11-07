@@ -10514,3 +10514,17 @@
 2025-11-07 17:01:18.304 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2025-11-07 17:01:18.310 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2025-11-07 17:01:18.309 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-07 17:01:22.122 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-07 17:01:22.120 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-07 17:01:22.122 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-07 17:01:22.121 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-07 17:01:22.123 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-07 17:01:22.126 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-07 17:01:22.129 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-07 17:01:22.136 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-07 17:01:22.138 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-07 17:01:22.142 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-07 17:01:22.143 [TRY] [OPERATION] 🔄 User attempting to logout | {
+2025-11-07 17:01:22.141 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-07 17:01:22.156 [SUCCESS] [OPERATION] ✅ User session invalidated | {
+2025-11-07 17:01:22.157 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
