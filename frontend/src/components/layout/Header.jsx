@@ -1,6 +1,6 @@
 // ============================================
 // HEADER COMPONENT
-// Full-width seamless scrolling announcement
+// Full-width ticker + Profile picture support
 // Developer: Suvadip Panja
 // ============================================
 
@@ -43,6 +43,26 @@ const Header = ({ toggleSidebar }) => {
     announcementEnabledRaw === true || 
     announcementEnabledRaw === 1 ||
     announcementEnabledRaw === '1';
+  
+  // ============================================
+  // PROFILE PICTURE URL
+  // ============================================
+  const getProfilePictureUrl = () => {
+    if (user?.profile_picture) {
+      // If profile picture path exists
+      return `http://localhost:5000${user.profile_picture}`;
+    }
+    return null;
+  };
+
+  const profilePicUrl = getProfilePictureUrl();
+  
+  // ============================================
+  // USER INITIALS
+  // ============================================
+  const getUserInitial = () => {
+    return user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'U';
+  };
   
   // ============================================
   // NOTIFICATION CONTEXT
@@ -204,6 +224,9 @@ const Header = ({ toggleSidebar }) => {
         <div className="header-center">
           <div className="announcement-ticker-seamless">
             <div className="ticker-scroll-seamless">
+              {/* Repeat 5 times for seamless scrolling */}
+              <span className="ticker-text-item">{announcementText}</span>
+              <span className="ticker-text-item">{announcementText}</span>
               <span className="ticker-text-item">{announcementText}</span>
               <span className="ticker-text-item">{announcementText}</span>
               <span className="ticker-text-item">{announcementText}</span>
@@ -338,9 +361,25 @@ const Header = ({ toggleSidebar }) => {
             className="user-menu-trigger"
             onClick={toggleUserMenu}
           >
+            {/* USER AVATAR - Profile Picture or Initial */}
             <div className="user-avatar-header">
-              {user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'U'}
+              {profilePicUrl ? (
+                <img 
+                  src={profilePicUrl} 
+                  alt={user?.first_name || user?.username}
+                  className="avatar-image"
+                  onError={(e) => {
+                    // Fallback to initial if image fails to load
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+              ) : null}
+              <span className={profilePicUrl ? 'avatar-fallback' : ''}>
+                {getUserInitial()}
+              </span>
             </div>
+
             <div className="user-info-header">
               <span className="user-name">
                 {user?.first_name && user?.last_name 
@@ -355,9 +394,24 @@ const Header = ({ toggleSidebar }) => {
           {showUserMenu && (
             <div className="dropdown-menu user-dropdown-menu">
               <div className="dropdown-header-user">
+                {/* USER AVATAR LARGE - Profile Picture or Initial */}
                 <div className="user-avatar-large">
-                  {user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'U'}
+                  {profilePicUrl ? (
+                    <img 
+                      src={profilePicUrl} 
+                      alt={user?.first_name || user?.username}
+                      className="avatar-image-large"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                  ) : null}
+                  <span className={profilePicUrl ? 'avatar-fallback-large' : ''}>
+                    {getUserInitial()}
+                  </span>
                 </div>
+
                 <div className="user-info-dropdown">
                   <h4>
                     {user?.first_name && user?.last_name 
