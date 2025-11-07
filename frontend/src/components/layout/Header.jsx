@@ -1,6 +1,6 @@
 // ============================================
-// HEADER COMPONENT - SIMPLIFIED PROFILE PICTURE
-// Exact same logic as Profile page
+// HEADER COMPONENT - INDEPENDENT PROFILE FETCH
+// Fetches profile picture on mount
 // Developer: Suvadip Panja
 // ============================================
 
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/notifications/NotificationContext';
 import { getSetting } from '../../utils/settingsLoader';
+import api from '../../services/api';
 import '../../styles/Header.css';
 import {
   Menu,
@@ -32,6 +33,30 @@ const Header = ({ toggleSidebar }) => {
   const navigate = useNavigate();
   
   // ============================================
+  // LOCAL STATE FOR PROFILE PICTURE
+  // ============================================
+  const [profilePicture, setProfilePicture] = useState(null);
+  
+  // ============================================
+  // FETCH PROFILE PICTURE ON MOUNT
+  // ============================================
+  useEffect(() => {
+    const fetchProfilePicture = async () => {
+      try {
+        const response = await api.get('/auth/me');
+        if (response.data.success && response.data.data.profile_picture) {
+          console.log('✅ Profile picture fetched:', response.data.data.profile_picture);
+          setProfilePicture(response.data.data.profile_picture);
+        }
+      } catch (error) {
+        console.error('❌ Failed to fetch profile picture:', error);
+      }
+    };
+
+    fetchProfilePicture();
+  }, []);
+  
+  // ============================================
   // ANNOUNCEMENT SETTINGS
   // ============================================
   const announcementEnabledRaw = getSetting('announcement_enabled', 'false');
@@ -43,20 +68,9 @@ const Header = ({ toggleSidebar }) => {
     announcementEnabledRaw === 1 ||
     announcementEnabledRaw === '1';
   
-  // ============================================
-  // PROFILE PICTURE - SAME AS PROFILE PAGE
-  // ============================================
-  const profilePicture = user?.profile_picture || null;
-  
   const getUserInitial = () => {
     return user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'U';
   };
-
-  // Debug log
-  useEffect(() => {
-    console.log('👤 User profile picture:', profilePicture);
-    console.log('👤 Full user object:', user);
-  }, [profilePicture, user]);
   
   // ============================================
   // NOTIFICATION CONTEXT
@@ -354,9 +368,9 @@ const Header = ({ toggleSidebar }) => {
             className="user-menu-trigger"
             onClick={toggleUserMenu}
           >
-            {/* SMALL AVATAR - EXACT SAME AS PROFILE PAGE */}
+            {/* SMALL AVATAR */}
             <div className="user-avatar-header">
-              {profilePicture && (
+              {profilePicture ? (
                 <img
                   src={profilePicture}
                   alt="Profile"
@@ -368,14 +382,8 @@ const Header = ({ toggleSidebar }) => {
                     display: 'block',
                     background: 'white'
                   }}
-                  onLoad={() => console.log('✅ Small avatar loaded!')}
-                  onError={(e) => {
-                    console.error('❌ Small avatar failed to load:', e.target.src);
-                  }}
                 />
-              )}
-              
-              {!profilePicture && (
+              ) : (
                 <div style={{
                   width: '36px',
                   height: '36px',
@@ -407,9 +415,9 @@ const Header = ({ toggleSidebar }) => {
           {showUserMenu && (
             <div className="dropdown-menu user-dropdown-menu">
               <div className="dropdown-header-user">
-                {/* LARGE AVATAR - EXACT SAME AS PROFILE PAGE */}
+                {/* LARGE AVATAR */}
                 <div style={{ marginBottom: '12px' }}>
-                  {profilePicture && (
+                  {profilePicture ? (
                     <img
                       src={profilePicture}
                       alt="Profile"
@@ -422,14 +430,8 @@ const Header = ({ toggleSidebar }) => {
                         background: 'white',
                         border: '2px solid rgba(255, 255, 255, 0.3)'
                       }}
-                      onLoad={() => console.log('✅ Large avatar loaded!')}
-                      onError={(e) => {
-                        console.error('❌ Large avatar failed to load:', e.target.src);
-                      }}
                     />
-                  )}
-                  
-                  {!profilePicture && (
+                  ) : (
                     <div style={{
                       width: '56px',
                       height: '56px',
