@@ -1,7 +1,6 @@
 // ============================================
-// LAYOUT COMPONENT
-// Main layout wrapper with Sidebar, Header, and Announcement Banner
-// UPDATED: Added AnnouncementBanner component
+// LAYOUT COMPONENT - COMPLETE VERSION
+// Main layout with sidebar, header, and announcement banner
 // Developer: Suvadip Panja
 // ============================================
 
@@ -17,6 +16,8 @@ const Layout = ({ children }) => {
     setSidebarOpen(!sidebarOpen);
   };
 
+  console.log('📐 Layout rendered');
+
   return (
     <div className="dashboard-container">
       <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
@@ -25,7 +26,7 @@ const Layout = ({ children }) => {
         
         {/* ============================================
             GLOBAL ANNOUNCEMENT BANNER
-            Shows on all pages when enabled in settings
+            Shows between header and main content
             ============================================ */}
         <AnnouncementBanner />
         
