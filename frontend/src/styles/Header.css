@@ -690,3 +690,112 @@
     right: -8px;
   }
 }
+/* ============================================
+   SEAMLESS ANNOUNCEMENT TICKER STYLES
+   No box, no border, no close button, full width
+   Add these styles to your Header.css file
+   Developer: Suvadip Panja
+   ============================================ */
+
+/* ============================================
+   HEADER CENTER - Full Width Container
+   ============================================ */
+
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+  margin: 0 20px;
+}
+
+/* ============================================
+   SEAMLESS ANNOUNCEMENT TICKER
+   No box, no border, blends with header
+   ============================================ */
+
+.announcement-ticker-seamless {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.ticker-scroll-seamless {
+  display: flex;
+  white-space: nowrap;
+  animation: seamless-scroll 25s linear infinite;
+  will-change: transform;
+}
+
+.ticker-text-item {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+  padding-right: 100px;
+  display: inline-block;
+}
+
+@keyframes seamless-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+/* Pause scrolling on hover */
+.announcement-ticker-seamless:hover .ticker-scroll-seamless {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1200px) {
+  .header-center {
+    margin: 0 16px;
+  }
+
+  .ticker-text-item {
+    font-size: 13px;
+    padding-right: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-center {
+    margin: 0 12px;
+  }
+
+  .ticker-text-item {
+    font-size: 12px;
+    padding-right: 60px;
+  }
+
+  @keyframes seamless-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .header-center {
+    margin: 0 8px;
+  }
+
+  .ticker-text-item {
+    font-size: 11px;
+    padding-right: 40px;
+  }
+}
