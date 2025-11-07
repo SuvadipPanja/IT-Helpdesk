@@ -1,6 +1,6 @@
 // ============================================
-// HEADER COMPONENT - CORRECTED
-// Fixed profile picture logic to match Profile page
+// HEADER COMPONENT - SIMPLIFIED PROFILE PICTURE
+// Exact same logic as Profile page
 // Developer: Suvadip Panja
 // ============================================
 
@@ -37,7 +37,6 @@ const Header = ({ toggleSidebar }) => {
   const announcementEnabledRaw = getSetting('announcement_enabled', 'false');
   const announcementText = getSetting('system_announcement', '');
   
-  // Parse announcement enabled
   const announcementEnabled = 
     announcementEnabledRaw === 'true' || 
     announcementEnabledRaw === true || 
@@ -45,14 +44,19 @@ const Header = ({ toggleSidebar }) => {
     announcementEnabledRaw === '1';
   
   // ============================================
-  // PROFILE PICTURE - SAME LOGIC AS PROFILE PAGE
+  // PROFILE PICTURE - SAME AS PROFILE PAGE
   // ============================================
   const profilePicture = user?.profile_picture || null;
   
-  // User initial for fallback
   const getUserInitial = () => {
     return user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'U';
   };
+
+  // Debug log
+  useEffect(() => {
+    console.log('👤 User profile picture:', profilePicture);
+    console.log('👤 Full user object:', user);
+  }, [profilePicture, user]);
   
   // ============================================
   // NOTIFICATION CONTEXT
@@ -198,7 +202,7 @@ const Header = ({ toggleSidebar }) => {
   // ============================================
   return (
     <header className="header">
-      {/* LEFT SECTION - Hamburger Menu */}
+      {/* LEFT SECTION */}
       <div className="header-left">
         <button 
           className="btn-icon-header hamburger-btn"
@@ -209,7 +213,7 @@ const Header = ({ toggleSidebar }) => {
         </button>
       </div>
 
-      {/* CENTER SECTION - Full Width Scrolling Announcement */}
+      {/* CENTER SECTION - Announcement Ticker */}
       {announcementEnabled && announcementText ? (
         <div className="header-center">
           <div className="announcement-ticker-seamless">
@@ -226,7 +230,7 @@ const Header = ({ toggleSidebar }) => {
         <div className="header-center"></div>
       )}
 
-      {/* RIGHT SECTION - Notifications & User Menu */}
+      {/* RIGHT SECTION */}
       <div className="header-right">
         
         {/* NOTIFICATIONS DROPDOWN */}
@@ -350,22 +354,43 @@ const Header = ({ toggleSidebar }) => {
             className="user-menu-trigger"
             onClick={toggleUserMenu}
           >
-            {/* USER AVATAR - Profile Picture or Initial */}
+            {/* SMALL AVATAR - EXACT SAME AS PROFILE PAGE */}
             <div className="user-avatar-header">
-              {profilePicture ? (
-                <img 
+              {profilePicture && (
+                <img
                   src={profilePicture}
-                  alt={user?.first_name || user?.username}
-                  className="avatar-image"
+                  alt="Profile"
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '8px',
+                    objectFit: 'cover',
+                    display: 'block',
+                    background: 'white'
+                  }}
+                  onLoad={() => console.log('✅ Small avatar loaded!')}
                   onError={(e) => {
-                    // Hide image on error, show fallback initial
-                    e.target.style.display = 'none';
+                    console.error('❌ Small avatar failed to load:', e.target.src);
                   }}
                 />
-              ) : null}
-              <span className={profilePicture ? 'avatar-fallback' : ''}>
-                {getUserInitial()}
-              </span>
+              )}
+              
+              {!profilePicture && (
+                <div style={{
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '8px',
+                  background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: '700'
+                }}>
+                  {getUserInitial()}
+                </div>
+              )}
             </div>
 
             <div className="user-info-header">
@@ -382,21 +407,46 @@ const Header = ({ toggleSidebar }) => {
           {showUserMenu && (
             <div className="dropdown-menu user-dropdown-menu">
               <div className="dropdown-header-user">
-                {/* USER AVATAR LARGE - Profile Picture or Initial */}
-                <div className="user-avatar-large">
-                  {profilePicture ? (
-                    <img 
+                {/* LARGE AVATAR - EXACT SAME AS PROFILE PAGE */}
+                <div style={{ marginBottom: '12px' }}>
+                  {profilePicture && (
+                    <img
                       src={profilePicture}
-                      alt={user?.first_name || user?.username}
-                      className="avatar-image-large"
+                      alt="Profile"
+                      style={{
+                        width: '56px',
+                        height: '56px',
+                        borderRadius: '12px',
+                        objectFit: 'cover',
+                        display: 'block',
+                        background: 'white',
+                        border: '2px solid rgba(255, 255, 255, 0.3)'
+                      }}
+                      onLoad={() => console.log('✅ Large avatar loaded!')}
                       onError={(e) => {
-                        e.target.style.display = 'none';
+                        console.error('❌ Large avatar failed to load:', e.target.src);
                       }}
                     />
-                  ) : null}
-                  <span className={profilePicture ? 'avatar-fallback-large' : ''}>
-                    {getUserInitial()}
-                  </span>
+                  )}
+                  
+                  {!profilePicture && (
+                    <div style={{
+                      width: '56px',
+                      height: '56px',
+                      borderRadius: '12px',
+                      background: 'rgba(255, 255, 255, 0.2)',
+                      backdropFilter: 'blur(10px)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: '24px',
+                      fontWeight: '700',
+                      border: '2px solid rgba(255, 255, 255, 0.3)'
+                    }}>
+                      {getUserInitial()}
+                    </div>
+                  )}
                 </div>
 
                 <div className="user-info-dropdown">
