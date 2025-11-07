@@ -23199,3 +23199,17 @@
 2025-11-07 18:11:35.070 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2025-11-07 18:11:35.074 [SUCCESS] [OPERATION] ✅ Lookup data fetched successfully | {
 2025-11-07 18:11:35.076 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-07 18:11:53.112 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-07 18:11:53.112 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-07 18:11:53.112 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-07 18:11:53.113 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-07 18:11:53.113 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-07 18:11:53.117 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-07 18:11:53.120 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-07 18:11:53.129 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-07 18:11:53.132 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-07 18:11:53.135 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-07 18:11:53.134 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-07 18:11:53.136 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-07 18:11:53.138 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-07 18:11:53.139 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
