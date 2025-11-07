@@ -1,6 +1,6 @@
 // ============================================
-// HEADER COMPONENT
-// FIXED: Profile picture path handling
+// HEADER COMPONENT - CORRECTED
+// Fixed profile picture logic to match Profile page
 // Developer: Suvadip Panja
 // ============================================
 
@@ -37,6 +37,7 @@ const Header = ({ toggleSidebar }) => {
   const announcementEnabledRaw = getSetting('announcement_enabled', 'false');
   const announcementText = getSetting('system_announcement', '');
   
+  // Parse announcement enabled
   const announcementEnabled = 
     announcementEnabledRaw === 'true' || 
     announcementEnabledRaw === true || 
@@ -44,17 +45,13 @@ const Header = ({ toggleSidebar }) => {
     announcementEnabledRaw === '1';
   
   // ============================================
-  // USER DISPLAY
+  // PROFILE PICTURE - SAME LOGIC AS PROFILE PAGE
   // ============================================
+  const profilePicture = user?.profile_picture || null;
+  
+  // User initial for fallback
   const getUserInitial = () => {
     return user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'U';
-  };
-  
-  const getUserDisplayName = () => {
-    if (user?.first_name && user?.last_name) {
-      return `${user.first_name} ${user.last_name}`;
-    }
-    return user?.username || 'User';
   };
   
   // ============================================
@@ -201,7 +198,7 @@ const Header = ({ toggleSidebar }) => {
   // ============================================
   return (
     <header className="header">
-      {/* LEFT SECTION */}
+      {/* LEFT SECTION - Hamburger Menu */}
       <div className="header-left">
         <button 
           className="btn-icon-header hamburger-btn"
@@ -212,7 +209,7 @@ const Header = ({ toggleSidebar }) => {
         </button>
       </div>
 
-      {/* CENTER SECTION - Announcement Ticker */}
+      {/* CENTER SECTION - Full Width Scrolling Announcement */}
       {announcementEnabled && announcementText ? (
         <div className="header-center">
           <div className="announcement-ticker-seamless">
@@ -229,7 +226,7 @@ const Header = ({ toggleSidebar }) => {
         <div className="header-center"></div>
       )}
 
-      {/* RIGHT SECTION */}
+      {/* RIGHT SECTION - Notifications & User Menu */}
       <div className="header-right">
         
         {/* NOTIFICATIONS DROPDOWN */}
@@ -353,21 +350,30 @@ const Header = ({ toggleSidebar }) => {
             className="user-menu-trigger"
             onClick={toggleUserMenu}
           >
-            {/* USER AVATAR - SAME AS PROFILE PAGE */}
+            {/* USER AVATAR - Profile Picture or Initial */}
             <div className="user-avatar-header">
-              {user?.profile_picture ? (
+              {profilePicture ? (
                 <img 
-                  src={user.profile_picture}
-                  alt={getUserDisplayName()}
+                  src={profilePicture}
+                  alt={user?.first_name || user?.username}
                   className="avatar-image"
+                  onError={(e) => {
+                    // Hide image on error, show fallback initial
+                    e.target.style.display = 'none';
+                  }}
                 />
-              ) : (
-                <span className="avatar-initial">{getUserInitial()}</span>
-              )}
+              ) : null}
+              <span className={profilePicture ? 'avatar-fallback' : ''}>
+                {getUserInitial()}
+              </span>
             </div>
 
             <div className="user-info-header">
-              <span className="user-name">{getUserDisplayName()}</span>
+              <span className="user-name">
+                {user?.first_name && user?.last_name 
+                  ? `${user.first_name} ${user.last_name}` 
+                  : user?.username}
+              </span>
               <span className="user-role">{user?.role_name}</span>
             </div>
             <ChevronDown size={16} className={`chevron-icon ${showUserMenu ? 'rotated' : ''}`} />
@@ -376,21 +382,29 @@ const Header = ({ toggleSidebar }) => {
           {showUserMenu && (
             <div className="dropdown-menu user-dropdown-menu">
               <div className="dropdown-header-user">
-                {/* USER AVATAR LARGE - SAME AS PROFILE PAGE */}
+                {/* USER AVATAR LARGE - Profile Picture or Initial */}
                 <div className="user-avatar-large">
-                  {user?.profile_picture ? (
+                  {profilePicture ? (
                     <img 
-                      src={user.profile_picture}
-                      alt={getUserDisplayName()}
+                      src={profilePicture}
+                      alt={user?.first_name || user?.username}
                       className="avatar-image-large"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                      }}
                     />
-                  ) : (
-                    <span className="avatar-initial-large">{getUserInitial()}</span>
-                  )}
+                  ) : null}
+                  <span className={profilePicture ? 'avatar-fallback-large' : ''}>
+                    {getUserInitial()}
+                  </span>
                 </div>
 
                 <div className="user-info-dropdown">
-                  <h4>{getUserDisplayName()}</h4>
+                  <h4>
+                    {user?.first_name && user?.last_name 
+                      ? `${user.first_name} ${user.last_name}` 
+                      : user?.username}
+                  </h4>
                   <p>{user?.email}</p>
                   <span className={`role-badge-small role-${user?.role_code?.toLowerCase()}`}>
                     {user?.role_name}
