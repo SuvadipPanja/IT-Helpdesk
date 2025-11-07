@@ -1,6 +1,6 @@
 // ============================================
 // HEADER COMPONENT
-// Full-width ticker + Profile picture support
+// FIXED: Profile picture path handling
 // Developer: Suvadip Panja
 // ============================================
 
@@ -37,7 +37,6 @@ const Header = ({ toggleSidebar }) => {
   const announcementEnabledRaw = getSetting('announcement_enabled', 'false');
   const announcementText = getSetting('system_announcement', '');
   
-  // Parse announcement enabled
   const announcementEnabled = 
     announcementEnabledRaw === 'true' || 
     announcementEnabledRaw === true || 
@@ -45,23 +44,17 @@ const Header = ({ toggleSidebar }) => {
     announcementEnabledRaw === '1';
   
   // ============================================
-  // PROFILE PICTURE URL
-  // ============================================
-  const getProfilePictureUrl = () => {
-    if (user?.profile_picture) {
-      // If profile picture path exists
-      return `http://localhost:5000${user.profile_picture}`;
-    }
-    return null;
-  };
-
-  const profilePicUrl = getProfilePictureUrl();
-  
-  // ============================================
-  // USER INITIALS
+  // USER DISPLAY
   // ============================================
   const getUserInitial = () => {
     return user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'U';
+  };
+  
+  const getUserDisplayName = () => {
+    if (user?.first_name && user?.last_name) {
+      return `${user.first_name} ${user.last_name}`;
+    }
+    return user?.username || 'User';
   };
   
   // ============================================
@@ -208,7 +201,7 @@ const Header = ({ toggleSidebar }) => {
   // ============================================
   return (
     <header className="header">
-      {/* LEFT SECTION - Hamburger Menu */}
+      {/* LEFT SECTION */}
       <div className="header-left">
         <button 
           className="btn-icon-header hamburger-btn"
@@ -219,12 +212,11 @@ const Header = ({ toggleSidebar }) => {
         </button>
       </div>
 
-      {/* CENTER SECTION - Full Width Scrolling Announcement */}
+      {/* CENTER SECTION - Announcement Ticker */}
       {announcementEnabled && announcementText ? (
         <div className="header-center">
           <div className="announcement-ticker-seamless">
             <div className="ticker-scroll-seamless">
-              {/* Repeat 5 times for seamless scrolling */}
               <span className="ticker-text-item">{announcementText}</span>
               <span className="ticker-text-item">{announcementText}</span>
               <span className="ticker-text-item">{announcementText}</span>
@@ -237,7 +229,7 @@ const Header = ({ toggleSidebar }) => {
         <div className="header-center"></div>
       )}
 
-      {/* RIGHT SECTION - Notifications & User Menu */}
+      {/* RIGHT SECTION */}
       <div className="header-right">
         
         {/* NOTIFICATIONS DROPDOWN */}
@@ -361,31 +353,21 @@ const Header = ({ toggleSidebar }) => {
             className="user-menu-trigger"
             onClick={toggleUserMenu}
           >
-            {/* USER AVATAR - Profile Picture or Initial */}
+            {/* USER AVATAR - SAME AS PROFILE PAGE */}
             <div className="user-avatar-header">
-              {profilePicUrl ? (
+              {user?.profile_picture ? (
                 <img 
-                  src={profilePicUrl} 
-                  alt={user?.first_name || user?.username}
+                  src={user.profile_picture}
+                  alt={getUserDisplayName()}
                   className="avatar-image"
-                  onError={(e) => {
-                    // Fallback to initial if image fails to load
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'flex';
-                  }}
                 />
-              ) : null}
-              <span className={profilePicUrl ? 'avatar-fallback' : ''}>
-                {getUserInitial()}
-              </span>
+              ) : (
+                <span className="avatar-initial">{getUserInitial()}</span>
+              )}
             </div>
 
             <div className="user-info-header">
-              <span className="user-name">
-                {user?.first_name && user?.last_name 
-                  ? `${user.first_name} ${user.last_name}` 
-                  : user?.username}
-              </span>
+              <span className="user-name">{getUserDisplayName()}</span>
               <span className="user-role">{user?.role_name}</span>
             </div>
             <ChevronDown size={16} className={`chevron-icon ${showUserMenu ? 'rotated' : ''}`} />
@@ -394,30 +376,21 @@ const Header = ({ toggleSidebar }) => {
           {showUserMenu && (
             <div className="dropdown-menu user-dropdown-menu">
               <div className="dropdown-header-user">
-                {/* USER AVATAR LARGE - Profile Picture or Initial */}
+                {/* USER AVATAR LARGE - SAME AS PROFILE PAGE */}
                 <div className="user-avatar-large">
-                  {profilePicUrl ? (
+                  {user?.profile_picture ? (
                     <img 
-                      src={profilePicUrl} 
-                      alt={user?.first_name || user?.username}
+                      src={user.profile_picture}
+                      alt={getUserDisplayName()}
                       className="avatar-image-large"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
                     />
-                  ) : null}
-                  <span className={profilePicUrl ? 'avatar-fallback-large' : ''}>
-                    {getUserInitial()}
-                  </span>
+                  ) : (
+                    <span className="avatar-initial-large">{getUserInitial()}</span>
+                  )}
                 </div>
 
                 <div className="user-info-dropdown">
-                  <h4>
-                    {user?.first_name && user?.last_name 
-                      ? `${user.first_name} ${user.last_name}` 
-                      : user?.username}
-                  </h4>
+                  <h4>{getUserDisplayName()}</h4>
                   <p>{user?.email}</p>
                   <span className={`role-badge-small role-${user?.role_code?.toLowerCase()}`}>
                     {user?.role_name}
