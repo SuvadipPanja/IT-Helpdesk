@@ -479,17 +479,3 @@ const ChangePasswordForm = ({ onSuccess, onCancel }) => {
 
 export default ChangePasswordForm;
 
-/**
- * ============================================
- * KEY FEATURES:
- * ============================================
- * ✅ NO HARDCODED VALUES
- * ✅ Uses corrected PasswordStrengthMeter (fetches from DB)
- * ✅ Uses EXISTING /api/v1/auth/change-password endpoint
- * ✅ Real-time validation from database settings
- * ✅ Admin changes settings → Form updates automatically
- * ✅ Complete error handling
- * ✅ Loading states
- * ✅ Success confirmation
- * ============================================
- */
