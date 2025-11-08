@@ -8903,3 +8903,17 @@
 2025-11-08 20:15:00.287 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
 2025-11-08 20:15:00.291 [DEBUG] 🐛 Breach notification already sent, skipping
 2025-11-08 20:15:00.293 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 166ms
+2025-11-08 20:15:14.510 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-08 20:15:14.512 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-08 20:15:14.512 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-08 20:15:14.514 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-08 20:15:14.515 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-08 20:15:14.525 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-08 20:15:14.530 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-08 20:15:14.563 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-08 20:15:14.569 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-08 20:15:14.578 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-08 20:15:14.581 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-08 20:15:14.583 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-08 20:15:14.591 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-08 20:15:14.593 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
