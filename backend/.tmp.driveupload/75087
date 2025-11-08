@@ -6928,3 +6928,31 @@
 2025-11-08 19:55:06.851 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2025-11-08 19:55:06.859 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-08 19:55:06.862 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-08 19:55:21.040 [DEBUG] 🐛 Request Body | {
+2025-11-08 19:55:21.037 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-08 19:55:21.041 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-08 19:55:21.042 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-08 19:55:21.044 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-08 19:55:21.046 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-08 19:55:21.056 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-08 19:55:21.061 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-08 19:55:21.071 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-08 19:55:21.077 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-08 19:55:21.081 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-08 19:55:21.083 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-08 19:55:21.085 [TRY] [OPERATION] 🔄 Changing password | {
+2025-11-08 19:55:21.215 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-11-08 19:55:24.800 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-08 19:55:24.800 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-08 19:55:24.801 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-08 19:55:24.798 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-08 19:55:24.802 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-08 19:55:24.807 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-08 19:55:24.813 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-08 19:55:24.820 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-08 19:55:24.825 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-08 19:55:24.833 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-08 19:55:24.831 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-08 19:55:24.836 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-08 19:55:24.843 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-08 19:55:24.846 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
