@@ -1,19 +1,11 @@
 // ============================================
-// INDUSTRIAL-GRADE PASSWORD CHANGE PAGE
-// Live updates, database-driven, security compliant
+// CHANGE PASSWORD PAGE - CLEAN MINIMAL VERSION
+// Matches existing profile page style
+// Shows only password policy from database
 // ============================================
 // Developer: Suvadip Panja
 // Created: November 07, 2025
 // File: frontend/src/pages/profile/ChangePassword.jsx
-// ============================================
-// FEATURES:
-// - Live strength meter with color transitions
-// - Right panel with all requirements from DB
-// - Password expiry information from DB
-// - Password history rules from DB
-// - Session timeout info from DB
-// - Real-time validation
-// - Professional animations
 // ============================================
 
 import { useState, useEffect } from 'react';
@@ -28,14 +20,8 @@ import {
   Check,
   X,
   Loader,
-  AlertCircle,
-  Clock,
-  History,
-  Info,
-  CheckCircle2,
-  XCircle,
 } from 'lucide-react';
-import '../../styles/ChangePassword.css';
+import '../../styles/Profile.css';
 
 const ChangePassword = () => {
   const navigate = useNavigate();
@@ -61,194 +47,110 @@ const ChangePassword = () => {
 
   const [passwordStrength, setPasswordStrength] = useState({
     score: 0,
-    percentage: 0,
-    label: 'None',
-    color: '#e5e7eb',
-    checks: {
-      length: false,
-      uppercase: false,
-      lowercase: false,
-      number: false,
-      special: false,
-    },
+    feedback: [],
   });
 
-  // ⭐ NEW: All security settings from database
-  const [securitySettings, setSecuritySettings] = useState(null);
-  const [loadingSettings, setLoadingSettings] = useState(true);
+  // ⭐ Password policy from database
+  const [passwordPolicy, setPasswordPolicy] = useState(null);
+  const [loadingPolicy, setLoadingPolicy] = useState(true);
 
   // ============================================
-  // FETCH ALL SECURITY SETTINGS FROM DATABASE
+  // FETCH PASSWORD POLICY FROM DATABASE
   // ============================================
   useEffect(() => {
-    const fetchSecuritySettings = async () => {
+    const fetchPasswordPolicy = async () => {
       try {
-        setLoadingSettings(true);
+        setLoadingPolicy(true);
         
-        // Fetch ALL settings from database
+        // Fetch settings from database
         const response = await api.get('/settings');
         
         if (response.data.success && response.data.data) {
           const settings = response.data.data;
           
-          // Extract ALL security-related settings
-          const securityConfig = {
-            // Password Policy
-            password_min_length: parseInt(settings.password_min_length) || 8,
-            password_require_uppercase: settings.password_require_uppercase === 'true' || settings.password_require_uppercase === true,
-            password_require_lowercase: settings.password_require_lowercase === 'true' || settings.password_require_lowercase === true,
-            password_require_number: settings.password_require_number === 'true' || settings.password_require_number === true,
-            password_require_special: settings.password_require_special === 'true' || settings.password_require_special === true,
-            
-            // Password Management
-            password_expiry_days: parseInt(settings.password_expiry_days) || 90,
-            password_history_count: parseInt(settings.password_history_count) || 5,
-            
-            // Session Management
-            session_timeout_minutes: parseInt(settings.session_timeout_minutes) || 480,
-            max_concurrent_sessions: parseInt(settings.max_concurrent_sessions) || 1,
-            
-            // Account Lockout
-            lockout_attempts: parseInt(settings.lockout_attempts) || 5,
-            lockout_duration_minutes: parseInt(settings.lockout_duration_minutes) || 30,
+          // Extract password policy settings
+          const policy = {
+            minLength: parseInt(settings.password_min_length) || 8,
+            requireUppercase: settings.password_require_uppercase === 'true' || settings.password_require_uppercase === true,
+            requireLowercase: settings.password_require_lowercase === 'true' || settings.password_require_lowercase === true,
+            requireNumber: settings.password_require_number === 'true' || settings.password_require_number === true,
+            requireSpecial: settings.password_require_special === 'true' || settings.password_require_special === true,
+            expiryDays: parseInt(settings.password_expiry_days) || 90,
+            historyCount: parseInt(settings.password_history_count) || 5, // ⭐ FROM DATABASE
           };
           
-          setSecuritySettings(securityConfig);
-          console.log('✅ Security settings loaded from database:', securityConfig);
+          setPasswordPolicy(policy);
+          console.log('✅ Password policy loaded from database:', policy);
         }
       } catch (err) {
-        console.error('❌ Error fetching security settings:', err);
-        // Fallback to safe defaults
-        setSecuritySettings({
-          password_min_length: 8,
-          password_require_uppercase: true,
-          password_require_lowercase: true,
-          password_require_number: true,
-          password_require_special: true,
-          password_expiry_days: 90,
-          password_history_count: 5,
-          session_timeout_minutes: 480,
-          max_concurrent_sessions: 1,
-          lockout_attempts: 5,
-          lockout_duration_minutes: 30,
+        console.error('❌ Error fetching password policy:', err);
+        // Fallback to defaults
+        setPasswordPolicy({
+          minLength: 8,
+          requireUppercase: true,
+          requireLowercase: true,
+          requireNumber: true,
+          requireSpecial: true,
+          expiryDays: 90,
+          historyCount: 5,
         });
       } finally {
-        setLoadingSettings(false);
+        setLoadingPolicy(false);
       }
     };
 
-    fetchSecuritySettings();
+    fetchPasswordPolicy();
   }, []);
 
   // ============================================
-  // LIVE PASSWORD STRENGTH CHECKER
-  // Updates in real-time as user types
+  // PASSWORD STRENGTH CHECKER
+  // Uses database policy values
   // ============================================
   const checkPasswordStrength = (password) => {
-    if (!securitySettings || !password) {
-      return {
-        score: 0,
-        percentage: 0,
-        label: 'None',
-        color: '#e5e7eb',
-        checks: {
-          length: false,
-          uppercase: false,
-          lowercase: false,
-          number: false,
-          special: false,
-        },
-      };
-    }
+    if (!passwordPolicy) return { score: 0, feedback: [] };
 
     let score = 0;
-    let maxScore = 0;
-    const checks = {
-      length: false,
-      uppercase: false,
-      lowercase: false,
-      number: false,
-      special: false,
-    };
+    const feedback = [];
 
-    // Check 1: Length
-    maxScore++;
-    if (password.length >= securitySettings.password_min_length) {
+    // Check 1: Length (from database)
+    if (password.length >= passwordPolicy.minLength) {
       score++;
-      checks.length = true;
+      feedback.push(`At least ${passwordPolicy.minLength} characters`);
+    } else {
+      feedback.push(`Needs at least ${passwordPolicy.minLength} characters`);
     }
 
-    // Check 2: Uppercase
-    if (securitySettings.password_require_uppercase) {
-      maxScore++;
-      if (/[A-Z]/.test(password)) {
+    // Check 2: Uppercase and Lowercase (from database)
+    if (passwordPolicy.requireUppercase && passwordPolicy.requireLowercase) {
+      if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
         score++;
-        checks.uppercase = true;
+        feedback.push('Contains uppercase and lowercase');
+      } else {
+        feedback.push('Needs uppercase and lowercase letters');
       }
     }
 
-    // Check 3: Lowercase
-    if (securitySettings.password_require_lowercase) {
-      maxScore++;
-      if (/[a-z]/.test(password)) {
-        score++;
-        checks.lowercase = true;
-      }
-    }
-
-    // Check 4: Number
-    if (securitySettings.password_require_number) {
-      maxScore++;
+    // Check 3: Numbers (from database)
+    if (passwordPolicy.requireNumber) {
       if (/\d/.test(password)) {
         score++;
-        checks.number = true;
+        feedback.push('Contains numbers');
+      } else {
+        feedback.push('Needs numbers');
       }
     }
 
-    // Check 5: Special
-    if (securitySettings.password_require_special) {
-      maxScore++;
+    // Check 4: Special characters (from database)
+    if (passwordPolicy.requireSpecial) {
       if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
         score++;
-        checks.special = true;
+        feedback.push('Contains special characters');
+      } else {
+        feedback.push('Needs special characters');
       }
     }
 
-    // Calculate percentage
-    const percentage = maxScore > 0 ? (score / maxScore) * 100 : 0;
-
-    // Determine strength label and color
-    let label = 'None';
-    let color = '#e5e7eb';
-
-    if (percentage === 0) {
-      label = 'None';
-      color = '#e5e7eb';
-    } else if (percentage < 40) {
-      label = 'Very Weak';
-      color = '#ef4444'; // Red
-    } else if (percentage < 60) {
-      label = 'Weak';
-      color = '#f59e0b'; // Orange
-    } else if (percentage < 80) {
-      label = 'Fair';
-      color = '#eab308'; // Yellow
-    } else if (percentage < 100) {
-      label = 'Good';
-      color = '#3b82f6'; // Blue
-    } else {
-      label = 'Strong';
-      color = '#22c55e'; // Green
-    }
-
-    return {
-      score,
-      maxScore,
-      percentage,
-      label,
-      color,
-      checks,
-    };
+    return { score, feedback };
   };
 
   // ============================================
@@ -261,10 +163,9 @@ const ChangePassword = () => {
       [name]: value,
     }));
 
-    // ⭐ LIVE UPDATE: Check password strength in real-time
+    // Check password strength for new password
     if (name === 'new_password') {
-      const strength = checkPasswordStrength(value);
-      setPasswordStrength(strength);
+      setPasswordStrength(checkPasswordStrength(value));
     }
 
     // Clear error when user starts typing
@@ -282,42 +183,6 @@ const ChangePassword = () => {
   };
 
   // ============================================
-  // VALIDATE PASSWORD AGAINST DB RULES
-  // ============================================
-  const validatePassword = () => {
-    if (!securitySettings) return false;
-    
-    const password = formData.new_password;
-    
-    // Check length
-    if (password.length < securitySettings.password_min_length) {
-      return false;
-    }
-    
-    // Check uppercase
-    if (securitySettings.password_require_uppercase && !/[A-Z]/.test(password)) {
-      return false;
-    }
-    
-    // Check lowercase
-    if (securitySettings.password_require_lowercase && !/[a-z]/.test(password)) {
-      return false;
-    }
-    
-    // Check number
-    if (securitySettings.password_require_number && !/\d/.test(password)) {
-      return false;
-    }
-    
-    // Check special
-    if (securitySettings.password_require_special && !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      return false;
-    }
-    
-    return true;
-  };
-
-  // ============================================
   // HANDLE FORM SUBMIT
   // ============================================
   const handleSubmit = async (e) => {
@@ -325,9 +190,9 @@ const ChangePassword = () => {
     setError(null);
     setSuccess(false);
 
-    // Wait for settings to load
-    if (!securitySettings) {
-      setError('Please wait, loading security settings...');
+    // Wait for policy to load
+    if (!passwordPolicy) {
+      setError('Please wait, loading password requirements...');
       return;
     }
 
@@ -339,12 +204,10 @@ const ChangePassword = () => {
 
     if (!formData.new_password) {
       setError('Please enter a new password');
-      return;
     }
 
-    // Validate against database rules
-    if (!validatePassword()) {
-      setError('Password does not meet all security requirements');
+    if (formData.new_password.length < passwordPolicy.minLength) {
+      setError(`Password must be at least ${passwordPolicy.minLength} characters long`);
       return;
     }
 
@@ -370,10 +233,10 @@ const ChangePassword = () => {
           confirm_password: '',
         });
 
-        // Redirect to profile after 3 seconds
+        // Redirect to profile after 2 seconds
         setTimeout(() => {
           navigate('/profile');
-        }, 3000);
+        }, 2000);
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to change password');
@@ -383,40 +246,66 @@ const ChangePassword = () => {
   };
 
   // ============================================
+  // GET PASSWORD STRENGTH COLOR
+  // ============================================
+  const getStrengthColor = () => {
+    const { score } = passwordStrength;
+    if (score === 0) return '#e5e7eb';
+    if (score === 1) return '#ef4444';
+    if (score === 2) return '#f59e0b';
+    if (score === 3) return '#3b82f6';
+    return '#22c55e';
+  };
+
+  const getStrengthLabel = () => {
+    const { score } = passwordStrength;
+    if (score === 0) return '';
+    if (score === 1) return 'Weak';
+    if (score === 2) return 'Fair';
+    if (score === 3) return 'Good';
+    return 'Strong';
+  };
+
+  // ============================================
   // RENDER LOADING STATE
   // ============================================
-  if (loadingSettings) {
+  if (loadingPolicy) {
     return (
-      <div className="change-password-page">
-        <div className="change-password-container">
-          <div className="loading-state">
-            <Loader className="loading-spinner" size={48} />
-            <h3>Loading Security Settings</h3>
-            <p>Fetching password policy from database...</p>
+      <div className="profile-page">
+        <div className="page-header">
+          <div className="header-left">
+            <Lock size={28} className="page-icon" />
+            <div>
+              <h1 className="page-title">Change Password</h1>
+              <p className="page-subtitle">Loading password requirements...</p>
+            </div>
           </div>
+        </div>
+        <div className="profile-card" style={{ textAlign: 'center', padding: '3rem' }}>
+          <Loader className="spinner-small" size={32} style={{ margin: '0 auto' }} />
+          <p style={{ marginTop: '1rem', color: '#6b7280' }}>
+            Loading password policy from database...
+          </p>
         </div>
       </div>
     );
   }
 
   // ============================================
-  // RENDER MAIN PAGE
+  // RENDER
   // ============================================
   return (
-    <div className="change-password-page">
+    <div className="profile-page">
       {/* Page Header */}
-      <div className="page-header-section">
-        <button className="back-button" onClick={() => navigate('/profile')}>
-          <ArrowLeft size={20} />
-          Back to Profile
-        </button>
-        <div className="header-content">
-          <div className="header-icon">
-            <Shield size={32} />
-          </div>
-          <div className="header-text">
-            <h1>Change Password</h1>
-            <p>Update your password to keep your account secure</p>
+      <div className="page-header">
+        <div className="header-left">
+          <button className="btn-icon" onClick={() => navigate('/profile')}>
+            <ArrowLeft size={24} />
+          </button>
+          <Lock size={28} className="page-icon" />
+          <div>
+            <h1 className="page-title">Change Password</h1>
+            <p className="page-subtitle">Update your account password</p>
           </div>
         </div>
       </div>
@@ -424,384 +313,233 @@ const ChangePassword = () => {
       {/* Success Message */}
       {success && (
         <div className="alert alert-success">
-          <CheckCircle2 size={20} />
-          <div>
-            <strong>Password Changed Successfully!</strong>
-            <p>Your password has been updated. All other sessions have been logged out.</p>
-          </div>
+          <Check size={20} />
+          <span>Password changed successfully! Redirecting...</span>
         </div>
       )}
 
       {/* Error Message */}
       {error && (
         <div className="alert alert-error">
-          <XCircle size={20} />
-          <div>
-            <strong>Error</strong>
-            <p>{error}</p>
-          </div>
-          <button onClick={() => setError(null)} className="alert-close">
+          <X size={20} />
+          <span>{error}</span>
+          <button onClick={() => setError(null)}>
             <X size={16} />
           </button>
         </div>
       )}
 
-      {/* Main Content */}
       <div className="change-password-container">
-        {/* Left Side - Password Form */}
-        <div className="password-form-section">
-          <div className="form-card">
-            <h2>Enter Your Passwords</h2>
-            <form onSubmit={handleSubmit} className="password-form">
-              {/* Current Password */}
-              <div className="form-group">
-                <label htmlFor="current_password">
-                  Current Password <span className="required">*</span>
-                </label>
-                <div className="input-wrapper">
-                  <Lock className="input-icon" size={20} />
-                  <input
-                    type={showPasswords.current ? 'text' : 'password'}
-                    id="current_password"
-                    name="current_password"
-                    value={formData.current_password}
-                    onChange={handleInputChange}
-                    placeholder="Enter your current password"
-                    disabled={loading}
-                    required
-                  />
-                  <button
-                    type="button"
-                    className="password-toggle"
-                    onClick={() => togglePasswordVisibility('current')}
-                    tabIndex={-1}
-                  >
-                    {showPasswords.current ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
-                </div>
-              </div>
-
-              {/* New Password */}
-              <div className="form-group">
-                <label htmlFor="new_password">
-                  New Password <span className="required">*</span>
-                </label>
-                <div className="input-wrapper">
-                  <Lock className="input-icon" size={20} />
-                  <input
-                    type={showPasswords.new ? 'text' : 'password'}
-                    id="new_password"
-                    name="new_password"
-                    value={formData.new_password}
-                    onChange={handleInputChange}
-                    placeholder="Enter your new password"
-                    disabled={loading}
-                    required
-                  />
-                  <button
-                    type="button"
-                    className="password-toggle"
-                    onClick={() => togglePasswordVisibility('new')}
-                    tabIndex={-1}
-                  >
-                    {showPasswords.new ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
-                </div>
-
-                {/* ⭐ LIVE STRENGTH METER */}
-                {formData.new_password && (
-                  <div className="strength-meter">
-                    <div className="strength-bar-container">
-                      <div
-                        className="strength-bar-fill"
-                        style={{
-                          width: `${passwordStrength.percentage}%`,
-                          backgroundColor: passwordStrength.color,
-                          transition: 'all 0.3s ease',
-                        }}
-                      />
-                    </div>
-                    <div className="strength-info">
-                      <span
-                        className="strength-label"
-                        style={{ color: passwordStrength.color }}
-                      >
-                        {passwordStrength.label}
-                      </span>
-                      <span className="strength-percentage">
-                        {Math.round(passwordStrength.percentage)}%
-                      </span>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Confirm Password */}
-              <div className="form-group">
-                <label htmlFor="confirm_password">
-                  Confirm New Password <span className="required">*</span>
-                </label>
-                <div className="input-wrapper">
-                  <Lock className="input-icon" size={20} />
-                  <input
-                    type={showPasswords.confirm ? 'text' : 'password'}
-                    id="confirm_password"
-                    name="confirm_password"
-                    value={formData.confirm_password}
-                    onChange={handleInputChange}
-                    placeholder="Confirm your new password"
-                    disabled={loading}
-                    required
-                  />
-                  <button
-                    type="button"
-                    className="password-toggle"
-                    onClick={() => togglePasswordVisibility('confirm')}
-                    tabIndex={-1}
-                  >
-                    {showPasswords.confirm ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
-                </div>
-                {formData.confirm_password &&
-                  formData.new_password !== formData.confirm_password && (
-                    <p className="error-text">
-                      <AlertCircle size={14} />
-                      Passwords do not match
-                    </p>
-                  )}
-              </div>
-
-              {/* Form Actions */}
-              <div className="form-actions">
+        {/* Password Change Form */}
+        <div className="profile-card">
+          <h3>Update Your Password</h3>
+          <form onSubmit={handleSubmit} className="password-form">
+            {/* Current Password */}
+            <div className="form-group">
+              <label htmlFor="current_password">Current Password</label>
+              <div className="password-input-wrapper">
+                <Lock size={20} className="input-icon" />
+                <input
+                  type={showPasswords.current ? 'text' : 'password'}
+                  id="current_password"
+                  name="current_password"
+                  value={formData.current_password}
+                  onChange={handleInputChange}
+                  placeholder="Enter your current password"
+                  disabled={loading}
+                  required
+                />
                 <button
                   type="button"
-                  className="btn-secondary"
-                  onClick={() => navigate('/profile')}
-                  disabled={loading}
+                  className="password-toggle"
+                  onClick={() => togglePasswordVisibility('current')}
+                  tabIndex={-1}
                 >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="btn-primary"
-                  disabled={loading || passwordStrength.percentage < 100}
-                >
-                  {loading ? (
-                    <>
-                      <Loader className="btn-spinner" size={18} />
-                      Updating Password...
-                    </>
-                  ) : (
-                    <>
-                      <Shield size={18} />
-                      Change Password
-                    </>
-                  )}
+                  {showPasswords.current ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
-            </form>
-          </div>
+            </div>
+
+            {/* New Password */}
+            <div className="form-group">
+              <label htmlFor="new_password">New Password</label>
+              <div className="password-input-wrapper">
+                <Lock size={20} className="input-icon" />
+                <input
+                  type={showPasswords.new ? 'text' : 'password'}
+                  id="new_password"
+                  name="new_password"
+                  value={formData.new_password}
+                  onChange={handleInputChange}
+                  placeholder="Enter your new password"
+                  disabled={loading}
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => togglePasswordVisibility('new')}
+                  tabIndex={-1}
+                >
+                  {showPasswords.new ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+
+              {/* Password Strength Indicator */}
+              {formData.new_password && (
+                <div className="password-strength">
+                  <div className="strength-bar">
+                    <div
+                      className="strength-bar-fill"
+                      style={{
+                        width: `${(passwordStrength.score / 4) * 100}%`,
+                        backgroundColor: getStrengthColor(),
+                      }}
+                    />
+                  </div>
+                  <div className="strength-label" style={{ color: getStrengthColor() }}>
+                    {getStrengthLabel()}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Confirm Password */}
+            <div className="form-group">
+              <label htmlFor="confirm_password">Confirm New Password</label>
+              <div className="password-input-wrapper">
+                <Lock size={20} className="input-icon" />
+                <input
+                  type={showPasswords.confirm ? 'text' : 'password'}
+                  id="confirm_password"
+                  name="confirm_password"
+                  value={formData.confirm_password}
+                  onChange={handleInputChange}
+                  placeholder="Confirm your new password"
+                  disabled={loading}
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => togglePasswordVisibility('confirm')}
+                  tabIndex={-1}
+                >
+                  {showPasswords.confirm ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+              {formData.confirm_password && formData.new_password !== formData.confirm_password && (
+                <p className="error-text">Passwords do not match</p>
+              )}
+            </div>
+
+            {/* Form Actions */}
+            <div className="form-actions">
+              <button
+                type="button"
+                className="btn-secondary"
+                onClick={() => navigate('/profile')}
+                disabled={loading}
+              >
+                Cancel
+              </button>
+              <button type="submit" className="btn-primary" disabled={loading}>
+                {loading ? (
+                  <>
+                    <Loader className="spinner-small" size={20} />
+                    Updating...
+                  </>
+                ) : (
+                  <>
+                    <Shield size={20} />
+                    Change Password
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
         </div>
 
-        {/* Right Side - Security Requirements & Info */}
-        <div className="requirements-section">
-          {/* Password Requirements */}
-          <div className="requirements-card">
-            <div className="card-header">
-              <Shield size={20} />
-              <h3>Password Requirements</h3>
-            </div>
-            <div className="requirements-list">
-              {/* Length Requirement */}
+        {/* Password Requirements - FROM DATABASE */}
+        <div className="profile-card">
+          <h3>Password Requirements</h3>
+          {passwordPolicy && (
+            <div className="password-requirements">
+              {/* Length requirement - FROM DATABASE */}
               <div
                 className={`requirement-item ${
-                  passwordStrength.checks.length ? 'met' : ''
+                  formData.new_password.length >= passwordPolicy.minLength ? 'met' : ''
                 }`}
               >
-                <div className="requirement-icon">
-                  {passwordStrength.checks.length ? (
-                    <CheckCircle2 size={18} />
+                {formData.new_password.length >= passwordPolicy.minLength ? (
+                  <Check size={18} className="check-icon" />
+                ) : (
+                  <X size={18} className="x-icon" />
+                )}
+                <span>At least {passwordPolicy.minLength} characters long</span>
+              </div>
+
+              {/* Uppercase and Lowercase - FROM DATABASE */}
+              {(passwordPolicy.requireUppercase && passwordPolicy.requireLowercase) && (
+                <div
+                  className={`requirement-item ${
+                    /[a-z]/.test(formData.new_password) && /[A-Z]/.test(formData.new_password)
+                      ? 'met'
+                      : ''
+                  }`}
+                >
+                  {/[a-z]/.test(formData.new_password) && /[A-Z]/.test(formData.new_password) ? (
+                    <Check size={18} className="check-icon" />
                   ) : (
-                    <XCircle size={18} />
+                    <X size={18} className="x-icon" />
                   )}
-                </div>
-                <span>
-                  At least {securitySettings.password_min_length} characters long
-                </span>
-              </div>
-
-              {/* Uppercase Requirement */}
-              {securitySettings.password_require_uppercase && (
-                <div
-                  className={`requirement-item ${
-                    passwordStrength.checks.uppercase ? 'met' : ''
-                  }`}
-                >
-                  <div className="requirement-icon">
-                    {passwordStrength.checks.uppercase ? (
-                      <CheckCircle2 size={18} />
-                    ) : (
-                      <XCircle size={18} />
-                    )}
-                  </div>
-                  <span>Contains uppercase letter (A-Z)</span>
+                  <span>Contains uppercase and lowercase letters</span>
                 </div>
               )}
 
-              {/* Lowercase Requirement */}
-              {securitySettings.password_require_lowercase && (
+              {/* Numbers requirement - FROM DATABASE */}
+              {passwordPolicy.requireNumber && (
                 <div
-                  className={`requirement-item ${
-                    passwordStrength.checks.lowercase ? 'met' : ''
-                  }`}
+                  className={`requirement-item ${/\d/.test(formData.new_password) ? 'met' : ''}`}
                 >
-                  <div className="requirement-icon">
-                    {passwordStrength.checks.lowercase ? (
-                      <CheckCircle2 size={18} />
-                    ) : (
-                      <XCircle size={18} />
-                    )}
-                  </div>
-                  <span>Contains lowercase letter (a-z)</span>
+                  {/\d/.test(formData.new_password) ? (
+                    <Check size={18} className="check-icon" />
+                  ) : (
+                    <X size={18} className="x-icon" />
+                  )}
+                  <span>Contains at least one number</span>
                 </div>
               )}
 
-              {/* Number Requirement */}
-              {securitySettings.password_require_number && (
+              {/* Special characters requirement - FROM DATABASE */}
+              {passwordPolicy.requireSpecial && (
                 <div
                   className={`requirement-item ${
-                    passwordStrength.checks.number ? 'met' : ''
+                    /[!@#$%^&*(),.?":{}|<>]/.test(formData.new_password) ? 'met' : ''
                   }`}
                 >
-                  <div className="requirement-icon">
-                    {passwordStrength.checks.number ? (
-                      <CheckCircle2 size={18} />
-                    ) : (
-                      <XCircle size={18} />
-                    )}
-                  </div>
-                  <span>Contains number (0-9)</span>
+                  {/[!@#$%^&*(),.?":{}|<>]/.test(formData.new_password) ? (
+                    <Check size={18} className="check-icon" />
+                  ) : (
+                    <X size={18} className="x-icon" />
+                  )}
+                  <span>Contains special characters (!@#$%^&*)</span>
                 </div>
               )}
 
-              {/* Special Character Requirement */}
-              {securitySettings.password_require_special && (
-                <div
-                  className={`requirement-item ${
-                    passwordStrength.checks.special ? 'met' : ''
-                  }`}
-                >
-                  <div className="requirement-icon">
-                    {passwordStrength.checks.special ? (
-                      <CheckCircle2 size={18} />
-                    ) : (
-                      <XCircle size={18} />
-                    )}
-                  </div>
-                  <span>Contains special character (!@#$%^&*)</span>
+              {/* ⭐ Password Policy Info - FROM DATABASE */}
+              <div className="password-policy-info">
+                <div className="policy-info-item">
+                  <strong>Password Expiry:</strong>
+                  <span>Your password expires after {passwordPolicy.expiryDays} days</span>
                 </div>
-              )}
-            </div>
-          </div>
-
-          {/* Security Information */}
-          <div className="security-info-card">
-            <div className="card-header">
-              <Info size={20} />
-              <h3>Security Information</h3>
-            </div>
-            <div className="info-list">
-              {/* Password Expiry */}
-              <div className="info-item">
-                <Clock size={18} />
-                <div className="info-content">
-                  <strong>Password Expiry</strong>
-                  <p>
-                    Your password expires after{' '}
-                    <span className="highlight">
-                      {securitySettings.password_expiry_days} days
-                    </span>
-                  </p>
-                </div>
-              </div>
-
-              {/* Password History */}
-              <div className="info-item">
-                <History size={18} />
-                <div className="info-content">
-                  <strong>Password History</strong>
-                  <p>
-                    Cannot reuse last{' '}
-                    <span className="highlight">
-                      {securitySettings.password_history_count} passwords
-                    </span>
-                  </p>
-                </div>
-              </div>
-
-              {/* Session Timeout */}
-              <div className="info-item">
-                <AlertCircle size={18} />
-                <div className="info-content">
-                  <strong>Session Timeout</strong>
-                  <p>
-                    Auto logout after{' '}
-                    <span className="highlight">
-                      {Math.floor(securitySettings.session_timeout_minutes / 60)} hours
-                    </span>{' '}
-                    of inactivity
-                  </p>
-                </div>
-              </div>
-
-              {/* Concurrent Sessions */}
-              <div className="info-item">
-                <Shield size={18} />
-                <div className="info-content">
-                  <strong>Active Sessions</strong>
-                  <p>
-                    Maximum{' '}
-                    <span className="highlight">
-                      {securitySettings.max_concurrent_sessions} active session(s)
-                    </span>
-                  </p>
-                </div>
-              </div>
-
-              {/* Account Lockout */}
-              <div className="info-item">
-                <Lock size={18} />
-                <div className="info-content">
-                  <strong>Account Lockout</strong>
-                  <p>
-                    After{' '}
-                    <span className="highlight">
-                      {securitySettings.lockout_attempts} failed attempts
-                    </span>
-                    , locked for{' '}
-                    <span className="highlight">
-                      {securitySettings.lockout_duration_minutes} minutes
-                    </span>
-                  </p>
+                <div className="policy-info-item">
+                  <strong>Password History:</strong>
+                  <span>Cannot reuse last {passwordPolicy.historyCount} passwords</span>
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Security Tips */}
-          <div className="tips-card">
-            <div className="card-header">
-              <AlertCircle size={20} />
-              <h3>Security Tips</h3>
-            </div>
-            <ul className="tips-list">
-              <li>Use a unique password you don't use elsewhere</li>
-              <li>Avoid common words, names, or dates</li>
-              <li>Mix uppercase, lowercase, numbers, and symbols</li>
-              <li>Don't share your password with anyone</li>
-              <li>Change your password regularly</li>
-            </ul>
-          </div>
+          )}
         </div>
       </div>
     </div>
@@ -809,3 +547,4 @@ const ChangePassword = () => {
 };
 
 export default ChangePassword;
+
