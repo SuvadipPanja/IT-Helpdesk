@@ -6394,3 +6394,17 @@
 2025-11-08 19:49:19.271 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2025-11-08 19:49:19.280 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-08 19:49:19.282 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-08 19:49:25.432 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-08 19:49:25.435 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-08 19:49:25.435 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-08 19:49:25.436 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-08 19:49:25.437 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-08 19:49:25.442 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-08 19:49:25.446 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-08 19:49:25.454 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-08 19:49:25.457 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-08 19:49:25.461 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-08 19:49:25.464 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-08 19:49:25.466 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-08 19:49:25.470 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-08 19:49:25.472 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
