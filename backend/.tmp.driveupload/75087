@@ -1026,3 +1026,17 @@
 2025-11-08 19:19:11.887 [TRY] [OPERATION] 🔄 Fetching unread count | {
 2025-11-08 19:19:11.893 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-08 19:19:11.895 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-08 19:19:19.832 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-08 19:19:19.834 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-08 19:19:19.834 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-08 19:19:19.835 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-08 19:19:19.835 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-08 19:19:19.840 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-08 19:19:19.843 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-08 19:19:19.854 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-08 19:19:19.857 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-08 19:19:19.862 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-08 19:19:19.863 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-08 19:19:19.860 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-08 19:19:19.871 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-08 19:19:19.869 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
