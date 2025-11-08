@@ -6956,3 +6956,17 @@
 2025-11-08 19:55:24.836 [TRY] [OPERATION] 🔄 Fetching unread count | {
 2025-11-08 19:55:24.843 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-08 19:55:24.846 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-08 19:55:36.644 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-08 19:55:36.649 [DEBUG] 🐛 Request Body | {
+2025-11-08 19:55:36.651 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-08 19:55:36.651 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-08 19:55:36.653 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-08 19:55:36.654 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-08 19:55:36.658 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-08 19:55:36.664 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-08 19:55:36.673 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-08 19:55:36.680 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-08 19:55:36.684 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-08 19:55:36.686 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-08 19:55:36.688 [TRY] [OPERATION] 🔄 Changing password | {
+2025-11-08 19:55:36.831 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
