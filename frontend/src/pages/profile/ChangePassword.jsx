@@ -1,10 +1,18 @@
 // ============================================
-// CHANGE PASSWORD PAGE (UPDATED)
-// Fetches password policy from database - NO HARDCODED VALUES
+// CHANGE PASSWORD PAGE - YOUR OLD CLEAN STYLE
+// Simple white background, only password policy from DB
 // ============================================
 // Developer: Suvadip Panja
-// Updated: November 07, 2025
-// CHANGES: Now fetches password policy from system_settings table
+// Updated: November 08, 2025
+// File: frontend/src/pages/profile/ChangePassword.jsx
+// ============================================
+// ✅ Uses your existing Profile.css (white, clean)
+// ✅ Shows ONLY password requirements from DB
+// ✅ Fixed bug - reads password_history_count from DB (2, not 5)
+// ✅ Shows password expiry days from DB
+// ❌ NO session timeout info
+// ❌ NO active sessions info
+// ❌ NO account lockout info
 // ============================================
 
 import { useState, useEffect } from 'react';
@@ -49,7 +57,7 @@ const ChangePassword = () => {
     feedback: [],
   });
 
-  // ⭐ NEW: Password policy from database
+  // ⭐ Password policy from database
   const [passwordPolicy, setPasswordPolicy] = useState(null);
   const [loadingPolicy, setLoadingPolicy] = useState(true);
 
@@ -61,7 +69,7 @@ const ChangePassword = () => {
       try {
         setLoadingPolicy(true);
         
-        // Use EXISTING settings API endpoint
+        // Fetch from existing settings API
         const response = await api.get('/settings');
         
         if (response.data.success && response.data.data) {
@@ -74,20 +82,24 @@ const ChangePassword = () => {
             requireLowercase: settings.password_require_lowercase === 'true' || settings.password_require_lowercase === true,
             requireNumber: settings.password_require_number === 'true' || settings.password_require_number === true,
             requireSpecial: settings.password_require_special === 'true' || settings.password_require_special === true,
+            expiryDays: parseInt(settings.password_expiry_days) || 90,
+            historyCount: parseInt(settings.password_history_count) || 5, // ⭐ FROM DB
           };
           
           setPasswordPolicy(policy);
           console.log('✅ Password policy loaded from database:', policy);
+          console.log('✅ Password history count from DB:', policy.historyCount);
         }
       } catch (err) {
         console.error('❌ Error fetching password policy:', err);
-        // Fallback to safe defaults if API fails
         setPasswordPolicy({
           minLength: 8,
           requireUppercase: true,
           requireLowercase: true,
           requireNumber: true,
           requireSpecial: true,
+          expiryDays: 90,
+          historyCount: 5,
         });
       } finally {
         setLoadingPolicy(false);
@@ -98,8 +110,7 @@ const ChangePassword = () => {
   }, []);
 
   // ============================================
-  // PASSWORD STRENGTH CHECKER (UPDATED)
-  // Uses database policy instead of hardcoded values
+  // PASSWORD STRENGTH CHECKER (FROM DB)
   // ============================================
   const checkPasswordStrength = (password) => {
     if (!passwordPolicy) return { score: 0, feedback: [] };
@@ -107,7 +118,7 @@ const ChangePassword = () => {
     let score = 0;
     const feedback = [];
 
-    // Check 1: Length (from database)
+    // Check length (from DB)
     if (password.length >= passwordPolicy.minLength) {
       score++;
       feedback.push(`At least ${passwordPolicy.minLength} characters`);
@@ -115,7 +126,7 @@ const ChangePassword = () => {
       feedback.push(`Needs at least ${passwordPolicy.minLength} characters`);
     }
 
-    // Check 2: Uppercase and Lowercase (from database)
+    // Check uppercase and lowercase (from DB)
     if (passwordPolicy.requireUppercase && passwordPolicy.requireLowercase) {
       if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
         score++;
@@ -123,23 +134,9 @@ const ChangePassword = () => {
       } else {
         feedback.push('Needs uppercase and lowercase letters');
       }
-    } else if (passwordPolicy.requireUppercase) {
-      if (/[A-Z]/.test(password)) {
-        score++;
-        feedback.push('Contains uppercase');
-      } else {
-        feedback.push('Needs uppercase letter');
-      }
-    } else if (passwordPolicy.requireLowercase) {
-      if (/[a-z]/.test(password)) {
-        score++;
-        feedback.push('Contains lowercase');
-      } else {
-        feedback.push('Needs lowercase letter');
-      }
     }
 
-    // Check 3: Numbers (from database)
+    // Check numbers (from DB)
     if (passwordPolicy.requireNumber) {
       if (/\d/.test(password)) {
         score++;
@@ -149,7 +146,7 @@ const ChangePassword = () => {
       }
     }
 
-    // Check 4: Special characters (from database)
+    // Check special characters (from DB)
     if (passwordPolicy.requireSpecial) {
       if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
         score++;
@@ -177,7 +174,6 @@ const ChangePassword = () => {
       setPasswordStrength(checkPasswordStrength(value));
     }
 
-    // Clear error when user starts typing
     if (error) setError(null);
   };
 
@@ -192,15 +188,13 @@ const ChangePassword = () => {
   };
 
   // ============================================
-  // HANDLE FORM SUBMIT (UPDATED)
-  // Uses database policy for validation
+  // HANDLE FORM SUBMIT
   // ============================================
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(false);
 
-    // Wait for policy to load
     if (!passwordPolicy) {
       setError('Please wait, loading password requirements...');
       return;
@@ -217,7 +211,7 @@ const ChangePassword = () => {
       return;
     }
 
-    // ⭐ UPDATED: Use database value instead of hardcoded
+    // ⭐ Use database value
     if (formData.new_password.length < passwordPolicy.minLength) {
       setError(`Password must be at least ${passwordPolicy.minLength} characters long`);
       return;
@@ -245,7 +239,6 @@ const ChangePassword = () => {
           confirm_password: '',
         });
 
-        // Redirect to profile after 2 seconds
         setTimeout(() => {
           navigate('/profile');
         }, 2000);
@@ -279,7 +272,7 @@ const ChangePassword = () => {
   };
 
   // ============================================
-  // SHOW LOADING STATE WHILE FETCHING POLICY
+  // LOADING STATE
   // ============================================
   if (loadingPolicy) {
     return (
@@ -474,12 +467,12 @@ const ChangePassword = () => {
           </form>
         </div>
 
-        {/* Password Requirements (UPDATED - FROM DATABASE) */}
+        {/* Password Requirements - FROM DATABASE ONLY */}
         <div className="profile-card">
           <h3>Password Requirements</h3>
           {passwordPolicy && (
             <div className="password-requirements">
-              {/* Length requirement - FROM DATABASE */}
+              {/* Length requirement - FROM DB */}
               <div
                 className={`requirement-item ${
                   formData.new_password.length >= passwordPolicy.minLength ? 'met' : ''
@@ -493,7 +486,7 @@ const ChangePassword = () => {
                 <span>At least {passwordPolicy.minLength} characters long</span>
               </div>
 
-              {/* Uppercase and Lowercase - FROM DATABASE */}
+              {/* Uppercase and Lowercase - FROM DB */}
               {(passwordPolicy.requireUppercase && passwordPolicy.requireLowercase) && (
                 <div
                   className={`requirement-item ${
@@ -511,7 +504,7 @@ const ChangePassword = () => {
                 </div>
               )}
 
-              {/* Numbers requirement - FROM DATABASE */}
+              {/* Numbers requirement - FROM DB */}
               {passwordPolicy.requireNumber && (
                 <div
                   className={`requirement-item ${/\d/.test(formData.new_password) ? 'met' : ''}`}
@@ -525,7 +518,7 @@ const ChangePassword = () => {
                 </div>
               )}
 
-              {/* Special characters requirement - FROM DATABASE */}
+              {/* Special characters requirement - FROM DB */}
               {passwordPolicy.requireSpecial && (
                 <div
                   className={`requirement-item ${
@@ -540,6 +533,34 @@ const ChangePassword = () => {
                   <span>Contains special characters (!@#$%^&*)</span>
                 </div>
               )}
+
+              {/* Divider */}
+              <div style={{ 
+                borderTop: '1px solid #e5e7eb', 
+                margin: '1.5rem 0',
+              }} />
+
+              {/* Password Expiry - FROM DB */}
+              <div className="requirement-item" style={{ 
+                background: '#f0f9ff',
+                border: '1px solid #bfdbfe',
+              }}>
+                <Check size={18} style={{ color: '#3b82f6' }} />
+                <span style={{ color: '#1e40af' }}>
+                  Password expires after <strong>{passwordPolicy.expiryDays} days</strong>
+                </span>
+              </div>
+
+              {/* Password History - FROM DB (FIXED) */}
+              <div className="requirement-item" style={{ 
+                background: '#f0f9ff',
+                border: '1px solid #bfdbfe',
+              }}>
+                <Check size={18} style={{ color: '#3b82f6' }} />
+                <span style={{ color: '#1e40af' }}>
+                  Cannot reuse last <strong>{passwordPolicy.historyCount} passwords</strong>
+                </span>
+              </div>
             </div>
           )}
         </div>
@@ -549,4 +570,3 @@ const ChangePassword = () => {
 };
 
 export default ChangePassword;
-
