@@ -15654,3 +15654,27 @@
 2025-11-08 21:25:00.035 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2025-11-08 21:25:00.043 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
 2025-11-08 21:25:00.042 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-11-08 22:15:21.529 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-08 22:15:21.528 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-08 22:15:21.529 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-08 22:15:21.530 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-08 22:15:21.530 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-08 22:15:21.560 [WARN] [SYSTEM] ⚠️ Authentication failed - Invalid or expired session | {
+2025-11-08 22:15:21.561 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-11-08 22:15:21.563 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-08 22:15:21.564 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-08 22:15:21.564 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-08 22:15:21.566 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-08 22:15:21.565 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-08 22:15:21.580 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-11-08 22:15:21.578 [WARN] [SYSTEM] ⚠️ Authentication failed - Invalid or expired session | {
+2025-11-08 22:15:22.254 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-11-08 22:15:22.253 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-08 22:15:22.254 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-08 22:15:22.266 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-08 22:15:22.269 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-11-08 22:15:22.268 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-11-08 22:15:22.956 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-08 22:15:22.960 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-11-08 22:15:22.960 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-11-08 22:15:22.961 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
