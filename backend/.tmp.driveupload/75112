@@ -1931,3 +1931,61 @@
 2025-11-09 19:59:45.799 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2025-11-09 19:59:45.800 [ERROR] 🚨 🔴 Breaches: 6 tickets
 2025-11-09 19:59:45.801 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 48ms
+2025-11-09 19:59:56.226 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-09 19:59:56.229 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-09 19:59:56.233 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-09 19:59:56.232 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-09 19:59:56.229 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-09 19:59:56.242 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-09 19:59:56.248 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-09 19:59:56.288 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-09 19:59:56.302 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-09 19:59:56.315 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-09 19:59:56.312 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-09 19:59:56.317 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-09 19:59:56.323 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-09 19:59:56.328 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-09 20:00:00.067 [TRY] [OPERATION] 🔄 Finding accounts with expired lockouts
+2025-11-09 20:00:00.066 [TRY] [OPERATION] 🔄 Running Auto Unlock
+2025-11-09 20:00:00.069 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-11-09 20:00:00.069 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-11-09 20:00:00.072 [TRY] [OPERATION] 🔄 Running Session Cleanup
+2025-11-09 20:00:00.074 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2025-11-09 20:00:00.072 [TRY] [OPERATION] 🔄 Marking inactive sessions as expired
+2025-11-09 20:00:00.075 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 09/11/2025, 08:00:00 pm IST
+2025-11-09 20:00:00.076 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2025-11-09 20:00:00.092 [INFO] [SYSTEM] ℹ️ Found 1 accounts to unlock
+2025-11-09 20:00:00.093 [TRY] [OPERATION] 🔄 Unlocking account: admin | {
+2025-11-09 20:00:00.093 [TRY] [OPERATION] 🔄 Unlocking account | {
+2025-11-09 20:00:00.095 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-11-09 20:00:00.095 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-09 20:00:00.103 [SUCCESS] [OPERATION] ✅ Marked 3 inactive sessions as expired | {
+2025-11-09 20:00:00.112 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2025-11-09 20:00:00.115 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [115]
+2025-11-09 20:00:00.108 [TRY] [OPERATION] 🔄 Marking expired sessions
+2025-11-09 20:00:00.116 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2025-11-09 20:00:00.134 [INFO] [SYSTEM] ℹ️ No expired sessions found
+2025-11-09 20:00:00.136 [TRY] [OPERATION] 🔄 Deleting old inactive sessions
+2025-11-09 20:00:00.141 [INFO] [SYSTEM] ℹ️ 🎫 Found 10 open tickets to check
+2025-11-09 20:00:00.142 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2025-11-09 20:00:00.142 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2025-11-09 20:00:00.147 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-09 20:00:00.148 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2025-11-09 20:00:00.160 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2025-11-09 20:00:00.162 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2025-11-09 20:00:00.168 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2025-11-09 20:00:00.158 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-09 20:00:00.161 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-09 20:00:00.173 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2025-11-09 20:00:00.167 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-09 20:00:00.172 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-09 20:00:00.176 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-09 20:00:00.176 [INFO] [SYSTEM] ℹ️ ✅ OK: 4 tickets
+2025-11-09 20:00:00.176 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2025-11-09 20:00:00.177 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 102ms
+2025-11-09 20:00:00.177 [ERROR] 🚨 🔴 Breaches: 6 tickets
+2025-11-09 20:00:00.193 [ERROR] 🚨 Session Cleanup failed | {
+2025-11-09 20:00:00.202 [SUCCESS] [OPERATION] ✅ Account unlocked successfully | {
+2025-11-09 20:00:00.215 [SUCCESS] [OPERATION] ✅ Account unlocked: admin | {
+2025-11-09 20:00:00.216 [TRY] [OPERATION] 🔄 Getting account lock statistics
+2025-11-09 20:00:00.224 [SUCCESS] [OPERATION] ✅ Auto Unlock completed successfully | {
