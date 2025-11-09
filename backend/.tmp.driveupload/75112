@@ -2360,3 +2360,32 @@
 2025-11-09 20:05:56.298 [TRY] [OPERATION] 🔄 Fetching unread count | {
 2025-11-09 20:05:56.304 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-09 20:05:56.306 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-09 20:06:10.756 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-09 20:06:10.763 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-09 20:06:10.760 [DEBUG] 🐛 Request Body | {
+2025-11-09 20:06:10.763 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-09 20:06:10.765 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-09 20:06:10.766 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-09 20:06:10.771 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-09 20:06:10.776 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-09 20:06:10.786 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-09 20:06:10.793 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-09 20:06:10.798 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-09 20:06:10.801 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-09 20:06:10.804 [TRY] [OPERATION] 🔄 Updating user | {
+2025-11-09 20:06:10.835 [SUCCESS] [OPERATION] ✅ User updated successfully | {
+2025-11-09 20:06:10.837 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-09 20:06:12.616 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-09 20:06:12.630 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-09 20:06:12.630 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-09 20:06:12.633 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-09 20:06:12.635 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-09 20:06:12.645 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-09 20:06:12.652 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-09 20:06:12.661 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-09 20:06:12.667 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-09 20:06:12.676 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-09 20:06:12.671 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-09 20:06:12.679 [TRY] [OPERATION] 🔄 Fetching users list | {
+2025-11-09 20:06:12.701 [SUCCESS] [OPERATION] ✅ Users list fetched successfully | {
+2025-11-09 20:06:12.705 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
