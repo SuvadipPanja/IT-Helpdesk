@@ -4945,3 +4945,19 @@
 2025-11-09 20:45:00.056 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2025-11-09 20:45:00.056 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 31ms
 2025-11-09 20:45:00.056 [ERROR] 🚨 🔴 Breaches: 6 tickets
+2025-11-09 20:45:07.212 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-09 20:45:07.213 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-09 20:45:07.214 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-09 20:45:07.214 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-09 20:45:07.213 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-09 20:45:07.216 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-09 20:45:07.220 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-09 20:45:07.216 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-09 20:45:07.222 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-09 20:45:07.227 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-09 20:45:07.229 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-09 20:45:07.230 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-09 20:45:07.231 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-09 20:45:07.232 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-09 20:45:07.234 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-09 20:45:07.235 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
