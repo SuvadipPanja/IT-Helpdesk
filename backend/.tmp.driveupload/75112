@@ -7797,3 +7797,27 @@
 2025-11-09 21:12:37.618 [INFO] [SYSTEM] ℹ️ Found 1 users with expiring/expired passwords
 2025-11-09 21:12:37.619 [SUCCESS] [OPERATION] ✅ ✅ Password expiry job completed
 2025-11-09 21:12:37.625 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-09 21:12:42.067 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2025-11-09 21:12:42.069 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2025-11-09 21:12:42.068 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 09/11/2025, 09:12:42 pm IST
+2025-11-09 21:12:42.073 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2025-11-09 21:12:42.083 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [122]
+2025-11-09 21:12:42.084 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2025-11-09 21:12:42.089 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2025-11-09 21:12:42.089 [INFO] [SYSTEM] ℹ️ 🎫 Found 10 open tickets to check
+2025-11-09 21:12:42.090 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2025-11-09 21:12:42.091 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-09 21:12:42.092 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2025-11-09 21:12:42.093 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2025-11-09 21:12:42.093 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-09 21:12:42.094 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2025-11-09 21:12:42.094 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-09 21:12:42.095 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-09 21:12:42.095 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2025-11-09 21:12:42.095 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-09 21:12:42.097 [INFO] [SYSTEM] ℹ️ ✅ OK: 4 tickets
+2025-11-09 21:12:42.096 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2025-11-09 21:12:42.096 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-09 21:12:42.097 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2025-11-09 21:12:42.097 [ERROR] 🚨 🔴 Breaches: 6 tickets
+2025-11-09 21:12:42.097 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 31ms
