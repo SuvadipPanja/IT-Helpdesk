@@ -10140,3 +10140,17 @@
 2025-11-09 21:45:00.115 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2025-11-09 21:45:00.116 [ERROR] 🚨 🔴 Breaches: 6 tickets
 2025-11-09 21:45:00.116 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 62ms
+2025-11-09 21:45:09.219 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-09 21:45:09.219 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-09 21:45:09.220 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-09 21:45:09.221 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-09 21:45:09.217 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-09 21:45:09.224 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-09 21:45:09.225 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-09 21:45:09.233 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-09 21:45:09.236 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-09 21:45:09.239 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-09 21:45:09.241 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-09 21:45:09.241 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-09 21:45:09.246 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-09 21:45:09.244 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
