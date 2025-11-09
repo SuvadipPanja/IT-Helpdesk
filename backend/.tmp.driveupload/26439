@@ -314,6 +314,31 @@ logger.success('API routes initialized', {
 });
 
 // ============================================
+// TEMPORARY TEST ENDPOINT - PASSWORD EXPIRY JOB
+// Must be BEFORE error handlers!
+// Remove after testing
+// ============================================
+app.get('/test-password-expiry-job', async (req, res) => {
+  try {
+    logger.info('🧪 Manually running password expiry job...');
+    await passwordExpiryJob.runNow();
+    
+    logger.success('✅ Password expiry job completed');
+    
+    res.json({ 
+      success: true, 
+      message: 'Password expiry job executed successfully. Check email_queue table for results.' 
+    });
+  } catch (error) {
+    logger.error('❌ Test job failed:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error.message 
+    });
+  }
+});
+
+// ============================================
 // Error Handling
 // ============================================
 
@@ -516,6 +541,8 @@ const startServer = async () => {
     process.exit(1);
   }
 };
+
+// ============================================
 
 // ============================================
 // Start Application
