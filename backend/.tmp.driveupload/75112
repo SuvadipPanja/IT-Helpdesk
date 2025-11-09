@@ -9567,3 +9567,35 @@
 2025-11-09 21:34:51.137 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 69ms
 2025-11-09 21:34:51.115 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
 2025-11-09 21:34:51.136 [ERROR] 🚨 🔴 Breaches: 6 tickets
+2025-11-09 21:34:56.235 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-09 21:34:56.230 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-09 21:34:56.240 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-09 21:34:56.239 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-09 21:34:56.235 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-09 21:34:56.245 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-09 21:34:56.243 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-09 21:34:56.245 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-09 21:34:56.247 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-09 21:34:56.246 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-09 21:34:56.257 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-09 21:34:56.265 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-09 21:34:56.259 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-09 21:34:56.264 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-09 21:34:56.277 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-09 21:34:56.279 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-09 21:34:56.286 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-09 21:34:56.290 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-09 21:34:56.292 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-09 21:34:56.296 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-09 21:34:56.298 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-09 21:34:56.306 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-09 21:34:56.310 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-09 21:34:56.309 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-09 21:34:56.320 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-09 21:34:56.312 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-09 21:34:56.325 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-09 21:34:56.327 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-09 21:35:00.042 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-11-09 21:35:00.045 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-11-09 21:35:00.053 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-11-09 21:35:00.059 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
