@@ -1,7 +1,7 @@
 // ============================================
 // MAIN APP COMPONENT
 // Root component with all providers and routes
-// UPDATED: Added Security Settings (2FA) route
+// UPDATED: Loads settings on app start + Email Queue + Email Templates routes
 // ============================================
 
 import { useEffect, useState } from 'react';
@@ -27,8 +27,7 @@ import Profile from './pages/profile/Profile';
 import ChangePassword from './pages/profile/ChangePassword';
 import Settings from './pages/settings/Settings';
 import EmailQueue from './pages/email/EmailQueue';
-import EmailTemplates from './pages/email/EmailTemplates';
-import SecuritySettings from './pages/security/SecuritySettings'; // ⭐ NEW - 2FA Security Page
+import EmailTemplates from './pages/email/EmailTemplates'; // ← NEW
 import settingsLoader from './utils/settingsLoader';
 import { Shield } from 'lucide-react';
 
@@ -109,12 +108,20 @@ function App() {
   // MAIN APP RENDER
   // ============================================
   return (
+    // ============================================
+    // PROVIDER HIERARCHY:
+    // 1. AuthProvider (authentication state)
+    // 2. NotificationProvider (notification state with polling)
+    // 3. BrowserRouter (routing)
+    // Settings loaded BEFORE providers, available globally
+    // ============================================
     <AuthProvider>
       <NotificationProvider>
         <BrowserRouter>
           <Routes>
             {/* ============================================
                 PUBLIC ROUTES
+                Accessible without authentication
                 ============================================ */}
             <Route path="/login" element={<Login />} />
 
@@ -135,6 +142,8 @@ function App() {
             {/* ============================================
                 PROTECTED ROUTES - TICKETS MANAGEMENT
                 ============================================ */}
+            
+            {/* All Tickets List */}
             <Route
               path="/tickets"
               element={
@@ -146,6 +155,7 @@ function App() {
               }
             />
 
+            {/* Create New Ticket */}
             <Route
               path="/tickets/create"
               element={
@@ -157,6 +167,7 @@ function App() {
               }
             />
 
+            {/* View Ticket Detail */}
             <Route
               path="/tickets/:id"
               element={
@@ -168,6 +179,7 @@ function App() {
               }
             />
 
+            {/* Edit Ticket */}
             <Route
               path="/tickets/edit/:id"
               element={
@@ -179,6 +191,7 @@ function App() {
               }
             />
 
+            {/* My Tickets (User's Own Tickets) */}
             <Route
               path="/my-tickets"
               element={
@@ -192,6 +205,7 @@ function App() {
 
             {/* ============================================
                 PROTECTED ROUTES - USER MANAGEMENT
+                Requires: can_manage_users permission
                 ============================================ */}
             <Route
               path="/users"
@@ -206,6 +220,7 @@ function App() {
 
             {/* ============================================
                 PROTECTED ROUTES - DEPARTMENT MANAGEMENT
+                Requires: can_manage_departments permission
                 ============================================ */}
             <Route
               path="/departments"
@@ -220,6 +235,7 @@ function App() {
 
             {/* ============================================
                 PROTECTED ROUTES - ROLE MANAGEMENT
+                Requires: can_manage_roles permission
                 ============================================ */}
             <Route
               path="/roles"
@@ -234,6 +250,7 @@ function App() {
 
             {/* ============================================
                 PROTECTED ROUTES - ANALYTICS
+                Requires: can_view_analytics permission
                 ============================================ */}
             <Route
               path="/analytics"
@@ -248,6 +265,7 @@ function App() {
 
             {/* ============================================
                 PROTECTED ROUTES - NOTIFICATIONS
+                Accessible to all authenticated users
                 ============================================ */}
             <Route
               path="/notifications"
@@ -262,6 +280,7 @@ function App() {
 
             {/* ============================================
                 PROTECTED ROUTES - USER PROFILE
+                Accessible to all authenticated users
                 ============================================ */}
             <Route
               path="/profile"
@@ -274,6 +293,7 @@ function App() {
               }
             />
 
+            {/* Change Password */}
             <Route
               path="/profile/change-password"
               element={
@@ -287,6 +307,7 @@ function App() {
 
             {/* ============================================
                 PROTECTED ROUTES - SYSTEM SETTINGS
+                Requires: can_manage_system permission
                 ============================================ */}
             <Route
               path="/settings"
@@ -300,23 +321,8 @@ function App() {
             />
 
             {/* ============================================
-                PROTECTED ROUTES - SECURITY SETTINGS (2FA)
-                Accessible to all authenticated users
-                ⭐ NEW ROUTE - Two-Factor Authentication Management
-                ============================================ */}
-            <Route
-              path="/security"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <SecuritySettings />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* ============================================
                 PROTECTED ROUTES - EMAIL QUEUE
+                Requires: can_manage_system permission
                 ============================================ */}
             <Route
               path="/email-queue"
@@ -331,6 +337,7 @@ function App() {
 
             {/* ============================================
                 PROTECTED ROUTES - EMAIL TEMPLATES
+                Requires: can_manage_system permission
                 ============================================ */}
             <Route
               path="/email-templates"
@@ -345,6 +352,8 @@ function App() {
 
             {/* ============================================
                 PROTECTED ROUTES - HELP CENTER
+                Accessible to all authenticated users
+                Coming Soon
                 ============================================ */}
             <Route
               path="/help"
@@ -363,7 +372,11 @@ function App() {
             {/* ============================================
                 REDIRECTS & 404
                 ============================================ */}
+            
+            {/* Redirect root to dashboard */}
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            
+            {/* 404 - Not Found */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
@@ -372,4 +385,7 @@ function App() {
   );
 }
 
+// ============================================
+// EXPORT APP
+// ============================================
 export default App;
