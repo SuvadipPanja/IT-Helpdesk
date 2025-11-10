@@ -2213,3 +2213,17 @@
 2025-11-10 10:24:22.945 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2025-11-10 10:24:22.956 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2025-11-10 10:24:22.954 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-10 10:24:42.904 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 10:24:42.906 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 10:24:42.906 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 10:24:42.907 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 10:24:42.910 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 10:24:42.916 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 10:24:42.920 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 10:24:42.952 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 10:24:42.956 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 10:24:42.966 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 10:24:42.963 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 10:24:42.970 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-10 10:24:42.974 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-10 10:24:42.979 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
