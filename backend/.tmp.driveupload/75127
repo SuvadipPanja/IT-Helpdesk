@@ -901,3 +901,17 @@
 2025-11-10 09:52:07.248 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2025-11-10 09:52:07.256 [SUCCESS] [OPERATION] ✅ Lookup data fetched successfully | {
 2025-11-10 09:52:07.258 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 09:52:18.136 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 09:52:18.142 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 09:52:18.142 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 09:52:18.144 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 09:52:18.148 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 09:52:18.158 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 09:52:18.163 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 09:52:18.194 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 09:52:18.204 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 09:52:18.209 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 09:52:18.218 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 09:52:18.221 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-10 09:52:18.227 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-10 09:52:18.234 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
