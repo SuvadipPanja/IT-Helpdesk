@@ -6616,3 +6616,22 @@
 2025-11-10 17:15:00.134 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2025-11-10 17:15:00.135 [ERROR] 🚨 🔴 Breaches: 6 tickets
 2025-11-10 17:15:00.138 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 56ms
+2025-11-10 17:15:16.588 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 17:15:16.592 [DEBUG] 🐛 Request Body | {
+2025-11-10 17:15:16.594 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 17:15:16.594 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 17:15:16.597 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 17:15:16.598 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 17:15:16.613 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 17:15:16.619 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 17:15:16.632 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 17:15:16.640 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 17:15:16.646 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 17:15:16.656 [TRY] [OPERATION] 🔄 Verifying OTP code | {
+2025-11-10 17:15:16.651 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 17:15:16.656 [TRY] [OPERATION] 🔄 Verifying 2FA code | {
+2025-11-10 17:15:16.656 [TRY] [OPERATION] 🔄 Verifying OTP | {
+2025-11-10 17:15:16.674 [SUCCESS] [OPERATION] ✅ OTP verified successfully | {
+2025-11-10 17:15:16.696 [SUCCESS] [OPERATION] ✅ 2FA verification complete | {
+2025-11-10 17:15:16.699 [SUCCESS] [OPERATION] ✅ OTP verified successfully | {
+2025-11-10 17:15:16.706 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
