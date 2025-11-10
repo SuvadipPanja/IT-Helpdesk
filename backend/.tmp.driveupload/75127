@@ -7911,3 +7911,23 @@
 2025-11-10 18:08:40.856 [TRY] [OPERATION] 🔄 Fetching unread count | {
 2025-11-10 18:08:40.863 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-10 18:08:40.874 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 18:08:46.515 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:08:46.517 [DEBUG] 🐛 Request Body | {
+2025-11-10 18:08:46.520 [TRY] [OPERATION] 🔄 User attempting to login | {
+2025-11-10 18:08:46.520 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2025-11-10 18:08:46.535 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 18:08:46.532 [SUCCESS] [OPERATION] ✅ User found in database | {
+2025-11-10 18:08:46.540 [TRY] [OPERATION] 🔄 Verifying password
+2025-11-10 18:08:46.540 [TRY] [OPERATION] 🔄 Comparing password with hash
+2025-11-10 18:08:46.682 [SUCCESS] [OPERATION] ✅ Password verified successfully
+2025-11-10 18:08:46.682 [SUCCESS] [OPERATION] ✅ Password comparison successful - Match found
+2025-11-10 18:08:46.683 [INFO] [SYSTEM] ℹ️ Resetting failed login attempts
+2025-11-10 18:08:46.690 [TRY] [OPERATION] 🔄 Checking concurrent sessions limit
+2025-11-10 18:08:46.688 [INFO] [SYSTEM] ℹ️ Failed login attempts reset | {
+2025-11-10 18:08:46.698 [WARN] [SYSTEM] ⚠️ Concurrent session limit reached | {
+2025-11-10 18:08:46.699 [WARN] [SYSTEM] ⚠️ Concurrent session limit reached, invalidating oldest session | {
+2025-11-10 18:08:46.700 [TRY] [OPERATION] 🔄 Invalidating oldest session | {
+2025-11-10 18:08:46.709 [ERROR] 🚨 Login controller error | {
+2025-11-10 18:08:46.706 [ERROR] 🚨 Invalidate oldest session error | {
+2025-11-10 18:08:46.715 [ERROR] 🚨 Error Handler Caught Exception | {
+2025-11-10 18:08:46.719 [ERROR] 🚨 📤 Response Sent | {
