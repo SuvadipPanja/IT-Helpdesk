@@ -2157,3 +2157,17 @@
 2025-11-10 10:23:08.911 [INFO] [SYSTEM] ℹ️ Password expiry status calculated | {
 2025-11-10 10:23:08.912 [SUCCESS] [OPERATION] ✅ Password expiry status retrieved | {
 2025-11-10 10:23:08.914 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 10:23:22.906 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 10:23:22.910 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 10:23:22.910 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 10:23:22.911 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 10:23:22.912 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 10:23:22.922 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 10:23:22.928 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 10:23:22.961 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 10:23:22.968 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 10:23:22.977 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 10:23:22.974 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 10:23:22.978 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-10 10:23:22.989 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 10:23:22.986 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
