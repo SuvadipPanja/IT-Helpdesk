@@ -11,6 +11,7 @@ import { Shield, Lock, Key, AlertCircle, CheckCircle, Info, Smartphone, Mail } f
 import TwoFactorSetup from '../../components/security/TwoFactorSetup';
 import BackupCodesModal from '../../components/security/BackupCodesModal';
 import twoFactorService from '../../services/twoFactor.service';
+import '../../styles/SecuritySettings.css';
 
 const SecuritySettings = () => {
   const [loading, setLoading] = useState(true);
