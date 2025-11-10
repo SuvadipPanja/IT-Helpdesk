@@ -6927,3 +6927,22 @@
 2025-11-10 17:19:05.452 [TRY] [OPERATION] 🔄 Fetching backup codes stats | {
 2025-11-10 17:19:05.457 [SUCCESS] [OPERATION] ✅ Backup codes stats retrieved | {
 2025-11-10 17:19:05.459 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 17:19:14.651 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 17:19:14.653 [DEBUG] 🐛 Request Body
+2025-11-10 17:19:14.655 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 17:19:14.655 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 17:19:14.658 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 17:19:14.657 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 17:19:14.666 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 17:19:14.671 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 17:19:14.701 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 17:19:14.705 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 17:19:14.709 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 17:19:14.718 [TRY] [OPERATION] 🔄 Disabling 2FA | {
+2025-11-10 17:19:14.717 [TRY] [OPERATION] 🔄 Disabling 2FA for user | {
+2025-11-10 17:19:14.712 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 17:19:14.736 [TRY] [OPERATION] 🔄 Revoking all backup codes | {
+2025-11-10 17:19:14.748 [SUCCESS] [OPERATION] ✅ All backup codes revoked | {
+2025-11-10 17:19:14.749 [SUCCESS] [OPERATION] ✅ 2FA disabled | {
+2025-11-10 17:19:14.750 [SUCCESS] [OPERATION] ✅ 2FA disabled successfully | {
+2025-11-10 17:19:14.752 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
