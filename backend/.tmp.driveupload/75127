@@ -6080,3 +6080,24 @@
 2025-11-10 16:30:39.560 [ERROR] 🚨 🔴 Breaches: 6 tickets
 2025-11-10 16:30:39.562 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
 2025-11-10 16:30:39.562 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [134]
+2025-11-10 16:30:52.730 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 16:30:52.732 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 16:30:52.730 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 16:30:52.727 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 16:30:52.730 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 16:30:52.739 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 16:30:52.741 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 16:30:52.746 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 16:30:52.751 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 16:30:52.754 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 16:30:52.760 [TRY] [OPERATION] 🔄 Sending OTP to user email | {
+2025-11-10 16:30:52.756 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 16:30:52.760 [TRY] [OPERATION] 🔄 Sending OTP email | {
+2025-11-10 16:30:52.760 [TRY] [OPERATION] 🔄 Invalidating pending OTPs | {
+2025-11-10 16:30:52.762 [SUCCESS] [OPERATION] ✅ Pending OTPs invalidated | {
+2025-11-10 16:30:52.763 [TRY] [OPERATION] 🔄 Creating OTP for user | {
+2025-11-10 16:30:52.767 [SUCCESS] [OPERATION] ✅ OTP created successfully | {
+2025-11-10 16:30:52.768 [ERROR] 🚨 Failed to send OTP email | {
+2025-11-10 16:30:52.771 [ERROR] 🚨 Send OTP controller error | {
+2025-11-10 16:30:52.778 [ERROR] 🚨 📤 Response Sent | {
+2025-11-10 16:30:52.774 [ERROR] 🚨 Error Handler Caught Exception | {
