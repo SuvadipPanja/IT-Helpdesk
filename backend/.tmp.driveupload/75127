@@ -2939,3 +2939,16 @@
 2025-11-10 11:41:45.950 [TRY] [OPERATION] 🔄 Fetching unread count | {
 2025-11-10 11:41:45.957 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-10 11:41:45.959 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 12:06:04.427 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 12:06:04.437 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 12:06:04.437 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 12:06:04.439 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 12:06:04.438 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 12:06:04.507 [WARN] [SYSTEM] ⚠️ Authentication failed - Invalid or expired session | {
+2025-11-10 12:06:04.514 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-11-10 12:06:05.243 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-11-10 12:06:05.240 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 12:06:05.243 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 12:06:05.250 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 12:06:05.252 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-11-10 12:06:05.253 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
