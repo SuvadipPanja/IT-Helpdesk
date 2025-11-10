@@ -6531,3 +6531,58 @@
 2025-11-10 17:14:37.345 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
 2025-11-10 17:14:37.345 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
 2025-11-10 17:14:37.347 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2025-11-10 17:14:42.313 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-11-10 17:14:42.313 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-11-10 17:14:42.320 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-11-10 17:14:42.323 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-10 17:14:46.131 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 17:14:46.131 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 17:14:46.128 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 17:14:46.133 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 17:14:46.134 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 17:14:46.145 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 17:14:46.150 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 17:14:46.182 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 17:14:46.189 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 17:14:46.200 [TRY] [OPERATION] 🔄 Sending OTP to user email | {
+2025-11-10 17:14:46.194 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 17:14:46.197 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 17:14:46.200 [TRY] [OPERATION] 🔄 Invalidating pending OTPs | {
+2025-11-10 17:14:46.200 [TRY] [OPERATION] 🔄 Sending OTP email | {
+2025-11-10 17:14:46.209 [SUCCESS] [OPERATION] ✅ Pending OTPs invalidated | {
+2025-11-10 17:14:46.211 [TRY] [OPERATION] 🔄 Creating OTP for user | {
+2025-11-10 17:14:46.220 [SUCCESS] [OPERATION] ✅ OTP created successfully | {
+2025-11-10 17:14:46.239 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-11-10 17:14:46.249 [SUCCESS] [OPERATION] ✅ OTP sent successfully | {
+2025-11-10 17:14:46.249 [SUCCESS] [OPERATION] ✅ OTP email queued successfully | {
+2025-11-10 17:14:46.256 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 17:14:46.248 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-11-10 17:14:46.259 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-10 17:14:46.265 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-10 17:14:46.268 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-10 17:14:47.355 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2025-11-10 17:14:47.358 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 10/11/2025, 05:14:47 pm IST
+2025-11-10 17:14:47.359 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2025-11-10 17:14:47.364 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2025-11-10 17:14:47.368 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2025-11-10 17:14:47.367 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [136]
+2025-11-10 17:14:47.390 [INFO] [SYSTEM] ℹ️ 🎫 Found 10 open tickets to check
+2025-11-10 17:14:47.395 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-10 17:14:47.392 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2025-11-10 17:14:47.400 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2025-11-10 17:14:47.396 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2025-11-10 17:14:47.399 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-10 17:14:47.403 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-10 17:14:47.408 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2025-11-10 17:14:47.407 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-10 17:14:47.411 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2025-11-10 17:14:47.411 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-10 17:14:47.415 [INFO] [SYSTEM] ℹ️ ✅ OK: 4 tickets
+2025-11-10 17:14:47.405 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2025-11-10 17:14:47.413 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-10 17:14:47.418 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 61ms
+2025-11-10 17:14:47.416 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2025-11-10 17:14:47.416 [ERROR] 🚨 🔴 Breaches: 6 tickets
+2025-11-10 17:14:47.391 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2025-11-10 17:14:48.494 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2025-11-10 17:14:48.493 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
