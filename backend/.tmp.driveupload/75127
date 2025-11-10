@@ -6320,3 +6320,30 @@
 2025-11-10 16:37:33.895 [SUCCESS] [OPERATION] ✅ 2FA verification complete | {
 2025-11-10 16:37:33.896 [WARN] [SYSTEM] ⚠️ OTP verification failed | {
 2025-11-10 16:37:33.898 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-11-10 16:37:49.141 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 16:37:49.144 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 16:37:49.144 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 16:37:49.146 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 16:37:49.145 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 16:37:49.157 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 16:37:49.161 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 16:37:49.191 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 16:37:49.197 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 16:37:49.201 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 16:37:49.205 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 16:37:49.208 [TRY] [OPERATION] 🔄 Sending OTP to user email | {
+2025-11-10 16:37:49.208 [TRY] [OPERATION] 🔄 Sending OTP email | {
+2025-11-10 16:37:49.208 [TRY] [OPERATION] 🔄 Invalidating pending OTPs | {
+2025-11-10 16:37:49.216 [SUCCESS] [OPERATION] ✅ Pending OTPs invalidated | {
+2025-11-10 16:37:49.217 [TRY] [OPERATION] 🔄 Creating OTP for user | {
+2025-11-10 16:37:49.225 [SUCCESS] [OPERATION] ✅ OTP created successfully | {
+2025-11-10 16:37:49.230 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-11-10 16:37:49.237 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-11-10 16:37:49.241 [SUCCESS] [OPERATION] ✅ OTP sent successfully | {
+2025-11-10 16:37:49.241 [SUCCESS] [OPERATION] ✅ OTP email queued successfully | {
+2025-11-10 16:37:49.243 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 16:37:49.245 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-10 16:37:49.250 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-10 16:37:49.252 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-10 16:37:51.445 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2025-11-10 16:37:51.446 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
