@@ -9672,3 +9672,60 @@
 2025-11-10 18:21:50.664 [TRY] [OPERATION] 🔄 Fetching unread count | {
 2025-11-10 18:21:50.669 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-10 18:21:50.673 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 18:21:56.794 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:21:56.796 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 18:21:56.796 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 18:21:56.798 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 18:21:56.803 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 18:21:56.809 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 18:21:56.814 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 18:21:56.822 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 18:21:56.825 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 18:21:56.828 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 18:21:56.830 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 18:21:56.832 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-10 18:21:56.838 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-10 18:21:56.841 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 18:21:57.877 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:21:57.879 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 18:21:57.882 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 18:21:57.881 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 18:21:57.879 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 18:21:57.890 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 18:21:57.893 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 18:21:57.922 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 18:21:57.926 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 18:21:57.930 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 18:21:57.935 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 18:21:57.940 [TRY] [OPERATION] 🔄 Setting up email 2FA | {
+2025-11-10 18:21:57.941 [TRY] [OPERATION] 🔄 Setting up email 2FA | {
+2025-11-10 18:21:57.955 [SUCCESS] [OPERATION] ✅ Email 2FA setup complete | {
+2025-11-10 18:21:57.959 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 18:21:57.957 [SUCCESS] [OPERATION] ✅ Email 2FA setup complete | {
+2025-11-10 18:21:57.968 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:21:57.970 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 18:21:57.970 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 18:21:57.971 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 18:21:57.972 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 18:21:57.978 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 18:21:57.982 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 18:21:57.991 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 18:21:57.994 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 18:21:58.005 [TRY] [OPERATION] 🔄 Sending OTP to user email | {
+2025-11-10 18:21:57.998 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 18:21:58.002 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 18:21:58.005 [TRY] [OPERATION] 🔄 Sending OTP email | {
+2025-11-10 18:21:58.006 [TRY] [OPERATION] 🔄 Invalidating pending OTPs | {
+2025-11-10 18:21:58.014 [TRY] [OPERATION] 🔄 Creating OTP for user | {
+2025-11-10 18:21:58.013 [SUCCESS] [OPERATION] ✅ Pending OTPs invalidated | {
+2025-11-10 18:21:58.022 [SUCCESS] [OPERATION] ✅ OTP created successfully | {
+2025-11-10 18:21:58.030 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-11-10 18:21:58.040 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-11-10 18:21:58.041 [SUCCESS] [OPERATION] ✅ OTP email queued successfully | {
+2025-11-10 18:21:58.043 [SUCCESS] [OPERATION] ✅ OTP sent successfully | {
+2025-11-10 18:21:58.044 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 18:21:58.046 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-10 18:21:58.058 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-10 18:21:58.055 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-10 18:22:00.646 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2025-11-10 18:22:00.646 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
