@@ -8533,3 +8533,498 @@
 2025-11-10 18:20:00.056 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2025-11-10 18:20:00.065 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
 2025-11-10 18:20:00.064 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-11-10 18:20:06.380 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:20:06.389 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 18:20:06.387 [DEBUG] 🐛 Request Body | {
+2025-11-10 18:20:06.389 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 18:20:06.392 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 18:20:06.391 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 18:20:06.403 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 18:20:06.408 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 18:20:06.418 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 18:20:06.425 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 18:20:06.438 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 18:20:06.431 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 18:20:06.440 [TRY] [OPERATION] 🔄 Updating multiple settings | {
+2025-11-10 18:20:06.440 [TRY] [OPERATION] 🔄 Updating multiple settings | {
+2025-11-10 18:20:06.441 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.441 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.442 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.442 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.442 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.442 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.442 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.442 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.442 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.442 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.442 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.443 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.442 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.443 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.443 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.443 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.443 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.443 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.443 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.443 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.443 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.444 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.443 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.444 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.444 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.444 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.444 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.444 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.445 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.445 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.445 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.445 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.446 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.446 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.446 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.446 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.446 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.447 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.447 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.447 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.447 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.447 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.447 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.447 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.447 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.447 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.447 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.448 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.449 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.449 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.449 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.449 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.449 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.449 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.450 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.450 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.450 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.450 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.450 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.450 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.450 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.450 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.450 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.450 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.450 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.450 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.453 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.453 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.453 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.453 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.454 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.454 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.454 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.454 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.454 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.454 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.454 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.454 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.454 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.454 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.454 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.455 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.455 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.455 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.455 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.455 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.455 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.455 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.455 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.455 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.455 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.455 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.456 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.456 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.456 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.456 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.456 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.456 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.457 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.457 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.457 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.457 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.457 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.457 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.457 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.458 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.459 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.459 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.459 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.459 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.459 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.459 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.459 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.459 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.459 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.459 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.459 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.460 [TRY] [OPERATION] 🔄 Boolean conversion | {
+2025-11-10 18:20:06.459 [TRY] [OPERATION] 🔄 Updating setting | {
+2025-11-10 18:20:06.557 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.559 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.581 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.592 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.600 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.628 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.645 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.650 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.674 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.681 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.709 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.722 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.735 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.737 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.732 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.741 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.739 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.756 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.758 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.759 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.762 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.765 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.770 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.766 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.771 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.781 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.783 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.797 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.799 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.800 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.803 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.805 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.807 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.809 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.810 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.813 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.818 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.839 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.838 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.842 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.844 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.846 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.850 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.855 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.857 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.858 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.859 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.869 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.872 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.881 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.882 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.883 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.889 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.894 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.897 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.896 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.905 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.907 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.899 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.911 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.919 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.921 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.928 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.929 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.931 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.934 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.937 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.939 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.943 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.945 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.958 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.964 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.974 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.971 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.975 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.977 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.983 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.993 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.007 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.987 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:06.995 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.021 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.015 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.024 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.027 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.026 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.034 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.038 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.042 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.044 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.056 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.054 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.060 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.062 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.064 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.065 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.075 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.079 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-10 18:20:07.090 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.102 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.114 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.117 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.128 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.130 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.141 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.145 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.165 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.166 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.183 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.177 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.214 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.210 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.238 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.248 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.255 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.261 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.267 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.260 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.277 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.276 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.271 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.282 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.228 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.281 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.307 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.309 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.314 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.315 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.323 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.321 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.328 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.333 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.327 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.332 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.340 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.353 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.341 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.355 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.360 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.346 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.345 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.361 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.385 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.391 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.387 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.398 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.392 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.396 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.406 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.405 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.409 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.410 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.417 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.424 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.428 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.432 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.439 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.440 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.444 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.445 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.471 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.472 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.476 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.478 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.486 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.489 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.505 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.497 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.514 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.512 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.526 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.496 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.507 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.523 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.520 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.527 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.531 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.532 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.563 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.567 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.573 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.579 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.574 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.590 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.589 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.581 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.600 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.595 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.607 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.603 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.608 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.593 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.611 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.612 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.620 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.621 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.643 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.644 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.647 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.648 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.654 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.655 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.659 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.660 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.663 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.664 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.669 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.670 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.674 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.676 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.680 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.681 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.691 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.708 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.692 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.709 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.719 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.720 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.724 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.728 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.724 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.733 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.729 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.742 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.736 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.740 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.745 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.746 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.750 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.753 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.759 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.760 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.776 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.777 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.786 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.787 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.790 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.790 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.794 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.795 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.799 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.800 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.811 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.812 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.815 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.816 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.823 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.822 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.828 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.843 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.827 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.845 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.858 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.862 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.873 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.874 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.879 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.888 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.895 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.908 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.914 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.916 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.927 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.924 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.933 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.936 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.939 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.940 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.956 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.958 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.965 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.966 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.972 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.973 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.976 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.977 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.980 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.981 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.984 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.986 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.990 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.991 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.993 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.994 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:07.997 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:07.998 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:08.006 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:08.007 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:08.016 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:08.017 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:08.027 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:08.030 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:08.024 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-10 18:20:08.031 [SUCCESS] [OPERATION] ✅ Setting updated successfully | {
+2025-11-10 18:20:08.033 [SUCCESS] [OPERATION] ✅ Multiple settings updated successfully | {
+2025-11-10 18:20:08.034 [SUCCESS] [OPERATION] ✅ Multiple settings updated | {
+2025-11-10 18:20:08.038 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 18:20:08.052 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:20:08.054 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 18:20:08.054 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 18:20:08.057 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 18:20:08.058 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 18:20:08.063 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 18:20:08.067 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 18:20:08.098 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 18:20:08.103 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 18:20:08.107 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 18:20:08.109 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 18:20:08.111 [TRY] [OPERATION] 🔄 Fetching all settings | {
+2025-11-10 18:20:08.111 [SUCCESS] [OPERATION] ✅ All settings retrieved | {
+2025-11-10 18:20:08.120 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 18:20:09.765 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:20:09.767 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 18:20:09.768 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
+2025-11-10 18:20:09.772 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-11-10 18:20:09.922 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:20:09.925 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-11-10 18:20:09.925 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-11-10 18:20:09.928 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-11-10 18:20:11.791 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:20:11.793 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 18:20:11.793 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 18:20:11.794 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 18:20:11.796 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 18:20:11.800 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 18:20:11.805 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 18:20:11.833 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 18:20:11.839 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 18:20:11.842 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 18:20:11.848 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 18:20:11.857 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-10 18:20:11.864 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-10 18:20:11.866 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
