@@ -5539,3 +5539,23 @@
 2025-11-10 16:15:00.221 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2025-11-10 16:15:00.222 [ERROR] 🚨 🔴 Breaches: 6 tickets
 2025-11-10 16:15:00.222 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 103ms
+2025-11-10 16:15:09.387 [DEBUG] 🐛 Request Body | {
+2025-11-10 16:15:09.388 [TRY] [OPERATION] 🔄 User attempting to login | {
+2025-11-10 16:15:09.388 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2025-11-10 16:15:09.386 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 16:15:09.401 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 16:15:09.399 [SUCCESS] [OPERATION] ✅ User found in database | {
+2025-11-10 16:15:09.405 [TRY] [OPERATION] 🔄 Verifying password
+2025-11-10 16:15:09.405 [TRY] [OPERATION] 🔄 Comparing password with hash
+2025-11-10 16:15:09.660 [SUCCESS] [OPERATION] ✅ Password comparison successful - Match found
+2025-11-10 16:15:09.670 [INFO] [SYSTEM] ℹ️ Resetting failed login attempts
+2025-11-10 16:15:09.666 [SUCCESS] [OPERATION] ✅ Password verified successfully
+2025-11-10 16:15:09.690 [INFO] [SYSTEM] ℹ️ Failed login attempts reset | {
+2025-11-10 16:15:09.696 [TRY] [OPERATION] 🔄 Checking concurrent sessions limit
+2025-11-10 16:15:09.701 [WARN] [SYSTEM] ⚠️ Concurrent session limit reached | {
+2025-11-10 16:15:09.703 [WARN] [SYSTEM] ⚠️ Concurrent session limit reached, invalidating oldest session | {
+2025-11-10 16:15:09.705 [TRY] [OPERATION] 🔄 Invalidating oldest session | {
+2025-11-10 16:15:09.718 [ERROR] 🚨 Invalidate oldest session error | {
+2025-11-10 16:15:09.721 [ERROR] 🚨 Login controller error | {
+2025-11-10 16:15:09.730 [ERROR] 🚨 Error Handler Caught Exception | {
+2025-11-10 16:15:09.732 [ERROR] 🚨 📤 Response Sent | {
