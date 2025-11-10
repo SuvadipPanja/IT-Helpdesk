@@ -7847,3 +7847,31 @@
 2025-11-10 18:08:14.018 [ERROR] 🚨 Login controller error | {
 2025-11-10 18:08:14.021 [ERROR] 🚨 Error Handler Caught Exception | {
 2025-11-10 18:08:14.024 [ERROR] 🚨 📤 Response Sent | {
+2025-11-10 18:08:18.802 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 18:08:18.798 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:08:18.800 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 18:08:18.800 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 18:08:18.801 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 18:08:18.803 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 18:08:18.805 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 18:08:18.828 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 18:08:18.831 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 18:08:18.832 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 18:08:18.835 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 18:08:18.837 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-10 18:08:18.838 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-10 18:08:18.840 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 18:08:20.800 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:08:20.802 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 18:08:20.803 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 18:08:20.803 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 18:08:20.802 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 18:08:20.807 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 18:08:20.810 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 18:08:20.819 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 18:08:20.822 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 18:08:20.827 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 18:08:20.826 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 18:08:20.831 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-10 18:08:20.834 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-10 18:08:20.836 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
