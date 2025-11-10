@@ -10029,3 +10029,52 @@
 2025-11-10 18:23:05.141 [TRY] [OPERATION] 🔄 Fetching unread count | {
 2025-11-10 18:23:05.146 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-10 18:23:05.151 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 18:23:10.557 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:23:10.559 [DEBUG] 🐛 Request Body | {
+2025-11-10 18:23:10.560 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 18:23:10.560 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 18:23:10.563 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 18:23:10.565 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 18:23:10.573 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 18:23:10.577 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 18:23:10.586 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 18:23:10.590 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 18:23:10.594 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 18:23:10.600 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 18:23:10.605 [TRY] [OPERATION] 🔄 Verifying OTP code | {
+2025-11-10 18:23:10.605 [TRY] [OPERATION] 🔄 Verifying 2FA code | {
+2025-11-10 18:23:10.606 [TRY] [OPERATION] 🔄 Verifying OTP | {
+2025-11-10 18:23:10.623 [SUCCESS] [OPERATION] ✅ OTP verified successfully | {
+2025-11-10 18:23:10.636 [SUCCESS] [OPERATION] ✅ 2FA verification complete | {
+2025-11-10 18:23:10.639 [SUCCESS] [OPERATION] ✅ OTP verified successfully | {
+2025-11-10 18:23:10.640 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 18:23:10.647 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:23:10.652 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 18:23:10.653 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 18:23:10.654 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 18:23:10.652 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 18:23:10.658 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 18:23:10.663 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 18:23:10.671 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 18:23:10.676 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 18:23:10.679 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 18:23:10.686 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 18:23:10.689 [TRY] [OPERATION] 🔄 Enabling 2FA | {
+2025-11-10 18:23:10.689 [TRY] [OPERATION] 🔄 Enabling 2FA for user | {
+2025-11-10 18:23:10.711 [SUCCESS] [OPERATION] ✅ 2FA enabled | {
+2025-11-10 18:23:10.713 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-10 18:23:10.712 [SUCCESS] [OPERATION] ✅ 2FA enabled successfully | {
+2025-11-10 18:23:10.798 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-10 18:23:10.800 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-10 18:23:10.795 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-10 18:23:10.801 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-10 18:23:10.801 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-10 18:23:10.805 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-10 18:23:10.810 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-10 18:23:10.821 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-10 18:23:10.825 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-10 18:23:10.832 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-10 18:23:10.829 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-10 18:23:10.836 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-10 18:23:10.842 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-10 18:23:10.845 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
