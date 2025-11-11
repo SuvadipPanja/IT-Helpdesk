@@ -1984,3 +1984,16 @@
 2025-11-11 12:17:14.517 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2025-11-11 12:17:14.555 [SUCCESS] [OPERATION] ✅ Notifications fetched successfully | {
 2025-11-11 12:17:14.558 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 12:17:20.175 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 12:17:20.176 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 12:17:20.177 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 12:17:20.176 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 12:17:20.176 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 12:17:20.181 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 12:17:20.184 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 12:17:20.191 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 12:17:20.194 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 12:17:20.197 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 12:17:20.198 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 12:17:20.199 [WARN] [SYSTEM] ⚠️ 404 Route Not Found | {
+2025-11-11 12:17:20.199 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
