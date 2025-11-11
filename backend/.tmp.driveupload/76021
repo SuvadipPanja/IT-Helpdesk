@@ -23139,3 +23139,15 @@
 2025-11-11 17:15:00.137 [ERROR] 🚨 🔴 Breaches: 6 tickets
 2025-11-11 17:15:00.136 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2025-11-11 17:15:00.138 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 75ms
+2025-11-11 17:15:08.474 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 17:15:08.475 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 17:15:08.475 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 17:15:08.477 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 17:15:08.479 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 17:15:08.491 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 17:15:08.496 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 17:15:08.525 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 17:15:08.529 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 17:15:08.540 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 17:15:08.533 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 17:15:08.551 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
