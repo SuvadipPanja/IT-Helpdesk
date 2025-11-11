@@ -23151,3 +23151,18 @@
 2025-11-11 17:15:08.540 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2025-11-11 17:15:08.533 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2025-11-11 17:15:08.551 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 17:15:12.988 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 17:15:12.993 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 17:15:12.991 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 17:15:12.992 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 17:15:12.991 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 17:15:13.062 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 17:15:13.093 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 17:15:13.144 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 17:15:13.158 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 17:15:13.176 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 17:15:13.172 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 17:15:13.184 [TRY] [OPERATION] 🔄 User attempting to logout | {
+2025-11-11 17:15:13.193 [SUCCESS] [OPERATION] ✅ Session invalidated
+2025-11-11 17:15:13.212 [SUCCESS] [OPERATION] ✅ User logged out successfully | {
+2025-11-11 17:15:13.214 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
