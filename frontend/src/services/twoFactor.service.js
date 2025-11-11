@@ -1,8 +1,9 @@
 // ============================================
-// TWO-FACTOR AUTHENTICATION SERVICE
+// TWO-FACTOR AUTHENTICATION SERVICE - FIXED
 // Handles all 2FA-related API calls
 // Developer: Suvadip Panja
 // Date: November 10, 2025
+// Updated: November 11, 2025 - Added password to disable
 // FILE: frontend/src/services/twoFactor.service.js
 // ============================================
 
@@ -85,11 +86,15 @@ const enable2FA = async () => {
 
 /**
  * Disable 2FA for user account
+ * ⭐ FIXED: Now requires password for security
+ * @param {string} password - User's password for confirmation
  * @returns {Promise<Object>} Disable result
  */
-const disable2FA = async () => {
+const disable2FA = async (password) => {
   try {
-    const response = await api.post('/2fa/disable');
+    const response = await api.post('/2fa/disable', {
+      password  // ⭐ Send password to backend
+    });
     return response.data;
   } catch (error) {
     console.error('Error disabling 2FA:', error);
