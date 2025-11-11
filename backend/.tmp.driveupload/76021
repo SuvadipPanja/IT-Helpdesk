@@ -12051,3 +12051,94 @@
 2025-11-11 15:30:41.502 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
 2025-11-11 15:30:41.510 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2025-11-11 15:30:41.511 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-11 15:30:46.093 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 15:30:46.095 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 15:30:46.095 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 15:30:46.101 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 15:30:46.102 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 15:30:46.109 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 15:30:46.118 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 15:30:46.150 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 15:30:46.155 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 15:30:46.160 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 15:30:46.163 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 15:30:46.169 [TRY] [OPERATION] 🔄 Marking notification as read | {
+2025-11-11 15:30:46.176 [SUCCESS] [OPERATION] ✅ Notification marked as read | {
+2025-11-11 15:30:46.178 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 15:30:46.579 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2025-11-11 15:30:46.585 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 11/11/2025, 03:30:46 pm IST
+2025-11-11 15:30:46.588 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2025-11-11 15:30:46.596 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2025-11-11 15:30:46.614 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [141]
+2025-11-11 15:30:46.620 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2025-11-11 15:30:46.629 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2025-11-11 15:30:46.626 [INFO] [SYSTEM] ℹ️ 🎫 Found 10 open tickets to check
+2025-11-11 15:30:46.643 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-11 15:30:46.644 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2025-11-11 15:30:46.641 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2025-11-11 15:30:46.674 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2025-11-11 15:30:46.663 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-11 15:30:46.687 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-11 15:30:46.695 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-11 15:30:46.688 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2025-11-11 15:30:46.743 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2025-11-11 15:30:46.695 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2025-11-11 15:30:46.740 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-11 15:30:46.758 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-11 15:30:46.770 [INFO] [SYSTEM] ℹ️ ✅ OK: 4 tickets
+2025-11-11 15:30:46.772 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2025-11-11 15:30:46.777 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 185ms
+2025-11-11 15:30:46.774 [ERROR] 🚨 🔴 Breaches: 6 tickets
+2025-11-11 15:30:48.021 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 15:30:48.024 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 15:30:48.024 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 15:30:48.025 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 15:30:48.027 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 15:30:48.036 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 15:30:48.040 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 15:30:48.073 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 15:30:48.077 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 15:30:48.088 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 15:30:48.090 [TRY] [OPERATION] 🔄 Marking notification as read | {
+2025-11-11 15:30:48.084 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 15:30:48.096 [SUCCESS] [OPERATION] ✅ Notification marked as read | {
+2025-11-11 15:30:48.100 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 15:30:49.771 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 15:30:49.772 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 15:30:49.772 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 15:30:49.774 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 15:30:49.775 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 15:30:49.781 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 15:30:49.788 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 15:30:49.817 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 15:30:49.822 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 15:30:49.826 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 15:30:49.829 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 15:30:49.839 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 15:30:50.640 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 15:30:50.642 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 15:30:50.642 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 15:30:50.643 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 15:30:50.644 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 15:30:50.653 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 15:30:50.658 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 15:30:50.668 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 15:30:50.672 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 15:30:50.676 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 15:30:50.679 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 15:30:50.684 [TRY] [OPERATION] 🔄 User attempting to logout | {
+2025-11-11 15:30:50.692 [SUCCESS] [OPERATION] ✅ Session invalidated
+2025-11-11 15:30:50.708 [SUCCESS] [OPERATION] ✅ User logged out successfully | {
+2025-11-11 15:30:50.710 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 15:30:52.452 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 15:30:52.453 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 15:30:52.453 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 15:30:52.455 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 15:30:52.456 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 15:30:52.461 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 15:30:52.466 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 15:30:52.495 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 15:30:52.501 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 15:30:52.505 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 15:30:52.507 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 15:30:52.524 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
