@@ -1,13 +1,14 @@
 // ============================================
-// SECURITY SETTINGS PAGE
+// SECURITY SETTINGS PAGE - FIXED
 // Main page for managing 2FA and security settings
 // Developer: Suvadip Panja
 // Date: November 10, 2025
+// Updated: November 11, 2025 - Added password confirmation
 // FILE: frontend/src/pages/security/SecuritySettings.jsx
 // ============================================
 
 import React, { useState, useEffect } from 'react';
-import { Shield, Lock, Key, AlertCircle, CheckCircle, Info, Smartphone, Mail } from 'lucide-react';
+import { Shield, Lock, Key, AlertCircle, CheckCircle, Info, Smartphone, Mail, Eye, EyeOff, X } from 'lucide-react';
 import TwoFactorSetup from '../../components/security/TwoFactorSetup';
 import BackupCodesModal from '../../components/security/BackupCodesModal';
 import twoFactorService from '../../services/twoFactor.service';
@@ -20,6 +21,13 @@ const SecuritySettings = () => {
   const [showBackupCodes, setShowBackupCodes] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  // ⭐ NEW: Password confirmation modal state
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+  const [disabling, setDisabling] = useState(false);
 
   // ============================================
   // Load settings on mount
@@ -46,28 +54,60 @@ const SecuritySettings = () => {
   };
 
   // ============================================
-  // Toggle 2FA (Enable/Disable)
+  // ⭐ NEW: Open Password Modal for Disable
+  // ============================================
+  const handleOpenDisableModal = () => {
+    setShowPasswordModal(true);
+    setPassword('');
+    setPasswordError('');
+    setShowPassword(false);
+  };
+
+  // ============================================
+  // ⭐ NEW: Confirm Disable with Password
+  // ============================================
+  const handleConfirmDisable = async () => {
+    // Validate password
+    if (!password || password.trim() === '') {
+      setPasswordError('Please enter your password to confirm');
+      return;
+    }
+
+    try {
+      setDisabling(true);
+      setPasswordError('');
+      
+      // Call service with password
+      await twoFactorService.disable2FA(password);
+      
+      // Success
+      setSuccess('Two-Factor Authentication disabled successfully');
+      setShowPasswordModal(false);
+      setPassword('');
+      
+      // Reload settings
+      await loadSettings();
+      
+    } catch (err) {
+      // Show error in modal
+      setPasswordError(
+        err.response?.data?.message || 
+        'Failed to disable 2FA. Please check your password.'
+      );
+    } finally {
+      setDisabling(false);
+    }
+  };
+
+  // ============================================
+  // Toggle 2FA (Enable only - Disable uses modal)
   // ============================================
   const handle2FAToggle = async () => {
     if (settings?.is_enabled) {
-      // Disable 2FA
-      if (!window.confirm('Are you sure you want to disable Two-Factor Authentication? This will make your account less secure.')) {
-        return;
-      }
-
-      try {
-        setLoading(true);
-        setError('');
-        await twoFactorService.disable2FA();
-        setSuccess('Two-Factor Authentication disabled successfully');
-        await loadSettings();
-      } catch (err) {
-        setError(err.response?.data?.message || 'Failed to disable 2FA');
-      } finally {
-        setLoading(false);
-      }
+      // Disable 2FA - Open password modal
+      handleOpenDisableModal();
     } else {
-      // Enable 2FA - show setup wizard
+      // Enable 2FA - Show setup wizard
       setShowSetup(true);
     }
   };
@@ -347,6 +387,104 @@ const SecuritySettings = () => {
           </div>
         </div>
       </div>
+
+      {/* ==================== PASSWORD CONFIRMATION MODAL ==================== */}
+      {showPasswordModal && (
+        <div className="security-settings-modal-overlay" onClick={() => !disabling && setShowPasswordModal(false)}>
+          <div className="security-settings-modal-container" onClick={(e) => e.stopPropagation()}>
+            <div className="security-settings-modal-header">
+              <div className="security-settings-modal-header-content">
+                <AlertCircle size={24} style={{ color: '#ef4444' }} />
+                <h3>Disable Two-Factor Authentication</h3>
+              </div>
+              <button 
+                className="security-settings-modal-close"
+                onClick={() => setShowPasswordModal(false)}
+                disabled={disabling}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="security-settings-modal-body">
+              {/* Warning */}
+              <div className="security-settings-alert security-settings-alert-warning">
+                <AlertCircle size={20} />
+                <div>
+                  <strong>Security Warning</strong>
+                  <p>
+                    Disabling 2FA will make your account less secure. 
+                    You will only need your password to sign in.
+                  </p>
+                </div>
+              </div>
+
+              {/* Password Input */}
+              <div className="security-settings-form-group">
+                <label className="security-settings-form-label">
+                  <Lock size={16} />
+                  <span>Enter your password to confirm</span>
+                </label>
+                <div className="security-settings-input-wrapper">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setPasswordError('');
+                    }}
+                    placeholder="Enter your password"
+                    className={`security-settings-input ${passwordError ? 'security-settings-input-error' : ''}`}
+                    disabled={disabling}
+                    autoFocus
+                  />
+                  <button
+                    type="button"
+                    className="security-settings-password-toggle"
+                    onClick={() => setShowPassword(!showPassword)}
+                    disabled={disabling}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+                {passwordError && (
+                  <div className="security-settings-error-text">
+                    <AlertCircle size={14} />
+                    <span>{passwordError}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="security-settings-modal-footer">
+              <button
+                className="security-settings-btn security-settings-btn-secondary"
+                onClick={() => setShowPasswordModal(false)}
+                disabled={disabling}
+              >
+                Cancel
+              </button>
+              <button
+                className="security-settings-btn security-settings-btn-danger"
+                onClick={handleConfirmDisable}
+                disabled={disabling || !password}
+              >
+                {disabling ? (
+                  <>
+                    <div className="security-settings-btn-spinner"></div>
+                    <span>Disabling...</span>
+                  </>
+                ) : (
+                  <>
+                    <Lock size={18} />
+                    <span>Disable 2FA</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Modals */}
       {showSetup && (
