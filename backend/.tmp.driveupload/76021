@@ -20959,3 +20959,15 @@
 2025-11-11 16:45:00.174 [ERROR] 🚨 🔴 Breaches: 6 tickets
 2025-11-11 16:45:00.175 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 80ms
 2025-11-11 16:45:00.159 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2025-11-11 16:45:06.420 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 16:45:06.422 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 16:45:06.422 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 16:45:06.424 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 16:45:06.424 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 16:45:06.430 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 16:45:06.437 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 16:45:06.443 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 16:45:06.446 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 16:45:06.451 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 16:45:06.453 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 16:45:06.460 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
