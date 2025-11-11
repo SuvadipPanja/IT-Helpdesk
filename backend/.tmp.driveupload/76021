@@ -6003,3 +6003,13 @@
 2025-11-11 13:37:59.267 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
 2025-11-11 13:37:59.268 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
 2025-11-11 13:37:59.267 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-11-11 13:38:03.570 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 13:38:03.571 [DEBUG] 🐛 Request Body | {
+2025-11-11 13:38:03.572 [TRY] [OPERATION] 🔄 Verifying OTP | {
+2025-11-11 13:38:03.572 [TRY] [OPERATION] 🔄 Verifying 2FA OTP for login | {
+2025-11-11 13:38:03.572 [TRY] [OPERATION] 🔄 Verifying 2FA code | {
+2025-11-11 13:38:03.572 [TRY] [OPERATION] 🔄 Verifying OTP code
+2025-11-11 13:38:03.579 [WARN] [SYSTEM] ⚠️ OTP verification failed - invalid or expired | {
+2025-11-11 13:38:03.582 [SUCCESS] [OPERATION] ✅ 2FA verification complete | {
+2025-11-11 13:38:03.583 [WARN] [SYSTEM] ⚠️ OTP verification failed | {
+2025-11-11 13:38:03.591 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
