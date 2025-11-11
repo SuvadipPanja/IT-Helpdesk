@@ -3687,3 +3687,17 @@
 2025-11-11 13:07:40.219 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
 2025-11-11 13:07:40.219 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
 2025-11-11 13:07:43.951 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
+2025-11-11 13:07:52.454 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 13:07:52.454 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 13:07:52.455 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 13:07:52.455 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 13:07:52.455 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 13:07:52.459 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 13:07:52.462 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 13:07:52.469 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 13:07:52.471 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 13:07:52.474 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 13:07:52.475 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 13:07:52.475 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-11 13:07:52.478 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-11 13:07:52.479 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
