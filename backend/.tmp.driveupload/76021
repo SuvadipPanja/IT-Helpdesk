@@ -14848,3 +14848,27 @@
 2025-11-11 16:00:00.201 [INFO] [SYSTEM] ℹ️ No old sessions to delete
 2025-11-11 16:00:00.201 [TRY] [OPERATION] 🔄 Getting session statistics
 2025-11-11 16:00:00.225 [SUCCESS] [OPERATION] ✅ Session Cleanup completed successfully | {
+2025-11-11 16:00:10.450 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 16:00:10.451 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 16:00:10.451 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 16:00:10.452 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 16:00:10.453 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 16:00:10.461 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 16:00:10.466 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 16:00:10.474 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 16:00:10.477 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 16:00:10.481 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 16:00:10.480 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 16:00:10.486 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 16:00:12.013 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 16:00:12.014 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 16:00:12.014 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 16:00:12.016 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 16:00:12.017 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 16:00:12.027 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 16:00:12.030 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 16:00:12.058 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 16:00:12.061 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 16:00:12.064 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 16:00:12.066 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 16:00:12.080 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
