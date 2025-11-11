@@ -1710,3 +1710,18 @@
 2025-11-11 12:15:52.488 [TRY] [OPERATION] 🔄 Fetching unread count | {
 2025-11-11 12:15:52.492 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2025-11-11 12:15:52.491 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-11 12:15:57.260 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 12:15:57.258 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 12:15:57.261 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 12:15:57.260 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 12:15:57.260 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 12:15:57.264 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 12:15:57.266 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 12:15:57.273 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 12:15:57.275 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 12:15:57.278 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 12:15:57.277 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 12:15:57.279 [TRY] [OPERATION] 🔄 User attempting to logout | {
+2025-11-11 12:15:57.282 [SUCCESS] [OPERATION] ✅ Session invalidated
+2025-11-11 12:15:57.289 [SUCCESS] [OPERATION] ✅ User logged out successfully | {
+2025-11-11 12:15:57.290 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
