@@ -1062,3 +1062,27 @@
 2025-11-11 12:07:30.014 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2025-11-11 12:07:30.018 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
 2025-11-11 12:07:30.018 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-11-11 12:07:35.043 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2025-11-11 12:07:35.044 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 11/11/2025, 12:07:35 pm IST
+2025-11-11 12:07:35.044 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2025-11-11 12:07:35.051 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2025-11-11 12:07:35.053 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [139]
+2025-11-11 12:07:35.053 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2025-11-11 12:07:35.066 [INFO] [SYSTEM] ℹ️ 🎫 Found 10 open tickets to check
+2025-11-11 12:07:35.067 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2025-11-11 12:07:35.069 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-11 12:07:35.068 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2025-11-11 12:07:35.071 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-11 12:07:35.071 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2025-11-11 12:07:35.069 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2025-11-11 12:07:35.072 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-11 12:07:35.073 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2025-11-11 12:07:35.074 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-11 12:07:35.072 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2025-11-11 12:07:35.071 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-11 12:07:35.076 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2025-11-11 12:07:35.076 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 33ms
+2025-11-11 12:07:35.075 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-11-11 12:07:35.074 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2025-11-11 12:07:35.076 [INFO] [SYSTEM] ℹ️ ✅ OK: 4 tickets
+2025-11-11 12:07:35.076 [ERROR] 🚨 🔴 Breaches: 6 tickets
