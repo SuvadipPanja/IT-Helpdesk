@@ -4849,3 +4849,34 @@
 2025-11-11 13:28:52.503 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-11 13:28:52.500 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-11 13:28:52.504 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 13:29:07.238 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 13:29:07.239 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 13:29:07.239 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 13:29:07.239 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 13:29:07.240 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 13:29:07.243 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 13:29:07.243 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-11 13:29:07.249 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-11 13:29:07.252 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 13:29:07.255 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 13:29:07.257 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 13:29:07.260 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-11 13:29:07.259 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 13:29:07.259 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 13:29:07.264 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 13:29:07.262 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-11 13:29:12.051 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 13:29:12.052 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 13:29:12.052 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 13:29:12.053 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 13:29:12.053 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 13:29:12.055 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 13:29:12.057 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 13:29:12.066 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 13:29:12.068 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 13:29:12.069 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 13:29:12.070 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 13:29:12.071 [TRY] [OPERATION] 🔄 User attempting to logout | {
+2025-11-11 13:29:12.074 [SUCCESS] [OPERATION] ✅ Session invalidated
+2025-11-11 13:29:12.079 [SUCCESS] [OPERATION] ✅ User logged out successfully | {
+2025-11-11 13:29:12.081 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
