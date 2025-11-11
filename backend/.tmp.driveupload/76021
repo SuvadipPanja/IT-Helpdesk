@@ -3171,3 +3171,37 @@
 2025-11-11 12:58:32.263 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
 2025-11-11 12:58:32.263 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
 2025-11-11 12:58:32.264 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-11-11 12:58:42.034 [DEBUG] 🐛 Request Body | {
+2025-11-11 12:58:42.033 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 12:58:42.035 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2025-11-11 12:58:42.035 [TRY] [OPERATION] 🔄 User attempting to login | {
+2025-11-11 12:58:42.042 [SUCCESS] [OPERATION] ✅ User found in database | {
+2025-11-11 12:58:42.043 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 12:58:42.042 [SUCCESS] [OPERATION] ✅ User account is active
+2025-11-11 12:58:42.045 [SUCCESS] [OPERATION] ✅ Account is not locked
+2025-11-11 12:58:42.045 [TRY] [OPERATION] 🔄 Verifying password
+2025-11-11 12:58:42.045 [TRY] [OPERATION] 🔄 Comparing password with hash
+2025-11-11 12:58:42.108 [SUCCESS] [OPERATION] ✅ Password comparison successful - Match found
+2025-11-11 12:58:42.109 [SUCCESS] [OPERATION] ✅ Password verified successfully
+2025-11-11 12:58:42.109 [INFO] [SYSTEM] ℹ️ Resetting failed login attempts
+2025-11-11 12:58:42.116 [INFO] [SYSTEM] ℹ️ Failed login attempts reset | {
+2025-11-11 12:58:42.117 [TRY] [OPERATION] 🔄 Checking if 2FA is enabled for user
+2025-11-11 12:58:42.117 [TRY] [OPERATION] 🔄 Checking 2FA status | {
+2025-11-11 12:58:42.119 [SUCCESS] [OPERATION] ✅ 2FA status checked | {
+2025-11-11 12:58:42.119 [INFO] [SYSTEM] ℹ️ 2FA is enabled for user, initiating 2FA flow | {
+2025-11-11 12:58:42.120 [TRY] [OPERATION] 🔄 Sending OTP email | {
+2025-11-11 12:58:42.120 [TRY] [OPERATION] 🔄 Sending OTP to user email
+2025-11-11 12:58:42.120 [TRY] [OPERATION] 🔄 Invalidating pending OTPs | {
+2025-11-11 12:58:42.127 [TRY] [OPERATION] 🔄 Creating OTP for user | {
+2025-11-11 12:58:42.127 [SUCCESS] [OPERATION] ✅ Pending OTPs invalidated | {
+2025-11-11 12:58:42.130 [SUCCESS] [OPERATION] ✅ OTP created successfully | {
+2025-11-11 12:58:42.133 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-11-11 12:58:42.141 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-11-11 12:58:42.142 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-11-11 12:58:42.142 [SUCCESS] [OPERATION] ✅ OTP email queued successfully | {
+2025-11-11 12:58:42.142 [SUCCESS] [OPERATION] ✅ OTP sent successfully | {
+2025-11-11 12:58:42.148 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-11-11 12:58:42.149 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-11-11 12:58:42.163 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 12:58:43.965 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2025-11-11 12:58:43.966 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
