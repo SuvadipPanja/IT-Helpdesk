@@ -5813,3 +5813,19 @@
 2025-11-11 13:34:06.233 [TRY] [OPERATION] 🔄 Fetching backup codes stats | {
 2025-11-11 13:34:06.235 [SUCCESS] [OPERATION] ✅ Backup codes stats retrieved | {
 2025-11-11 13:34:06.235 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 13:34:09.565 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 13:34:09.564 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 13:34:09.566 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 13:34:09.565 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 13:34:09.566 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 13:34:09.571 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 13:34:09.571 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-11 13:34:09.574 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-11 13:34:09.579 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 13:34:09.583 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 13:34:09.586 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 13:34:09.588 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 13:34:09.589 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 13:34:09.590 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-11 13:34:09.595 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-11 13:34:09.596 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
