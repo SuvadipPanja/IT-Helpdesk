@@ -3529,3 +3529,17 @@
 2025-11-11 13:04:01.294 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
 2025-11-11 13:04:01.293 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
 2025-11-11 13:04:04.793 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
+2025-11-11 13:04:09.452 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 13:04:09.453 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 13:04:09.453 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 13:04:09.454 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 13:04:09.454 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 13:04:09.456 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 13:04:09.457 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 13:04:09.462 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 13:04:09.464 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 13:04:09.467 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 13:04:09.468 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-11 13:04:09.466 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 13:04:09.470 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 13:04:09.469 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
