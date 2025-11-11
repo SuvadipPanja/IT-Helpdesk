@@ -13866,3 +13866,22 @@
 2025-11-11 15:56:12.494 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2025-11-11 15:56:12.497 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2025-11-11 15:56:12.509 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 15:56:19.685 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 15:56:19.689 [DEBUG] 🐛 Request Body | {
+2025-11-11 15:56:19.691 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 15:56:19.691 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 15:56:19.694 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 15:56:19.693 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 15:56:19.699 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 15:56:19.707 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 15:56:19.737 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 15:56:19.742 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 15:56:19.749 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 15:56:19.754 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 15:56:19.757 [TRY] [OPERATION] 🔄 Verifying OTP code | {
+2025-11-11 15:56:19.758 [TRY] [OPERATION] 🔄 Verifying 2FA code | {
+2025-11-11 15:56:19.758 [TRY] [OPERATION] 🔄 Verifying OTP | {
+2025-11-11 15:56:19.766 [WARN] [SYSTEM] ⚠️ OTP verification failed - invalid or expired | {
+2025-11-11 15:56:19.777 [SUCCESS] [OPERATION] ✅ 2FA verification complete | {
+2025-11-11 15:56:19.778 [WARN] [SYSTEM] ⚠️ OTP verification failed | {
+2025-11-11 15:56:19.779 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
