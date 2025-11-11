@@ -908,3 +908,19 @@
 2025-11-11 11:45:52.505 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2025-11-11 11:45:52.508 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
 2025-11-11 11:45:52.509 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2025-11-11 12:02:57.320 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 12:02:57.321 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 12:02:57.321 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 12:02:57.322 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 12:02:57.322 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 12:02:57.343 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-11-11 12:02:57.343 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 12:02:57.349 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-11-11 12:02:57.354 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 12:02:57.362 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 12:02:57.367 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 12:02:57.373 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 12:02:57.371 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 12:02:57.374 [TRY] [OPERATION] 🔄 Fetching unread count | {
+2025-11-11 12:02:57.379 [SUCCESS] [OPERATION] ✅ Unread count fetched | {
+2025-11-11 12:02:57.381 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
