@@ -12761,3 +12761,15 @@
 2025-11-11 15:40:00.066 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2025-11-11 15:40:00.074 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2025-11-11 15:40:00.077 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-11-11 15:40:19.433 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-11-11 15:40:19.435 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-11-11 15:40:19.435 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-11-11 15:40:19.437 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-11-11 15:40:19.438 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-11-11 15:40:19.443 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-11-11 15:40:19.448 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-11-11 15:40:19.479 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-11-11 15:40:19.483 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-11-11 15:40:19.488 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-11-11 15:40:19.490 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-11-11 15:40:19.496 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
