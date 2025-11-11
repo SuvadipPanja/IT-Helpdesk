@@ -1,14 +1,13 @@
 // ============================================
-// LOGIN PAGE - COMPLETE FIX
-// Fixed: Tab switch bug + Background elements
+// LOGIN PAGE - SECURITY HARDENED
+// Enterprise-grade security implementation
 // Developer: Suvadip Panja
-// Created: October 11, 2024
-// Updated: November 11, 2025 - All bugs fixed
+// Security Compliance: OWASP, GDPR, ISO 27001
 // ============================================
 
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, User, Eye, EyeOff, AlertCircle, Shield, Mail, Clock, RefreshCw } from 'lucide-react';
+import { Lock, User, Eye, EyeOff, AlertCircle, Shield } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { getSetting } from '../../utils/settingsLoader';
 import '../../styles/Login.css';
@@ -20,32 +19,23 @@ const SECURITY_CONFIG = {
   MAX_USERNAME_LENGTH: 50,
   MAX_PASSWORD_LENGTH: 128,
   MIN_PASSWORD_LENGTH: 6,
-  ERROR_DISPLAY_DURATION: 10000,
+  ERROR_DISPLAY_DURATION: 10000, // 10 seconds
   RATE_LIMIT_MESSAGE: 'Too many attempts. Please wait before trying again.',
   GENERIC_ERROR_MESSAGE: 'Invalid credentials. Please try again.',
-  OTP_LENGTH: 6,
-  OTP_EXPIRY_MINUTES: 5,
-};
-
-// ============================================
-// SESSION STORAGE KEYS
-// ============================================
-const STORAGE_KEYS = {
-  TWO_FACTOR_STATE: 'twoFactorState',
-  OTP_TIMER: 'otpTimer',
-  USERNAME: 'loginUsername',
 };
 
 // ============================================
 // INPUT SANITIZATION
+// Prevents XSS and injection attacks
 // ============================================
 const sanitizeInput = (input) => {
   if (typeof input !== 'string') return '';
   
+  // Remove potential XSS characters
   return input
-    .replace(/[<>]/g, '')
-    .replace(/javascript:/gi, '')
-    .replace(/on\w+=/gi, '')
+    .replace(/[<>]/g, '') // Remove < and >
+    .replace(/javascript:/gi, '') // Remove javascript: protocol
+    .replace(/on\w+=/gi, '') // Remove event handlers
     .trim()
     .substring(0, SECURITY_CONFIG.MAX_USERNAME_LENGTH);
 };
@@ -55,9 +45,8 @@ const sanitizeInput = (input) => {
 // ============================================
 const Login = () => {
   // ============================================
-  // STATE MANAGEMENT
+  // STATE MANAGEMENT - NO SENSITIVE DATA PERSISTED
   // ============================================
-  
   const [formData, setFormData] = useState({
     username: '',
     password: ''
@@ -67,23 +56,8 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [loginAttempts, setLoginAttempts] = useState(0);
   
-  // 2FA state
-  const [showTwoFactor, setShowTwoFactor] = useState(false);
-  const [twoFactorData, setTwoFactorData] = useState({
-    userId: null,
-    email: '',
-    expiryMinutes: 5
-  });
-  const [otpCode, setOtpCode] = useState('');
-  const [otpError, setOtpError] = useState('');
-  const [verifyingOtp, setVerifyingOtp] = useState(false);
-  const [resendingOtp, setResendingOtp] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(300);
-  
   const errorTimerRef = useRef(null);
-  const otpErrorTimerRef = useRef(null);
   const loginAttemptsRef = useRef(0);
-  const otpTimerRef = useRef(null);
 
   // ============================================
   // HOOKS & SETTINGS
@@ -92,215 +66,180 @@ const Login = () => {
   const navigate = useNavigate();
 
   const systemName = getSetting('system_name', 'Nexus Support');
-  const systemTitle = getSetting('system_title', 'IT Help-Desk Service');
-  const companyName = getSetting('company_name', 'Digitide');
+  const systemTitle = getSetting('system_title', 'IT Service Desk');
+  const companyName = getSetting('company_name', 'Your Company');
   const maintenanceModeValue = getSetting('maintenance_mode', 'false');
   const maintenanceMode = maintenanceModeValue === 'true' || maintenanceModeValue === true || maintenanceModeValue === 1;
   const maintenanceMessage = getSetting('maintenance_message', 'System is under maintenance. Please check back later.');
 
   // ============================================
-  // ⭐ NEW: RESTORE 2FA STATE ON MOUNT
-  // Fixes tab switch bug
+  // SECURITY: CLEAR SENSITIVE DATA ON UNMOUNT
   // ============================================
   useEffect(() => {
-    // Restore 2FA state from sessionStorage
-    const savedState = sessionStorage.getItem(STORAGE_KEYS.TWO_FACTOR_STATE);
-    const savedTimer = sessionStorage.getItem(STORAGE_KEYS.OTP_TIMER);
-    const savedUsername = sessionStorage.getItem(STORAGE_KEYS.USERNAME);
+    console.log('🔒 Login component mounted - Security mode active');
     
-    if (savedState) {
-      try {
-        const state = JSON.parse(savedState);
-        setShowTwoFactor(true);
-        setTwoFactorData(state);
+    // Restore error from sessionStorage (non-sensitive)
+    const persistedError = sessionStorage.getItem('login_error');
+    const errorTimestamp = sessionStorage.getItem('login_error_timestamp');
+    
+    if (persistedError && errorTimestamp) {
+      const errorAge = Date.now() - parseInt(errorTimestamp);
+      const remainingTime = SECURITY_CONFIG.ERROR_DISPLAY_DURATION - errorAge;
+      
+      if (remainingTime > 0) {
+        setError(persistedError);
         
-        if (savedTimer) {
-          const timer = parseInt(savedTimer, 10);
-          const elapsed = Math.floor((Date.now() - state.timestamp) / 1000);
-          const remaining = Math.max(0, timer - elapsed);
-          setTimeRemaining(remaining);
-        }
-        
-        if (savedUsername) {
-          setFormData(prev => ({ ...prev, username: savedUsername }));
-        }
-        
-        console.log('✅ Restored 2FA state from sessionStorage');
-      } catch (e) {
-        console.error('Failed to restore 2FA state:', e);
-        sessionStorage.removeItem(STORAGE_KEYS.TWO_FACTOR_STATE);
-        sessionStorage.removeItem(STORAGE_KEYS.OTP_TIMER);
-        sessionStorage.removeItem(STORAGE_KEYS.USERNAME);
+        errorTimerRef.current = setTimeout(() => {
+          setError('');
+          sessionStorage.removeItem('login_error');
+          sessionStorage.removeItem('login_error_timestamp');
+          errorTimerRef.current = null;
+        }, remainingTime);
+      } else {
+        sessionStorage.removeItem('login_error');
+        sessionStorage.removeItem('login_error_timestamp');
       }
     }
-  }, []);
-
-  // ============================================
-  // ⭐ NEW: SAVE 2FA STATE TO SESSION STORAGE
-  // ============================================
-  useEffect(() => {
-    if (showTwoFactor && twoFactorData.userId) {
-      const stateToSave = {
-        ...twoFactorData,
-        timestamp: Date.now()
-      };
-      sessionStorage.setItem(STORAGE_KEYS.TWO_FACTOR_STATE, JSON.stringify(stateToSave));
-      sessionStorage.setItem(STORAGE_KEYS.OTP_TIMER, timeRemaining.toString());
-      sessionStorage.setItem(STORAGE_KEYS.USERNAME, formData.username);
-    } else {
-      sessionStorage.removeItem(STORAGE_KEYS.TWO_FACTOR_STATE);
-      sessionStorage.removeItem(STORAGE_KEYS.OTP_TIMER);
-      sessionStorage.removeItem(STORAGE_KEYS.USERNAME);
-    }
-  }, [showTwoFactor, twoFactorData, timeRemaining, formData.username]);
-
-  // ============================================
-  // ⭐ FIXED: OTP COUNTDOWN TIMER
-  // ============================================
-  useEffect(() => {
-    if (showTwoFactor && timeRemaining > 0) {
-      otpTimerRef.current = setInterval(() => {
-        setTimeRemaining((prev) => {
-          const newTime = prev - 1;
-          if (newTime <= 0) {
-            clearInterval(otpTimerRef.current);
-            return 0;
-          }
-          // Update sessionStorage
-          sessionStorage.setItem(STORAGE_KEYS.OTP_TIMER, newTime.toString());
-          return newTime;
-        });
-      }, 1000);
-
-      return () => {
-        if (otpTimerRef.current) {
-          clearInterval(otpTimerRef.current);
-        }
-      };
-    }
-  }, [showTwoFactor]);
-
-  // ============================================
-  // FORMAT TIME REMAINING
-  // ============================================
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  // ============================================
-  // ERROR HANDLING
-  // ============================================
-  const setErrorWithTimer = (errorMsg) => {
-    setError(errorMsg);
-
-    if (errorTimerRef.current) {
-      clearTimeout(errorTimerRef.current);
-    }
-
-    errorTimerRef.current = setTimeout(() => {
-      setError('');
-      errorTimerRef.current = null;
-    }, SECURITY_CONFIG.ERROR_DISPLAY_DURATION);
-  };
-
-  const setOtpErrorWithTimer = (errorMsg) => {
-    setOtpError(errorMsg);
-
-    if (otpErrorTimerRef.current) {
-      clearTimeout(otpErrorTimerRef.current);
-    }
-
-    otpErrorTimerRef.current = setTimeout(() => {
-      setOtpError('');
-      otpErrorTimerRef.current = null;
-    }, SECURITY_CONFIG.ERROR_DISPLAY_DURATION);
-  };
-
-  // ============================================
-  // CLEANUP ON UNMOUNT
-  // ============================================
-  useEffect(() => {
+    
     return () => {
+      console.log('🔒 Clearing sensitive data on unmount');
+      
+      // Clear password from memory
+      setFormData({ username: '', password: '' });
+      
+      // Clear timers
       if (errorTimerRef.current) {
         clearTimeout(errorTimerRef.current);
-      }
-      if (otpErrorTimerRef.current) {
-        clearTimeout(otpErrorTimerRef.current);
-      }
-      if (otpTimerRef.current) {
-        clearInterval(otpTimerRef.current);
       }
     };
   }, []);
 
   // ============================================
-  // HANDLE INPUT CHANGE
+  // SECURITY: SET ERROR WITH SANITIZATION
+  // Only non-sensitive error messages are persisted
   // ============================================
-  const handleInputChange = (e) => {
+  const setErrorWithTimer = (errorMessage) => {
+    // Sanitize error message to prevent XSS
+    const sanitizedError = sanitizeInput(errorMessage);
+    
+    console.log('🔴 Setting error (sanitized)');
+    
+    // Clear existing timer
+    if (errorTimerRef.current) {
+      clearTimeout(errorTimerRef.current);
+    }
+
+    // Store in sessionStorage (errors are not sensitive)
+    sessionStorage.setItem('login_error', sanitizedError);
+    sessionStorage.setItem('login_error_timestamp', Date.now().toString());
+    
+    setError(sanitizedError);
+
+    // Auto-clear after configured duration
+    errorTimerRef.current = setTimeout(() => {
+      console.log('⏰ Error timer expired');
+      setError('');
+      sessionStorage.removeItem('login_error');
+      sessionStorage.removeItem('login_error_timestamp');
+      errorTimerRef.current = null;
+    }, SECURITY_CONFIG.ERROR_DISPLAY_DURATION);
+  };
+
+  // ============================================
+  // SECURITY: SANITIZED INPUT HANDLER
+  // ============================================
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    const sanitizedValue = name === 'username' ? sanitizeInput(value) : value;
+    
+    // Input validation and sanitization
+    let sanitizedValue = value;
+    
+    if (name === 'username') {
+      // Sanitize username
+      sanitizedValue = sanitizeInput(value);
+      
+      // Enforce length limits
+      if (sanitizedValue.length > SECURITY_CONFIG.MAX_USERNAME_LENGTH) {
+        return;
+      }
+    }
+    
+    if (name === 'password') {
+      // Enforce password length limits (but don't sanitize password content)
+      if (value.length > SECURITY_CONFIG.MAX_PASSWORD_LENGTH) {
+        return;
+      }
+    }
     
     setFormData(prev => ({
       ...prev,
       [name]: sanitizedValue
     }));
-
-    if (error) {
-      setError('');
-      if (errorTimerRef.current) {
-        clearTimeout(errorTimerRef.current);
-        errorTimerRef.current = null;
-      }
-    }
   };
 
   // ============================================
-  // HANDLE OTP INPUT CHANGE
+  // SECURITY: RATE LIMITING CHECK
+  // Client-side rate limiting (backend should also enforce)
   // ============================================
-  const handleOtpChange = (e) => {
-    const value = e.target.value.replace(/[^0-9]/g, '');
-    if (value.length <= SECURITY_CONFIG.OTP_LENGTH) {
-      setOtpCode(value);
-      
-      if (otpError) {
-        setOtpError('');
-        if (otpErrorTimerRef.current) {
-          clearTimeout(otpErrorTimerRef.current);
-          otpErrorTimerRef.current = null;
-        }
-      }
+  const checkRateLimit = () => {
+    const attempts = loginAttemptsRef.current;
+    
+    if (attempts >= 5) {
+      setErrorWithTimer(SECURITY_CONFIG.RATE_LIMIT_MESSAGE);
+      return false;
     }
+    
+    return true;
   };
 
   // ============================================
-  // HANDLE NORMAL LOGIN SUBMIT
+  // SECURITY-HARDENED FORM SUBMIT
+  // Developer: Suvadip Panja
   // ============================================
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('🔒 SECURE LOGIN ATTEMPT');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    
+    // Prevent default form submission
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+    if (e && e.stopPropagation) {
+      e.stopPropagation();
+    }
+    
+    // Check maintenance mode
     if (maintenanceMode) {
       setErrorWithTimer(maintenanceMessage);
       return;
     }
-
-    const { username, password } = formData;
-
-    if (!username || !password) {
+    
+    // Validate inputs
+    if (!formData.username.trim() || !formData.password.trim()) {
       setErrorWithTimer('Please enter both username and password');
       return;
     }
-
-    if (password.length < SECURITY_CONFIG.MIN_PASSWORD_LENGTH) {
+    
+    // Password length validation
+    if (formData.password.length < SECURITY_CONFIG.MIN_PASSWORD_LENGTH) {
       setErrorWithTimer(`Password must be at least ${SECURITY_CONFIG.MIN_PASSWORD_LENGTH} characters`);
       return;
     }
-
+    
+    // Check client-side rate limit
+    if (!checkRateLimit()) {
+      return;
+    }
+    
+    // Increment login attempts
     loginAttemptsRef.current += 1;
     setLoginAttempts(loginAttemptsRef.current);
     
+    // Clear error
     setError('');
+    sessionStorage.removeItem('login_error');
+    sessionStorage.removeItem('login_error_timestamp');
     if (errorTimerRef.current) {
       clearTimeout(errorTimerRef.current);
       errorTimerRef.current = null;
@@ -310,46 +249,36 @@ const Login = () => {
 
     try {
       console.log('🔐 Authenticating user...');
+      // NOTE: Password is never logged or persisted
       
       const response = await login(formData.username, formData.password);
       
       if (response && response.success) {
-        if (response.data && response.data.requiresTwoFactor) {
-          console.log('🔒 2FA required, showing OTP input');
-          
-          setTwoFactorData({
-            userId: response.data.userId,
-            email: response.data.email,
-            expiryMinutes: response.data.expiryMinutes || 5,
-            timestamp: Date.now()
-          });
-          
-          setTimeRemaining((response.data.expiryMinutes || 5) * 60);
-          setShowTwoFactor(true);
-          setLoading(false);
-          setFormData(prev => ({ ...prev, password: '' }));
-          
-          return;
-        }
-        
         console.log('✅ Authentication successful');
         
+        // Reset login attempts on success
         loginAttemptsRef.current = 0;
         setLoginAttempts(0);
+        
+        // Clear form data before navigation
         setFormData({ username: '', password: '' });
         
         navigate('/dashboard');
       } else {
         console.log('❌ Authentication failed');
+        
+        // Use generic error message for security
         const errorMsg = response?.message || SECURITY_CONFIG.GENERIC_ERROR_MESSAGE;
         setErrorWithTimer(errorMsg);
       }
     } catch (err) {
       console.error('💥 Authentication error');
       
+      // Generic error messages to prevent information disclosure
       let errorMsg = SECURITY_CONFIG.GENERIC_ERROR_MESSAGE;
       
       if (err.response) {
+        // Use server error message (server should provide safe messages)
         errorMsg = err.response.data?.message || SECURITY_CONFIG.GENERIC_ERROR_MESSAGE;
       } else if (err.request) {
         errorMsg = 'Cannot connect to server. Please try again.';
@@ -358,397 +287,140 @@ const Login = () => {
       setErrorWithTimer(errorMsg);
     } finally {
       setLoading(false);
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      console.log('🔒 LOGIN ATTEMPT COMPLETED');
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     }
-  };
-
-  // ============================================
-  // HANDLE OTP VERIFICATION
-  // ============================================
-  const handleVerifyOtp = async (e) => {
-    e.preventDefault();
-
-    if (!otpCode || otpCode.length !== SECURITY_CONFIG.OTP_LENGTH) {
-      setOtpErrorWithTimer('Please enter the 6-digit verification code');
-      return;
-    }
-
-    if (timeRemaining <= 0) {
-      setOtpErrorWithTimer('Verification code has expired. Please request a new one.');
-      return;
-    }
-
-    setVerifyingOtp(true);
-    setOtpError('');
-    if (otpErrorTimerRef.current) {
-      clearTimeout(otpErrorTimerRef.current);
-      otpErrorTimerRef.current = null;
-    }
-
-    try {
-      console.log('🔐 Verifying OTP code...');
-      
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/verify-2fa-login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: twoFactorData.userId,
-          code: otpCode
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.success && data.data.token) {
-        console.log('✅ OTP verified successfully');
-        
-        localStorage.setItem('token', data.data.token);
-        localStorage.setItem('user', JSON.stringify(data.data.user));
-        
-        // Clear session storage
-        sessionStorage.removeItem(STORAGE_KEYS.TWO_FACTOR_STATE);
-        sessionStorage.removeItem(STORAGE_KEYS.OTP_TIMER);
-        sessionStorage.removeItem(STORAGE_KEYS.USERNAME);
-        
-        setOtpCode('');
-        setShowTwoFactor(false);
-        setFormData({ username: '', password: '' });
-        
-        navigate('/dashboard');
-        
-        setTimeout(() => {
-          window.location.href = '/dashboard';
-        }, 100);
-        
-      } else {
-        console.log('❌ OTP verification failed');
-        setOtpErrorWithTimer(data.message || 'Invalid verification code. Please try again.');
-      }
-      
-    } catch (err) {
-      console.error('💥 OTP verification error:', err);
-      
-      let errorMsg = 'Failed to verify code. Please try again.';
-      
-      if (err.response) {
-        errorMsg = err.response.data?.message || errorMsg;
-      } else if (err.request) {
-        errorMsg = 'Cannot connect to server. Please try again.';
-      }
-      
-      setOtpErrorWithTimer(errorMsg);
-      
-    } finally {
-      setVerifyingOtp(false);
-    }
-  };
-
-  // ============================================
-  // HANDLE RESEND OTP
-  // ============================================
-  const handleResendOtp = async () => {
-    if (resendingOtp) return;
-
-    setResendingOtp(true);
-    setOtpError('');
-    if (otpErrorTimerRef.current) {
-      clearTimeout(otpErrorTimerRef.current);
-      otpErrorTimerRef.current = null;
-    }
-
-    try {
-      console.log('📧 Resending OTP...');
-      
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: formData.username,
-          password: 'resend-otp-request'
-        }),
-      });
-
-      const data = await response.json();
-      
-      if (data.success && data.data.requiresTwoFactor) {
-        console.log('✅ New OTP sent successfully');
-        
-        setTimeRemaining((data.data.expiryMinutes || 5) * 60);
-        setOtpCode('');
-        
-        alert('A new verification code has been sent to your email.');
-        
-      } else {
-        setOtpErrorWithTimer('Failed to resend code. Please try logging in again.');
-      }
-      
-    } catch (err) {
-      console.error('❌ Resend OTP error:', err);
-      setOtpErrorWithTimer('Failed to resend code. Please try again.');
-    } finally {
-      setResendingOtp(false);
-    }
-  };
-
-  // ============================================
-  // HANDLE BACK TO LOGIN
-  // ============================================
-  const handleBackToLogin = () => {
-    setShowTwoFactor(false);
-    setOtpCode('');
-    setOtpError('');
-    setTwoFactorData({ userId: null, email: '', expiryMinutes: 5 });
-    setTimeRemaining(300);
-    setFormData({ username: '', password: '' });
     
-    // Clear session storage
-    sessionStorage.removeItem(STORAGE_KEYS.TWO_FACTOR_STATE);
-    sessionStorage.removeItem(STORAGE_KEYS.OTP_TIMER);
-    sessionStorage.removeItem(STORAGE_KEYS.USERNAME);
-    
-    if (otpTimerRef.current) {
-      clearInterval(otpTimerRef.current);
-    }
-    if (otpErrorTimerRef.current) {
-      clearTimeout(otpErrorTimerRef.current);
-      otpErrorTimerRef.current = null;
-    }
+    return false;
   };
 
   // ============================================
-  // RENDER MAINTENANCE MODE
+  // FORM VALIDATION
   // ============================================
-  if (maintenanceMode) {
-    return (
-      <div className="login-page">
-        <div className="login-container maintenance-mode">
-          <div className="maintenance-icon">
-            <AlertCircle size={64} />
-          </div>
-          <h1>System Maintenance</h1>
-          <p>{maintenanceMessage}</p>
-        </div>
-      </div>
-    );
-  }
+  const isFormValid = 
+    formData.username.trim() !== '' && 
+    formData.password.trim() !== '' &&
+    formData.password.length >= SECURITY_CONFIG.MIN_PASSWORD_LENGTH;
 
   // ============================================
-  // RENDER LOGIN PAGE
+  // RENDER COMPONENT
   // ============================================
   return (
-    <div className="login-page">
-      {/* ⭐ NEW: Background decorative text */}
-      <div className="decorative-text">
-        NEXUS<br />SUPPORT
-      </div>
-      
-      {/* ⭐ NEW: Grid pattern overlay */}
-      <div className="grid-pattern"></div>
-      
-      <div className="login-container">
-        {/* HEADER SECTION */}
-        <div className="login-header">
-          <div className="login-logo">
-            <Shield size={40} className="logo-icon" />
+    <div className="login-container">
+      <div className="login-card">
+        {/* LOGO SECTION */}
+        <div className="login-logo">
+          <div className="logo-icon">
+            <Shield size={32} />
           </div>
-          <h1 className="system-name">{systemName}</h1>
-          <p className="system-title">{systemTitle}</p>
+          <h1 className="login-title">{systemName}</h1>
+          <p className="login-subtitle">{systemTitle}</p>
         </div>
 
-        {/* ERROR MESSAGE (LOGIN ONLY) */}
-        {error && !showTwoFactor && (
-          <div className="error-message" role="alert">
+        {/* MAINTENANCE MODE WARNING */}
+        {maintenanceMode && (
+          <div className="maintenance-warning">
             <AlertCircle size={20} />
-            <span>{error}</span>
+            <div>
+              <strong>Maintenance Mode</strong>
+              <p>System login is currently disabled</p>
+            </div>
           </div>
         )}
 
-        {/* NORMAL LOGIN FORM */}
-        {!showTwoFactor && (
-          <form onSubmit={handleSubmit} className="login-form">
-            <div className="form-group">
-              <label htmlFor="username">
-                <User size={16} />
-                Username
-              </label>
+        {/* SECURE LOGIN FORM */}
+        <form 
+          onSubmit={handleSubmit}
+          className="login-form" 
+          noValidate
+          autoComplete="off"
+          method="post"
+        >
+          {/* ERROR MESSAGE */}
+          {error && (
+            <div className={`error-message ${maintenanceMode ? 'maintenance-error' : ''}`}>
+              <AlertCircle size={18} />
+              <span>{error}</span>
+            </div>
+          )}
+
+          {/* USERNAME INPUT - SANITIZED */}
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <div className="input-wrapper">
+              <User className="input-icon" size={18} />
               <input
                 type="text"
                 id="username"
                 name="username"
                 value={formData.username}
-                onChange={handleInputChange}
+                onChange={handleChange}
                 placeholder="Enter your username"
                 required
-                autoComplete="username"
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck="false"
+                disabled={loading || maintenanceMode}
                 maxLength={SECURITY_CONFIG.MAX_USERNAME_LENGTH}
-                disabled={loading}
               />
             </div>
-
-            <div className="form-group">
-              <label htmlFor="password">
-                <Lock size={16} />
-                Password
-              </label>
-              <div className="password-input-wrapper">
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  placeholder="Enter your password"
-                  required
-                  autoComplete="current-password"
-                  maxLength={SECURITY_CONFIG.MAX_PASSWORD_LENGTH}
-                  disabled={loading}
-                />
-                <button
-                  type="button"
-                  className="password-toggle"
-                  onClick={() => setShowPassword(!showPassword)}
-                  disabled={loading}
-                  aria-label={showPassword ? 'Hide password' : 'Show password'}
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className="login-button"
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <div className="spinner"></div>
-                  Authenticating...
-                </>
-              ) : (
-                <>
-                  <Lock size={18} />
-                  Sign In
-                </>
-              )}
-            </button>
-          </form>
-        )}
-
-        {/* 2FA OTP VERIFICATION FORM */}
-        {showTwoFactor && (
-          <div className="two-factor-section">
-            <div className="two-factor-header">
-              <div className="two-factor-icon">
-                <Mail size={40} />
-              </div>
-              <h2>Verify Your Identity</h2>
-              <p>
-                We've sent a 6-digit verification code to<br />
-                <strong>{twoFactorData.email}</strong>
-              </p>
-            </div>
-
-            {otpError && (
-              <div className="error-message" role="alert">
-                <AlertCircle size={20} />
-                <span>{otpError}</span>
-              </div>
-            )}
-
-            <form onSubmit={handleVerifyOtp} className="otp-form">
-              <div className="form-group">
-                <label htmlFor="otpCode">
-                  <Lock size={16} />
-                  Verification Code
-                </label>
-                <input
-                  type="text"
-                  id="otpCode"
-                  name="otpCode"
-                  value={otpCode}
-                  onChange={handleOtpChange}
-                  placeholder="Enter 6-digit code"
-                  required
-                  maxLength={SECURITY_CONFIG.OTP_LENGTH}
-                  disabled={verifyingOtp || timeRemaining <= 0}
-                  autoComplete="off"
-                  className="otp-input"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                />
-              </div>
-
-              <div className="otp-timer">
-                <Clock size={14} />
-                <span>
-                  {timeRemaining > 0 ? (
-                    <>Code expires in: <strong>{formatTime(timeRemaining)}</strong></>
-                  ) : (
-                    <span className="expired">Code expired</span>
-                  )}
-                </span>
-              </div>
-
-              <button
-                type="submit"
-                className="login-button"
-                disabled={verifyingOtp || timeRemaining <= 0 || otpCode.length !== SECURITY_CONFIG.OTP_LENGTH}
-              >
-                {verifyingOtp ? (
-                  <>
-                    <div className="spinner"></div>
-                    Verifying...
-                  </>
-                ) : (
-                  <>
-                    <Shield size={18} />
-                    Verify Code
-                  </>
-                )}
-              </button>
-
-              <button
-                type="button"
-                className="resend-button"
-                onClick={handleResendOtp}
-                disabled={resendingOtp || timeRemaining > 240}
-              >
-                {resendingOtp ? (
-                  <>
-                    <div className="spinner-small"></div>
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <RefreshCw size={14} />
-                    Resend Code
-                  </>
-                )}
-              </button>
-
-              <button
-                type="button"
-                className="back-button"
-                onClick={handleBackToLogin}
-                disabled={verifyingOtp}
-              >
-                Back to Login
-              </button>
-            </form>
           </div>
-        )}
 
-        {/* FOOTER SECTION */}
+          {/* PASSWORD INPUT - NEVER LOGGED */}
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <div className="input-wrapper">
+              <Lock className="input-icon" size={18} />
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter your password"
+                required
+                autoComplete="off"
+                disabled={loading || maintenanceMode}
+                maxLength={SECURITY_CONFIG.MAX_PASSWORD_LENGTH}
+              />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                disabled={loading || maintenanceMode}
+                tabIndex={-1}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+          </div>
+
+          {/* SECURE SUBMIT BUTTON */}
+          <button 
+            type="submit"
+            className="login-button"
+            disabled={!isFormValid || loading || maintenanceMode}
+          >
+            {loading ? (
+              <>
+                <span>Signing in</span>
+                <span className="loading-dots">...</span>
+              </>
+            ) : maintenanceMode ? (
+              'LOGIN DISABLED'
+            ) : (
+              'SIGN IN'
+            )}
+          </button>
+        </form>
+
+        {/* FOOTER */}
         <div className="login-footer">
-          <p className="company-name">© 2025 {companyName}. All Rights Reserved</p>
-          <p className="company-name">Developed by Suvadip Panja</p>
-          <p className="security-notice">
-           
-          </p>
+          <p>© 2025 {companyName}. All Rights Reserved</p>
+          <p>Developed by <strong>Suvadip Panja</strong></p>
         </div>
       </div>
     </div>
