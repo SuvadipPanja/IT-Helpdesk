@@ -1,0 +1,231 @@
+2025-12-15 12:46:29.571 [INFO] [SYSTEM] ℹ️ Initializing security middleware
+2025-12-15 12:46:29.576 [SUCCESS] [OPERATION] ✅ CORS enabled | {
+2025-12-15 12:46:29.582 [SUCCESS] [OPERATION] ✅ Rate limiting enabled | {
+2025-12-15 12:46:29.687 [INFO] [SYSTEM] ℹ️ Initializing body parsers
+2025-12-15 12:46:29.689 [SUCCESS] [OPERATION] ✅ Body parsers initialized
+2025-12-15 12:46:29.690 [SUCCESS] [OPERATION] ✅ Response compression enabled
+2025-12-15 12:46:29.694 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-12-15 12:46:29.696 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-12-15 12:46:29.695 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-12-15 12:46:29.697 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2025-12-15 12:46:29.702 [INFO] [SYSTEM] ℹ️ Initializing API routes
+2025-12-15 12:46:29.699 [SUCCESS] [OPERATION] ✅ Static file serving enabled with CORS | {
+2025-12-15 12:46:30.028 [SUCCESS] [OPERATION] ✅ API routes initialized | {
+2025-12-15 12:46:30.032 [INFO] [SYSTEM] ℹ️ Starting IT Helpdesk Backend Server
+2025-12-15 12:46:30.034 [INFO] [SYSTEM] ℹ️ Environment | {
+2025-12-15 12:46:30.030 [SUCCESS] [OPERATION] ✅ Error handlers initialized
+2025-12-15 12:46:30.036 [INFO] [SYSTEM] ℹ️ Platform | {
+2025-12-15 12:46:30.035 [INFO] [SYSTEM] ℹ️ Node Version | {
+2025-12-15 12:46:30.037 [TRY] [OPERATION] 🔄 Testing database connection
+2025-12-15 12:46:30.331 [SUCCESS] [OPERATION] ✅ Server is running on port 5000
+2025-12-15 12:46:30.319 [INFO] [SYSTEM] ℹ️ Database details | {
+2025-12-15 12:46:30.318 [SUCCESS] [OPERATION] ✅ Database connection test passed
+2025-12-15 12:46:30.332 [SUCCESS] [OPERATION] ✅ API Base URL: http://localhost:5000/api/v1
+2025-12-15 12:46:30.333 [SUCCESS] [OPERATION] ✅ Health Check: http://localhost:5000/health
+2025-12-15 12:46:30.333 [SUCCESS] [OPERATION] ✅ Test Uploads: http://localhost:5000/test-uploads
+2025-12-15 12:46:30.334 [INFO] [SYSTEM] ℹ️ Server Details | {
+2025-12-15 12:46:30.338 [INFO] [SYSTEM] ℹ️ 🎉 IT Helpdesk Backend is ready to accept requests!
+2025-12-15 12:46:30.339 [INFO] [SYSTEM] ℹ️ 📂 File uploads enabled at: /uploads
+2025-12-15 12:46:30.340 [INFO] [SYSTEM] ℹ️ 🖼️ Profile pictures: /uploads/profiles
+2025-12-15 12:46:30.341 [INFO] [SYSTEM] ℹ️ 📎 Ticket attachments: /uploads/tickets
+2025-12-15 12:46:30.342 [INFO] [SYSTEM] ℹ️ 🔓 CORS enabled for cross-origin requests
+2025-12-15 12:46:30.343 [INFO] [SYSTEM] ℹ️ 🔗 Attachments endpoint: /api/v1/tickets/:id/attachments
+2025-12-15 12:46:30.344 [INFO] [SYSTEM] ℹ️ 👥 Users endpoint: /api/v1/users
+2025-12-15 12:46:30.344 [INFO] [SYSTEM] ℹ️ 👤 Profile endpoint: /api/v1/profile
+2025-12-15 12:46:30.345 [INFO] [SYSTEM] ℹ️ 🔐 Security endpoint: /api/v1/security
+2025-12-15 12:46:30.346 [INFO] [SYSTEM] ℹ️ ⏰ Password Expiry endpoint: /api/v1/password-expiry
+2025-12-15 12:46:30.347 [INFO] [SYSTEM] ℹ️ 🔒 Two-Factor Auth endpoint: /api/v1/2fa
+2025-12-15 12:46:30.347 [INFO] [SYSTEM] ℹ️ 📧 Email Queue endpoint: /api/v1/email-queue
+2025-12-15 12:46:30.348 [INFO] [SYSTEM] ℹ️ 📝 Email Templates endpoint: /api/v1/email-templates
+2025-12-15 12:46:30.350 [INFO] [SYSTEM] ℹ️ Press CTRL+C to stop the server
+2025-12-15 12:46:30.349 [INFO] [SYSTEM] ℹ️ ✅ Ticket Approvals endpoint: /api/v1/ticket-approvals
+2025-12-15 12:46:30.353 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Cron Job
+2025-12-15 12:46:30.352 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Job...
+2025-12-15 12:46:30.354 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 5 minutes (*/5 * * * *)
+2025-12-15 12:46:30.388 [SUCCESS] [OPERATION] ✅ ✅ Email Processor Cron Job started successfully
+2025-12-15 12:46:30.389 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Cron Job
+2025-12-15 12:46:30.392 [TRY] [OPERATION] 🔄 Loading all settings from database
+2025-12-15 12:46:30.391 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Tickets Cron Job
+2025-12-15 12:46:30.392 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Job...
+2025-12-15 12:46:30.393 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Cron Job
+2025-12-15 12:46:30.394 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2025-12-15 12:46:30.394 [INFO] [SYSTEM] ℹ️ 🔐 Starting Password Expiry Job...
+2025-12-15 12:46:30.399 [SUCCESS] [OPERATION] ✅ Password expiry reminder job scheduled (Daily at 9:00 AM IST)
+2025-12-15 12:46:30.399 [INFO] [SYSTEM] ℹ️ 🧹 Starting Session Cleanup Job...
+2025-12-15 12:46:30.400 [INFO] [SYSTEM] ℹ️ 🕐 Session Cleanup scheduled | {
+2025-12-15 12:46:30.404 [SUCCESS] [OPERATION] ✅ ✅ Session Cleanup started successfully
+2025-12-15 12:46:30.404 [INFO] [SYSTEM] ℹ️ 🔓 Starting Auto-Unlock Job...
+2025-12-15 12:46:30.405 [INFO] [SYSTEM] ℹ️ 🕐 Auto Unlock scheduled | {
+2025-12-15 12:46:30.410 [SUCCESS] [OPERATION] ✅ ✅ Auto Unlock started successfully
+2025-12-15 12:46:30.390 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Job...
+2025-12-15 12:46:30.389 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Job...
+2025-12-15 12:46:30.458 [INFO] [SYSTEM] ℹ️ 📊 Status: Disabled
+2025-12-15 12:46:30.456 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2025-12-15 12:46:30.463 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2025-12-15 12:46:30.459 [WARN] [SYSTEM] ⚠️ ⚠️ Auto-Close job is DISABLED in settings
+2025-12-15 12:46:30.466 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2025-12-15 12:46:30.467 [INFO] [SYSTEM] ℹ️ ⚠️ Warning Threshold: 90%
+2025-12-15 12:46:30.469 [INFO] [SYSTEM] ℹ️ 📅 Working Days: mon, tue, wed, thu, fri, sat
+2025-12-15 12:46:30.466 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 15 minutes (*/15 * * * *)
+2025-12-15 12:46:30.468 [INFO] [SYSTEM] ℹ️ 🕐 Business Hours: 09:00 - 17:00
+2025-12-15 12:46:30.473 [SUCCESS] [OPERATION] ✅ ✅ SLA Breach Detection Cron Job started successfully
+2025-12-15 12:46:30.477 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
+2025-12-15 12:46:30.478 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2025-12-15 12:46:30.480 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2025-12-15 12:46:35.401 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-12-15 12:46:35.402 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-12-15 12:46:35.422 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-12-15 12:46:35.423 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-12-15 12:46:40.486 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2025-12-15 12:46:40.495 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 15/12/2025, 12:46:40 pm IST
+2025-12-15 12:46:40.498 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2025-12-15 12:46:40.525 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2025-12-15 12:46:40.570 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [159]
+2025-12-15 12:46:40.571 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2025-12-15 12:46:40.609 [INFO] [SYSTEM] ℹ️ 🎫 Found 12 open tickets to check
+2025-12-15 12:46:40.613 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2025-12-15 12:46:40.610 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2025-12-15 12:46:40.615 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.616 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2025-12-15 12:46:40.618 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.618 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2025-12-15 12:46:40.621 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.632 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2025-12-15 12:46:40.637 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.647 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2025-12-15 12:46:40.653 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.653 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2025-12-15 12:46:40.655 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.656 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2025-12-15 12:46:40.659 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.661 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.659 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2025-12-15 12:46:40.662 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2025-12-15 12:46:40.664 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.666 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2025-12-15 12:46:40.666 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.664 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2025-12-15 12:46:40.667 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.668 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2025-12-15 12:46:40.729 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-12-15 12:46:40.721 [ERROR] 🚨 Failed to log SLA activity | {
+2025-12-15 12:46:40.773 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'My Company Laptop Not Working ' (1 occurrences)
+2025-12-15 12:46:40.770 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-12-15 12:46:40.775 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Low' (1 occurrences)
+2025-12-15 12:46:40.772 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251206-0001' (3 occurrences)
+2025-12-15 12:46:40.776 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '107.9%' (1 occurrences)
+2025-12-15 12:46:40.776 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '51.8' (1 occurrences)
+2025-12-15 12:46:40.777 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '48' (1 occurrences)
+2025-12-15 12:46:40.777 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '13/12/2025, 12:01 pm' (1 occurrences)
+2025-12-15 12:46:40.777 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/51' (1 occurrences)
+2025-12-15 12:46:40.778 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-12-15 12:46:40.778 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-12-15 12:46:40.779 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-12-15 12:46:40.801 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-12-15 12:46:40.802 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-12-15 12:46:40.803 [INFO] [SYSTEM] ℹ️ 📧 Breach email queued for requester: panja.suvadip@gmail.com
+2025-12-15 12:46:40.804 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-12-15 12:46:40.819 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-12-15 12:46:40.821 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-12-15 12:46:40.839 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-12-15 12:46:40.847 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-12-15 12:46:40.852 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Low' (1 occurrences)
+2025-12-15 12:46:40.850 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251206-0001' (3 occurrences)
+2025-12-15 12:46:40.851 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'My Company Laptop Not Working ' (1 occurrences)
+2025-12-15 12:46:40.852 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '107.9%' (1 occurrences)
+2025-12-15 12:46:40.853 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '51.8' (1 occurrences)
+2025-12-15 12:46:40.854 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '48' (1 occurrences)
+2025-12-15 12:46:40.854 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '13/12/2025, 12:01 pm' (1 occurrences)
+2025-12-15 12:46:40.855 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-12-15 12:46:40.854 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/51' (1 occurrences)
+2025-12-15 12:46:40.855 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-12-15 12:46:40.856 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-12-15 12:46:40.888 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-12-15 12:46:40.894 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-12-15 12:46:40.890 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-12-15 12:46:40.895 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-12-15 12:46:40.903 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-12-15 12:46:40.905 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251206-0001' (3 occurrences)
+2025-12-15 12:46:40.905 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'My Company Laptop Not Working ' (1 occurrences)
+2025-12-15 12:46:40.907 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '107.9%' (1 occurrences)
+2025-12-15 12:46:40.909 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '51.8' (1 occurrences)
+2025-12-15 12:46:40.906 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Low' (1 occurrences)
+2025-12-15 12:46:40.910 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '48' (1 occurrences)
+2025-12-15 12:46:40.912 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/51' (1 occurrences)
+2025-12-15 12:46:40.913 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-12-15 12:46:40.913 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-12-15 12:46:40.911 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '13/12/2025, 12:01 pm' (1 occurrences)
+2025-12-15 12:46:40.914 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-12-15 12:46:40.916 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-12-15 12:46:40.917 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-12-15 12:46:40.949 [INFO] [SYSTEM] ℹ️ 📧 Breach emails queued for 2 manager(s)
+2025-12-15 12:46:40.948 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-12-15 12:46:40.946 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-12-15 12:46:40.949 [SUCCESS] [OPERATION] ✅ ✅ Breach notification sent for ABCD-20251206-0001
+2025-12-15 12:46:40.951 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2025-12-15 12:46:40.951 [INFO] [SYSTEM] ℹ️ ✅ OK: 0 tickets
+2025-12-15 12:46:40.952 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 465ms
+2025-12-15 12:46:40.951 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2025-12-15 12:46:40.953 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-12-15 12:46:40.965 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-12-15 12:46:40.966 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-12-15 12:46:43.446 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2025-12-15 12:46:43.461 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2025-12-15 12:46:43.461 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2025-12-15 12:46:43.464 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2025-12-15 12:46:43.463 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2025-12-15 12:46:43.447 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2025-12-15 12:46:48.228 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
+2025-12-15 12:46:48.552 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
+2025-12-15 12:46:49.378 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
+2025-12-15 12:48:44.500 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-12-15 12:48:44.503 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-12-15 12:48:44.504 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-12-15 12:48:44.510 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-12-15 12:48:44.586 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-12-15 12:48:44.590 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-12-15 12:48:44.589 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-12-15 12:48:44.593 [WARN] [SYSTEM] ⚠️ JWT token expired | {
+2025-12-15 12:48:44.598 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-12-15 12:48:44.594 [ERROR] 🚨 Authentication middleware error | {
+2025-12-15 12:48:44.610 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-12-15 12:48:44.612 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-12-15 12:48:44.612 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-12-15 12:48:44.614 [WARN] [SYSTEM] ⚠️ JWT token expired | {
+2025-12-15 12:48:44.666 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-12-15 12:48:44.615 [ERROR] 🚨 Authentication middleware error | {
+2025-12-15 12:48:44.673 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-12-15 12:48:44.677 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-12-15 12:48:44.677 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-12-15 12:48:44.678 [WARN] [SYSTEM] ⚠️ JWT token expired | {
+2025-12-15 12:48:44.680 [ERROR] 🚨 Authentication middleware error | {
+2025-12-15 12:48:44.685 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-12-15 12:48:44.692 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-12-15 12:48:44.694 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-12-15 12:48:44.695 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-12-15 12:48:44.697 [ERROR] 🚨 Authentication middleware error | {
+2025-12-15 12:48:44.696 [WARN] [SYSTEM] ⚠️ JWT token expired | {
+2025-12-15 12:48:44.702 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-12-15 12:48:44.879 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-12-15 12:48:44.882 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-12-15 12:48:44.884 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2025-12-15 12:48:44.881 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-12-15 12:49:02.121 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-12-15 12:49:02.130 [TRY] [OPERATION] 🔄 User attempting to login | {
+2025-12-15 12:49:02.124 [DEBUG] 🐛 Request Body | {
+2025-12-15 12:49:02.131 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2025-12-15 12:49:02.307 [SUCCESS] [OPERATION] ✅ User found in database | {
+2025-12-15 12:49:02.311 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-12-15 12:49:02.309 [SUCCESS] [OPERATION] ✅ User account is active
+2025-12-15 12:49:02.328 [TRY] [OPERATION] 🔄 Verifying password
+2025-12-15 12:49:02.324 [SUCCESS] [OPERATION] ✅ Account is not locked
+2025-12-15 12:49:02.329 [TRY] [OPERATION] 🔄 Comparing password with hash
+2025-12-15 12:49:02.472 [WARN] [SYSTEM] ⚠️ Password comparison completed - No match
+2025-12-15 12:49:02.531 [WARN] [SYSTEM] ⚠️ Login failed - Invalid password | {
+2025-12-15 12:49:02.529 [INFO] [SYSTEM] ℹ️ Failed login attempt recorded | {
+2025-12-15 12:49:02.553 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2025-12-15 12:49:02.549 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
+2025-12-15 12:49:02.897 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-12-15 12:49:02.901 [TRY] [OPERATION] 🔄 Fetching public settings
+2025-12-15 12:49:02.901 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2025-12-15 12:49:02.903 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
