@@ -72,3 +72,106 @@
 2025-12-15 12:46:30.477 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
 2025-12-15 12:46:30.478 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
 2025-12-15 12:46:30.480 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2025-12-15 12:46:35.401 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2025-12-15 12:46:35.402 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2025-12-15 12:46:35.422 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2025-12-15 12:46:35.423 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2025-12-15 12:46:40.486 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2025-12-15 12:46:40.495 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 15/12/2025, 12:46:40 pm IST
+2025-12-15 12:46:40.498 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2025-12-15 12:46:40.525 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2025-12-15 12:46:40.570 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [159]
+2025-12-15 12:46:40.571 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2025-12-15 12:46:40.609 [INFO] [SYSTEM] ℹ️ 🎫 Found 12 open tickets to check
+2025-12-15 12:46:40.613 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2025-12-15 12:46:40.610 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2025-12-15 12:46:40.615 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.616 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2025-12-15 12:46:40.618 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.618 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2025-12-15 12:46:40.621 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.632 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2025-12-15 12:46:40.637 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.647 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2025-12-15 12:46:40.653 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.653 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2025-12-15 12:46:40.655 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.656 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2025-12-15 12:46:40.659 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.661 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.659 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2025-12-15 12:46:40.662 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2025-12-15 12:46:40.664 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.666 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2025-12-15 12:46:40.666 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.664 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2025-12-15 12:46:40.667 [DEBUG] 🐛 Breach notification already sent, skipping
+2025-12-15 12:46:40.668 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2025-12-15 12:46:40.729 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-12-15 12:46:40.721 [ERROR] 🚨 Failed to log SLA activity | {
+2025-12-15 12:46:40.773 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'My Company Laptop Not Working ' (1 occurrences)
+2025-12-15 12:46:40.770 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-12-15 12:46:40.775 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Low' (1 occurrences)
+2025-12-15 12:46:40.772 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251206-0001' (3 occurrences)
+2025-12-15 12:46:40.776 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '107.9%' (1 occurrences)
+2025-12-15 12:46:40.776 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '51.8' (1 occurrences)
+2025-12-15 12:46:40.777 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '48' (1 occurrences)
+2025-12-15 12:46:40.777 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '13/12/2025, 12:01 pm' (1 occurrences)
+2025-12-15 12:46:40.777 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/51' (1 occurrences)
+2025-12-15 12:46:40.778 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-12-15 12:46:40.778 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-12-15 12:46:40.779 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-12-15 12:46:40.801 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-12-15 12:46:40.802 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-12-15 12:46:40.803 [INFO] [SYSTEM] ℹ️ 📧 Breach email queued for requester: panja.suvadip@gmail.com
+2025-12-15 12:46:40.804 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-12-15 12:46:40.819 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-12-15 12:46:40.821 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-12-15 12:46:40.839 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-12-15 12:46:40.847 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-12-15 12:46:40.852 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Low' (1 occurrences)
+2025-12-15 12:46:40.850 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251206-0001' (3 occurrences)
+2025-12-15 12:46:40.851 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'My Company Laptop Not Working ' (1 occurrences)
+2025-12-15 12:46:40.852 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '107.9%' (1 occurrences)
+2025-12-15 12:46:40.853 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '51.8' (1 occurrences)
+2025-12-15 12:46:40.854 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '48' (1 occurrences)
+2025-12-15 12:46:40.854 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '13/12/2025, 12:01 pm' (1 occurrences)
+2025-12-15 12:46:40.855 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-12-15 12:46:40.854 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/51' (1 occurrences)
+2025-12-15 12:46:40.855 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-12-15 12:46:40.856 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-12-15 12:46:40.888 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-12-15 12:46:40.894 [TRY] [OPERATION] 🔄 Sending templated email | {
+2025-12-15 12:46:40.890 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-12-15 12:46:40.895 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-12-15 12:46:40.903 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2025-12-15 12:46:40.905 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251206-0001' (3 occurrences)
+2025-12-15 12:46:40.905 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'My Company Laptop Not Working ' (1 occurrences)
+2025-12-15 12:46:40.907 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '107.9%' (1 occurrences)
+2025-12-15 12:46:40.909 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '51.8' (1 occurrences)
+2025-12-15 12:46:40.906 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Low' (1 occurrences)
+2025-12-15 12:46:40.910 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '48' (1 occurrences)
+2025-12-15 12:46:40.912 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/51' (1 occurrences)
+2025-12-15 12:46:40.913 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with ' Nexus Support' (1 occurrences)
+2025-12-15 12:46:40.913 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2025-12-15 12:46:40.911 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '13/12/2025, 12:01 pm' (1 occurrences)
+2025-12-15 12:46:40.914 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2025-12-15 12:46:40.916 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-12-15 12:46:40.917 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-12-15 12:46:40.949 [INFO] [SYSTEM] ℹ️ 📧 Breach emails queued for 2 manager(s)
+2025-12-15 12:46:40.948 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2025-12-15 12:46:40.946 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2025-12-15 12:46:40.949 [SUCCESS] [OPERATION] ✅ ✅ Breach notification sent for ABCD-20251206-0001
+2025-12-15 12:46:40.951 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2025-12-15 12:46:40.951 [INFO] [SYSTEM] ℹ️ ✅ OK: 0 tickets
+2025-12-15 12:46:40.952 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 465ms
+2025-12-15 12:46:40.951 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2025-12-15 12:46:40.953 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2025-12-15 12:46:40.965 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2025-12-15 12:46:40.966 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2025-12-15 12:46:43.446 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2025-12-15 12:46:43.461 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2025-12-15 12:46:43.461 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2025-12-15 12:46:43.464 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2025-12-15 12:46:43.463 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2025-12-15 12:46:43.447 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
