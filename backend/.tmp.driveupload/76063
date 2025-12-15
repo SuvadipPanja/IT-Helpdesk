@@ -700,3 +700,15 @@
 2025-12-15 13:45:00.119 [ERROR] 🚨 🔴 Breaches: 12 tickets
 2025-12-15 13:45:00.119 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 77ms
 2025-12-15 13:45:00.119 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2025-12-15 13:45:07.435 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2025-12-15 13:45:07.437 [TRY] [OPERATION] 🔄 Authenticating request | {
+2025-12-15 13:45:07.437 [TRY] [OPERATION] 🔄 Verifying JWT token
+2025-12-15 13:45:07.438 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2025-12-15 13:45:07.439 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2025-12-15 13:45:07.448 [TRY] [OPERATION] 🔄 Checking session timeout
+2025-12-15 13:45:07.453 [TRY] [OPERATION] 🔄 Checking account lockout status
+2025-12-15 13:45:07.464 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2025-12-15 13:45:07.470 [TRY] [OPERATION] 🔄 Checking password expiry
+2025-12-15 13:45:07.479 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2025-12-15 13:45:07.475 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2025-12-15 13:45:07.487 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
