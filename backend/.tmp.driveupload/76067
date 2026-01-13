@@ -5365,3 +5365,15 @@
 2026-01-13 16:17:32.154 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-01-13 16:17:32.151 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-01-13 16:17:32.160 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-13 16:17:52.092 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-13 16:17:52.093 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-13 16:17:52.093 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-13 16:17:52.095 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-13 16:17:52.095 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-13 16:17:52.100 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-13 16:17:52.107 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-13 16:17:52.135 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-13 16:17:52.138 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-13 16:17:52.142 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-13 16:17:52.146 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-13 16:17:52.154 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
