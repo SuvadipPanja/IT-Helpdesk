@@ -118,3 +118,22 @@
 2026-01-13 10:58:58.867 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
 2026-01-13 10:58:58.868 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
 2026-01-13 10:58:58.872 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-01-13 10:59:08.532 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-13 10:59:08.533 [DEBUG] 🐛 Request Body | {
+2026-01-13 10:59:08.534 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-01-13 10:59:08.534 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-01-13 10:59:08.541 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-13 10:59:08.541 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-01-13 10:59:08.541 [SUCCESS] [OPERATION] ✅ User account is active
+2026-01-13 10:59:08.545 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-01-13 10:59:08.615 [WARN] [SYSTEM] ⚠️ Password comparison completed - No match
+2026-01-13 10:59:08.545 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-01-13 10:59:08.545 [TRY] [OPERATION] 🔄 Verifying password
+2026-01-13 10:59:08.629 [WARN] [SYSTEM] ⚠️ Login failed - Invalid password | {
+2026-01-13 10:59:08.628 [INFO] [SYSTEM] ℹ️ Failed login attempt recorded | {
+2026-01-13 10:59:08.635 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
+2026-01-13 10:59:08.637 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-01-13 10:59:08.764 [TRY] [OPERATION] 🔄 Fetching public settings
+2026-01-13 10:59:08.760 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-13 10:59:08.768 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-01-13 10:59:08.765 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
