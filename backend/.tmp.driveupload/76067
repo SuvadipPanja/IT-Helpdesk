@@ -5416,3 +5416,15 @@
 2026-01-13 16:18:46.422 [INFO] [SYSTEM] ℹ️ Previewing email template | {
 2026-01-13 16:18:46.431 [INFO] [SYSTEM] ℹ️ Retrieved email template | {
 2026-01-13 16:18:46.435 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-13 16:18:52.096 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-13 16:18:52.098 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-13 16:18:52.098 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-13 16:18:52.099 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-13 16:18:52.099 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-13 16:18:52.103 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-13 16:18:52.107 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-13 16:18:52.131 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-13 16:18:52.133 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-13 16:18:52.135 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-13 16:18:52.138 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-13 16:18:52.145 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
