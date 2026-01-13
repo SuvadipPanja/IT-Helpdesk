@@ -483,3 +483,29 @@
 2026-01-13 11:01:22.062 [ERROR] 🚨 Invalidate oldest session error | {
 2026-01-13 11:01:22.067 [ERROR] 🚨 📤 Response Sent | {
 2026-01-13 11:01:22.066 [ERROR] 🚨 Error Handler Caught Exception | {
+2026-01-13 11:01:26.653 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-13 11:01:26.654 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-01-13 11:01:26.654 [DEBUG] 🐛 Request Body | {
+2026-01-13 11:01:26.654 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-01-13 11:01:26.656 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-01-13 11:01:26.657 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-13 11:01:26.656 [SUCCESS] [OPERATION] ✅ User account is active
+2026-01-13 11:01:26.659 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-01-13 11:01:26.658 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-01-13 11:01:26.659 [TRY] [OPERATION] 🔄 Verifying password
+2026-01-13 11:01:26.719 [SUCCESS] [OPERATION] ✅ Password comparison successful - Match found
+2026-01-13 11:01:26.719 [SUCCESS] [OPERATION] ✅ Password verified successfully
+2026-01-13 11:01:26.720 [INFO] [SYSTEM] ℹ️ Resetting failed login attempts
+2026-01-13 11:01:26.724 [INFO] [SYSTEM] ℹ️ Failed login attempts reset | {
+2026-01-13 11:01:26.724 [TRY] [OPERATION] 🔄 Checking if 2FA is enabled for user
+2026-01-13 11:01:26.724 [TRY] [OPERATION] 🔄 Checking 2FA status | {
+2026-01-13 11:01:26.727 [SUCCESS] [OPERATION] ✅ 2FA status checked | {
+2026-01-13 11:01:26.729 [TRY] [OPERATION] 🔄 Checking concurrent sessions limit
+2026-01-13 11:01:26.728 [INFO] [SYSTEM] ℹ️ 2FA not enabled, continuing normal login
+2026-01-13 11:01:26.735 [WARN] [SYSTEM] ⚠️ Concurrent session limit reached, invalidating oldest session | {
+2026-01-13 11:01:26.734 [WARN] [SYSTEM] ⚠️ Concurrent session limit reached | {
+2026-01-13 11:01:26.736 [TRY] [OPERATION] 🔄 Invalidating oldest session | {
+2026-01-13 11:01:26.738 [ERROR] 🚨 Invalidate oldest session error | {
+2026-01-13 11:01:26.744 [ERROR] 🚨 📤 Response Sent | {
+2026-01-13 11:01:26.740 [ERROR] 🚨 Login controller error | {
+2026-01-13 11:01:26.742 [ERROR] 🚨 Error Handler Caught Exception | {
