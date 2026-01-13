@@ -6624,3 +6624,22 @@
 2026-01-13 16:51:56.116 [TRY] [OPERATION] 🔄 Fetching backup codes stats | {
 2026-01-13 16:51:56.123 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2026-01-13 16:51:56.121 [SUCCESS] [OPERATION] ✅ Backup codes stats retrieved | {
+2026-01-13 16:52:09.973 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-13 16:52:09.975 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-13 16:52:09.976 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-13 16:52:09.975 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-13 16:52:09.977 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-13 16:52:09.984 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-13 16:52:09.988 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-13 16:52:09.996 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-13 16:52:10.002 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-13 16:52:10.010 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-13 16:52:10.013 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-13 16:52:10.015 [TRY] [OPERATION] 🔄 User attempting to logout | {
+2026-01-13 16:52:10.025 [SUCCESS] [OPERATION] ✅ Session invalidated
+2026-01-13 16:52:10.037 [SUCCESS] [OPERATION] ✅ User logged out successfully | {
+2026-01-13 16:52:10.039 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-13 16:52:13.303 [TRY] [OPERATION] 🔄 Fetching public settings
+2026-01-13 16:52:13.302 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-13 16:52:13.305 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-01-13 16:52:13.303 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
