@@ -3488,3 +3488,15 @@
 2026-01-13 16:11:37.399 [SUCCESS] [OPERATION] ✅ Password expiry status retrieved | {
 2026-01-13 16:11:37.400 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2026-01-13 16:11:37.397 [INFO] [SYSTEM] ℹ️ Password expiry status calculated | {
+2026-01-13 16:11:46.403 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-13 16:11:46.404 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-13 16:11:46.399 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-13 16:11:46.405 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-13 16:11:46.407 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-13 16:11:46.413 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-13 16:11:46.417 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-13 16:11:46.427 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-13 16:11:46.432 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-13 16:11:46.438 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-13 16:11:46.440 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-13 16:11:46.449 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
