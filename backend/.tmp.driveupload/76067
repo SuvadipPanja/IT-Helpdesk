@@ -457,3 +457,29 @@
 2026-01-13 11:01:17.500 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
 2026-01-13 11:01:17.493 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
 2026-01-13 11:01:17.495 [TRY] [OPERATION] 🔄 Fetching public settings
+2026-01-13 11:01:21.921 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-13 11:01:21.922 [DEBUG] 🐛 Request Body | {
+2026-01-13 11:01:21.923 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-01-13 11:01:21.923 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-01-13 11:01:21.975 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-13 11:01:21.974 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-01-13 11:01:21.975 [SUCCESS] [OPERATION] ✅ User account is active
+2026-01-13 11:01:21.977 [TRY] [OPERATION] 🔄 Verifying password
+2026-01-13 11:01:21.977 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-01-13 11:01:21.977 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-01-13 11:01:22.038 [SUCCESS] [OPERATION] ✅ Password comparison successful - Match found
+2026-01-13 11:01:22.039 [INFO] [SYSTEM] ℹ️ Resetting failed login attempts
+2026-01-13 11:01:22.038 [SUCCESS] [OPERATION] ✅ Password verified successfully
+2026-01-13 11:01:22.051 [TRY] [OPERATION] 🔄 Checking if 2FA is enabled for user
+2026-01-13 11:01:22.050 [INFO] [SYSTEM] ℹ️ Failed login attempts reset | {
+2026-01-13 11:01:22.051 [TRY] [OPERATION] 🔄 Checking 2FA status | {
+2026-01-13 11:01:22.054 [SUCCESS] [OPERATION] ✅ 2FA status checked | {
+2026-01-13 11:01:22.055 [INFO] [SYSTEM] ℹ️ 2FA not enabled, continuing normal login
+2026-01-13 11:01:22.055 [TRY] [OPERATION] 🔄 Checking concurrent sessions limit
+2026-01-13 11:01:22.058 [WARN] [SYSTEM] ⚠️ Concurrent session limit reached | {
+2026-01-13 11:01:22.059 [TRY] [OPERATION] 🔄 Invalidating oldest session | {
+2026-01-13 11:01:22.059 [WARN] [SYSTEM] ⚠️ Concurrent session limit reached, invalidating oldest session | {
+2026-01-13 11:01:22.063 [ERROR] 🚨 Login controller error | {
+2026-01-13 11:01:22.062 [ERROR] 🚨 Invalidate oldest session error | {
+2026-01-13 11:01:22.067 [ERROR] 🚨 📤 Response Sent | {
+2026-01-13 11:01:22.066 [ERROR] 🚨 Error Handler Caught Exception | {
