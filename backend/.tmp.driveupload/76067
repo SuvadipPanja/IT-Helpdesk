@@ -6643,3 +6643,38 @@
 2026-01-13 16:52:13.302 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
 2026-01-13 16:52:13.305 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
 2026-01-13 16:52:13.303 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2026-01-13 16:52:25.261 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-13 16:52:25.263 [DEBUG] 🐛 Request Body | {
+2026-01-13 16:52:25.265 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-01-13 16:52:25.265 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-01-13 16:52:25.280 [SUCCESS] [OPERATION] ✅ User account is active
+2026-01-13 16:52:25.281 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-13 16:52:25.279 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-01-13 16:52:25.286 [TRY] [OPERATION] 🔄 Verifying password
+2026-01-13 16:52:25.286 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-01-13 16:52:25.287 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-01-13 16:52:25.380 [SUCCESS] [OPERATION] ✅ Password comparison successful - Match found
+2026-01-13 16:52:25.381 [SUCCESS] [OPERATION] ✅ Password verified successfully
+2026-01-13 16:52:25.381 [INFO] [SYSTEM] ℹ️ Resetting failed login attempts
+2026-01-13 16:52:25.394 [INFO] [SYSTEM] ℹ️ Failed login attempts reset | {
+2026-01-13 16:52:25.396 [TRY] [OPERATION] 🔄 Checking if 2FA is enabled for user
+2026-01-13 16:52:25.396 [TRY] [OPERATION] 🔄 Checking 2FA status | {
+2026-01-13 16:52:25.401 [SUCCESS] [OPERATION] ✅ 2FA status checked | {
+2026-01-13 16:52:25.403 [TRY] [OPERATION] 🔄 Sending OTP to user email
+2026-01-13 16:52:25.402 [INFO] [SYSTEM] ℹ️ 2FA is enabled for user, initiating 2FA flow | {
+2026-01-13 16:52:25.403 [TRY] [OPERATION] 🔄 Sending OTP email | {
+2026-01-13 16:52:25.403 [TRY] [OPERATION] 🔄 Invalidating pending OTPs | {
+2026-01-13 16:52:25.411 [SUCCESS] [OPERATION] ✅ Pending OTPs invalidated | {
+2026-01-13 16:52:25.429 [SUCCESS] [OPERATION] ✅ OTP created successfully | {
+2026-01-13 16:52:25.412 [TRY] [OPERATION] 🔄 Creating OTP for user | {
+2026-01-13 16:52:25.435 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-01-13 16:52:25.444 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-01-13 16:52:25.446 [SUCCESS] [OPERATION] ✅ OTP sent successfully | {
+2026-01-13 16:52:25.447 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-01-13 16:52:25.445 [SUCCESS] [OPERATION] ✅ OTP email queued successfully | {
+2026-01-13 16:52:25.461 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-01-13 16:52:25.459 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-01-13 16:52:25.471 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-13 16:52:27.205 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-01-13 16:52:27.206 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-01-13 16:52:30.743 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
