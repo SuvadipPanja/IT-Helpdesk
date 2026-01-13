@@ -5401,3 +5401,18 @@
 2026-01-13 16:18:32.146 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-01-13 16:18:32.150 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-01-13 16:18:32.156 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-13 16:18:46.373 [DEBUG] 🐛 Request Body | {
+2026-01-13 16:18:46.371 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-13 16:18:46.374 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-13 16:18:46.374 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-13 16:18:46.375 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-13 16:18:46.375 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-13 16:18:46.379 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-13 16:18:46.383 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-13 16:18:46.410 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-13 16:18:46.414 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-13 16:18:46.416 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-13 16:18:46.419 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-13 16:18:46.422 [INFO] [SYSTEM] ℹ️ Previewing email template | {
+2026-01-13 16:18:46.431 [INFO] [SYSTEM] ℹ️ Retrieved email template | {
+2026-01-13 16:18:46.435 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
