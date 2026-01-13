@@ -5724,3 +5724,17 @@
 2026-01-13 16:25:00.023 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
 2026-01-13 16:25:00.031 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2026-01-13 16:25:00.032 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-01-13 16:25:09.110 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-13 16:25:09.112 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-13 16:25:09.112 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-13 16:25:09.113 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-13 16:25:09.114 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-13 16:25:09.120 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-13 16:25:09.120 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-01-13 16:25:09.127 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-01-13 16:25:09.131 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-13 16:25:09.163 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-13 16:25:09.165 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-13 16:25:09.172 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-13 16:25:09.168 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-13 16:25:09.179 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
