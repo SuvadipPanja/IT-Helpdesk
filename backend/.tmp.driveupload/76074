@@ -1767,3 +1767,24 @@
 2026-01-25 23:13:42.864 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
 2026-01-25 23:13:42.870 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
 2026-01-25 23:13:42.864 [TRY] [OPERATION] 🔄 Fetching public settings
+2026-01-25 23:14:02.300 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-25 23:14:02.303 [DEBUG] 🐛 Request Body | {
+2026-01-25 23:14:02.309 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-01-25 23:14:02.309 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-01-25 23:14:02.480 [SUCCESS] [OPERATION] ✅ User account is active
+2026-01-25 23:14:02.477 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-01-25 23:14:02.480 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-25 23:14:02.491 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-01-25 23:14:02.493 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-01-25 23:14:02.492 [TRY] [OPERATION] 🔄 Verifying password
+2026-01-25 23:14:02.648 [SUCCESS] [OPERATION] ✅ Password comparison successful - Match found
+2026-01-25 23:14:02.649 [SUCCESS] [OPERATION] ✅ Password verified successfully
+2026-01-25 23:14:02.650 [INFO] [SYSTEM] ℹ️ Resetting failed login attempts
+2026-01-25 23:14:02.709 [INFO] [SYSTEM] ℹ️ Failed login attempts reset | {
+2026-01-25 23:14:02.710 [TRY] [OPERATION] 🔄 Checking password expiry status
+2026-01-25 23:14:02.711 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-01-25 23:14:02.730 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-01-25 23:14:02.743 [WARN] [SYSTEM] ⚠️ Login failed - Password has expired | {
+2026-01-25 23:14:02.741 [WARN] [SYSTEM] ⚠️ Password has expired | {
+2026-01-25 23:14:02.764 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
+2026-01-25 23:14:02.786 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
