@@ -2306,3 +2306,15 @@
 2026-01-26 00:14:10.522 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2026-01-26 00:14:10.524 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
 2026-01-26 00:14:10.531 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-26 00:14:21.565 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 00:14:21.566 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 00:14:21.566 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-26 00:14:21.567 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-26 00:14:21.567 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-26 00:14:21.573 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-26 00:14:21.574 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-26 00:14:21.584 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-26 00:14:21.587 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-26 00:14:21.591 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-26 00:14:21.590 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-26 00:14:21.595 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
