@@ -4495,3 +4495,19 @@
 2026-01-25 23:56:20.792 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-01-25 23:56:20.793 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-01-25 23:56:20.799 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-25 23:56:25.547 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-25 23:56:25.549 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-25 23:56:25.549 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
+2026-01-25 23:56:25.551 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-01-25 23:56:28.318 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-25 23:56:28.318 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-25 23:56:28.319 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-25 23:56:28.317 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-25 23:56:28.319 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-25 23:56:28.321 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-25 23:56:28.323 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-25 23:56:28.327 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-25 23:56:28.328 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-25 23:56:28.332 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-25 23:56:28.330 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-25 23:56:28.335 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
