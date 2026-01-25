@@ -3839,3 +3839,15 @@
 2026-01-25 23:49:46.575 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
 2026-01-25 23:49:46.577 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
 2026-01-25 23:49:46.576 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
+2026-01-25 23:49:52.444 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-25 23:49:52.446 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-25 23:49:52.447 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-25 23:49:52.446 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-25 23:49:52.447 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-25 23:49:52.449 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-25 23:49:52.450 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-25 23:49:52.458 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-25 23:49:52.460 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-25 23:49:52.463 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-25 23:49:52.461 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-25 23:49:52.465 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
