@@ -50,3 +50,15 @@
 2026-01-26 00:00:00.076 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 38ms
 2026-01-26 00:00:00.075 [INFO] [SYSTEM] ℹ️ ✅ OK: 0 tickets
 2026-01-26 00:00:00.082 [SUCCESS] [OPERATION] ✅ Session Cleanup completed successfully | {
+2026-01-26 00:00:08.585 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-26 00:00:08.584 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 00:00:08.585 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 00:00:08.586 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-26 00:00:08.586 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-26 00:00:08.591 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-26 00:00:08.593 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-26 00:00:08.602 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-26 00:00:08.605 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-26 00:00:08.607 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-26 00:00:08.607 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-26 00:00:08.611 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
