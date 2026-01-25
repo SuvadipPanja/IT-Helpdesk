@@ -6108,3 +6108,15 @@
 2026-01-26 00:25:49.945 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
 2026-01-26 00:25:49.946 [WARN] [SYSTEM] ⚠️ 404 Route Not Found | {
 2026-01-26 00:25:49.948 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-01-26 00:25:53.980 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 00:25:53.981 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 00:25:53.981 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-26 00:25:53.981 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-26 00:25:53.983 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-26 00:25:53.990 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-26 00:25:54.000 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-26 00:25:54.013 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-26 00:25:54.018 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-26 00:25:54.025 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-26 00:25:54.020 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-26 00:25:54.035 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
