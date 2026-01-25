@@ -3297,3 +3297,34 @@
 2026-01-25 23:45:23.843 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-01-25 23:45:23.842 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-01-25 23:45:23.848 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-25 23:45:31.416 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-25 23:45:31.416 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-25 23:45:31.417 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-25 23:45:31.415 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-25 23:45:31.418 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-25 23:45:31.420 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-25 23:45:31.422 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-25 23:45:31.433 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-25 23:45:31.434 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-25 23:45:31.436 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-25 23:45:31.437 [TRY] [OPERATION] 🔄 🔒 Checking authorization for roles: ADMIN | {
+2026-01-25 23:45:31.437 [SUCCESS] [OPERATION] ✅ ✅ Role authorization successful | {
+2026-01-25 23:45:31.436 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-25 23:45:31.438 [TRY] [OPERATION] 🔄 FORCE PASSWORD RESET | {
+2026-01-25 23:45:31.443 [INFO] [SYSTEM] ℹ️ Current expiry date | {
+2026-01-25 23:45:31.448 [SUCCESS] [OPERATION] ✅ Password reset forced | {
+2026-01-25 23:45:31.461 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-25 23:45:33.147 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-25 23:45:33.145 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-25 23:45:33.147 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-25 23:45:33.147 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-25 23:45:33.148 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-25 23:45:33.150 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-25 23:45:33.152 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-25 23:45:33.164 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-25 23:45:33.166 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-25 23:45:33.167 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-25 23:45:33.168 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-25 23:45:33.169 [TRY] [OPERATION] 🔄 Fetching users list | {
+2026-01-25 23:45:33.179 [SUCCESS] [OPERATION] ✅ Users list fetched successfully | {
+2026-01-25 23:45:33.181 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
