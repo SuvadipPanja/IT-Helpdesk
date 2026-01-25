@@ -1,11 +1,12 @@
 // ============================================
-// LOGIN PAGE - PRODUCTION VERSION
+// LOGIN PAGE - UPDATED WITH PASSWORD EXPIRY ERROR HANDLING
 // Enterprise IT Helpdesk & Ticket Management System
 // Developer: Suvadip Panja
 // Company: Digitide
 // Created: October 11, 2024
-// Last Updated: November 11, 2025
-// Version: 2.0.0
+// Last Updated: January 25, 2026 - Added password expiry error handling
+// Previous Update: November 11, 2025 - Added 2FA support
+// Version: 2.1.0
 // Security: OWASP Compliant, JWT, 2FA
 // ============================================
 
@@ -65,6 +66,10 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  
+  // ⭐ NEW: Password expiry state
+  const [passwordExpired, setPasswordExpired] = useState(false);
+  const [passwordExpiredData, setPasswordExpiredData] = useState(null);
   
   // Two-Factor Authentication state
   const [showTwoFactor, setShowTwoFactor] = useState(false);
@@ -225,9 +230,11 @@ const Login = () => {
     const sanitizedValue = name === 'username' ? sanitizeInput(value) : value;
     setFormData(prev => ({ ...prev, [name]: sanitizedValue }));
     
-    // Clear error on input
+    // Clear errors on input
     if (error) {
       setError('');
+      setPasswordExpired(false);
+      setPasswordExpiredData(null);
       if (errorTimerRef.current) {
         clearTimeout(errorTimerRef.current);
         errorTimerRef.current = null;
@@ -278,6 +285,8 @@ const Login = () => {
 
     // Clear any existing errors
     setError('');
+    setPasswordExpired(false);
+    setPasswordExpiredData(null);
     if (errorTimerRef.current) {
       clearTimeout(errorTimerRef.current);
       errorTimerRef.current = null;
@@ -313,13 +322,31 @@ const Login = () => {
         setFormData({ username: '', password: '' });
         navigate('/dashboard');
       } else {
-        setErrorWithTimer(response?.message || 'Invalid credentials. Please try again.');
+        // ⭐ NEW: Check if password expired
+        if (response?.data?.passwordExpired) {
+          setPasswordExpired(true);
+          setPasswordExpiredData(response.data);
+          setError(response.message || 'Your password has expired. Please contact your administrator to reset your password.');
+        } else {
+          setErrorWithTimer(response?.message || 'Invalid credentials. Please try again.');
+        }
       }
     } catch (err) {
       let errorMsg = 'Invalid credentials. Please try again.';
       
-      if (err.response) {
-        errorMsg = err.response.data?.message || errorMsg;
+      // ⭐ NEW: Check for password expiry in error response
+      if (err.response && err.response.data) {
+        const errorData = err.response.data;
+        
+        if (errorData.data && errorData.data.passwordExpired) {
+          setPasswordExpired(true);
+          setPasswordExpiredData(errorData.data);
+          setError(errorData.message || 'Your password has expired. Please contact your administrator to reset your password.');
+          setLoading(false);
+          return;
+        }
+        
+        errorMsg = errorData.message || errorMsg;
       } else if (err.request) {
         errorMsg = 'Cannot connect to server. Please check your connection.';
       }
@@ -512,9 +539,25 @@ const Login = () => {
 
         {/* ==================== ERROR MESSAGE (LOGIN) ==================== */}
         {error && !showTwoFactor && (
-          <div className="login-error-message">
+          <div className={`login-error-message ${passwordExpired ? 'login-error-password-expired' : ''}`}>
             <AlertCircle size={18} />
-            <span>{error}</span>
+            <div className="login-error-content">
+              <span className="login-error-text">{error}</span>
+              
+              {/* ⭐ NEW: Password Expired Additional Info */}
+              {passwordExpired && passwordExpiredData && (
+                <div className="login-password-expired-info">
+                  {passwordExpiredData.daysExpired && (
+                    <p className="login-expired-days">
+                      Your password expired <strong>{passwordExpiredData.daysExpired}</strong> day{passwordExpiredData.daysExpired !== 1 ? 's' : ''} ago.
+                    </p>
+                  )}
+                  <p className="login-expired-help">
+                    Please contact your system administrator or IT support to reset your password.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         )}
 
