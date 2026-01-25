@@ -1664,3 +1664,26 @@
 2026-01-25 23:09:12.947 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
 2026-01-25 23:09:12.951 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
 2026-01-25 23:09:12.953 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-01-25 23:09:21.158 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-01-25 23:09:21.158 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-01-25 23:09:21.151 [DEBUG] 🐛 Request Body | {
+2026-01-25 23:09:21.148 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-25 23:09:21.168 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-01-25 23:09:21.171 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-25 23:09:21.170 [SUCCESS] [OPERATION] ✅ User account is active
+2026-01-25 23:09:21.181 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-01-25 23:09:21.182 [TRY] [OPERATION] 🔄 Verifying password
+2026-01-25 23:09:21.182 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-01-25 23:09:21.344 [INFO] [SYSTEM] ℹ️ Resetting failed login attempts
+2026-01-25 23:09:21.344 [SUCCESS] [OPERATION] ✅ Password verified successfully
+2026-01-25 23:09:21.343 [SUCCESS] [OPERATION] ✅ Password comparison successful - Match found
+2026-01-25 23:09:21.398 [INFO] [SYSTEM] ℹ️ Failed login attempts reset | {
+2026-01-25 23:09:21.399 [TRY] [OPERATION] 🔄 Checking password expiry status
+2026-01-25 23:09:21.413 [WARN] [SYSTEM] ⚠️ Password has expired | {
+2026-01-25 23:09:21.415 [WARN] [SYSTEM] ⚠️ Login failed - Password has expired | {
+2026-01-25 23:09:21.446 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
+2026-01-25 23:09:21.475 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-01-25 23:09:21.626 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-25 23:09:21.629 [TRY] [OPERATION] 🔄 Fetching public settings
+2026-01-25 23:09:21.629 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2026-01-25 23:09:21.630 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
