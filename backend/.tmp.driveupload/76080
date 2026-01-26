@@ -15781,3 +15781,18 @@
 2026-01-26 22:07:24.710 [TRY] [OPERATION] 🔄 Authenticating request | {
 2026-01-26 22:07:24.710 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
 2026-01-26 22:07:24.712 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-01-26 22:07:32.333 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 22:07:32.339 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-01-26 22:07:32.336 [DEBUG] 🐛 Request Body | {
+2026-01-26 22:07:32.338 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-01-26 22:07:32.346 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-01-26 22:07:32.347 [SUCCESS] [OPERATION] ✅ User account is active
+2026-01-26 22:07:32.351 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-26 22:07:32.357 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-01-26 22:07:32.356 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-01-26 22:07:32.357 [TRY] [OPERATION] 🔄 Verifying password
+2026-01-26 22:07:32.506 [WARN] [SYSTEM] ⚠️ Password comparison completed - No match
+2026-01-26 22:07:32.547 [INFO] [SYSTEM] ℹ️ Failed login attempt recorded | {
+2026-01-26 22:07:32.554 [WARN] [SYSTEM] ⚠️ Login failed - Invalid password | {
+2026-01-26 22:07:32.563 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
+2026-01-26 22:07:32.569 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
