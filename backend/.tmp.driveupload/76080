@@ -7071,3 +7071,15 @@
 2026-01-26 19:17:01.864 [ERROR] 🚨 🔴 Breaches: 12 tickets
 2026-01-26 19:17:01.863 [INFO] [SYSTEM] ℹ️ ✅ OK: 0 tickets
 2026-01-26 19:17:01.865 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 113ms
+2026-01-26 19:17:16.678 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 19:17:16.681 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 19:17:16.681 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-26 19:17:16.683 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-26 19:17:16.685 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-26 19:17:16.692 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-26 19:17:16.697 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-26 19:17:16.709 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-26 19:17:16.714 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-26 19:17:16.719 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-26 19:17:16.722 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-26 19:17:16.731 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
