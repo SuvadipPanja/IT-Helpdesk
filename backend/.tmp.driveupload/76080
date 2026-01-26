@@ -7869,3 +7869,27 @@
 2026-01-26 19:40:00.046 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-01-26 19:40:00.056 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2026-01-26 19:40:00.056 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-01-26 19:40:13.697 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 19:40:13.700 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 19:40:13.700 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-26 19:40:13.706 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-26 19:40:13.711 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-26 19:40:13.718 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-26 19:40:13.727 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-26 19:40:13.763 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-26 19:40:13.767 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-26 19:40:13.776 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-26 19:40:13.772 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-26 19:40:13.784 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-26 19:40:17.671 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 19:40:17.680 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 19:40:17.680 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-26 19:40:17.682 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-26 19:40:17.684 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-26 19:40:17.697 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-26 19:40:17.703 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-26 19:40:17.736 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-26 19:40:17.743 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-26 19:40:17.751 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-26 19:40:17.748 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-26 19:40:17.760 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
