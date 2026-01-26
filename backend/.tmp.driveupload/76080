@@ -11413,3 +11413,15 @@
 2026-01-26 21:33:11.115 [TRY] [OPERATION] 🔄 Authenticating request | {
 2026-01-26 21:33:11.115 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
 2026-01-26 21:33:11.117 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-01-26 21:33:29.694 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-26 21:33:29.694 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 21:33:29.695 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-26 21:33:29.693 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 21:33:29.695 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-26 21:33:29.698 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-26 21:33:29.700 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-26 21:33:29.705 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-26 21:33:29.708 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-26 21:33:29.710 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-26 21:33:29.711 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-26 21:33:29.714 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
