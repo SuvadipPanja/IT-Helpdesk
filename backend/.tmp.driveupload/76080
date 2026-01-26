@@ -15004,3 +15004,33 @@
 2026-01-26 21:59:24.864 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-01-26 21:59:24.867 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-01-26 21:59:24.874 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-26 21:59:28.861 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 21:59:28.875 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
+2026-01-26 21:59:28.875 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 21:59:28.883 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-01-26 21:59:31.240 [DEBUG] 🐛 Request Body | {
+2026-01-26 21:59:31.236 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 21:59:31.242 [TRY] [OPERATION] 🔄 Verifying 2FA OTP for login | {
+2026-01-26 21:59:31.242 [TRY] [OPERATION] 🔄 Verifying OTP code
+2026-01-26 21:59:31.242 [TRY] [OPERATION] 🔄 Verifying 2FA code | {
+2026-01-26 21:59:31.242 [TRY] [OPERATION] 🔄 Verifying OTP | {
+2026-01-26 21:59:31.260 [SUCCESS] [OPERATION] ✅ OTP verified successfully | {
+2026-01-26 21:59:31.274 [SUCCESS] [OPERATION] ✅ 2FA verification complete | {
+2026-01-26 21:59:31.278 [SUCCESS] [OPERATION] ✅ OTP verified successfully
+2026-01-26 21:59:31.278 [TRY] [OPERATION] 🔄 Fetching user data for session creation
+2026-01-26 21:59:31.286 [SUCCESS] [OPERATION] ✅ User data fetched successfully
+2026-01-26 21:59:31.289 [TRY] [OPERATION] 🔄 Generating JWT token
+2026-01-26 21:59:31.289 [TRY] [OPERATION] 🔄 Generating JWT token | {
+2026-01-26 21:59:31.291 [SUCCESS] [OPERATION] ✅ JWT token generated successfully | {
+2026-01-26 21:59:31.292 [SUCCESS] [OPERATION] ✅ JWT token generated successfully
+2026-01-26 21:59:31.292 [TRY] [OPERATION] 🔄 Creating user session record
+2026-01-26 21:59:31.308 [SUCCESS] [OPERATION] ✅ Session created
+2026-01-26 21:59:31.309 [TRY] [OPERATION] 🔄 Updating last login timestamp
+2026-01-26 21:59:31.316 [SUCCESS] [OPERATION] ✅ Last login updated
+2026-01-26 21:59:31.338 [TRY] [OPERATION] 🔄 Creating login notification
+2026-01-26 21:59:31.338 [TRY] [OPERATION] 🔄 Creating notification | {
+2026-01-26 21:59:31.338 [SUCCESS] [OPERATION] ✅ Notification allowed by settings | {
+2026-01-26 21:59:31.347 [SUCCESS] [OPERATION] ✅ Notification created | {
+2026-01-26 21:59:31.350 [SUCCESS] [OPERATION] ✅ User logged in with 2FA | {
+2026-01-26 21:59:31.348 [SUCCESS] [OPERATION] ✅ Login notification created
+2026-01-26 21:59:31.357 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
