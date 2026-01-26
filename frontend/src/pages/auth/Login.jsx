@@ -1,19 +1,21 @@
 // ============================================
-// LOGIN PAGE - FIXED ERROR HANDLING + FOOTER
+// LOGIN PAGE - FIXED 2FA + ERROR HANDLING + FOOTER
 // Enterprise IT Helpdesk & Ticket Management System
 // Developer: Suvadip Panja
 // Company: Digitide
 // Created: October 11, 2024
-// Last Updated: January 26, 2026 - FIXED: Error messages not showing + Footer restored
+// Last Updated: January 26, 2026 - FIXED: 2FA not working + Error messages not showing
 // Previous Update: January 26, 2026 - Added Forgot Password link
 // Previous Update: January 25, 2026 - Added password expiry error handling
 // Previous Update: November 11, 2025 - Added 2FA support
-// Version: 2.3.0
+// Version: 2.4.0
 // Security: OWASP Compliant, JWT, 2FA
 // ============================================
-// BUG FIX: Login errors (wrong password, account locked, etc.) were not
-// displaying on the frontend because there was no else block to handle
-// the general failure case in handleSubmit function.
+// BUG FIXES:
+// 1. Fixed property name mismatch: Backend sends "requiresTwoFactor" but code checked "twoFactorRequired"
+// 2. Fixed OTP verification: Now calls /api/v1/auth/verify-2fa-login directly
+// 3. Fixed error messages not showing for login failures
+// 4. Restored footer section
 // ============================================
 
 import { useState, useEffect, useRef } from 'react';
@@ -21,6 +23,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Lock, User, Eye, EyeOff, AlertCircle, Shield, Mail, Clock, RefreshCw, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { getSetting } from '../../utils/settingsLoader';
+import api from '../../services/api';
 import '../../styles/Login.css';
 
 // ============================================
@@ -43,6 +46,7 @@ const STORAGE_KEYS = {
   TWO_FACTOR_STATE: 'nexus_2fa_state',
   OTP_TIMER: 'nexus_2fa_timer',
   USERNAME: 'nexus_2fa_username',
+  PASSWORD: 'nexus_2fa_pwd_temp', // Temporary storage for 2FA flow
 };
 
 // ============================================
@@ -100,7 +104,7 @@ const Login = () => {
   // ============================================
   // HOOKS
   // ============================================
-  const { login } = useAuth();
+  const { login, setUser } = useAuth();
   const navigate = useNavigate();
 
   // ============================================
@@ -130,26 +134,37 @@ const Login = () => {
         const state = JSON.parse(savedState);
         const savedTimer = sessionStorage.getItem(STORAGE_KEYS.OTP_TIMER);
         const savedUsername = sessionStorage.getItem(STORAGE_KEYS.USERNAME);
+        const savedPassword = sessionStorage.getItem(STORAGE_KEYS.PASSWORD);
         
         // Calculate elapsed time
         const elapsed = Math.floor((Date.now() - state.timestamp) / 1000);
         const savedTimerInt = savedTimer ? parseInt(savedTimer) : 300;
         const remainingTime = Math.max(0, savedTimerInt - elapsed);
 
-        if (remainingTime > 0) {
+        if (remainingTime > 0 && state.userId) {
           setTwoFactorData(state);
           setTimeRemaining(remainingTime);
           setShowTwoFactor(true);
           if (savedUsername) {
-            setFormData(prev => ({ ...prev, username: savedUsername }));
+            setFormData(prev => ({ 
+              ...prev, 
+              username: savedUsername,
+              password: savedPassword || ''
+            }));
           }
         } else {
           // Session expired, clear storage
-          sessionStorage.clear();
+          sessionStorage.removeItem(STORAGE_KEYS.TWO_FACTOR_STATE);
+          sessionStorage.removeItem(STORAGE_KEYS.OTP_TIMER);
+          sessionStorage.removeItem(STORAGE_KEYS.USERNAME);
+          sessionStorage.removeItem(STORAGE_KEYS.PASSWORD);
         }
       } catch (e) {
         console.error('Failed to restore 2FA state:', e);
-        sessionStorage.clear();
+        sessionStorage.removeItem(STORAGE_KEYS.TWO_FACTOR_STATE);
+        sessionStorage.removeItem(STORAGE_KEYS.OTP_TIMER);
+        sessionStorage.removeItem(STORAGE_KEYS.USERNAME);
+        sessionStorage.removeItem(STORAGE_KEYS.PASSWORD);
       }
     }
   }, []);
@@ -164,8 +179,11 @@ const Login = () => {
       if (formData.username) {
         sessionStorage.setItem(STORAGE_KEYS.USERNAME, formData.username);
       }
+      if (formData.password) {
+        sessionStorage.setItem(STORAGE_KEYS.PASSWORD, formData.password);
+      }
     }
-  }, [showTwoFactor, twoFactorData, timeRemaining, formData.username]);
+  }, [showTwoFactor, twoFactorData, timeRemaining, formData.username, formData.password]);
 
   // ============================================
   // OTP EXPIRY COUNTDOWN TIMER
@@ -228,6 +246,16 @@ const Login = () => {
   };
 
   // ============================================
+  // CLEAR 2FA SESSION DATA
+  // ============================================
+  const clear2FASession = () => {
+    sessionStorage.removeItem(STORAGE_KEYS.TWO_FACTOR_STATE);
+    sessionStorage.removeItem(STORAGE_KEYS.OTP_TIMER);
+    sessionStorage.removeItem(STORAGE_KEYS.USERNAME);
+    sessionStorage.removeItem(STORAGE_KEYS.PASSWORD);
+  };
+
+  // ============================================
   // FORM HANDLERS
   // ============================================
   
@@ -251,7 +279,7 @@ const Login = () => {
   };
 
   // ============================================
-  // ⭐ SUBMIT HANDLER - FIXED ERROR HANDLING
+  // ⭐ SUBMIT HANDLER - FIXED 2FA + ERROR HANDLING
   // ============================================
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -279,7 +307,6 @@ const Login = () => {
       
       // ============================================
       // ⭐ FIX 1: Check for password expiry in result.data
-      // Backend sends: { success: false, message: '...', data: { passwordExpired: true, daysExpired: 5 } }
       // ============================================
       if (result.data?.passwordExpired) {
         console.log('⚠️ Password expired detected');
@@ -293,18 +320,23 @@ const Login = () => {
       }
       
       // ============================================
-      // Handle 2FA required
+      // ⭐ FIX 2: Check for 2FA Required
+      // Backend sends "requiresTwoFactor" NOT "twoFactorRequired"
       // ============================================
-      if (result.data?.twoFactorRequired || result.twoFactorRequired) {
-        console.log('🔐 2FA required');
+      if (result.data?.requiresTwoFactor) {
+        console.log('🔐 2FA required, showing OTP input');
         hasRestoredState.current = true;
+        
         setTwoFactorData({
-          userId: result.data?.userId || result.userId,
-          email: result.data?.email || result.email,
-          expiryMinutes: result.data?.expiryMinutes || result.expiryMinutes || 5,
+          userId: result.data.userId,
+          email: result.data.email,
+          expiryMinutes: result.data.expiryMinutes || 5,
           timestamp: Date.now()
         });
-        setTimeRemaining(result.data?.expirySeconds || result.expirySeconds || 300);
+        
+        // Calculate expiry seconds (default 5 minutes = 300 seconds)
+        const expirySeconds = (result.data.expiryMinutes || 5) * 60;
+        setTimeRemaining(expirySeconds);
         setShowTwoFactor(true);
         setOtpCode('');
         setLoading(false);
@@ -314,30 +346,25 @@ const Login = () => {
       // ============================================
       // Success - redirect to dashboard
       // ============================================
-      if (result.success) {
+      if (result.success && result.data?.token) {
         console.log('✅ Login successful, redirecting to dashboard');
-        sessionStorage.clear();
+        clear2FASession();
         navigate('/dashboard');
         return;
       }
       
       // ============================================
-      // ⭐ FIX 2: Handle FAILED LOGIN (the missing else block!)
-      // This is the key fix - previously no error was shown when
-      // success: false but not passwordExpired and not twoFactorRequired
+      // ⭐ FIX 3: Handle FAILED LOGIN
       // ============================================
       console.log('❌ Login failed:', result.message);
       setErrorWithTimer(result.message || 'Login failed. Please check your credentials.');
 
     } catch (err) {
       console.error('❌ Login error (exception):', err);
-      
-      // ⭐ FIX 3: Better error extraction from caught exceptions
       const errorMessage = 
         err.response?.data?.message || 
         err.message || 
         'Login failed. Please try again.';
-      
       setErrorWithTimer(errorMessage);
     } finally {
       setLoading(false);
@@ -345,7 +372,8 @@ const Login = () => {
   };
 
   // ============================================
-  // OTP VERIFICATION HANDLER
+  // ⭐ OTP VERIFICATION HANDLER - FIXED
+  // Calls /api/v1/auth/verify-2fa-login directly
   // ============================================
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
@@ -364,32 +392,51 @@ const Login = () => {
     setOtpError('');
 
     try {
-      console.log('🔐 Verifying OTP for user:', twoFactorData?.userId);
-      const result = await login(
-        formData.username,
-        formData.password,
-        otpCode,
-        twoFactorData.userId
-      );
+      console.log('🔐 Verifying OTP for user:', twoFactorData.userId);
+      
+      // ⭐ FIX: Call the 2FA verification endpoint directly
+      const response = await api.post('/auth/verify-2fa-login', {
+        userId: twoFactorData.userId,
+        code: otpCode
+      });
 
-      if (result.success) {
-        console.log('✅ OTP verification successful');
-        sessionStorage.clear();
+      console.log('📋 2FA verification response:', response.data);
+
+      if (response.data.success && response.data.data?.token) {
+        console.log('✅ 2FA verification successful');
+        
+        // Store token and user data
+        localStorage.setItem('token', response.data.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.data.user));
+        
+        // Update auth context
+        if (setUser) {
+          setUser(response.data.data.user);
+        }
+        
+        // Clear 2FA session data
+        clear2FASession();
+        
+        // Navigate to dashboard
         navigate('/dashboard');
       } else {
-        console.log('❌ OTP verification failed:', result.message);
-        setOtpErrorWithTimer(result.message || 'Invalid verification code');
+        console.log('❌ 2FA verification failed:', response.data.message);
+        setOtpErrorWithTimer(response.data.message || 'Invalid verification code');
       }
     } catch (err) {
       console.error('❌ OTP verification error:', err);
-      setOtpErrorWithTimer(err.message || 'Verification failed. Please try again.');
+      const errorMessage = 
+        err.response?.data?.message || 
+        err.message || 
+        'Verification failed. Please try again.';
+      setOtpErrorWithTimer(errorMessage);
     } finally {
       setVerifyingOtp(false);
     }
   };
 
   // ============================================
-  // RESEND OTP HANDLER
+  // ⭐ RESEND OTP HANDLER - FIXED
   // ============================================
   const handleResendOtp = async () => {
     if (resendingOtp) return;
@@ -399,17 +446,21 @@ const Login = () => {
 
     try {
       console.log('🔄 Resending OTP...');
+      
+      // Call login again to trigger new OTP
       const result = await login(formData.username, formData.password);
 
-      if (result.data?.twoFactorRequired || result.twoFactorRequired) {
-        console.log('✅ OTP resent successfully');
+      // ⭐ FIX: Check correct property name
+      if (result.data?.requiresTwoFactor) {
+        console.log('✅ New OTP sent successfully');
         setTwoFactorData({
-          userId: result.data?.userId || result.userId,
-          email: result.data?.email || result.email,
-          expiryMinutes: result.data?.expiryMinutes || result.expiryMinutes || 5,
+          userId: result.data.userId,
+          email: result.data.email,
+          expiryMinutes: result.data.expiryMinutes || 5,
           timestamp: Date.now()
         });
-        setTimeRemaining(result.data?.expirySeconds || result.expirySeconds || 300);
+        const expirySeconds = (result.data.expiryMinutes || 5) * 60;
+        setTimeRemaining(expirySeconds);
         setOtpCode('');
         setOtpErrorWithTimer('New verification code sent to your email');
       } else {
@@ -432,7 +483,7 @@ const Login = () => {
     setOtpCode('');
     setOtpError('');
     setTimeRemaining(300);
-    sessionStorage.clear();
+    clear2FASession();
     if (otpTimerRef.current) {
       clearInterval(otpTimerRef.current);
     }
@@ -506,7 +557,7 @@ const Login = () => {
                   </p>
                 </>
               ) : (
-                /* ⭐ General Error Display - This now works properly */
+                /* ⭐ General Error Display */
                 <span className="login-error-text">{error}</span>
               )}
             </div>
@@ -631,6 +682,7 @@ const Login = () => {
                   autoComplete="off"
                   inputMode="numeric"
                   pattern="[0-9]*"
+                  autoFocus
                 />
               </div>
 
