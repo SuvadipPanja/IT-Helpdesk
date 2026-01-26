@@ -10561,3 +10561,12 @@
 2026-01-26 20:11:24.718 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-01-26 20:11:24.712 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-01-26 20:11:24.728 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-26 20:11:30.628 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 20:11:30.630 [DEBUG] 🐛 Request Body | {
+2026-01-26 20:11:30.636 [TRY] [OPERATION] 🔄 FORGOT PASSWORD REQUEST | {
+2026-01-26 20:11:30.643 [INFO] [SYSTEM] ℹ️ Secure reset token generated | {
+2026-01-26 20:11:30.650 [INFO] [SYSTEM] ℹ️ Previous tokens invalidated
+2026-01-26 20:11:30.685 [SUCCESS] [OPERATION] ✅ Reset token stored in database | {
+2026-01-26 20:11:30.689 [ERROR] 🚨 Failed to send password reset email | {
+2026-01-26 20:11:30.687 [INFO] [SYSTEM] ℹ️ Reset URL generated | {
+2026-01-26 20:11:30.703 [ERROR] 🚨 📤 Response Sent | {
