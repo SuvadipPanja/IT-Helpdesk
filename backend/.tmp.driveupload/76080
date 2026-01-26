@@ -8767,3 +8767,23 @@
 2026-01-26 19:48:16.714 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-01-26 19:48:16.718 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-01-26 19:48:16.721 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-26 19:48:21.644 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 19:48:21.628 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 19:48:21.644 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
+2026-01-26 19:48:21.647 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-01-26 19:48:22.015 [TRY] [OPERATION] 🔄 Fetching public settings
+2026-01-26 19:48:22.015 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2026-01-26 19:48:22.002 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 19:48:22.016 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-01-26 19:48:24.688 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-26 19:48:24.688 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 19:48:24.693 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-26 19:48:24.685 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 19:48:24.694 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-26 19:48:24.710 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-26 19:48:24.717 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-26 19:48:24.733 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-26 19:48:24.744 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-26 19:48:24.753 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-26 19:48:24.749 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-26 19:48:24.762 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
