@@ -10540,3 +10540,24 @@
 2026-01-26 20:11:12.039 [TRY] [OPERATION] 🔄 FORGOT PASSWORD REQUEST | {
 2026-01-26 20:11:12.045 [WARN] [SYSTEM] ⚠️ Email not found in database | {
 2026-01-26 20:11:12.049 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-26 20:11:23.010 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 20:11:23.040 [DEBUG] 🐛 Request Body | {
+2026-01-26 20:11:23.042 [TRY] [OPERATION] 🔄 FORGOT PASSWORD REQUEST | {
+2026-01-26 20:11:23.057 [INFO] [SYSTEM] ℹ️ Secure reset token generated | {
+2026-01-26 20:11:23.076 [INFO] [SYSTEM] ℹ️ Previous tokens invalidated
+2026-01-26 20:11:23.091 [SUCCESS] [OPERATION] ✅ Reset token stored in database | {
+2026-01-26 20:11:23.092 [INFO] [SYSTEM] ℹ️ Reset URL generated | {
+2026-01-26 20:11:23.095 [ERROR] 🚨 Failed to send password reset email | {
+2026-01-26 20:11:23.111 [ERROR] 🚨 📤 Response Sent | {
+2026-01-26 20:11:24.625 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 20:11:24.628 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-26 20:11:24.628 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 20:11:24.638 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-26 20:11:24.639 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-26 20:11:24.651 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-26 20:11:24.657 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-26 20:11:24.694 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-26 20:11:24.705 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-26 20:11:24.718 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-26 20:11:24.712 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-26 20:11:24.728 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
