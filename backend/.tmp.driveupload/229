@@ -1,70 +1,112 @@
 // ============================================
-// AUTH ROUTES - COMPLETE WITH PASSWORD RESET
-// Authentication routes including login, 2FA, and password reset
+// AUTH ROUTES - UPDATED WITH 2FA & PASSWORD RESET
+// Authentication API endpoints
 // Developer: Suvadip Panja
-// Company: Digitide
-// Date: January 26, 2026
+// Created: October 11, 2024
+// Updated: November 11, 2025 - Added 2FA verification route
+// Updated: January 26, 2026 - Added password reset routes
 // ============================================
 
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/auth.controller');
+const {
+  login,
+  verifyTwoFactorLogin, // ⭐ 2FA verification function
+  logout,
+  getMe,
+  changePassword
+} = require('../controllers/auth.controller');
+
+// ⭐ NEW: Password reset controller
 const passwordResetController = require('../controllers/password-reset.controller');
-const authMiddleware = require('../middleware/auth.middleware');
+
+const { authenticate } = require('../middleware/auth');
 
 // ============================================
 // PUBLIC ROUTES (No authentication required)
 // ============================================
 
-// Login - Initial authentication
-router.post('/login', authController.login);
+/**
+ * @route   POST /api/v1/auth/login
+ * @desc    User login with username/password
+ * @access  Public
+ * @returns JWT token if successful, or 2FA required response
+ */
+router.post('/login', login);
 
-// Verify 2FA OTP
-router.post('/verify-otp', authController.verifyOTP);
-
-// Resend OTP
-router.post('/resend-otp', authController.resendOTP);
-
-// Logout
-router.post('/logout', authController.logout);
+/**
+ * ⭐ 2FA OTP Verification Endpoint
+ * @route   POST /api/v1/auth/verify-2fa-login
+ * @desc    Verify OTP code and complete login
+ * @access  Public (but requires valid userId and OTP code)
+ * @body    { userId: number, code: string }
+ * @returns JWT token if OTP is valid
+ * @created November 11, 2025
+ */
+router.post('/verify-2fa-login', verifyTwoFactorLogin);
 
 // ============================================
-// PASSWORD RESET ROUTES (Public)
+// ⭐ NEW: PASSWORD RESET ROUTES (Public)
+// Added: January 26, 2026
 // ============================================
 
-// Request password reset (Forgot Password)
+/**
+ * @route   POST /api/v1/auth/forgot-password
+ * @desc    Request password reset (send email with token)
+ * @access  Public
+ * @body    { email: string }
+ * @returns Success message (doesn't reveal if email exists)
+ * @created January 26, 2026
+ */
 router.post('/forgot-password', passwordResetController.forgotPassword);
 
-// Reset password with token
-router.post('/reset-password', passwordResetController.resetPassword);
+/**
+ * @route   GET /api/v1/auth/validate-reset-token/:token
+ * @desc    Validate reset token before showing form
+ * @access  Public
+ * @params  token (in URL)
+ * @returns { isValid: boolean, email: string, full_name: string }
+ * @created January 26, 2026
+ */
+router.get('/validate-reset-token/:token', passwordResetController.validateResetToken);
 
-// Verify reset token validity
-router.get('/verify-reset-token', passwordResetController.verifyResetToken);
+/**
+ * @route   POST /api/v1/auth/reset-password
+ * @desc    Reset password using token
+ * @access  Public
+ * @body    { token: string, newPassword: string, confirmPassword: string }
+ * @returns Success message
+ * @created January 26, 2026
+ */
+router.post('/reset-password', passwordResetController.resetPassword);
 
 // ============================================
 // PROTECTED ROUTES (Authentication required)
 // ============================================
 
-// Get current user info
-router.get('/me', authMiddleware, authController.getCurrentUser);
+/**
+ * @route   POST /api/v1/auth/logout
+ * @desc    User logout (invalidates session)
+ * @access  Private
+ */
+router.post('/logout', authenticate, logout);
 
-// Refresh token
-router.post('/refresh-token', authMiddleware, authController.refreshToken);
+/**
+ * @route   GET /api/v1/auth/me
+ * @desc    Get current user profile
+ * @access  Private
+ */
+router.get('/me', authenticate, getMe);
 
-// Change password (authenticated user)
-router.post('/change-password', authMiddleware, authController.changePassword);
+/**
+ * @route   PUT /api/v1/auth/change-password
+ * @desc    Change user password
+ * @access  Private
+ * @body    { current_password: string, new_password: string }
+ */
+router.put('/change-password', authenticate, changePassword);
 
 // ============================================
-// 2FA MANAGEMENT ROUTES (Protected)
+// EXPORT ROUTER
 // ============================================
-
-// Enable 2FA
-router.post('/2fa/enable', authMiddleware, authController.enable2FA);
-
-// Disable 2FA
-router.post('/2fa/disable', authMiddleware, authController.disable2FA);
-
-// Get 2FA status
-router.get('/2fa/status', authMiddleware, authController.get2FAStatus);
-
 module.exports = router;
