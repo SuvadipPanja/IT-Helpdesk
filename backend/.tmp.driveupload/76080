@@ -14423,3 +14423,44 @@
 2026-01-26 21:51:32.835 [TRY] [OPERATION] 🔄 Authenticating request | {
 2026-01-26 21:51:32.835 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
 2026-01-26 21:51:32.837 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-01-26 21:51:42.594 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 21:51:42.600 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-01-26 21:51:42.597 [DEBUG] 🐛 Request Body | {
+2026-01-26 21:51:42.600 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-01-26 21:51:42.611 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-01-26 21:51:42.612 [SUCCESS] [OPERATION] ✅ User account is active
+2026-01-26 21:51:42.613 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-26 21:51:42.619 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-01-26 21:51:42.619 [TRY] [OPERATION] 🔄 Verifying password
+2026-01-26 21:51:42.619 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-01-26 21:51:42.778 [SUCCESS] [OPERATION] ✅ Password comparison successful - Match found
+2026-01-26 21:51:42.778 [SUCCESS] [OPERATION] ✅ Password verified successfully
+2026-01-26 21:51:42.779 [INFO] [SYSTEM] ℹ️ Resetting failed login attempts
+2026-01-26 21:51:42.794 [TRY] [OPERATION] 🔄 Checking password expiry status
+2026-01-26 21:51:42.790 [INFO] [SYSTEM] ℹ️ Failed login attempts reset | {
+2026-01-26 21:51:42.799 [SUCCESS] [OPERATION] ✅ Password expiry check passed
+2026-01-26 21:51:42.800 [TRY] [OPERATION] 🔄 Checking if 2FA is enabled for user
+2026-01-26 21:51:42.800 [TRY] [OPERATION] 🔄 Checking 2FA status | {
+2026-01-26 21:51:42.805 [SUCCESS] [OPERATION] ✅ 2FA status checked | {
+2026-01-26 21:51:42.807 [INFO] [SYSTEM] ℹ️ 2FA is enabled for user, initiating 2FA flow | {
+2026-01-26 21:51:42.807 [TRY] [OPERATION] 🔄 Sending OTP to user email
+2026-01-26 21:51:42.808 [TRY] [OPERATION] 🔄 Sending OTP email | {
+2026-01-26 21:51:42.808 [TRY] [OPERATION] 🔄 Invalidating pending OTPs | {
+2026-01-26 21:51:42.818 [SUCCESS] [OPERATION] ✅ Pending OTPs invalidated | {
+2026-01-26 21:51:42.819 [TRY] [OPERATION] 🔄 Creating OTP for user | {
+2026-01-26 21:51:42.851 [SUCCESS] [OPERATION] ✅ OTP created successfully | {
+2026-01-26 21:51:42.857 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-01-26 21:51:42.868 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-01-26 21:51:42.869 [SUCCESS] [OPERATION] ✅ OTP email queued successfully | {
+2026-01-26 21:51:42.870 [SUCCESS] [OPERATION] ✅ OTP sent successfully | {
+2026-01-26 21:51:42.872 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-01-26 21:51:42.886 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-01-26 21:51:42.883 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-01-26 21:51:42.899 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-26 21:51:44.947 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-01-26 21:51:44.946 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-01-26 21:51:48.660 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
+2026-01-26 21:51:51.089 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 21:51:51.090 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 21:51:51.090 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
+2026-01-26 21:51:51.095 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
