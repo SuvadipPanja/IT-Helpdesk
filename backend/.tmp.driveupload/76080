@@ -10583,3 +10583,28 @@
 2026-01-26 20:11:43.844 [TRY] [OPERATION] 🔄 Fetching public settings
 2026-01-26 20:11:43.844 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
 2026-01-26 20:11:43.846 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-01-26 20:11:48.741 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 20:11:48.755 [TRY] [OPERATION] 🔄 FORGOT PASSWORD REQUEST | {
+2026-01-26 20:11:48.746 [DEBUG] 🐛 Request Body | {
+2026-01-26 20:11:48.760 [INFO] [SYSTEM] ℹ️ Secure reset token generated | {
+2026-01-26 20:11:48.770 [INFO] [SYSTEM] ℹ️ Previous tokens invalidated
+2026-01-26 20:11:48.778 [SUCCESS] [OPERATION] ✅ Reset token stored in database | {
+2026-01-26 20:11:48.779 [INFO] [SYSTEM] ℹ️ Reset URL generated | {
+2026-01-26 20:11:48.780 [ERROR] 🚨 Failed to send password reset email | {
+2026-01-26 20:11:48.793 [ERROR] 🚨 📤 Response Sent | {
+2026-01-26 20:11:51.668 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 20:11:51.677 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 20:11:51.680 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-26 20:11:51.687 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-26 20:11:51.694 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-26 20:11:51.708 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-26 20:11:51.713 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-26 20:11:51.727 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-26 20:11:51.733 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-26 20:11:51.742 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-26 20:11:51.739 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-26 20:11:51.749 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-26 20:11:54.663 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-26 20:11:54.667 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-26 20:11:54.667 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
+2026-01-26 20:11:54.669 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
