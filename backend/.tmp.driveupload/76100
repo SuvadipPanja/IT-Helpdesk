@@ -1,122 +1,0 @@
-2026-01-27 09:38:57.511 [INFO] [SYSTEM] ℹ️ Initializing security middleware
-2026-01-27 09:38:57.517 [SUCCESS] [OPERATION] ✅ CORS enabled | {
-2026-01-27 09:38:57.525 [SUCCESS] [OPERATION] ✅ Rate limiting enabled | {
-2026-01-27 09:38:57.634 [INFO] [SYSTEM] ℹ️ Initializing body parsers
-2026-01-27 09:38:57.638 [SUCCESS] [OPERATION] ✅ Body parsers initialized
-2026-01-27 09:38:57.640 [SUCCESS] [OPERATION] ✅ Response compression enabled
-2026-01-27 09:38:57.641 [INFO] [SYSTEM] ℹ️ Directory exists | {
-2026-01-27 09:38:57.643 [INFO] [SYSTEM] ℹ️ Directory exists | {
-2026-01-27 09:38:57.645 [INFO] [SYSTEM] ℹ️ Directory exists | {
-2026-01-27 09:38:57.646 [INFO] [SYSTEM] ℹ️ Directory exists | {
-2026-01-27 09:38:57.885 [SUCCESS] [OPERATION] ✅ Error handlers initialized
-2026-01-27 09:38:57.887 [INFO] [SYSTEM] ℹ️ Starting IT Helpdesk Backend Server
-2026-01-27 09:38:57.888 [INFO] [SYSTEM] ℹ️ Environment | {
-2026-01-27 09:38:57.889 [INFO] [SYSTEM] ℹ️ Node Version | {
-2026-01-27 09:38:57.890 [INFO] [SYSTEM] ℹ️ Platform | {
-2026-01-27 09:38:57.891 [TRY] [OPERATION] 🔄 Testing database connection
-2026-01-27 09:38:57.650 [SUCCESS] [OPERATION] ✅ Static file serving enabled with CORS | {
-2026-01-27 09:38:57.656 [INFO] [SYSTEM] ℹ️ Initializing API routes
-2026-01-27 09:38:57.883 [SUCCESS] [OPERATION] ✅ API routes initialized | {
-2026-01-27 09:38:58.150 [SUCCESS] [OPERATION] ✅ Database connection test passed
-2026-01-27 09:38:58.151 [INFO] [SYSTEM] ℹ️ Database details | {
-2026-01-27 09:38:58.165 [SUCCESS] [OPERATION] ✅ API Base URL: http://localhost:5000/api/v1
-2026-01-27 09:38:58.166 [SUCCESS] [OPERATION] ✅ Test Uploads: http://localhost:5000/test-uploads
-2026-01-27 09:38:58.165 [SUCCESS] [OPERATION] ✅ Health Check: http://localhost:5000/health
-2026-01-27 09:38:58.167 [INFO] [SYSTEM] ℹ️ Server Details | {
-2026-01-27 09:38:58.170 [INFO] [SYSTEM] ℹ️ 🎉 IT Helpdesk Backend is ready to accept requests!
-2026-01-27 09:38:58.164 [SUCCESS] [OPERATION] ✅ Server is running on port 5000
-2026-01-27 09:38:58.171 [INFO] [SYSTEM] ℹ️ 📂 File uploads enabled at: /uploads
-2026-01-27 09:38:58.172 [INFO] [SYSTEM] ℹ️ 📎 Ticket attachments: /uploads/tickets
-2026-01-27 09:38:58.172 [INFO] [SYSTEM] ℹ️ 🔓 CORS enabled for cross-origin requests
-2026-01-27 09:38:58.173 [INFO] [SYSTEM] ℹ️ 🔗 Attachments endpoint: /api/v1/tickets/:id/attachments
-2026-01-27 09:38:58.171 [INFO] [SYSTEM] ℹ️ 🖼️ Profile pictures: /uploads/profiles
-2026-01-27 09:38:58.174 [INFO] [SYSTEM] ℹ️ 👤 Profile endpoint: /api/v1/profile
-2026-01-27 09:38:58.175 [INFO] [SYSTEM] ℹ️ ⏰ Password Expiry endpoint: /api/v1/password-expiry
-2026-01-27 09:38:58.174 [INFO] [SYSTEM] ℹ️ 🔐 Security endpoint: /api/v1/security
-2026-01-27 09:38:58.176 [INFO] [SYSTEM] ℹ️ 📧 Email Queue endpoint: /api/v1/email-queue
-2026-01-27 09:38:58.176 [INFO] [SYSTEM] ℹ️ 📝 Email Templates endpoint: /api/v1/email-templates
-2026-01-27 09:38:58.180 [INFO] [SYSTEM] ℹ️ Press CTRL+C to stop the server
-2026-01-27 09:38:58.175 [INFO] [SYSTEM] ℹ️ 🔒 Two-Factor Auth endpoint: /api/v1/2fa
-2026-01-27 09:38:58.179 [INFO] [SYSTEM] ℹ️ ✅ Ticket Approvals endpoint: /api/v1/ticket-approvals
-2026-01-27 09:38:58.182 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Cron Job
-2026-01-27 09:38:58.182 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 5 minutes (*/5 * * * *)
-2026-01-27 09:38:58.206 [SUCCESS] [OPERATION] ✅ ✅ Email Processor Cron Job started successfully
-2026-01-27 09:38:58.206 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Job...
-2026-01-27 09:38:58.207 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Cron Job
-2026-01-27 09:38:58.181 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Job...
-2026-01-27 09:38:58.173 [INFO] [SYSTEM] ℹ️ 👥 Users endpoint: /api/v1/users
-2026-01-27 09:38:58.208 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Tickets Cron Job
-2026-01-27 09:38:58.208 [TRY] [OPERATION] 🔄 Loading all settings from database
-2026-01-27 09:38:58.207 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Job...
-2026-01-27 09:38:58.209 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Cron Job
-2026-01-27 09:38:58.211 [DEBUG] 🐛 📊 Loading SLA settings from database...
-2026-01-27 09:38:58.212 [INFO] [SYSTEM] ℹ️ 🔐 Starting Password Expiry Job...
-2026-01-27 09:38:58.219 [INFO] [SYSTEM] ℹ️ 🧹 Starting Session Cleanup Job...
-2026-01-27 09:38:58.219 [INFO] [SYSTEM] ℹ️ 🕐 Session Cleanup scheduled | {
-2026-01-27 09:38:58.221 [SUCCESS] [OPERATION] ✅ ✅ Session Cleanup started successfully
-2026-01-27 09:38:58.219 [SUCCESS] [OPERATION] ✅ Password expiry reminder job scheduled (Daily at 9:00 AM IST)
-2026-01-27 09:38:58.222 [INFO] [SYSTEM] ℹ️ 🔓 Starting Auto-Unlock Job...
-2026-01-27 09:38:58.208 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Job...
-2026-01-27 09:38:58.222 [INFO] [SYSTEM] ℹ️ 🕐 Auto Unlock scheduled | {
-2026-01-27 09:38:58.224 [SUCCESS] [OPERATION] ✅ ✅ Auto Unlock started successfully
-2026-01-27 09:38:58.294 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
-2026-01-27 09:38:58.299 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 15 minutes (*/15 * * * *)
-2026-01-27 09:38:58.300 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
-2026-01-27 09:38:58.301 [INFO] [SYSTEM] ℹ️ 🕐 Business Hours: 09:00 - 17:00
-2026-01-27 09:38:58.301 [INFO] [SYSTEM] ℹ️ ⚠️ Warning Threshold: 90%
-2026-01-27 09:38:58.303 [INFO] [SYSTEM] ℹ️ 📅 Working Days: mon, tue, wed, thu, fri, sat
-2026-01-27 09:38:58.305 [SUCCESS] [OPERATION] ✅ ✅ SLA Breach Detection Cron Job started successfully
-2026-01-27 09:38:58.312 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
-2026-01-27 09:38:58.312 [INFO] [SYSTEM] ℹ️ 📊 Status: Disabled
-2026-01-27 09:38:58.313 [WARN] [SYSTEM] ⚠️ ⚠️ Auto-Close job is DISABLED in settings
-2026-01-27 09:38:58.316 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
-2026-01-27 09:38:58.319 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
-2026-01-27 09:38:58.317 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
-2026-01-27 09:39:03.219 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
-2026-01-27 09:39:03.223 [TRY] [OPERATION] 🔄 Processing pending emails in queue
-2026-01-27 09:39:03.246 [INFO] [SYSTEM] ℹ️ No pending emails to process
-2026-01-27 09:39:03.249 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
-2026-01-27 09:39:08.319 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 27/01/2026, 09:39:08 am IST
-2026-01-27 09:39:08.316 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
-2026-01-27 09:39:08.320 [DEBUG] 🐛 📊 Loading SLA settings from database...
-2026-01-27 09:39:08.326 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
-2026-01-27 09:39:08.342 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
-2026-01-27 09:39:08.341 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [206]
-2026-01-27 09:39:08.364 [INFO] [SYSTEM] ℹ️ 🎫 Found 13 open tickets to check
-2026-01-27 09:39:08.364 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
-2026-01-27 09:39:08.366 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
-2026-01-27 09:39:08.369 [DEBUG] 🐛 Breach notification already sent, skipping
-2026-01-27 09:39:08.370 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
-2026-01-27 09:39:08.371 [DEBUG] 🐛 Breach notification already sent, skipping
-2026-01-27 09:39:08.372 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
-2026-01-27 09:39:08.373 [DEBUG] 🐛 Breach notification already sent, skipping
-2026-01-27 09:39:08.374 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
-2026-01-27 09:39:08.375 [DEBUG] 🐛 Breach notification already sent, skipping
-2026-01-27 09:39:08.377 [DEBUG] 🐛 Breach notification already sent, skipping
-2026-01-27 09:39:08.376 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
-2026-01-27 09:39:08.380 [DEBUG] 🐛 Breach notification already sent, skipping
-2026-01-27 09:39:08.380 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
-2026-01-27 09:39:08.382 [DEBUG] 🐛 Breach notification already sent, skipping
-2026-01-27 09:39:08.382 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
-2026-01-27 09:39:08.385 [DEBUG] 🐛 Breach notification already sent, skipping
-2026-01-27 09:39:08.386 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
-2026-01-27 09:39:08.388 [DEBUG] 🐛 Breach notification already sent, skipping
-2026-01-27 09:39:08.389 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
-2026-01-27 09:39:08.391 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
-2026-01-27 09:39:08.390 [DEBUG] 🐛 Breach notification already sent, skipping
-2026-01-27 09:39:08.392 [DEBUG] 🐛 Breach notification already sent, skipping
-2026-01-27 09:39:08.393 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
-2026-01-27 09:39:08.395 [DEBUG] 🐛 Breach notification already sent, skipping
-2026-01-27 09:39:08.396 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
-2026-01-27 09:39:08.396 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
-2026-01-27 09:39:08.396 [ERROR] 🚨 🔴 Breaches: 12 tickets
-2026-01-27 09:39:08.378 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
-2026-01-27 09:39:08.397 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 80ms
-2026-01-27 09:40:00.049 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
-2026-01-27 09:40:00.051 [TRY] [OPERATION] 🔄 Processing pending emails in queue
-2026-01-27 09:40:00.210 [INFO] [SYSTEM] ℹ️ No pending emails to process
-2026-01-27 09:40:00.211 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
-2026-01-27 10:10:00.026 [TRY] [OPERATION] 🔄 Processing pending emails in queue
-2026-01-27 10:10:00.025 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
-2026-01-27 10:10:00.122 [INFO] [SYSTEM] ℹ️ No pending emails to process
-2026-01-27 10:10:00.123 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
