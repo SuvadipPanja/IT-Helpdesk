@@ -10024,3 +10024,312 @@
 2026-01-29 18:03:27.526 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-01-29 18:03:27.527 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-01-29 18:03:27.532 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-29 18:03:47.508 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:47.509 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 18:03:47.508 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 18:03:47.508 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 18:03:47.509 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 18:03:47.511 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 18:03:47.512 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 18:03:47.515 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 18:03:47.516 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 18:03:47.518 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 18:03:47.517 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 18:03:49.954 [INFO] [SYSTEM] ℹ️ Initializing security middleware
+2026-01-29 18:03:49.956 [SUCCESS] [OPERATION] ✅ CORS enabled | {
+2026-01-29 18:03:49.957 [SUCCESS] [OPERATION] ✅ Rate limiting enabled | {
+2026-01-29 18:03:49.969 [INFO] [SYSTEM] ℹ️ Initializing body parsers
+2026-01-29 18:03:49.970 [SUCCESS] [OPERATION] ✅ Body parsers initialized
+2026-01-29 18:03:49.970 [SUCCESS] [OPERATION] ✅ Response compression enabled
+2026-01-29 18:03:49.971 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-01-29 18:03:49.971 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-01-29 18:03:49.971 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-01-29 18:03:49.972 [SUCCESS] [OPERATION] ✅ Static file serving enabled with CORS | {
+2026-01-29 18:03:49.973 [INFO] [SYSTEM] ℹ️ Initializing API routes
+2026-01-29 18:03:49.972 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-01-29 18:03:50.035 [SUCCESS] [OPERATION] ✅ API routes initialized | {
+2026-01-29 18:03:50.037 [INFO] [SYSTEM] ℹ️ Starting IT Helpdesk Backend Server
+2026-01-29 18:03:50.037 [INFO] [SYSTEM] ℹ️ Environment | {
+2026-01-29 18:03:50.037 [SUCCESS] [OPERATION] ✅ Error handlers initialized
+2026-01-29 18:03:50.038 [INFO] [SYSTEM] ℹ️ Node Version | {
+2026-01-29 18:03:50.038 [INFO] [SYSTEM] ℹ️ Platform | {
+2026-01-29 18:03:50.038 [TRY] [OPERATION] 🔄 Testing database connection
+2026-01-29 18:03:50.078 [SUCCESS] [OPERATION] ✅ Database connection test passed
+2026-01-29 18:03:50.080 [SUCCESS] [OPERATION] ✅ API Base URL: http://localhost:5000/api/v1
+2026-01-29 18:03:50.078 [INFO] [SYSTEM] ℹ️ Database details | {
+2026-01-29 18:03:50.081 [SUCCESS] [OPERATION] ✅ Test Uploads: http://localhost:5000/test-uploads
+2026-01-29 18:03:50.081 [INFO] [SYSTEM] ℹ️ Server Details | {
+2026-01-29 18:03:50.082 [INFO] [SYSTEM] ℹ️ 📂 File uploads enabled at: /uploads
+2026-01-29 18:03:50.081 [SUCCESS] [OPERATION] ✅ Health Check: http://localhost:5000/health
+2026-01-29 18:03:50.080 [SUCCESS] [OPERATION] ✅ Server is running on port 5000
+2026-01-29 18:03:50.082 [INFO] [SYSTEM] ℹ️ 🖼️ Profile pictures: /uploads/profiles
+2026-01-29 18:03:50.081 [INFO] [SYSTEM] ℹ️ 🎉 IT Helpdesk Backend is ready to accept requests!
+2026-01-29 18:03:50.082 [INFO] [SYSTEM] ℹ️ 🔗 Attachments endpoint: /api/v1/tickets/:id/attachments
+2026-01-29 18:03:50.082 [INFO] [SYSTEM] ℹ️ 👥 Users endpoint: /api/v1/users
+2026-01-29 18:03:50.082 [INFO] [SYSTEM] ℹ️ 👤 Profile endpoint: /api/v1/profile
+2026-01-29 18:03:50.082 [INFO] [SYSTEM] ℹ️ 📎 Ticket attachments: /uploads/tickets
+2026-01-29 18:03:50.082 [INFO] [SYSTEM] ℹ️ ⏰ Password Expiry endpoint: /api/v1/password-expiry
+2026-01-29 18:03:50.083 [INFO] [SYSTEM] ℹ️ 📧 Email Queue endpoint: /api/v1/email-queue
+2026-01-29 18:03:50.082 [INFO] [SYSTEM] ℹ️ 🔐 Security endpoint: /api/v1/security
+2026-01-29 18:03:50.082 [INFO] [SYSTEM] ℹ️ 🔓 CORS enabled for cross-origin requests
+2026-01-29 18:03:50.083 [INFO] [SYSTEM] ℹ️ 📝 Email Templates endpoint: /api/v1/email-templates
+2026-01-29 18:03:50.082 [INFO] [SYSTEM] ℹ️ 🔒 Two-Factor Auth endpoint: /api/v1/2fa
+2026-01-29 18:03:50.083 [INFO] [SYSTEM] ℹ️ ✅ Ticket Approvals endpoint: /api/v1/ticket-approvals
+2026-01-29 18:03:50.083 [INFO] [SYSTEM] ℹ️ 💾 Backup endpoint: /api/v1/backup
+2026-01-29 18:03:50.084 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 5 minutes (*/5 * * * *)
+2026-01-29 18:03:50.084 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Cron Job
+2026-01-29 18:03:50.083 [INFO] [SYSTEM] ℹ️ Press CTRL+C to stop the server
+2026-01-29 18:03:50.090 [SUCCESS] [OPERATION] ✅ ✅ Email Processor Cron Job started successfully
+2026-01-29 18:03:50.091 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Job...
+2026-01-29 18:03:50.091 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Cron Job
+2026-01-29 18:03:50.091 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Job...
+2026-01-29 18:03:50.091 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Tickets Cron Job
+2026-01-29 18:03:50.091 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-01-29 18:03:50.091 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Job...
+2026-01-29 18:03:50.092 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Cron Job
+2026-01-29 18:03:50.092 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-01-29 18:03:50.084 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Job...
+2026-01-29 18:03:50.092 [INFO] [SYSTEM] ℹ️ 🔐 Starting Password Expiry Job...
+2026-01-29 18:03:50.094 [INFO] [SYSTEM] ℹ️ 🧹 Starting Session Cleanup Job...
+2026-01-29 18:03:50.094 [INFO] [SYSTEM] ℹ️ 🕐 Session Cleanup scheduled | {
+2026-01-29 18:03:50.095 [SUCCESS] [OPERATION] ✅ ✅ Session Cleanup started successfully
+2026-01-29 18:03:50.096 [INFO] [SYSTEM] ℹ️ 🔓 Starting Auto-Unlock Job...
+2026-01-29 18:03:50.096 [INFO] [SYSTEM] ℹ️ 🕐 Auto Unlock scheduled | {
+2026-01-29 18:03:50.094 [SUCCESS] [OPERATION] ✅ Password expiry reminder job scheduled (Daily at 9:00 AM IST)
+2026-01-29 18:03:50.098 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-01-29 18:03:50.097 [INFO] [SYSTEM] ℹ️ 💾 Starting Backup Job...
+2026-01-29 18:03:50.097 [SUCCESS] [OPERATION] ✅ ✅ Auto Unlock started successfully
+2026-01-29 18:03:50.098 [TRY] [OPERATION] 🔄 Starting backup job
+2026-01-29 18:03:50.110 [INFO] [SYSTEM] ℹ️ 📊 Status: Disabled
+2026-01-29 18:03:50.110 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-01-29 18:03:50.111 [WARN] [SYSTEM] ⚠️ ⚠️ Auto-Close job is DISABLED in settings
+2026-01-29 18:03:50.116 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2026-01-29 18:03:50.115 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-01-29 18:03:50.116 [INFO] [SYSTEM] ℹ️ 🕐 Business Hours: 09:00 - 17:00
+2026-01-29 18:03:50.116 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 15 minutes (*/15 * * * *)
+2026-01-29 18:03:50.118 [SUCCESS] [OPERATION] ✅ ✅ SLA Breach Detection Cron Job started successfully
+2026-01-29 18:03:50.116 [INFO] [SYSTEM] ℹ️ ⚠️ Warning Threshold: 90%
+2026-01-29 18:03:50.116 [INFO] [SYSTEM] ℹ️ 📅 Working Days: mon, tue, wed, thu, fri, sat
+2026-01-29 18:03:50.124 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-01-29 18:03:50.125 [INFO] [SYSTEM] ℹ️ Backup job configuration loaded | {
+2026-01-29 18:03:50.127 [SUCCESS] [OPERATION] ✅ ✅ Backup job started successfully | {
+2026-01-29 18:03:50.128 [INFO] [SYSTEM] ℹ️ Next backup scheduled for | {
+2026-01-29 18:03:50.131 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2026-01-29 18:03:50.130 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
+2026-01-29 18:03:50.132 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2026-01-29 18:03:52.565 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:52.570 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 18:03:52.566 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 18:03:52.569 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 18:03:52.566 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 18:03:52.574 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 18:03:52.577 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 18:03:52.592 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 18:03:52.596 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 18:03:52.598 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 18:03:52.600 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 18:03:52.606 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-29 18:03:54.853 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:54.856 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2026-01-29 18:03:54.857 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-01-29 18:03:54.855 [TRY] [OPERATION] 🔄 Fetching public settings
+2026-01-29 18:03:54.876 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:54.877 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 18:03:54.877 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 18:03:54.878 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 18:03:54.880 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:54.881 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 18:03:54.878 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 18:03:54.881 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 18:03:54.882 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 18:03:54.881 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 18:03:54.885 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 18:03:54.884 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 18:03:54.886 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 18:03:54.886 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 18:03:54.889 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 18:03:54.888 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:54.890 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 18:03:54.890 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 18:03:54.889 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 18:03:54.883 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:54.895 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 18:03:54.896 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 18:03:54.899 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 18:03:54.904 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 18:03:54.905 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 18:03:54.906 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 18:03:54.912 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 18:03:54.912 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 18:03:54.922 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 18:03:54.925 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 18:03:54.925 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 18:03:54.928 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 18:03:54.931 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 18:03:54.932 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 18:03:54.937 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 18:03:54.942 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 18:03:54.943 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 18:03:54.945 [TRY] [OPERATION] 🔄 Fetching user profile | {
+2026-01-29 18:03:54.947 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 18:03:54.944 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 18:03:54.949 [SUCCESS] [OPERATION] ✅ All settings retrieved | {
+2026-01-29 18:03:54.948 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 18:03:54.948 [TRY] [OPERATION] 🔄 Fetching all settings | {
+2026-01-29 18:03:54.950 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-01-29 18:03:54.959 [TRY] [OPERATION] 🔄 Checking password expiry status | {
+2026-01-29 18:03:54.958 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 18:03:54.959 [TRY] [OPERATION] 🔄 Getting password expiry status | {
+2026-01-29 18:03:54.957 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 18:03:54.961 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 18:03:54.962 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 18:03:54.961 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 18:03:54.960 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:54.962 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 18:03:54.964 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 18:03:54.969 [SUCCESS] [OPERATION] ✅ User profile fetched successfully | {
+2026-01-29 18:03:54.967 [TRY] [OPERATION] 🔄 Fetching lookup data for settings | {
+2026-01-29 18:03:54.966 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 18:03:54.970 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-29 18:03:54.977 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 18:03:54.976 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:54.977 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 18:03:54.978 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 18:03:54.978 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 18:03:54.981 [INFO] [SYSTEM] ℹ️ Password expiry settings loaded | {
+2026-01-29 18:03:54.983 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 18:03:54.991 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 18:03:54.993 [INFO] [SYSTEM] ℹ️ Password expiry status calculated | {
+2026-01-29 18:03:54.993 [SUCCESS] [OPERATION] ✅ Password expiry status retrieved | {
+2026-01-29 18:03:54.995 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-29 18:03:54.997 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 18:03:54.999 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:55.000 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 18:03:55.002 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 18:03:55.000 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 18:03:55.003 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 18:03:55.004 [SUCCESS] [OPERATION] ✅ Lookup data fetched successfully | {
+2026-01-29 18:03:55.009 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 18:03:55.014 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-29 18:03:55.017 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 18:03:55.019 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 18:03:55.019 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 18:03:55.018 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:55.021 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 18:03:55.021 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 18:03:55.027 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 18:03:55.028 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 18:03:55.031 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 18:03:55.036 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 18:03:55.038 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 18:03:55.043 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 18:03:55.047 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 18:03:55.049 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 18:03:55.044 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 18:03:55.050 [TRY] [OPERATION] 🔄 Fetching all settings | {
+2026-01-29 18:03:55.050 [SUCCESS] [OPERATION] ✅ All settings retrieved | {
+2026-01-29 18:03:55.051 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-01-29 18:03:55.056 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 18:03:55.060 [TRY] [OPERATION] 🔄 Fetching user profile | {
+2026-01-29 18:03:55.057 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 18:03:55.059 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 18:03:55.065 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 18:03:55.066 [SUCCESS] [OPERATION] ✅ User profile fetched successfully | {
+2026-01-29 18:03:55.066 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 18:03:55.068 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-29 18:03:55.074 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 18:03:55.073 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 18:03:55.075 [TRY] [OPERATION] 🔄 Getting password expiry status | {
+2026-01-29 18:03:55.075 [TRY] [OPERATION] 🔄 Checking password expiry status | {
+2026-01-29 18:03:55.076 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 18:03:55.078 [INFO] [SYSTEM] ℹ️ Password expiry settings loaded | {
+2026-01-29 18:03:55.081 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 18:03:55.083 [TRY] [OPERATION] 🔄 Fetching lookup data for settings | {
+2026-01-29 18:03:55.082 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 18:03:55.087 [INFO] [SYSTEM] ℹ️ Password expiry status calculated | {
+2026-01-29 18:03:55.088 [SUCCESS] [OPERATION] ✅ Password expiry status retrieved | {
+2026-01-29 18:03:55.092 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-01-29 18:03:55.089 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-29 18:03:55.092 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-01-29 18:03:55.095 [SUCCESS] [OPERATION] ✅ Lookup data fetched successfully | {
+2026-01-29 18:03:55.099 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-29 18:03:55.102 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-01-29 18:03:55.102 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-01-29 18:03:56.865 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:56.866 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 18:03:56.866 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 18:03:56.866 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 18:03:56.867 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 18:03:56.870 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 18:03:56.873 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 18:03:56.881 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 18:03:56.883 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 18:03:56.888 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 18:03:56.886 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 18:03:56.891 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-29 18:03:58.110 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 18:03:58.111 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 18:03:58.109 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:58.110 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 18:03:58.111 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 18:03:58.113 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 18:03:58.114 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 18:03:58.113 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 18:03:58.113 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 18:03:58.112 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 18:03:58.118 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 18:03:58.117 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 18:03:58.124 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 18:03:58.125 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 18:03:58.133 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 18:03:58.135 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 18:03:58.138 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 18:03:58.139 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 18:03:58.141 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 18:03:58.142 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 18:03:58.143 [TRY] [OPERATION] 🔄 Fetching backup history | {
+2026-01-29 18:03:58.146 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 18:03:58.145 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 18:03:58.147 [TRY] [OPERATION] 🔄 Fetching backup statistics | {
+2026-01-29 18:03:58.164 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-29 18:03:58.166 [ERROR] 🚨 Failed to get backup history | {
+2026-01-29 18:03:58.162 [SUCCESS] [OPERATION] ✅ Backup statistics fetched | {
+2026-01-29 18:03:58.169 [ERROR] 🚨 Get backup history error | {
+2026-01-29 18:03:58.170 [ERROR] 🚨 Error Handler Caught Exception | {
+2026-01-29 18:03:58.172 [ERROR] 🚨 📤 Response Sent | {
+2026-01-29 18:04:00.137 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 29/01/2026, 06:04:00 pm IST
+2026-01-29 18:04:00.136 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-01-29 18:04:00.137 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-01-29 18:04:00.141 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-01-29 18:04:00.144 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2026-01-29 18:04:00.144 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [227]
+2026-01-29 18:04:00.157 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-01-29 18:04:00.157 [INFO] [SYSTEM] ℹ️ 🎫 Found 13 open tickets to check
+2026-01-29 18:04:00.159 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-29 18:04:00.160 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-01-29 18:04:00.158 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-01-29 18:04:00.161 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-29 18:04:00.162 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-29 18:04:00.163 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-29 18:04:00.163 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-01-29 18:04:00.161 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-01-29 18:04:00.164 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-29 18:04:00.164 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-01-29 18:04:00.166 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-29 18:04:00.162 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-01-29 18:04:00.165 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-29 18:04:00.167 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-29 18:04:00.165 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2026-01-29 18:04:00.166 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2026-01-29 18:04:00.170 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-29 18:04:00.169 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2026-01-29 18:04:00.167 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2026-01-29 18:04:00.169 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-29 18:04:00.171 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-29 18:04:00.172 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-01-29 18:04:00.170 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2026-01-29 18:04:00.171 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-29 18:04:00.171 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2026-01-29 18:04:00.172 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-01-29 18:04:00.172 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 37ms
+2026-01-29 18:04:00.172 [ERROR] 🚨 🔴 Breaches: 12 tickets
