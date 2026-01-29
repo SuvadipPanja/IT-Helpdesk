@@ -2839,3 +2839,15 @@
 2026-01-29 16:21:22.230 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 25ms
 2026-01-29 16:21:22.235 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [217]
 2026-01-29 16:21:22.235 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2026-01-29 16:21:31.546 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 16:21:31.547 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 16:21:31.548 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 16:21:31.549 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 16:21:31.547 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 16:21:31.555 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 16:21:31.558 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 16:21:31.564 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 16:21:31.568 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 16:21:31.574 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 16:21:31.572 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 16:21:31.579 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
