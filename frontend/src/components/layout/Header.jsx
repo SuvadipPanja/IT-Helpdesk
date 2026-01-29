@@ -1,8 +1,10 @@
 // ============================================
-// HEADER COMPONENT - FIXED WITH NOTIFICATION SETTINGS
+// HEADER COMPONENT - WITH THEME TOGGLE
 // Fetches profile picture on mount
+// ============================================
 // Developer: Suvadip Panja
-// Updated: November 11, 2025 - Added notification disabled support
+// Updated: January 29, 2026 - Added Theme Toggle
+// File: frontend/src/components/layout/Header.jsx
 // ============================================
 
 import { useState, useRef, useEffect } from 'react';
@@ -10,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/notifications/NotificationContext';
 import { getSetting } from '../../utils/settingsLoader';
+import { ThemeToggleSimple } from './ThemeToggle';  // ⭐ NEW: Theme Toggle
 import api from '../../services/api';
 import '../../styles/Header.css';
 import {
@@ -75,7 +78,6 @@ const Header = ({ toggleSidebar }) => {
   
   // ============================================
   // NOTIFICATION CONTEXT
-  // ⭐ UPDATED: Added notificationsEnabled
   // ============================================
   const {
     notifications,
@@ -84,7 +86,7 @@ const Header = ({ toggleSidebar }) => {
     markAsRead,
     markAllAsRead,
     deleteNotification,
-    notificationsEnabled, // ⭐ NEW: Get notifications enabled status
+    notificationsEnabled,
   } = useNotification();
 
   // ============================================
@@ -250,9 +252,11 @@ const Header = ({ toggleSidebar }) => {
       {/* RIGHT SECTION */}
       <div className="header-right">
         
+        {/* ⭐ NEW: THEME TOGGLE BUTTON */}
+        <ThemeToggleSimple size={20} />
+        
         {/* NOTIFICATIONS DROPDOWN */}
         <div className="header-dropdown" ref={notificationsRef}>
-          {/* ⭐ UPDATED: Added style and conditional badge */}
           <button 
             className="btn-icon-header"
             onClick={toggleNotifications}
@@ -282,13 +286,12 @@ const Header = ({ toggleSidebar }) => {
                 )}
               </div>
 
-              {/* ⭐ UPDATED: Added notifications disabled message */}
               <div className="dropdown-body">
                 {!notificationsEnabled ? (
                   <div className="empty-notifications">
                     <Bell size={32} className="empty-icon" style={{ opacity: 0.4 }} />
-                    <p style={{ fontWeight: 600, color: '#64748b' }}>Notifications Disabled</p>
-                    <small style={{ color: '#94a3b8', textAlign: 'center', display: 'block', padding: '0 20px' }}>
+                    <p style={{ fontWeight: 600, color: 'var(--text-secondary)' }}>Notifications Disabled</p>
+                    <small style={{ color: 'var(--text-muted)', textAlign: 'center', display: 'block', padding: '0 20px' }}>
                       Notifications are currently disabled by system administrator.
                       <br />
                       Check Settings → Notifications to enable.
@@ -311,31 +314,19 @@ const Header = ({ toggleSidebar }) => {
                       key={notification.notification_id} 
                       className={`notification-item ${!notification.is_read ? 'unread' : ''}`}
                       onClick={() => handleNotificationClick(notification)}
-                      style={{ cursor: 'pointer' }}
                     >
                       <div className="notification-icon">
                         {getNotificationIcon(notification.notification_type)}
                       </div>
-
                       <div className="notification-content">
-                        <h4>{notification.title}</h4>
-                        <p>{notification.message}</p>
-                        <div className="notification-meta">
-                          <span className="notification-time">
-                            {formatTimeAgo(notification.created_at)}
-                          </span>
-                          {notification.ticket_number && (
-                            <span className="notification-ticket">
-                              #{notification.ticket_number}
-                            </span>
-                          )}
-                        </div>
+                        <p className="notification-title">{notification.title}</p>
+                        <p className="notification-message">{notification.message}</p>
+                        <span className="notification-time">{formatTimeAgo(notification.created_at)}</span>
                       </div>
-
                       <div className="notification-actions">
                         {!notification.is_read && (
-                          <button
-                            className="btn-icon-tiny"
+                          <button 
+                            className="btn-action"
                             onClick={(e) => {
                               e.stopPropagation();
                               markAsRead(notification.notification_id);
@@ -345,24 +336,20 @@ const Header = ({ toggleSidebar }) => {
                             <Eye size={14} />
                           </button>
                         )}
-                        {user?.role_code === 'Administrator' && (
-                          <button
-                            className="btn-icon-tiny btn-danger-tiny"
-                            onClick={(e) => handleDeleteNotification(e, notification.notification_id)}
-                            title="Delete notification"
-                          >
-                            <Trash2 size={14} />
-                          </button>
-                        )}
+                        <button 
+                          className="btn-action delete"
+                          onClick={(e) => handleDeleteNotification(e, notification.notification_id)}
+                          title="Delete"
+                        >
+                          <Trash2 size={14} />
+                        </button>
                       </div>
-					  
                       {!notification.is_read && <div className="notification-dot"></div>}
                     </div>
                   ))
                 )}
               </div>
 
-              {/* ⭐ UPDATED: Only show footer when notifications enabled */}
               {notificationsEnabled && notifications.length > 0 && (
                 <div className="dropdown-footer">
                   <button 
@@ -398,7 +385,7 @@ const Header = ({ toggleSidebar }) => {
                     borderRadius: '8px',
                     objectFit: 'cover',
                     display: 'block',
-                    background: 'white'
+                    background: 'var(--bg-primary)'
                   }}
                 />
               ) : (
@@ -406,7 +393,7 @@ const Header = ({ toggleSidebar }) => {
                   width: '36px',
                   height: '36px',
                   borderRadius: '8px',
-                  background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                  background: 'linear-gradient(135deg, var(--primary-color, #667eea), var(--primary-dark, #764ba2))',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
