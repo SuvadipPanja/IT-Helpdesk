@@ -7068,3 +7068,15 @@
 2026-01-29 17:30:00.069 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 48ms
 2026-01-29 17:30:00.069 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2026-01-29 17:30:00.069 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-01-29 17:30:06.502 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 17:30:06.502 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 17:30:06.502 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 17:30:06.503 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 17:30:06.503 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 17:30:06.508 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 17:30:06.509 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 17:30:06.517 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 17:30:06.520 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 17:30:06.521 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 17:30:06.522 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 17:30:06.525 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
