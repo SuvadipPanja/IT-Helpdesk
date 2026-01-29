@@ -2970,3 +2970,19 @@
 2026-01-29 16:22:48.468 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
 2026-01-29 16:22:48.467 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
 2026-01-29 16:22:48.467 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2026-01-29 16:22:52.528 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 16:22:52.532 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 16:22:52.526 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 16:22:52.531 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 16:22:52.528 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 16:22:52.536 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 16:22:52.539 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 16:22:52.547 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 16:22:52.550 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 16:22:52.554 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 16:22:52.553 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 16:22:52.559 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-29 16:22:53.417 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-01-29 16:22:53.416 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-01-29 16:22:53.421 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-01-29 16:22:53.421 [INFO] [SYSTEM] ℹ️ No pending emails to process
