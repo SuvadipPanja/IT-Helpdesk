@@ -1,234 +1,184 @@
 /* ============================================
-   COMPLETE HEADER.CSS
-   Full-width ticker + Profile picture support
+   HEADER COMPONENT STYLES
+   With CSS Variables & Dark Mode Support
+   ============================================
    Developer: Suvadip Panja
+   Company: Digitide
+   Updated: January 29, 2026 - Added Dark Mode
+   File: frontend/src/styles/Header.css
    ============================================ */
 
 /* ============================================
-   MAIN HEADER CONTAINER
+   HEADER BASE STYLES
    ============================================ */
-
 .header {
-  height: 70px;
-  background: white;
-  border-bottom: 1px solid #e2e8f0;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  padding: 0 24px !important;
-  position: sticky;
+  position: fixed;
   top: 0;
+  right: 0;
+  left: 260px;
+  height: 64px;
+  background: var(--header-bg, #ffffff);
+  border-bottom: 1px solid var(--border-color, #e2e8f0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  gap: 16px;
   z-index: 100;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  gap: 20px !important;
+  transition: left 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.sidebar-collapsed .header {
+  left: 70px;
 }
 
 /* ============================================
-   HEADER SECTIONS - FORCED FLEX
+   HEADER SECTIONS
    ============================================ */
-
 .header-left {
-  display: flex !important;
-  align-items: center !important;
-  gap: 16px !important;
-  flex: 0 0 auto !important;
-  flex-shrink: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .header-center {
-  flex: 1 1 100% !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: none !important;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+  margin: 0 20px;
 }
 
 .header-right {
-  display: flex !important;
-  align-items: center !important;
-  gap: 12px !important;
-  flex: 0 0 auto !important;
-  flex-shrink: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-/* ============================================
-   FULL-WIDTH SEAMLESS TICKER
-   ============================================ */
-
-.header .announcement-ticker-seamless {
-  width: 100% !important;
-  max-width: none !important;
-  min-width: 0 !important;
-  overflow: hidden !important;
-  position: relative !important;
-  background: transparent !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-}
-
-.header .ticker-scroll-seamless {
-  display: flex !important;
-  white-space: nowrap !important;
-  animation: seamless-scroll 30s linear infinite;
-  will-change: transform;
-}
-
-.header .ticker-text-item {
-  font-size: 14px;
-  font-weight: 500;
-  color: #1e293b;
-  padding-right: 150px;
-  display: inline-block;
-}
-
-@keyframes seamless-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-20%);
-  }
-}
-
-/* Pause on hover */
-.header .announcement-ticker-seamless:hover .ticker-scroll-seamless {
-  animation-play-state: paused;
-}
-
-/* ============================================
-   HAMBURGER MENU BUTTON
-   ============================================ */
-
-.header .hamburger-btn {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .header .hamburger-btn {
-    display: flex;
-  }
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 /* ============================================
    ICON BUTTONS
    ============================================ */
-
 .header .btn-icon-header {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-  background: white;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--bg-tertiary, #f1f5f9);
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: #64748b;
-  position: relative;
+  color: var(--text-secondary, #64748b);
 }
 
 .header .btn-icon-header:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
-  color: #1e293b;
+  background: var(--bg-quaternary, #e2e8f0);
+  color: var(--text-primary, #1e293b);
+}
+
+.header .btn-icon-header:active {
+  transform: scale(0.95);
 }
 
 /* ============================================
    NOTIFICATION BADGE
    ============================================ */
-
 .header .notification-badge {
   position: absolute;
   top: -4px;
   right: -4px;
-  background: #ef4444;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: var(--error-color, #ef4444);
   color: white;
   font-size: 10px;
   font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 10px;
-  border: 2px solid white;
-  min-width: 18px;
-  text-align: center;
-  animation: pulse 2s ease-in-out infinite;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--header-bg, #ffffff);
 }
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
+/* ============================================
+   ANNOUNCEMENT TICKER
+   ============================================ */
+.header .announcement-ticker-seamless {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(90deg, 
+    rgba(var(--primary-rgb, 99, 102, 241), 0.08) 0%,
+    rgba(var(--primary-rgb, 99, 102, 241), 0.03) 50%,
+    rgba(var(--primary-rgb, 99, 102, 241), 0.08) 100%
+  );
+  border-radius: 8px;
+  padding: 8px 0;
+}
+
+.header .ticker-scroll-seamless {
+  display: flex;
+  animation: seamlessScroll 30s linear infinite;
+  white-space: nowrap;
+}
+
+.header .ticker-text-item {
+  flex-shrink: 0;
+  padding-right: 150px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary-color, #6366f1);
+}
+
+@keyframes seamlessScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-20%); }
 }
 
 /* ============================================
    USER MENU TRIGGER
    ============================================ */
-
 .header .user-menu-trigger {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   padding: 6px 12px 6px 6px;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  background: white;
+  border: none;
+  background: var(--bg-tertiary, #f1f5f9);
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .header .user-menu-trigger:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
+  background: var(--bg-quaternary, #e2e8f0);
 }
 
 /* ============================================
-   USER AVATAR - PROFILE PICTURE SUPPORT
+   USER AVATAR (Small - Header)
    ============================================ */
-
 .header .user-avatar-header {
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
-  color: white;
-  flex-shrink: 0;
-  position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
-.header .user-avatar-header .avatar-image {
+.header .user-avatar-header img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 8px;
 }
 
-.header .user-avatar-header .avatar-fallback {
-  display: none;
-}
-
+/* ============================================
+   USER INFO (Header)
+   ============================================ */
 .header .user-info-header {
   display: flex;
   flex-direction: column;
@@ -238,18 +188,18 @@
 .header .user-name {
   font-size: 13px;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--text-primary, #1e293b);
   line-height: 1.2;
 }
 
 .header .user-role {
   font-size: 11px;
-  color: #64748b;
+  color: var(--text-secondary, #64748b);
   line-height: 1.2;
 }
 
 .header .chevron-icon {
-  color: #94a3b8;
+  color: var(--text-muted, #94a3b8);
   transition: transform 0.2s ease;
 }
 
@@ -260,7 +210,6 @@
 /* ============================================
    DROPDOWN MENUS
    ============================================ */
-
 .header .header-dropdown {
   position: relative;
 }
@@ -269,10 +218,10 @@
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  background: white;
-  border: 1px solid #e2e8f0;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
   border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg, 0 10px 40px rgba(0, 0, 0, 0.15));
   z-index: 1000;
   min-width: 280px;
   animation: slideDown 0.2s ease-out;
@@ -292,7 +241,6 @@
 /* ============================================
    NOTIFICATIONS DROPDOWN
    ============================================ */
-
 .header .notifications-menu {
   width: 380px;
   max-height: 520px;
@@ -303,29 +251,29 @@
 
 .header .dropdown-header {
   padding: 16px 20px;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--border-color, #f1f5f9);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #fafbfc;
+  background: var(--bg-secondary, #fafbfc);
   border-radius: 12px 12px 0 0;
 }
 
 .header .dropdown-header h3 {
   font-size: 16px;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--text-primary, #1e293b);
   margin: 0;
 }
 
 .header .btn-text-small {
   background: none;
   border: none;
-  color: #667eea;
+  color: var(--primary-color, #667eea);
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -334,8 +282,8 @@
 }
 
 .header .btn-text-small:hover {
-  color: #764ba2;
-  background: #f1f5f9;
+  color: var(--primary-dark, #764ba2);
+  background: var(--bg-tertiary, #f1f5f9);
 }
 
 .header .dropdown-body {
@@ -348,59 +296,54 @@
 }
 
 .header .dropdown-body::-webkit-scrollbar-track {
-  background: #f8fafc;
+  background: var(--scrollbar-bg, #f8fafc);
 }
 
 .header .dropdown-body::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: var(--scrollbar-thumb, #cbd5e1);
   border-radius: 3px;
 }
 
 .header .dropdown-body::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: var(--scrollbar-thumb-hover, #94a3b8);
 }
 
 /* ============================================
-   NOTIFICATION ITEM
+   NOTIFICATION ITEMS
    ============================================ */
-
 .header .notification-item {
-  padding: 14px 16px;
-  border-bottom: 1px solid #f1f5f9;
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  transition: background 0.2s ease;
+  padding: 14px 20px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
   position: relative;
-}
-
-.header .notification-item:last-child {
-  border-bottom: none;
+  border-bottom: 1px solid var(--border-light, #f8fafc);
 }
 
 .header .notification-item:hover {
-  background: #f8fafc;
+  background: var(--bg-secondary, #f8fafc);
 }
 
 .header .notification-item.unread {
-  background: #f0f9ff;
+  background: rgba(var(--primary-rgb, 99, 102, 241), 0.05);
 }
 
 .header .notification-item.unread:hover {
-  background: #e0f2fe;
+  background: rgba(var(--primary-rgb, 99, 102, 241), 0.08);
 }
 
 .header .notification-icon {
-  flex-shrink: 0;
   width: 36px;
   height: 36px;
-  border-radius: 8px;
-  background: #f1f5f9;
+  border-radius: 10px;
+  background: var(--bg-tertiary, #f1f5f9);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
+  flex-shrink: 0;
 }
 
 .header .notification-content {
@@ -408,121 +351,108 @@
   min-width: 0;
 }
 
-.header .notification-content h4 {
-  font-size: 14px;
+.header .notification-title {
+  font-size: 13px;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--text-primary, #1e293b);
   margin: 0 0 4px 0;
   line-height: 1.3;
 }
 
-.header .notification-content p {
-  font-size: 13px;
-  color: #64748b;
+.header .notification-message {
+  font-size: 12px;
+  color: var(--text-secondary, #64748b);
   margin: 0 0 6px 0;
   line-height: 1.4;
-}
-
-.header .notification-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .header .notification-time {
   font-size: 11px;
-  color: #94a3b8;
-}
-
-.header .notification-ticket {
-  font-size: 11px;
-  font-weight: 600;
-  color: #667eea;
-  background: #f1f5f9;
-  padding: 2px 6px;
-  border-radius: 4px;
+  color: var(--text-muted, #94a3b8);
 }
 
 .header .notification-actions {
   display: flex;
   gap: 4px;
-  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
-.header .btn-icon-tiny {
+.header .notification-item:hover .notification-actions {
+  opacity: 1;
+}
+
+.header .btn-action {
   width: 28px;
   height: 28px;
   border: none;
-  background: #f1f5f9;
+  background: var(--bg-tertiary, #f1f5f9);
   border-radius: 6px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  color: #64748b;
+  color: var(--text-secondary, #64748b);
   transition: all 0.2s ease;
 }
 
-.header .btn-icon-tiny:hover {
-  background: #e2e8f0;
-  color: #1e293b;
+.header .btn-action:hover {
+  background: var(--bg-quaternary, #e2e8f0);
+  color: var(--text-primary, #1e293b);
 }
 
-.header .btn-danger-tiny {
-  color: #ef4444;
-}
-
-.header .btn-danger-tiny:hover {
-  background: #fee2e2;
-  color: #dc2626;
+.header .btn-action.delete:hover {
+  background: var(--error-light, #fee2e2);
+  color: var(--error-color, #ef4444);
 }
 
 .header .notification-dot {
   position: absolute;
-  top: 20px;
-  right: 16px;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
   width: 8px;
   height: 8px;
-  background: #3b82f6;
+  background: var(--primary-color, #6366f1);
   border-radius: 50%;
-  border: 2px solid white;
 }
 
 /* ============================================
    EMPTY NOTIFICATIONS
    ============================================ */
-
 .header .empty-notifications {
-  padding: 60px 20px;
+  padding: 40px 20px;
   text-align: center;
 }
 
 .header .empty-notifications .empty-icon {
-  color: #cbd5e1;
+  color: var(--text-muted, #cbd5e1);
   margin-bottom: 12px;
 }
 
 .header .empty-notifications p {
-  color: #64748b;
+  color: var(--text-secondary, #64748b);
   font-size: 14px;
   font-weight: 600;
   margin: 0 0 4px 0;
 }
 
 .header .empty-notifications small {
-  color: #94a3b8;
+  color: var(--text-muted, #94a3b8);
   font-size: 12px;
 }
 
 /* ============================================
    DROPDOWN FOOTER
    ============================================ */
-
 .header .dropdown-footer {
   padding: 12px 20px;
-  border-top: 1px solid #f1f5f9;
-  background: #fafbfc;
+  border-top: 1px solid var(--border-color, #f1f5f9);
+  background: var(--bg-secondary, #fafbfc);
   border-radius: 0 0 12px 12px;
 }
 
@@ -530,7 +460,7 @@
   width: 100%;
   background: none;
   border: none;
-  color: #667eea;
+  color: var(--primary-color, #667eea);
   font-size: 13px;
   font-weight: 600;
   padding: 8px;
@@ -540,61 +470,27 @@
 }
 
 .header .btn-text-dropdown:hover {
-  color: #764ba2;
-  background: #f1f5f9;
+  color: var(--primary-dark, #764ba2);
+  background: var(--bg-tertiary, #f1f5f9);
 }
 
 /* ============================================
    USER DROPDOWN MENU
    ============================================ */
-
 .header .user-dropdown-menu {
   width: 280px;
 }
 
 .header .dropdown-header-user {
   padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--primary-color, #667eea) 0%, var(--primary-dark, #764ba2) 100%);
   border-radius: 12px 12px 0 0;
   color: white;
 }
 
 /* ============================================
-   USER AVATAR LARGE - PROFILE PICTURE
+   USER INFO (Dropdown)
    ============================================ */
-
-.header .user-avatar-large {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 12px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  position: relative;
-  overflow: hidden;
-}
-
-.header .user-avatar-large .avatar-image-large {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 12px;
-}
-
-.header .user-avatar-large .avatar-fallback-large {
-  display: none;
-}
-
 .header .user-info-dropdown h4 {
   font-size: 16px;
   font-weight: 700;
@@ -642,7 +538,6 @@
 /* ============================================
    USER MENU ITEMS
    ============================================ */
-
 .header .dropdown-body-menu {
   padding: 8px;
 }
@@ -658,53 +553,133 @@
   border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
-  color: #475569;
+  color: var(--text-secondary, #475569);
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
 }
 
 .header .dropdown-item:hover {
-  background: #f8fafc;
-  color: #1e293b;
+  background: var(--bg-secondary, #f8fafc);
+  color: var(--text-primary, #1e293b);
 }
 
 .header .dropdown-item svg {
-  color: #94a3b8;
+  color: var(--text-muted, #94a3b8);
   transition: color 0.2s ease;
 }
 
 .header .dropdown-item:hover svg {
-  color: #667eea;
+  color: var(--primary-color, #667eea);
 }
 
 .header .dropdown-divider {
   height: 1px;
-  background: #f1f5f9;
+  background: var(--border-color, #f1f5f9);
   margin: 8px 0;
 }
 
 .header .logout-item {
-  color: #ef4444;
+  color: var(--error-color, #ef4444);
 }
 
 .header .logout-item:hover {
-  background: #fef2f2;
-  color: #dc2626;
+  background: var(--error-light, #fef2f2);
+  color: var(--error-dark, #dc2626);
 }
 
 .header .logout-item svg {
-  color: #ef4444;
+  color: var(--error-color, #ef4444);
 }
 
 .header .logout-item:hover svg {
-  color: #dc2626;
+  color: var(--error-dark, #dc2626);
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+[data-theme='dark'] .header {
+  background: var(--header-bg, #1e293b);
+  border-color: var(--border-color, #334155);
+}
+
+[data-theme='dark'] .header .btn-icon-header {
+  background: var(--bg-tertiary, #334155);
+  color: var(--text-secondary, #cbd5e1);
+}
+
+[data-theme='dark'] .header .btn-icon-header:hover {
+  background: var(--bg-quaternary, #475569);
+  color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme='dark'] .header .user-menu-trigger {
+  background: var(--bg-tertiary, #334155);
+}
+
+[data-theme='dark'] .header .user-menu-trigger:hover {
+  background: var(--bg-quaternary, #475569);
+}
+
+[data-theme='dark'] .header .dropdown-menu {
+  background: var(--card-bg, #1e293b);
+  border-color: var(--border-color, #334155);
+}
+
+[data-theme='dark'] .header .dropdown-header {
+  background: var(--bg-secondary, #0f172a);
+  border-color: var(--border-color, #334155);
+}
+
+[data-theme='dark'] .header .dropdown-footer {
+  background: var(--bg-secondary, #0f172a);
+  border-color: var(--border-color, #334155);
+}
+
+[data-theme='dark'] .header .notification-item {
+  border-color: var(--border-color, #334155);
+}
+
+[data-theme='dark'] .header .notification-item:hover {
+  background: var(--bg-tertiary, #334155);
+}
+
+[data-theme='dark'] .header .notification-item.unread {
+  background: rgba(var(--primary-rgb, 99, 102, 241), 0.1);
+}
+
+[data-theme='dark'] .header .notification-icon {
+  background: var(--bg-tertiary, #334155);
+}
+
+[data-theme='dark'] .header .btn-action {
+  background: var(--bg-tertiary, #334155);
+}
+
+[data-theme='dark'] .header .btn-action:hover {
+  background: var(--bg-quaternary, #475569);
+}
+
+[data-theme='dark'] .header .btn-action.delete:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+[data-theme='dark'] .header .dropdown-item:hover {
+  background: var(--bg-tertiary, #334155);
+}
+
+[data-theme='dark'] .header .logout-item:hover {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+[data-theme='dark'] .header .notification-badge {
+  border-color: var(--header-bg, #1e293b);
 }
 
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
-
 @media (max-width: 1200px) {
   .header .ticker-text-item {
     font-size: 13px;
@@ -716,6 +691,7 @@
   .header {
     padding: 0 16px !important;
     gap: 12px !important;
+    left: 0 !important;
   }
 
   .header .notifications-menu {
@@ -738,7 +714,7 @@
     gap: 8px !important;
   }
 
-  .header .header-right {
+  .header-right {
     gap: 8px !important;
   }
 
