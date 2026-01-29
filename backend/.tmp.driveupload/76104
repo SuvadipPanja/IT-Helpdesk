@@ -3681,3 +3681,15 @@
 2026-01-29 16:25:00.027 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
 2026-01-29 16:25:00.031 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2026-01-29 16:25:00.032 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-01-29 16:25:08.751 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-29 16:25:08.752 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-29 16:25:08.754 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-29 16:25:08.753 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-29 16:25:08.752 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-29 16:25:08.756 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-29 16:25:08.758 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-29 16:25:08.769 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-29 16:25:08.771 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-29 16:25:08.774 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-29 16:25:08.775 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-29 16:25:08.782 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
