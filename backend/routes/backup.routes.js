@@ -10,7 +10,7 @@ const express = require('express');
 const router = express.Router();
 const { authenticate } = require('../middleware/auth');
 const {
-  createManualBackup,
+  createBackup,
   getBackupHistory,
   getBackupById,
   deleteBackup,
@@ -54,7 +54,7 @@ router.use(authenticate);
  *   }
  * }
  */
-router.post('/create', createManualBackup);
+router.post('/create', createBackup);
 
 /**
  * @route   POST /api/v1/backup/test
