@@ -5205,3 +5205,15 @@
 2026-01-31 12:54:20.758 [ERROR] 🚨 Create backup error | {
 2026-01-31 12:54:20.760 [ERROR] 🚨 Error Handler Caught Exception | {
 2026-01-31 12:54:20.764 [ERROR] 🚨 📤 Response Sent | {
+2026-01-31 12:54:33.460 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 12:54:33.461 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 12:54:33.461 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 12:54:33.463 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 12:54:33.465 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 12:54:33.469 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 12:54:33.472 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 12:54:33.503 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 12:54:33.507 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 12:54:33.511 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 12:54:33.512 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 12:54:33.517 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
