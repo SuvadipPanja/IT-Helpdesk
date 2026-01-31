@@ -1443,3 +1443,15 @@
 2026-01-31 11:44:34.834 [INFO] [SYSTEM] ℹ️ [SYSTEM] Backup record updated to FAILED
 2026-01-31 11:44:34.842 [ERROR] 🚨 Error Handler Caught Exception | {
 2026-01-31 11:44:34.847 [ERROR] 🚨 📤 Response Sent | {
+2026-01-31 11:44:39.565 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 11:44:39.565 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 11:44:39.557 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 11:44:39.575 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 11:44:39.584 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 11:44:39.596 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 11:44:39.609 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 11:44:39.648 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 11:44:39.652 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 11:44:39.665 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 11:44:39.673 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 11:44:39.685 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
