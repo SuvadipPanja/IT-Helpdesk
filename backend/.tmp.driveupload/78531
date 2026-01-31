@@ -1616,3 +1616,15 @@
 2026-01-31 11:47:38.351 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-01-31 11:47:38.354 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-01-31 11:47:38.371 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 11:47:49.445 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 11:47:49.450 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 11:47:49.450 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 11:47:49.454 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 11:47:49.458 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 11:47:49.468 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 11:47:49.478 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 11:47:49.488 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 11:47:49.492 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 11:47:49.496 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 11:47:49.508 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 11:47:49.527 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
