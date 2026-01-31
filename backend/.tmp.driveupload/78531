@@ -8942,3 +8942,15 @@
 2026-01-31 15:00:00.194 [INFO] [SYSTEM] ℹ️ No old sessions to delete
 2026-01-31 15:00:00.195 [TRY] [OPERATION] 🔄 Getting session statistics
 2026-01-31 15:00:00.207 [SUCCESS] [OPERATION] ✅ Session Cleanup completed successfully | {
+2026-01-31 15:00:13.420 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 15:00:13.420 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 15:00:13.417 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 15:00:13.425 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 15:00:13.426 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 15:00:13.439 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 15:00:13.446 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 15:00:13.483 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 15:00:13.493 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 15:00:13.500 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 15:00:13.503 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 15:00:13.515 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
