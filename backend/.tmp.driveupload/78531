@@ -7673,3 +7673,311 @@
 2026-01-31 14:35:45.438 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-01-31 14:35:45.453 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
 2026-01-31 14:35:45.451 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-01-31 14:35:50.490 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-01-31 14:35:50.492 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-01-31 14:35:50.491 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 31/01/2026, 02:35:50 pm IST
+2026-01-31 14:35:50.504 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-01-31 14:35:50.539 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-01-31 14:35:50.541 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-01-31 14:35:50.544 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:35:50.545 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-01-31 14:35:50.548 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-01-31 14:35:50.553 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:35:50.558 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-01-31 14:35:50.557 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:35:50.560 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:35:50.538 [INFO] [SYSTEM] ℹ️ 🎫 Found 13 open tickets to check
+2026-01-31 14:35:50.547 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:35:50.555 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-01-31 14:35:50.563 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:35:50.570 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:35:50.564 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2026-01-31 14:35:50.574 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:35:50.561 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-01-31 14:35:50.577 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:35:50.578 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2026-01-31 14:35:50.581 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2026-01-31 14:35:50.580 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:35:50.588 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2026-01-31 14:35:50.587 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:35:50.591 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:35:50.571 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2026-01-31 14:35:50.574 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2026-01-31 14:35:50.592 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-01-31 14:35:50.593 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-01-31 14:35:50.592 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-01-31 14:35:50.594 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 103ms
+2026-01-31 14:35:50.597 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [244]
+2026-01-31 14:35:50.598 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2026-01-31 14:35:52.613 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:52.626 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-01-31 14:35:52.620 [DEBUG] 🐛 Request Body | {
+2026-01-31 14:35:52.626 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-01-31 14:35:52.638 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-01-31 14:35:52.639 [SUCCESS] [OPERATION] ✅ User account is active
+2026-01-31 14:35:52.640 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:52.654 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-01-31 14:35:52.655 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-01-31 14:35:52.655 [TRY] [OPERATION] 🔄 Verifying password
+2026-01-31 14:35:52.787 [SUCCESS] [OPERATION] ✅ Password comparison successful - Match found
+2026-01-31 14:35:52.788 [INFO] [SYSTEM] ℹ️ Resetting failed login attempts
+2026-01-31 14:35:52.788 [SUCCESS] [OPERATION] ✅ Password verified successfully
+2026-01-31 14:35:52.803 [TRY] [OPERATION] 🔄 Checking password expiry status
+2026-01-31 14:35:52.802 [INFO] [SYSTEM] ℹ️ Failed login attempts reset | {
+2026-01-31 14:35:52.808 [SUCCESS] [OPERATION] ✅ Password expiry check passed
+2026-01-31 14:35:52.809 [TRY] [OPERATION] 🔄 Checking if 2FA is enabled for user
+2026-01-31 14:35:52.809 [TRY] [OPERATION] 🔄 Checking 2FA status | {
+2026-01-31 14:35:52.845 [SUCCESS] [OPERATION] ✅ 2FA status checked | {
+2026-01-31 14:35:52.847 [INFO] [SYSTEM] ℹ️ 2FA not enabled, continuing normal login
+2026-01-31 14:35:52.848 [TRY] [OPERATION] 🔄 Checking concurrent sessions limit
+2026-01-31 14:35:52.861 [TRY] [OPERATION] 🔄 Generating JWT token
+2026-01-31 14:35:52.871 [SUCCESS] [OPERATION] ✅ JWT token generated successfully | {
+2026-01-31 14:35:52.861 [TRY] [OPERATION] 🔄 Generating JWT token | {
+2026-01-31 14:35:52.873 [SUCCESS] [OPERATION] ✅ JWT token generated successfully
+2026-01-31 14:35:52.874 [TRY] [OPERATION] 🔄 Creating user session record
+2026-01-31 14:35:52.889 [TRY] [OPERATION] 🔄 Updating last login timestamp
+2026-01-31 14:35:52.888 [SUCCESS] [OPERATION] ✅ Session record created
+2026-01-31 14:35:52.896 [SUCCESS] [OPERATION] ✅ Last login timestamp updated
+2026-01-31 14:35:52.929 [TRY] [OPERATION] 🔄 Creating notification | {
+2026-01-31 14:35:52.928 [TRY] [OPERATION] 🔄 Creating login notification
+2026-01-31 14:35:52.929 [SUCCESS] [OPERATION] ✅ Notification allowed by settings | {
+2026-01-31 14:35:52.945 [SUCCESS] [OPERATION] ✅ Login notification created
+2026-01-31 14:35:52.944 [SUCCESS] [OPERATION] ✅ Notification created | {
+2026-01-31 14:35:52.946 [SUCCESS] [OPERATION] ✅ User logged in successfully | {
+2026-01-31 14:35:52.949 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 14:35:53.226 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:53.229 [TRY] [OPERATION] 🔄 Fetching public settings
+2026-01-31 14:35:53.229 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2026-01-31 14:35:53.231 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-01-31 14:35:53.258 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:53.261 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:35:53.261 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:35:53.264 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:35:53.265 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:35:53.270 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:35:53.268 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:53.270 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:35:53.272 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:35:53.273 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:35:53.283 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:53.287 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:35:53.287 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:35:53.289 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:35:53.289 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:35:53.297 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:35:53.294 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:35:53.315 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:35:53.320 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:53.322 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:53.336 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:53.374 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:35:53.375 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:35:53.375 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:35:53.391 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:35:53.388 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:35:53.393 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:35:53.415 [TRY] [OPERATION] 🔄 Getting password expiry status | {
+2026-01-31 14:35:53.407 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:35:53.412 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:35:53.415 [TRY] [OPERATION] 🔄 Checking password expiry status | {
+2026-01-31 14:35:53.420 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:35:53.423 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:35:53.426 [TRY] [OPERATION] 🔄 Fetching user profile | {
+2026-01-31 14:35:53.430 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:35:53.435 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:35:53.439 [TRY] [OPERATION] 🔄 Calculating total tickets
+2026-01-31 14:35:53.439 [TRY] [OPERATION] 🔄 Fetching dashboard statistics | {
+2026-01-31 14:35:53.454 [INFO] [SYSTEM] ℹ️ Password expiry settings loaded | {
+2026-01-31 14:35:53.463 [SUCCESS] [OPERATION] ✅ Total tickets calculated | {
+2026-01-31 14:35:53.464 [TRY] [OPERATION] 🔄 Calculating tickets by status
+2026-01-31 14:35:53.472 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 14:35:53.468 [SUCCESS] [OPERATION] ✅ User profile fetched successfully | {
+2026-01-31 14:35:53.476 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:53.479 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:35:53.479 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:35:53.480 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:35:53.481 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:35:53.490 [INFO] [SYSTEM] ℹ️ Password expiry status calculated | {
+2026-01-31 14:35:53.492 [SUCCESS] [OPERATION] ✅ Password expiry status retrieved | {
+2026-01-31 14:35:53.496 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 14:35:53.504 [SUCCESS] [OPERATION] ✅ Status counts calculated | {
+2026-01-31 14:35:53.507 [TRY] [OPERATION] 🔄 Calculating escalated tickets
+2026-01-31 14:35:53.508 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:53.511 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:35:53.511 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:35:53.512 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:35:53.514 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:35:53.513 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:35:53.530 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:35:53.532 [SUCCESS] [OPERATION] ✅ Escalated tickets calculated | {
+2026-01-31 14:35:53.535 [TRY] [OPERATION] 🔄 Calculating total active users
+2026-01-31 14:35:53.536 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:53.552 [SUCCESS] [OPERATION] ✅ Total users calculated | {
+2026-01-31 14:35:53.546 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:53.553 [TRY] [OPERATION] 🔄 Calculating SLA statistics
+2026-01-31 14:35:53.561 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:35:53.575 [SUCCESS] [OPERATION] ✅ SLA statistics calculated | {
+2026-01-31 14:35:53.576 [TRY] [OPERATION] 🔄 Fetching recent tickets
+2026-01-31 14:35:53.582 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:35:53.581 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:35:53.591 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:35:53.597 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:35:53.593 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:35:53.601 [TRY] [OPERATION] 🔄 Fetching user profile | {
+2026-01-31 14:35:53.604 [SUCCESS] [OPERATION] ✅ Recent tickets fetched | {
+2026-01-31 14:35:53.605 [TRY] [OPERATION] 🔄 Calculating tickets by priority
+2026-01-31 14:35:53.610 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:35:53.615 [TRY] [OPERATION] 🔄 Checking password expiry status | {
+2026-01-31 14:35:53.614 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:35:53.615 [TRY] [OPERATION] 🔄 Getting password expiry status | {
+2026-01-31 14:35:53.626 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 14:35:53.623 [SUCCESS] [OPERATION] ✅ User profile fetched successfully | {
+2026-01-31 14:35:53.635 [SUCCESS] [OPERATION] ✅ Priority counts calculated
+2026-01-31 14:35:53.636 [TRY] [OPERATION] 🔄 Calculating my assigned tickets
+2026-01-31 14:35:53.644 [INFO] [SYSTEM] ℹ️ Password expiry settings loaded | {
+2026-01-31 14:35:53.648 [SUCCESS] [OPERATION] ✅ My assigned tickets calculated | {
+2026-01-31 14:35:53.651 [SUCCESS] [OPERATION] ✅ Dashboard statistics compiled successfully | {
+2026-01-31 14:35:53.668 [INFO] [SYSTEM] ℹ️ Password expiry status calculated | {
+2026-01-31 14:35:53.663 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 14:35:53.671 [SUCCESS] [OPERATION] ✅ Password expiry status retrieved | {
+2026-01-31 14:35:53.674 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 14:35:53.680 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:35:53.678 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:53.686 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:35:53.683 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:35:53.680 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:35:53.698 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:35:53.708 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:53.716 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:35:53.720 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:35:53.724 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:35:53.726 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:35:53.729 [TRY] [OPERATION] 🔄 Calculating total tickets
+2026-01-31 14:35:53.729 [TRY] [OPERATION] 🔄 Fetching dashboard statistics | {
+2026-01-31 14:35:53.734 [SUCCESS] [OPERATION] ✅ Total tickets calculated | {
+2026-01-31 14:35:53.735 [TRY] [OPERATION] 🔄 Calculating tickets by status
+2026-01-31 14:35:53.740 [SUCCESS] [OPERATION] ✅ Status counts calculated | {
+2026-01-31 14:35:53.741 [TRY] [OPERATION] 🔄 Calculating escalated tickets
+2026-01-31 14:35:53.746 [SUCCESS] [OPERATION] ✅ Escalated tickets calculated | {
+2026-01-31 14:35:53.748 [TRY] [OPERATION] 🔄 Calculating total active users
+2026-01-31 14:35:53.755 [SUCCESS] [OPERATION] ✅ Total users calculated | {
+2026-01-31 14:35:53.757 [TRY] [OPERATION] 🔄 Calculating SLA statistics
+2026-01-31 14:35:53.769 [TRY] [OPERATION] 🔄 Fetching recent tickets
+2026-01-31 14:35:53.765 [SUCCESS] [OPERATION] ✅ SLA statistics calculated | {
+2026-01-31 14:35:53.774 [SUCCESS] [OPERATION] ✅ Recent tickets fetched | {
+2026-01-31 14:35:53.775 [TRY] [OPERATION] 🔄 Calculating tickets by priority
+2026-01-31 14:35:53.779 [TRY] [OPERATION] 🔄 Calculating my assigned tickets
+2026-01-31 14:35:53.779 [SUCCESS] [OPERATION] ✅ Priority counts calculated
+2026-01-31 14:35:53.787 [SUCCESS] [OPERATION] ✅ Dashboard statistics compiled successfully | {
+2026-01-31 14:35:53.786 [SUCCESS] [OPERATION] ✅ My assigned tickets calculated | {
+2026-01-31 14:35:53.792 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 14:35:55.254 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:35:55.256 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:35:55.254 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:35:55.257 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:35:55.251 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:55.263 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:35:55.271 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:55.302 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:35:55.307 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:35:55.312 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:35:55.314 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:35:55.326 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 14:35:55.748 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:55.753 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:35:55.753 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:35:55.756 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:35:55.758 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:35:55.762 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:55.764 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:35:55.770 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:35:55.766 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:35:55.764 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:35:55.778 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:35:55.780 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:35:55.786 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:55.794 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:55.806 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:35:55.811 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:35:55.814 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:35:55.821 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:35:55.823 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:35:55.827 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:35:55.829 [SUCCESS] [OPERATION] ✅ All settings retrieved | {
+2026-01-31 14:35:55.828 [TRY] [OPERATION] 🔄 Fetching all settings | {
+2026-01-31 14:35:55.831 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-01-31 14:35:55.837 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:55.839 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:35:55.841 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:35:55.840 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:35:55.839 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:35:55.845 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:35:55.851 [TRY] [OPERATION] 🔄 Fetching lookup data for settings | {
+2026-01-31 14:35:55.848 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:35:55.858 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:35:55.868 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:55.869 [SUCCESS] [OPERATION] ✅ Lookup data fetched successfully | {
+2026-01-31 14:35:55.877 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 14:35:55.881 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:55.882 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:35:55.882 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:35:55.885 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:35:55.886 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:35:55.889 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:35:55.899 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:35:55.903 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:35:55.913 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:55.915 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:35:55.922 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:35:55.925 [SUCCESS] [OPERATION] ✅ All settings retrieved | {
+2026-01-31 14:35:55.924 [TRY] [OPERATION] 🔄 Fetching all settings | {
+2026-01-31 14:35:55.927 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-01-31 14:35:55.944 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:35:55.948 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:35:55.952 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:35:55.955 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:35:55.958 [TRY] [OPERATION] 🔄 Fetching lookup data for settings | {
+2026-01-31 14:35:55.968 [SUCCESS] [OPERATION] ✅ Lookup data fetched successfully | {
+2026-01-31 14:35:55.972 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 14:35:57.554 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:57.558 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:35:57.558 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:35:57.561 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:35:57.560 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:35:57.563 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:35:57.571 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:35:57.571 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:35:57.572 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:35:57.573 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:35:57.580 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:35:57.587 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:35:57.594 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:57.595 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:35:57.615 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:35:57.622 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:35:57.628 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:35:57.632 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:35:57.643 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:35:57.646 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:35:57.648 [TRY] [OPERATION] 🔄 Getting backup statistics
+2026-01-31 14:35:57.655 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:35:57.657 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:35:57.660 [TRY] [OPERATION] 🔄 Getting backup history | {
+2026-01-31 14:35:57.694 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 14:35:57.689 [SUCCESS] [OPERATION] ✅ Backup statistics retrieved | {
+2026-01-31 14:35:57.726 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 14:35:57.724 [SUCCESS] [OPERATION] ✅ Backup history retrieved | {
+2026-01-31 14:36:00.915 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:36:00.922 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:36:00.922 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:36:00.926 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:36:00.924 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:36:00.939 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:36:00.944 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:36:00.978 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:36:00.987 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:36:00.994 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:36:00.997 [TRY] [OPERATION] 🔄 Downloading backup | {
+2026-01-31 14:36:00.991 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:36:01.007 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-01-31 14:36:01.005 [WARN] [SYSTEM] ⚠️ Backup not found | {
