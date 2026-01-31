@@ -1993,3 +1993,15 @@
 2026-01-31 12:00:00.162 [TRY] [OPERATION] 🔄 Getting session statistics
 2026-01-31 12:00:00.161 [INFO] [SYSTEM] ℹ️ No old sessions to delete
 2026-01-31 12:00:00.179 [SUCCESS] [OPERATION] ✅ Session Cleanup completed successfully | {
+2026-01-31 12:00:04.441 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 12:00:04.442 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 12:00:04.443 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 12:00:04.442 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 12:00:04.443 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 12:00:04.449 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 12:00:04.454 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 12:00:04.464 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 12:00:04.467 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 12:00:04.471 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 12:00:04.475 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 12:00:04.487 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
