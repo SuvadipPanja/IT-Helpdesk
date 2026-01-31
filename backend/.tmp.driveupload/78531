@@ -4355,3 +4355,45 @@
 2026-01-31 12:50:25.000 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2026-01-31 12:50:25.005 [SUCCESS] [OPERATION] ✅ Backup history fetched | {
 2026-01-31 12:50:25.033 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 12:50:28.617 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 12:50:28.619 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 12:50:28.620 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 12:50:28.622 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 12:50:28.623 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 12:50:28.632 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 12:50:28.636 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 12:50:28.650 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 12:50:28.654 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 12:50:28.657 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 12:50:28.667 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 12:50:28.669 [TRY] [OPERATION] 🔄 Manual backup requested | {
+2026-01-31 12:50:28.669 [SUCCESS] [OPERATION] ✅ Permission check passed
+2026-01-31 12:50:28.670 [TRY] [OPERATION] 🔄 Starting backup process | {
+2026-01-31 12:50:28.670 [TRY] [OPERATION] 🔄 Loading backup settings from database
+2026-01-31 12:50:28.671 [SUCCESS] [OPERATION] ✅ Backup settings loaded | {
+2026-01-31 12:50:28.672 [TRY] [OPERATION] 🔄 Creating backup directories | {
+2026-01-31 12:50:28.683 [TRY] [OPERATION] 🔄 Creating backup record in database
+2026-01-31 12:50:28.673 [SUCCESS] [OPERATION] ✅ Backup directories created
+2026-01-31 12:50:28.699 [TRY] [OPERATION] 🔄 Starting database backup
+2026-01-31 12:50:28.698 [SUCCESS] [OPERATION] ✅ Backup record created | {
+2026-01-31 12:50:28.699 [TRY] [OPERATION] 🔄 Executing SQL Server BACKUP command
+2026-01-31 12:50:28.705 [INFO] [SYSTEM] ℹ️ ================================================================================
+2026-01-31 12:50:28.708 [INFO] [SYSTEM] ℹ️ 🔍 DIAGNOSTIC: WHO IS NODE.JS CONNECTING AS?
+2026-01-31 12:50:28.714 [INFO] [SYSTEM] ℹ️ ================================================================================
+2026-01-31 12:50:28.715 [INFO] [SYSTEM] ℹ️ ================================================================================
+2026-01-31 12:50:28.716 [ERROR] 🚨 ❌ CRITICAL: Current user does NOT have BACKUP DATABASE permission!
+2026-01-31 12:50:28.716 [ERROR] 🚨 User connecting: | {
+2026-01-31 12:50:28.718 [ERROR] 🚨 You need to run this SQL command in SSMS:
+2026-01-31 12:50:28.719 [ERROR] 🚨 GRANT BACKUP DATABASE TO [root];
+2026-01-31 12:50:28.719 [INFO] [SYSTEM] ℹ️ SQL Backup command | {
+2026-01-31 12:50:28.720 [ERROR] 🚨 Unhandled Rejection | {
+2026-01-31 12:50:28.721 [ERROR] 🚨 Unhandled Rejection | {
+2026-01-31 12:50:28.722 [ERROR] 🚨 Unhandled Rejection | {
+2026-01-31 12:50:28.723 [ERROR] 🚨 Unhandled Rejection | {
+2026-01-31 12:50:28.723 [ERROR] 🚨 Unhandled Rejection | {
+2026-01-31 12:50:28.749 [ERROR] 🚨 Database backup failed | {
+2026-01-31 12:50:28.754 [ERROR] 🚨 Backup creation failed | {
+2026-01-31 12:50:28.765 [INFO] [SYSTEM] ℹ️ [SYSTEM] Backup record updated to FAILED
+2026-01-31 12:50:28.766 [ERROR] 🚨 Create backup error | {
+2026-01-31 12:50:28.768 [ERROR] 🚨 Error Handler Caught Exception | {
+2026-01-31 12:50:28.772 [ERROR] 🚨 📤 Response Sent | {
