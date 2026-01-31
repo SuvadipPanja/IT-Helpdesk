@@ -8199,3 +8199,55 @@
 2026-01-31 14:40:45.136 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
 2026-01-31 14:40:45.137 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
 2026-01-31 14:40:45.142 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2026-01-31 14:40:50.032 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-01-31 14:40:50.034 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-01-31 14:40:50.046 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-01-31 14:40:50.048 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-01-31 14:40:53.432 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:40:53.425 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:40:53.443 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:40:53.437 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:40:53.432 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:40:53.450 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:40:53.456 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:40:53.477 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:40:53.483 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:40:53.496 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:40:53.487 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:40:53.510 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 14:40:55.108 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-01-31 14:40:55.111 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-01-31 14:40:55.110 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 31/01/2026, 02:40:55 pm IST
+2026-01-31 14:40:55.116 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-01-31 14:40:55.138 [INFO] [SYSTEM] ℹ️ 🎫 Found 13 open tickets to check
+2026-01-31 14:40:55.138 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-01-31 14:40:55.145 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:40:55.142 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-01-31 14:40:55.150 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:40:55.148 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:40:55.151 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-01-31 14:40:55.154 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:40:55.145 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-01-31 14:40:55.148 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-01-31 14:40:55.155 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-01-31 14:40:55.160 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:40:55.163 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:40:55.166 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:40:55.163 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2026-01-31 14:40:55.169 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:40:55.171 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:40:55.172 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2026-01-31 14:40:55.166 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2026-01-31 14:40:55.177 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:40:55.177 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2026-01-31 14:40:55.169 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2026-01-31 14:40:55.180 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:40:55.180 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2026-01-31 14:40:55.182 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 14:40:55.183 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-01-31 14:40:55.183 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-01-31 14:40:55.160 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-01-31 14:40:55.185 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 77ms
+2026-01-31 14:40:55.184 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-01-31 14:40:55.218 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [245]
+2026-01-31 14:40:55.219 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
