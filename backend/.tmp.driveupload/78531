@@ -1706,3 +1706,15 @@
 2026-01-31 11:50:00.051 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-01-31 11:50:00.077 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
 2026-01-31 11:50:00.075 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-01-31 11:50:09.436 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 11:50:09.434 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 11:50:09.436 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 11:50:09.440 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 11:50:09.443 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 11:50:09.447 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 11:50:09.453 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 11:50:09.484 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 11:50:09.487 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 11:50:09.491 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 11:50:09.494 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 11:50:09.504 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
