@@ -8804,3 +8804,15 @@
 2026-01-31 14:55:00.045 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-01-31 14:55:00.060 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2026-01-31 14:55:00.062 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-01-31 14:55:09.416 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 14:55:09.418 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 14:55:09.421 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 14:55:09.418 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 14:55:09.419 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 14:55:09.425 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 14:55:09.430 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 14:55:09.459 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 14:55:09.463 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 14:55:09.468 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 14:55:09.466 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 14:55:09.476 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
