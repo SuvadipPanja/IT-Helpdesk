@@ -785,3 +785,32 @@
 2026-01-31 11:42:17.587 [SUCCESS] [OPERATION] ✅ Backup statistics fetched | {
 2026-01-31 11:42:17.598 [SUCCESS] [OPERATION] ✅ Backup history fetched | {
 2026-01-31 11:42:17.602 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 11:42:21.659 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 11:42:21.686 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 11:42:21.693 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 11:42:21.686 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 11:42:21.694 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 11:42:21.699 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 11:42:21.703 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 11:42:21.717 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 11:42:21.732 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 11:42:21.743 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 11:42:21.767 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 11:42:21.784 [TRY] [OPERATION] 🔄 Manual backup requested | {
+2026-01-31 11:42:21.785 [SUCCESS] [OPERATION] ✅ Permission check passed
+2026-01-31 11:42:21.794 [TRY] [OPERATION] 🔄 Loading backup settings from database
+2026-01-31 11:42:21.793 [TRY] [OPERATION] 🔄 Starting backup process | {
+2026-01-31 11:42:21.794 [SUCCESS] [OPERATION] ✅ Backup settings loaded | {
+2026-01-31 11:42:21.797 [TRY] [OPERATION] 🔄 Creating backup directories | {
+2026-01-31 11:42:21.800 [SUCCESS] [OPERATION] ✅ Backup directories created
+2026-01-31 11:42:21.802 [TRY] [OPERATION] 🔄 Creating backup record in database
+2026-01-31 11:42:21.844 [TRY] [OPERATION] 🔄 Executing SQL Server BACKUP command
+2026-01-31 11:42:21.840 [SUCCESS] [OPERATION] ✅ Backup record created | {
+2026-01-31 11:42:21.843 [TRY] [OPERATION] 🔄 Starting database backup
+2026-01-31 11:42:21.844 [INFO] [SYSTEM] ℹ️ SQL Backup command | {
+2026-01-31 11:42:21.876 [ERROR] 🚨 Database backup failed | {
+2026-01-31 11:42:21.884 [ERROR] 🚨 Backup creation failed | {
+2026-01-31 11:42:21.900 [INFO] [SYSTEM] ℹ️ [SYSTEM] Backup record updated to FAILED
+2026-01-31 11:42:21.901 [ERROR] 🚨 Create backup error | {
+2026-01-31 11:42:21.909 [ERROR] 🚨 📤 Response Sent | {
+2026-01-31 11:42:21.903 [ERROR] 🚨 Error Handler Caught Exception | {
