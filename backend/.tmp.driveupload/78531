@@ -3869,3 +3869,81 @@
 2026-01-31 12:45:48.478 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2026-01-31 12:45:48.484 [SUCCESS] [OPERATION] ✅ Backup history fetched | {
 2026-01-31 12:45:48.496 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-01-31 12:45:52.176 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-01-31 12:45:52.178 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 31/01/2026, 12:45:52 pm IST
+2026-01-31 12:45:52.179 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-01-31 12:45:52.190 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-01-31 12:45:52.212 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [237]
+2026-01-31 12:45:52.213 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2026-01-31 12:45:52.231 [INFO] [SYSTEM] ℹ️ 🎫 Found 13 open tickets to check
+2026-01-31 12:45:52.233 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-01-31 12:45:52.237 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-01-31 12:45:52.240 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 12:45:52.240 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-01-31 12:45:52.244 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-01-31 12:45:52.243 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 12:45:52.246 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 12:45:52.247 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-01-31 12:45:52.249 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 12:45:52.251 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-01-31 12:45:52.256 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-01-31 12:45:52.256 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 12:45:52.259 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 12:45:52.260 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2026-01-31 12:45:52.262 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 12:45:52.263 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2026-01-31 12:45:52.266 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 12:45:52.272 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 12:45:52.268 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2026-01-31 12:45:52.273 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2026-01-31 12:45:52.276 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2026-01-31 12:45:52.278 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 12:45:52.279 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2026-01-31 12:45:52.276 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 12:45:52.281 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-01-31 12:45:52.283 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-01-31 12:45:52.284 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-01-31 12:45:52.284 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-01-31 12:45:52.295 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 108ms
+2026-01-31 12:45:53.220 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-01-31 12:45:53.240 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-01-31 12:45:53.241 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-01-31 12:45:53.244 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-01-31 12:45:53.245 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-01-31 12:45:53.254 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-01-31 12:45:53.262 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-01-31 12:45:53.276 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-01-31 12:45:53.281 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-01-31 12:45:53.289 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-01-31 12:45:53.293 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-01-31 12:45:53.296 [SUCCESS] [OPERATION] ✅ Permission check passed
+2026-01-31 12:45:53.298 [TRY] [OPERATION] 🔄 Starting backup process | {
+2026-01-31 12:45:53.296 [TRY] [OPERATION] 🔄 Manual backup requested | {
+2026-01-31 12:45:53.298 [TRY] [OPERATION] 🔄 Loading backup settings from database
+2026-01-31 12:45:53.298 [SUCCESS] [OPERATION] ✅ Backup settings loaded | {
+2026-01-31 12:45:53.300 [TRY] [OPERATION] 🔄 Creating backup directories | {
+2026-01-31 12:45:53.304 [SUCCESS] [OPERATION] ✅ Backup directories created
+2026-01-31 12:45:53.305 [TRY] [OPERATION] 🔄 Creating backup record in database
+2026-01-31 12:45:53.316 [SUCCESS] [OPERATION] ✅ Backup record created | {
+2026-01-31 12:45:53.317 [TRY] [OPERATION] 🔄 Starting database backup
+2026-01-31 12:45:53.318 [TRY] [OPERATION] 🔄 Executing SQL Server BACKUP command
+2026-01-31 12:45:53.326 [INFO] [SYSTEM] ℹ️ 🔍 DIAGNOSTIC: WHO IS NODE.JS CONNECTING AS?
+2026-01-31 12:45:53.325 [INFO] [SYSTEM] ℹ️ ================================================================================
+2026-01-31 12:45:53.326 [INFO] [SYSTEM] ℹ️ ================================================================================
+2026-01-31 12:45:53.327 [INFO] [SYSTEM] ℹ️ ================================================================================
+2026-01-31 12:45:53.328 [ERROR] 🚨 ❌ CRITICAL: Current user does NOT have BACKUP DATABASE permission!
+2026-01-31 12:45:53.332 [ERROR] 🚨 GRANT BACKUP DATABASE TO [root];
+2026-01-31 12:45:53.328 [ERROR] 🚨 User connecting: | {
+2026-01-31 12:45:53.331 [ERROR] 🚨 You need to run this SQL command in SSMS:
+2026-01-31 12:45:53.334 [ERROR] 🚨 Unhandled Rejection | {
+2026-01-31 12:45:53.340 [ERROR] 🚨 Unhandled Rejection | {
+2026-01-31 12:45:53.333 [INFO] [SYSTEM] ℹ️ SQL Backup command | {
+2026-01-31 12:45:53.342 [ERROR] 🚨 Unhandled Rejection | {
+2026-01-31 12:45:53.338 [ERROR] 🚨 Unhandled Rejection | {
+2026-01-31 12:45:53.343 [ERROR] 🚨 Unhandled Rejection | {
+2026-01-31 12:45:53.361 [ERROR] 🚨 Database backup failed | {
+2026-01-31 12:45:53.379 [ERROR] 🚨 Backup creation failed | {
+2026-01-31 12:45:53.391 [ERROR] 🚨 Create backup error | {
+2026-01-31 12:45:53.390 [INFO] [SYSTEM] ℹ️ [SYSTEM] Backup record updated to FAILED
+2026-01-31 12:45:53.398 [ERROR] 🚨 📤 Response Sent | {
+2026-01-31 12:45:53.394 [ERROR] 🚨 Error Handler Caught Exception | {
