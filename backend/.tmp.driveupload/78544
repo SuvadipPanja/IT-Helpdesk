@@ -2976,3 +2976,14 @@
 2026-02-01 21:16:45.784 [ERROR] 🚨 🔴 Breaches: 12 tickets
 2026-02-01 21:16:45.786 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [250]
 2026-02-01 21:16:45.788 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2026-02-01 21:16:49.725 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-01 21:16:49.736 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-01 21:16:49.736 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-01 21:16:49.738 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-01 21:16:49.762 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-01 21:16:49.778 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-01 21:16:49.788 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-01 21:16:49.823 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-01 21:16:49.830 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-01 21:16:49.846 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-01 21:16:49.870 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
