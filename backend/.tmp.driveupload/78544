@@ -1265,3 +1265,15 @@
 2026-02-01 20:54:04.011 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-01 20:54:04.006 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-01 20:54:04.018 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-01 20:54:23.952 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-01 20:54:23.960 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-01 20:54:23.960 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-01 20:54:23.964 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-01 20:54:23.963 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-01 20:54:23.976 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-01 20:54:23.981 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-01 20:54:24.018 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-01 20:54:24.025 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-01 20:54:24.033 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-01 20:54:24.041 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-01 20:54:24.048 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
