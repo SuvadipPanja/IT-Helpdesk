@@ -1,0 +1,227 @@
+2026-02-01 19:55:00.996 [INFO] [SYSTEM] ℹ️ Initializing security middleware
+2026-02-01 19:55:00.999 [SUCCESS] [OPERATION] ✅ CORS enabled | {
+2026-02-01 19:55:01.003 [SUCCESS] [OPERATION] ✅ Rate limiting enabled | {
+2026-02-01 19:55:01.073 [SUCCESS] [OPERATION] ✅ Body parsers initialized
+2026-02-01 19:55:01.071 [INFO] [SYSTEM] ℹ️ Initializing body parsers
+2026-02-01 19:55:01.073 [SUCCESS] [OPERATION] ✅ Response compression enabled
+2026-02-01 19:55:01.074 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-02-01 19:55:01.073 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-02-01 19:55:01.074 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-02-01 19:55:01.075 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-02-01 19:55:01.425 [SUCCESS] [OPERATION] ✅ API routes initialized | {
+2026-02-01 19:55:01.428 [SUCCESS] [OPERATION] ✅ Error handlers initialized
+2026-02-01 19:55:01.075 [SUCCESS] [OPERATION] ✅ Static file serving enabled with CORS | {
+2026-02-01 19:55:01.428 [INFO] [SYSTEM] ℹ️ Starting IT Helpdesk Backend Server
+2026-02-01 19:55:01.428 [INFO] [SYSTEM] ℹ️ Environment | {
+2026-02-01 19:55:01.429 [INFO] [SYSTEM] ℹ️ Node Version | {
+2026-02-01 19:55:01.430 [TRY] [OPERATION] 🔄 Testing database connection
+2026-02-01 19:55:01.429 [INFO] [SYSTEM] ℹ️ Platform | {
+2026-02-01 19:55:01.077 [INFO] [SYSTEM] ℹ️ Initializing API routes
+2026-02-01 19:55:01.637 [INFO] [SYSTEM] ℹ️ Database details | {
+2026-02-01 19:55:01.643 [SUCCESS] [OPERATION] ✅ Server is running on port 5000
+2026-02-01 19:55:01.644 [SUCCESS] [OPERATION] ✅ Test Uploads: http://localhost:5000/test-uploads
+2026-02-01 19:55:01.637 [SUCCESS] [OPERATION] ✅ Database connection test passed
+2026-02-01 19:55:01.643 [SUCCESS] [OPERATION] ✅ API Base URL: http://localhost:5000/api/v1
+2026-02-01 19:55:01.644 [SUCCESS] [OPERATION] ✅ Health Check: http://localhost:5000/health
+2026-02-01 19:55:01.645 [INFO] [SYSTEM] ℹ️ Server Details | {
+2026-02-01 19:55:01.647 [INFO] [SYSTEM] ℹ️ 📂 File uploads enabled at: /uploads
+2026-02-01 19:55:01.647 [INFO] [SYSTEM] ℹ️ 🎉 IT Helpdesk Backend is ready to accept requests!
+2026-02-01 19:55:01.648 [INFO] [SYSTEM] ℹ️ 🔓 CORS enabled for cross-origin requests
+2026-02-01 19:55:01.647 [INFO] [SYSTEM] ℹ️ 🖼️ Profile pictures: /uploads/profiles
+2026-02-01 19:55:01.650 [INFO] [SYSTEM] ℹ️ 👥 Users endpoint: /api/v1/users
+2026-02-01 19:55:01.649 [INFO] [SYSTEM] ℹ️ 🔗 Attachments endpoint: /api/v1/tickets/:id/attachments
+2026-02-01 19:55:01.651 [INFO] [SYSTEM] ℹ️ 👤 Profile endpoint: /api/v1/profile
+2026-02-01 19:55:01.648 [INFO] [SYSTEM] ℹ️ 📎 Ticket attachments: /uploads/tickets
+2026-02-01 19:55:01.651 [INFO] [SYSTEM] ℹ️ 🔐 Security endpoint: /api/v1/security
+2026-02-01 19:55:01.652 [INFO] [SYSTEM] ℹ️ ⏰ Password Expiry endpoint: /api/v1/password-expiry
+2026-02-01 19:55:01.653 [INFO] [SYSTEM] ℹ️ 🔒 Two-Factor Auth endpoint: /api/v1/2fa
+2026-02-01 19:55:01.653 [INFO] [SYSTEM] ℹ️ 📝 Email Templates endpoint: /api/v1/email-templates
+2026-02-01 19:55:01.653 [INFO] [SYSTEM] ℹ️ 📧 Email Queue endpoint: /api/v1/email-queue
+2026-02-01 19:55:01.654 [INFO] [SYSTEM] ℹ️ 💾 Backup endpoint: /api/v1/backup
+2026-02-01 19:55:01.655 [INFO] [SYSTEM] ℹ️ Press CTRL+C to stop the server
+2026-02-01 19:55:01.654 [INFO] [SYSTEM] ℹ️ ✅ Ticket Approvals endpoint: /api/v1/ticket-approvals
+2026-02-01 19:55:01.657 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Cron Job
+2026-02-01 19:55:01.656 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Job...
+2026-02-01 19:55:01.657 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 5 minutes (*/5 * * * *)
+2026-02-01 19:55:01.671 [SUCCESS] [OPERATION] ✅ ✅ Email Processor Cron Job started successfully
+2026-02-01 19:55:01.672 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Cron Job
+2026-02-01 19:55:01.671 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Job...
+2026-02-01 19:55:01.672 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Tickets Cron Job
+2026-02-01 19:55:01.672 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Job...
+2026-02-01 19:55:01.672 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Job...
+2026-02-01 19:55:01.673 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Cron Job
+2026-02-01 19:55:01.673 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-01 19:55:01.672 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-01 19:55:01.676 [INFO] [SYSTEM] ℹ️ 🧹 Starting Session Cleanup Job...
+2026-02-01 19:55:01.675 [SUCCESS] [OPERATION] ✅ Password expiry reminder job scheduled (Daily at 9:00 AM IST)
+2026-02-01 19:55:01.674 [INFO] [SYSTEM] ℹ️ 🔐 Starting Password Expiry Job...
+2026-02-01 19:55:01.676 [INFO] [SYSTEM] ℹ️ 🕐 Session Cleanup scheduled | {
+2026-02-01 19:55:01.677 [INFO] [SYSTEM] ℹ️ 🔓 Starting Auto-Unlock Job...
+2026-02-01 19:55:01.677 [SUCCESS] [OPERATION] ✅ ✅ Session Cleanup started successfully
+2026-02-01 19:55:01.679 [SUCCESS] [OPERATION] ✅ ✅ Auto Unlock started successfully
+2026-02-01 19:55:01.678 [INFO] [SYSTEM] ℹ️ 🕐 Auto Unlock scheduled | {
+2026-02-01 19:55:01.681 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-01 19:55:01.679 [INFO] [SYSTEM] ℹ️ 💾 Starting Backup Job...
+2026-02-01 19:55:01.681 [TRY] [OPERATION] 🔄 Starting backup job
+2026-02-01 19:55:01.724 [INFO] [SYSTEM] ℹ️ Backup job configuration loaded | {
+2026-02-01 19:55:01.730 [INFO] [SYSTEM] ℹ️ Next backup scheduled for | {
+2026-02-01 19:55:01.728 [SUCCESS] [OPERATION] ✅ ✅ Backup job started successfully | {
+2026-02-01 19:55:01.734 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-01 19:55:01.736 [WARN] [SYSTEM] ⚠️ ⚠️ Auto-Close job is DISABLED in settings
+2026-02-01 19:55:01.739 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 15 minutes (*/15 * * * *)
+2026-02-01 19:55:01.738 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-01 19:55:01.739 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2026-02-01 19:55:01.740 [INFO] [SYSTEM] ℹ️ ⚠️ Warning Threshold: 90%
+2026-02-01 19:55:01.740 [INFO] [SYSTEM] ℹ️ 🕐 Business Hours: 09:00 - 17:00
+2026-02-01 19:55:01.723 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-01 19:55:01.741 [INFO] [SYSTEM] ℹ️ 📅 Working Days: mon, tue, wed, thu, fri, sat
+2026-02-01 19:55:01.743 [SUCCESS] [OPERATION] ✅ ✅ SLA Breach Detection Cron Job started successfully
+2026-02-01 19:55:01.736 [INFO] [SYSTEM] ℹ️ 📊 Status: Disabled
+2026-02-01 19:55:01.744 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
+2026-02-01 19:55:01.745 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2026-02-01 19:55:01.744 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2026-02-01 19:55:06.682 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-01 19:55:06.682 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-01 19:55:06.706 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-01 19:55:06.707 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-01 19:55:11.748 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 01/02/2026, 07:55:11 pm IST
+2026-02-01 19:55:11.749 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-01 19:55:11.747 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-01 19:55:11.765 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-01 19:55:11.809 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [247]
+2026-02-01 19:55:11.809 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2026-02-01 19:55:11.827 [INFO] [SYSTEM] ℹ️ 🎫 Found 13 open tickets to check
+2026-02-01 19:55:11.827 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-01 19:55:11.828 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-01 19:55:11.830 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 19:55:11.831 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-01 19:55:11.842 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 19:55:11.843 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-01 19:55:11.844 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 19:55:11.847 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 19:55:11.845 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-01 19:55:11.848 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-01 19:55:11.852 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 19:55:11.853 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-01 19:55:11.854 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 19:55:11.855 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2026-02-01 19:55:11.856 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 19:55:11.857 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2026-02-01 19:55:11.858 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2026-02-01 19:55:11.860 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 19:55:11.858 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 19:55:11.861 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2026-02-01 19:55:11.865 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2026-02-01 19:55:11.865 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 19:55:11.870 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 19:55:11.870 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2026-02-01 19:55:11.872 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 19:55:11.873 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-02-01 19:55:11.873 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-01 19:55:11.873 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-02-01 19:55:11.874 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 126ms
+2026-02-01 20:00:00.051 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-01 20:00:00.051 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-01 20:00:00.053 [TRY] [OPERATION] 🔄 Marking inactive sessions as expired
+2026-02-01 20:00:00.053 [TRY] [OPERATION] 🔄 Running Session Cleanup
+2026-02-01 20:00:00.057 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 01/02/2026, 08:00:00 pm IST
+2026-02-01 20:00:00.058 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-01 20:00:00.055 [TRY] [OPERATION] 🔄 Finding accounts with expired lockouts
+2026-02-01 20:00:00.056 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-01 20:00:00.055 [TRY] [OPERATION] 🔄 Running Auto Unlock
+2026-02-01 20:00:00.184 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [248]
+2026-02-01 20:00:00.184 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2026-02-01 20:00:00.187 [INFO] [SYSTEM] ℹ️ No accounts found with expired lockouts
+2026-02-01 20:00:00.200 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-01 20:00:00.200 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-01 20:00:00.190 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-01 20:00:00.193 [SUCCESS] [OPERATION] ✅ Marked 2 inactive sessions as expired | {
+2026-02-01 20:00:00.195 [TRY] [OPERATION] 🔄 Marking expired sessions
+2026-02-01 20:00:00.215 [INFO] [SYSTEM] ℹ️ No expired sessions found
+2026-02-01 20:00:00.215 [TRY] [OPERATION] 🔄 Deleting old inactive sessions
+2026-02-01 20:00:00.228 [INFO] [SYSTEM] ℹ️ No old sessions to delete
+2026-02-01 20:00:00.228 [TRY] [OPERATION] 🔄 Getting session statistics
+2026-02-01 20:00:00.233 [INFO] [SYSTEM] ℹ️ 🎫 Found 13 open tickets to check
+2026-02-01 20:00:00.233 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-01 20:00:00.234 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-01 20:00:00.234 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:00:00.236 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-01 20:00:00.236 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:00:00.238 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-01 20:00:00.235 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-01 20:00:00.238 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:00:00.243 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-01 20:00:00.242 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-01 20:00:00.245 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2026-02-01 20:00:00.246 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:00:00.247 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2026-02-01 20:00:00.248 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:00:00.250 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:00:00.251 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:00:00.249 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2026-02-01 20:00:00.252 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2026-02-01 20:00:00.250 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2026-02-01 20:00:00.252 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:00:00.253 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:00:00.253 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2026-02-01 20:00:00.254 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-02-01 20:00:00.254 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-02-01 20:00:00.254 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-01 20:00:00.241 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:00:00.243 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:00:00.244 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:00:00.255 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 198ms
+2026-02-01 20:00:00.259 [SUCCESS] [OPERATION] ✅ Session Cleanup completed successfully | {
+2026-02-01 20:05:00.028 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-01 20:05:00.029 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-01 20:05:00.119 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-01 20:05:00.120 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-01 20:10:00.034 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-01 20:10:00.038 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-01 20:10:00.132 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-01 20:10:00.133 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-01 20:15:00.098 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-01 20:15:00.099 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-01 20:15:00.104 [TRY] [OPERATION] 🔄 Running Auto Unlock
+2026-02-01 20:15:00.104 [TRY] [OPERATION] 🔄 Finding accounts with expired lockouts
+2026-02-01 20:15:00.107 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-01 20:15:00.107 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 01/02/2026, 08:15:00 pm IST
+2026-02-01 20:15:00.108 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-01 20:15:00.966 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-01 20:15:01.025 [INFO] [SYSTEM] ℹ️ No accounts found with expired lockouts
+2026-02-01 20:15:01.050 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-01 20:15:01.051 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-01 20:15:01.049 [INFO] [SYSTEM] ℹ️ 🎫 Found 13 open tickets to check
+2026-02-01 20:15:01.054 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-01 20:15:01.053 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:15:01.057 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:15:01.058 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-01 20:15:01.062 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:15:01.068 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:15:01.064 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-01 20:15:01.070 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-01 20:15:01.072 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:15:01.077 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:15:01.083 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:15:01.074 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-01 20:15:01.079 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2026-02-01 20:15:01.085 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2026-02-01 20:15:01.088 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:15:01.089 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2026-02-01 20:15:01.092 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:15:01.093 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2026-02-01 20:15:01.096 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:15:01.100 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:15:01.101 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2026-02-01 20:15:01.105 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-02-01 20:15:01.103 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-01 20:15:01.097 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2026-02-01 20:15:01.106 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-01 20:15:01.106 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-02-01 20:15:01.108 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 998ms
+2026-02-01 20:15:01.116 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-01 20:15:01.117 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-01 20:20:00.089 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-01 20:20:00.088 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-01 20:20:00.276 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-01 20:20:00.275 [INFO] [SYSTEM] ℹ️ No pending emails to process
