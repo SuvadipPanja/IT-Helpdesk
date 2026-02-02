@@ -1728,3 +1728,18 @@
 2026-02-02 11:34:23.231 [TRY] [OPERATION] 🔄 Fetching notifications | {
 2026-02-02 11:34:23.236 [SUCCESS] [OPERATION] ✅ Notifications fetched | {
 2026-02-02 11:34:23.238 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-02 11:34:27.828 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-02 11:34:27.830 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-02 11:34:27.828 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-02 11:34:27.829 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-02 11:34:27.829 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-02 11:34:27.832 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-02 11:34:27.833 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-02 11:34:27.835 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-02 11:34:27.836 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-02 11:34:27.838 [TRY] [OPERATION] 🔄 User attempting to logout | {
+2026-02-02 11:34:27.837 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-02 11:34:27.837 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-02 11:34:27.842 [SUCCESS] [OPERATION] ✅ Session invalidated
+2026-02-02 11:34:27.848 [SUCCESS] [OPERATION] ✅ User logged out successfully | {
+2026-02-02 11:34:27.849 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
