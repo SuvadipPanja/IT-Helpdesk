@@ -4419,3 +4419,15 @@
 2026-02-01 22:10:52.700 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-01 22:10:52.706 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-01 22:10:52.732 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-01 23:38:28.591 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-01 23:38:28.593 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-01 23:38:28.593 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-01 23:38:28.594 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-01 23:38:28.596 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-01 23:38:29.647 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-02-01 23:38:29.645 [WARN] [SYSTEM] ⚠️ Authentication failed - Invalid or expired session | {
+2026-02-01 23:38:30.295 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-01 23:38:30.290 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-01 23:38:30.295 [TRY] [OPERATION] 🔄 Fetching public settings
+2026-02-01 23:38:30.425 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-01 23:38:30.426 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
