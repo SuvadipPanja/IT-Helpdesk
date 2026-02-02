@@ -4562,3 +4562,17 @@
 2026-02-02 13:23:45.509 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-02 13:23:45.506 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-02 13:23:45.517 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-02 13:38:42.063 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-02 13:38:42.065 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-02 13:38:42.065 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-02 13:38:42.066 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-02 13:38:42.074 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-02 13:38:42.163 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-02 13:38:42.163 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-02 13:38:42.171 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-02 13:38:42.178 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-02 13:38:42.184 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-02 13:38:42.189 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-02 13:38:42.192 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-02 13:38:42.193 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-02 13:38:42.202 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
