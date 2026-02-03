@@ -10454,3 +10454,15 @@
 2026-02-03 13:17:38.817 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-03 13:17:38.824 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-03 13:17:38.831 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 13:17:48.765 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 13:17:48.770 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 13:17:48.771 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 13:17:48.773 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 13:17:48.778 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 13:17:48.792 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 13:17:48.802 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 13:17:48.836 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 13:17:48.846 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 13:17:48.857 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 13:17:48.852 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 13:17:48.865 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
