@@ -18722,3 +18722,17 @@
 2026-02-03 16:00:52.138 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-03 16:00:52.164 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-03 16:00:52.167 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 16:00:56.242 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 16:00:56.244 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 16:00:56.244 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 16:00:56.245 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 16:00:56.246 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 16:00:56.250 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 16:00:56.255 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 16:00:56.265 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 16:00:56.268 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 16:00:56.271 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 16:00:56.274 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 16:00:56.277 [TRY] [OPERATION] 🔄 Downloading attachment | {
+2026-02-03 16:00:56.282 [SUCCESS] [OPERATION] ✅ Serving file download
+2026-02-03 16:00:56.292 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
