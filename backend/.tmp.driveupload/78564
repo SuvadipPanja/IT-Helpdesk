@@ -17729,3 +17729,20 @@
 2026-02-03 15:52:38.326 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-03 15:52:38.344 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-03 15:52:38.349 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 15:52:42.413 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
+2026-02-03 15:52:44.719 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 15:52:44.721 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 15:52:44.721 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 15:52:44.723 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 15:52:44.723 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 15:52:44.727 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 15:52:44.734 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 15:52:44.741 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 15:52:44.745 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 15:52:44.751 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 15:52:44.757 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 15:52:44.772 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 15:52:45.514 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 15:52:45.516 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 15:52:45.516 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
+2026-02-03 15:52:45.520 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
