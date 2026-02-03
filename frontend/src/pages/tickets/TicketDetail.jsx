@@ -56,7 +56,7 @@ import {
   ChevronDown
 } from 'lucide-react';
 import api from '../../services/api';
-import '../../styles/TicketDetailModern.css';
+import '../../styles/TicketDetail.css';
 
 const TicketDetailModern = () => {
   const { id } = useParams();
