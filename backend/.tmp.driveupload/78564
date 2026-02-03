@@ -20409,3 +20409,29 @@
 2026-02-03 16:22:37.391 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-03 16:22:37.402 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-03 16:22:37.406 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 16:22:44.740 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 16:22:44.734 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 16:22:44.740 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 16:22:44.741 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 16:22:44.743 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 16:22:44.752 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 16:22:44.762 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 16:22:44.793 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 16:22:44.796 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 16:22:44.799 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 16:22:44.802 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 16:22:44.812 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 16:22:50.713 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 16:22:50.715 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 16:22:50.715 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 16:22:50.717 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 16:22:50.721 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 16:22:50.729 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 16:22:50.733 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 16:22:50.741 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 16:22:50.745 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-03 16:22:50.745 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 16:22:50.752 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-03 16:22:50.760 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 16:22:50.762 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 16:22:50.769 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
