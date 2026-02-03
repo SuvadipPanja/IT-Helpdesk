@@ -1764,3 +1764,56 @@
 2026-02-03 11:43:44.701 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-03 11:43:44.700 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-03 11:43:44.706 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 11:44:44.666 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 11:44:44.667 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 11:44:44.667 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 11:44:44.668 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 11:44:44.668 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 11:44:44.683 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 11:44:44.685 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 11:44:44.712 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 11:44:44.715 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 11:44:44.719 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 11:44:44.718 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 11:44:44.723 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 11:45:00.017 [TRY] [OPERATION] 🔄 Finding accounts with expired lockouts
+2026-02-03 11:45:00.017 [TRY] [OPERATION] 🔄 Running Auto Unlock
+2026-02-03 11:45:00.018 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 03/02/2026, 11:45:00 am IST
+2026-02-03 11:45:00.019 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-03 11:45:00.017 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-03 11:45:00.019 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-03 11:45:00.019 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-03 11:45:00.024 [INFO] [SYSTEM] ℹ️ No accounts found with expired lockouts
+2026-02-03 11:45:00.029 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-03 11:45:00.035 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-03 11:45:00.034 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-03 11:45:00.046 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-03 11:45:00.047 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-03 11:45:00.045 [INFO] [SYSTEM] ℹ️ 🎫 Found 14 open tickets to check
+2026-02-03 11:45:00.048 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-03 11:45:00.048 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 11:45:00.049 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 11:45:00.047 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 11:45:00.049 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-03 11:45:00.050 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 11:45:00.049 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-03 11:45:00.051 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 11:45:00.052 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-03 11:45:00.053 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 11:45:00.053 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 11:45:00.053 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2026-02-03 11:45:00.054 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 11:45:00.050 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-03 11:45:00.054 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2026-02-03 11:45:00.055 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 11:45:00.053 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2026-02-03 11:45:00.055 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2026-02-03 11:45:00.055 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 11:45:00.055 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2026-02-03 11:45:00.056 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 11:45:00.056 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2026-02-03 11:45:00.056 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 11:45:00.057 [INFO] [SYSTEM] ℹ️ ✅ OK: 2 tickets
+2026-02-03 11:45:00.057 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-03 11:45:00.057 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-02-03 11:45:00.057 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 40ms
