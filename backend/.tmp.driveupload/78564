@@ -17898,3 +17898,15 @@
 2026-02-03 15:55:00.048 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-02-03 15:55:00.060 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
 2026-02-03 15:55:00.059 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-03 15:55:09.715 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 15:55:09.719 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 15:55:09.719 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 15:55:09.723 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 15:55:09.721 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 15:55:09.741 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 15:55:09.750 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 15:55:09.792 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 15:55:09.805 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 15:55:09.822 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 15:55:09.816 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 15:55:09.836 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
