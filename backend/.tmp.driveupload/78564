@@ -14000,3 +14000,55 @@
 2026-02-03 15:25:15.188 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
 2026-02-03 15:25:15.188 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
 2026-02-03 15:25:15.190 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2026-02-03 15:25:20.159 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-03 15:25:20.159 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-03 15:25:20.164 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-03 15:25:20.164 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-03 15:25:21.571 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 15:25:21.571 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 15:25:21.575 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 15:25:21.576 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 15:25:21.564 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 15:25:21.585 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 15:25:21.592 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 15:25:21.603 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 15:25:21.607 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 15:25:21.610 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 15:25:21.612 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 15:25:21.619 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 15:25:25.182 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 03/02/2026, 03:25:25 pm IST
+2026-02-03 15:25:25.181 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-03 15:25:25.184 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-03 15:25:25.189 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-03 15:25:25.203 [INFO] [SYSTEM] ℹ️ 🎫 Found 14 open tickets to check
+2026-02-03 15:25:25.205 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 15:25:25.204 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-03 15:25:25.203 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-03 15:25:25.205 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-03 15:25:25.206 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-03 15:25:25.206 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 15:25:25.208 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 15:25:25.206 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 15:25:25.208 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 15:25:25.209 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-03 15:25:25.207 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-03 15:25:25.209 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 15:25:25.208 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-03 15:25:25.210 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 15:25:25.210 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2026-02-03 15:25:25.210 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2026-02-03 15:25:25.210 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 15:25:25.211 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 15:25:25.212 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 15:25:25.211 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2026-02-03 15:25:25.212 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 15:25:25.212 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2026-02-03 15:25:25.209 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2026-02-03 15:25:25.213 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-03 15:25:25.213 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-03 15:25:25.213 [INFO] [SYSTEM] ℹ️ ✅ OK: 2 tickets
+2026-02-03 15:25:25.212 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2026-02-03 15:25:25.213 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 33ms
+2026-02-03 15:25:25.215 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2026-02-03 15:25:25.213 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-02-03 15:25:25.215 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [267]
