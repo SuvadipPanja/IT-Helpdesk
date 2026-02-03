@@ -23159,3 +23159,38 @@
 2026-02-03 18:03:22.149 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-03 18:03:22.152 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-03 18:03:22.159 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 18:03:30.259 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 18:03:30.271 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 18:03:30.273 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 18:03:30.271 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 18:03:30.272 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 18:03:30.285 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 18:03:30.289 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 18:03:30.321 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 18:03:30.324 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 18:03:30.329 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 18:03:30.331 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 18:03:30.333 [TRY] [OPERATION] 🔄 Deleting ticket | {
+2026-02-03 18:03:30.346 [INFO] [SYSTEM] ℹ️ Transaction started
+2026-02-03 18:03:30.350 [SUCCESS] [OPERATION] ✅ Attachments deleted
+2026-02-03 18:03:30.354 [SUCCESS] [OPERATION] ✅ Comments deleted
+2026-02-03 18:03:30.358 [SUCCESS] [OPERATION] ✅ Activities deleted
+2026-02-03 18:03:30.363 [SUCCESS] [OPERATION] ✅ Notifications deleted
+2026-02-03 18:03:30.384 [SUCCESS] [OPERATION] ✅ Ticket deleted from database
+2026-02-03 18:03:30.387 [SUCCESS] [OPERATION] ✅ Transaction committed successfully
+2026-02-03 18:03:30.388 [SUCCESS] [OPERATION] ✅ All related data removed | {
+2026-02-03 18:03:30.390 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 18:03:30.402 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 18:03:30.405 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 18:03:30.405 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 18:03:30.406 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 18:03:30.408 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 18:03:30.418 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 18:03:30.421 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 18:03:30.430 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 18:03:30.432 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 18:03:30.435 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 18:03:30.439 [TRY] [OPERATION] 🔄 Fetching tickets list | {
+2026-02-03 18:03:30.439 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 18:03:30.446 [SUCCESS] [OPERATION] ✅ Tickets fetched successfully | {
+2026-02-03 18:03:30.448 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
