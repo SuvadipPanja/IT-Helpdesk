@@ -15783,3 +15783,128 @@
 2026-02-03 15:34:39.709 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-03 15:34:39.710 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-03 15:34:39.712 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 15:34:45.608 [INFO] [SYSTEM] ℹ️ Initializing security middleware
+2026-02-03 15:34:45.623 [INFO] [SYSTEM] ℹ️ Initializing body parsers
+2026-02-03 15:34:45.612 [SUCCESS] [OPERATION] ✅ Rate limiting enabled | {
+2026-02-03 15:34:45.623 [SUCCESS] [OPERATION] ✅ Body parsers initialized
+2026-02-03 15:34:45.624 [SUCCESS] [OPERATION] ✅ Response compression enabled
+2026-02-03 15:34:45.624 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-02-03 15:34:45.624 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-02-03 15:34:45.610 [SUCCESS] [OPERATION] ✅ CORS enabled | {
+2026-02-03 15:34:45.624 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-02-03 15:34:45.625 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-02-03 15:34:45.625 [SUCCESS] [OPERATION] ✅ Static file serving enabled with CORS | {
+2026-02-03 15:34:45.627 [INFO] [SYSTEM] ℹ️ Initializing API routes
+2026-02-03 15:34:45.791 [SUCCESS] [OPERATION] ✅ API routes initialized | {
+2026-02-03 15:34:45.793 [SUCCESS] [OPERATION] ✅ Error handlers initialized
+2026-02-03 15:34:45.793 [INFO] [SYSTEM] ℹ️ Starting IT Helpdesk Backend Server
+2026-02-03 15:34:45.793 [INFO] [SYSTEM] ℹ️ Environment | {
+2026-02-03 15:34:45.794 [INFO] [SYSTEM] ℹ️ Node Version | {
+2026-02-03 15:34:45.794 [TRY] [OPERATION] 🔄 Testing database connection
+2026-02-03 15:34:45.794 [INFO] [SYSTEM] ℹ️ Platform | {
+2026-02-03 15:34:45.836 [INFO] [SYSTEM] ℹ️ Database details | {
+2026-02-03 15:34:45.835 [SUCCESS] [OPERATION] ✅ Database connection test passed
+2026-02-03 15:34:45.838 [SUCCESS] [OPERATION] ✅ Server is running on port 5000
+2026-02-03 15:34:45.838 [SUCCESS] [OPERATION] ✅ API Base URL: http://localhost:5000/api/v1
+2026-02-03 15:34:45.839 [INFO] [SYSTEM] ℹ️ 🎉 IT Helpdesk Backend is ready to accept requests!
+2026-02-03 15:34:45.838 [SUCCESS] [OPERATION] ✅ Test Uploads: http://localhost:5000/test-uploads
+2026-02-03 15:34:45.838 [SUCCESS] [OPERATION] ✅ Health Check: http://localhost:5000/health
+2026-02-03 15:34:45.840 [INFO] [SYSTEM] ℹ️ 🖼️ Profile pictures: /uploads/profiles
+2026-02-03 15:34:45.840 [INFO] [SYSTEM] ℹ️ 📎 Ticket attachments: /uploads/tickets
+2026-02-03 15:34:45.840 [INFO] [SYSTEM] ℹ️ 🔓 CORS enabled for cross-origin requests
+2026-02-03 15:34:45.840 [INFO] [SYSTEM] ℹ️ 🔗 Attachments endpoint: /api/v1/tickets/:id/attachments
+2026-02-03 15:34:45.840 [INFO] [SYSTEM] ℹ️ 👥 Users endpoint: /api/v1/users
+2026-02-03 15:34:45.839 [INFO] [SYSTEM] ℹ️ 📂 File uploads enabled at: /uploads
+2026-02-03 15:34:45.840 [INFO] [SYSTEM] ℹ️ 🔐 Security endpoint: /api/v1/security
+2026-02-03 15:34:45.840 [INFO] [SYSTEM] ℹ️ ⏰ Password Expiry endpoint: /api/v1/password-expiry
+2026-02-03 15:34:45.840 [INFO] [SYSTEM] ℹ️ 🔒 Two-Factor Auth endpoint: /api/v1/2fa
+2026-02-03 15:34:45.840 [INFO] [SYSTEM] ℹ️ 👤 Profile endpoint: /api/v1/profile
+2026-02-03 15:34:45.841 [INFO] [SYSTEM] ℹ️ 📧 Email Queue endpoint: /api/v1/email-queue
+2026-02-03 15:34:45.841 [INFO] [SYSTEM] ℹ️ 📝 Email Templates endpoint: /api/v1/email-templates
+2026-02-03 15:34:45.839 [INFO] [SYSTEM] ℹ️ Server Details | {
+2026-02-03 15:34:45.841 [INFO] [SYSTEM] ℹ️ 💾 Backup endpoint: /api/v1/backup
+2026-02-03 15:34:45.841 [INFO] [SYSTEM] ℹ️ ✅ Ticket Approvals endpoint: /api/v1/ticket-approvals
+2026-02-03 15:34:45.841 [INFO] [SYSTEM] ℹ️ Press CTRL+C to stop the server
+2026-02-03 15:34:45.842 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Cron Job
+2026-02-03 15:34:45.848 [SUCCESS] [OPERATION] ✅ ✅ Email Processor Cron Job started successfully
+2026-02-03 15:34:45.841 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Job...
+2026-02-03 15:34:45.842 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 5 minutes (*/5 * * * *)
+2026-02-03 15:34:45.849 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Job...
+2026-02-03 15:34:45.849 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Job...
+2026-02-03 15:34:45.849 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Cron Job
+2026-02-03 15:34:45.849 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Tickets Cron Job
+2026-02-03 15:34:45.850 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-03 15:34:45.850 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-03 15:34:45.850 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Cron Job
+2026-02-03 15:34:45.850 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Job...
+2026-02-03 15:34:45.853 [SUCCESS] [OPERATION] ✅ Password expiry reminder job scheduled (Daily at 9:00 AM IST)
+2026-02-03 15:34:45.853 [INFO] [SYSTEM] ℹ️ 🧹 Starting Session Cleanup Job...
+2026-02-03 15:34:45.851 [INFO] [SYSTEM] ℹ️ 🔐 Starting Password Expiry Job...
+2026-02-03 15:34:45.855 [SUCCESS] [OPERATION] ✅ ✅ Session Cleanup started successfully
+2026-02-03 15:34:45.855 [INFO] [SYSTEM] ℹ️ 🔓 Starting Auto-Unlock Job...
+2026-02-03 15:34:45.854 [INFO] [SYSTEM] ℹ️ 🕐 Session Cleanup scheduled | {
+2026-02-03 15:34:45.856 [INFO] [SYSTEM] ℹ️ 🕐 Auto Unlock scheduled | {
+2026-02-03 15:34:45.857 [SUCCESS] [OPERATION] ✅ ✅ Auto Unlock started successfully
+2026-02-03 15:34:45.858 [TRY] [OPERATION] 🔄 Starting backup job
+2026-02-03 15:34:45.858 [INFO] [SYSTEM] ℹ️ 💾 Starting Backup Job...
+2026-02-03 15:34:45.858 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-03 15:34:45.873 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-03 15:34:45.873 [INFO] [SYSTEM] ℹ️ 📊 Status: Disabled
+2026-02-03 15:34:45.873 [WARN] [SYSTEM] ⚠️ ⚠️ Auto-Close job is DISABLED in settings
+2026-02-03 15:34:45.877 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-03 15:34:45.879 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2026-02-03 15:34:45.878 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 15 minutes (*/15 * * * *)
+2026-02-03 15:34:45.879 [INFO] [SYSTEM] ℹ️ ⚠️ Warning Threshold: 90%
+2026-02-03 15:34:45.879 [INFO] [SYSTEM] ℹ️ 🕐 Business Hours: 09:00 - 17:00
+2026-02-03 15:34:45.881 [SUCCESS] [OPERATION] ✅ ✅ SLA Breach Detection Cron Job started successfully
+2026-02-03 15:34:45.880 [INFO] [SYSTEM] ℹ️ 📅 Working Days: mon, tue, wed, thu, fri, sat
+2026-02-03 15:34:45.886 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-03 15:34:45.887 [INFO] [SYSTEM] ℹ️ Backup job configuration loaded | {
+2026-02-03 15:34:45.889 [SUCCESS] [OPERATION] ✅ ✅ Backup job started successfully | {
+2026-02-03 15:34:45.890 [INFO] [SYSTEM] ℹ️ Next backup scheduled for | {
+2026-02-03 15:34:45.896 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
+2026-02-03 15:34:45.896 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2026-02-03 15:34:45.898 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2026-02-03 15:34:45.990 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 15:34:45.992 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 15:34:45.990 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 15:34:45.993 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 15:34:45.988 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 15:34:45.996 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 15:34:45.998 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 15:34:46.001 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 15:34:46.002 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 15:34:46.004 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 15:34:46.005 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 15:34:46.009 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 15:34:49.252 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 15:34:49.254 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 15:34:49.252 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 15:34:49.251 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 15:34:49.253 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 15:34:49.257 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 15:34:49.259 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 15:34:49.271 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 15:34:49.273 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 15:34:49.275 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 15:34:49.276 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 15:34:49.281 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 15:34:50.864 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-03 15:34:50.864 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-03 15:34:50.868 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-03 15:34:50.869 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-03 15:34:52.084 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 15:34:52.085 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 15:34:52.086 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 15:34:52.085 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 15:34:52.086 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 15:34:52.089 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 15:34:52.097 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 15:34:52.108 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 15:34:52.110 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 15:34:52.114 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 15:34:52.113 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 15:34:52.115 [TRY] [OPERATION] 🔄 User attempting to logout | {
+2026-02-03 15:34:52.119 [SUCCESS] [OPERATION] ✅ Session invalidated
+2026-02-03 15:34:52.126 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 15:34:52.125 [SUCCESS] [OPERATION] ✅ User logged out successfully | {
