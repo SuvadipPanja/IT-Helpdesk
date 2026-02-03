@@ -14697,3 +14697,18 @@
 2026-02-03 15:27:56.051 [SUCCESS] [OPERATION] ✅ Session invalidated
 2026-02-03 15:27:56.059 [SUCCESS] [OPERATION] ✅ User logged out successfully | {
 2026-02-03 15:27:56.060 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-03 15:28:03.728 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 15:28:03.728 [DEBUG] 🐛 Request Body | {
+2026-02-03 15:28:03.729 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-02-03 15:28:03.729 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-02-03 15:28:03.732 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-02-03 15:28:03.733 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 15:28:03.733 [SUCCESS] [OPERATION] ✅ User account is active
+2026-02-03 15:28:03.735 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-02-03 15:28:03.736 [TRY] [OPERATION] 🔄 Verifying password
+2026-02-03 15:28:03.736 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-02-03 15:28:03.796 [WARN] [SYSTEM] ⚠️ Password comparison completed - No match
+2026-02-03 15:28:03.807 [INFO] [SYSTEM] ℹ️ Failed login attempt recorded | {
+2026-02-03 15:28:03.807 [WARN] [SYSTEM] ⚠️ Login failed - Invalid password | {
+2026-02-03 15:28:03.811 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
+2026-02-03 15:28:03.812 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
