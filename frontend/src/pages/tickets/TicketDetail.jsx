@@ -1,12 +1,3 @@
-// ============================================
-// TICKET DETAIL PAGE - ENHANCED UI/UX
-// Industry-standard design with professional layout
-// ============================================
-// Developer: Suvadip Panja
-// Date: February 03, 2026
-// Description: Complete redesign with modern UI patterns
-// ============================================
-
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -37,16 +28,7 @@ import {
   RefreshCw,
   UserCheck,
   TrendingUp,
-  XCircle,
-  Mail,
-  Phone,
-  Building,
-  FolderOpen,
-  Layers,
-  Hash,
-  Zap,
-  Target,
-  Info
+  XCircle
 } from 'lucide-react';
 import api from '../../services/api';
 import '../../styles/TicketDetail.css';
@@ -79,7 +61,7 @@ const TicketDetail = () => {
   const [assignLoading, setAssignLoading] = useState(false);
 
   // UI state
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('comments');
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   // Fetch engineers on mount
@@ -130,97 +112,334 @@ const TicketDetail = () => {
       }
     } catch (err) {
       console.error('Error fetching ticket:', err);
-      setError('Failed to load ticket details');
+      setError(err.response?.data?.message || 'Failed to load ticket details');
     } finally {
       setLoading(false);
     }
   };
 
+  // Add comment
+  const handleAddComment = async () => {
+    if (!newComment.trim()) {
+      return;
+    }
+
+    try {
+      setCommentLoading(true);
+
+      const response = await api.post(`/tickets/${id}/comments`, {
+        comment_text: newComment,
+        is_internal: isInternalNote
+      });
+
+      if (response.data.success) {
+        // Clear form
+        setNewComment('');
+        setIsInternalNote(false);
+
+        // Refresh ticket to get updated data
+        fetchTicketDetails();
+      }
+    } catch (err) {
+      console.error('Error adding comment:', err);
+      alert(err.response?.data?.message || 'Failed to add comment');
+    } finally {
+      setCommentLoading(false);
+    }
+  };
+
+  // Assign engineer
+  const handleAssignEngineer = async () => {
+    if (!selectedEngineer) {
+      alert('Please select an engineer to assign');
+      return;
+    }
+
+    try {
+      setAssignLoading(true);
+
+      const response = await api.patch(`/tickets/${id}/assign`, {
+        assigned_to: parseInt(selectedEngineer)
+      });
+
+      if (response.data.success) {
+        alert('Ticket assigned successfully!');
+        // Refresh ticket details
+        fetchTicketDetails();
+      }
+    } catch (err) {
+      console.error('Error assigning ticket:', err);
+      alert(err.response?.data?.message || 'Failed to assign ticket');
+    } finally {
+      setAssignLoading(false);
+    }
+  };
+
+  // Delete ticket
+  const handleDeleteTicket = async () => {
+    try {
+      const response = await api.delete(`/tickets/${id}`);
+      
+      if (response.data.success) {
+        alert('Ticket deleted successfully!');
+        navigate('/tickets');
+      }
+    } catch (err) {
+      console.error('Error deleting ticket:', err);
+      alert(err.response?.data?.message || 'Failed to delete ticket');
+      setShowDeleteConfirm(false);
+    }
+  };
+
+  // Navigate to edit - ⭐ ORIGINAL ROUTE PRESERVED
+  const handleEditTicket = () => {
+    navigate(`/tickets/edit/${id}`);
+  };
+
   // Format date
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
-    const date = new Date(dateString);
-    return date.toLocaleString('en-IN', {
-      timeZone: 'Asia/Kolkata',
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    });
+    try {
+      const date = new Date(dateString);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      
+      let hours = date.getHours();
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const hoursStr = String(hours).padStart(2, '0');
+      
+      return `${day}/${month}/${year} ${hoursStr}:${minutes} ${ampm}`;
+    } catch {
+      return 'Invalid Date';
+    }
   };
 
-  // Format relative time
-  const formatRelativeTime = (dateString) => {
-    if (!dateString) return 'N/A';
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffMs = now - date;
-    const diffMins = Math.floor(diffMs / 60000);
-    const diffHours = Math.floor(diffMs / 3600000);
-    const diffDays = Math.floor(diffMs / 86400000);
-
-    if (diffMins < 1) return 'Just now';
-    if (diffMins < 60) return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
-    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-    if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
-    return formatDate(dateString);
-  };
-
-  // Calculate SLA progress
-  const calculateSLAProgress = () => {
-    if (!ticket || !ticket.due_date) return null;
-    
-    const created = new Date(ticket.created_at);
-    const due = new Date(ticket.due_date);
-    const now = new Date();
-    
-    const total = due - created;
-    const elapsed = now - created;
-    const remaining = due - now;
-    
-    const percentage = Math.min(Math.max((elapsed / total) * 100, 0), 100);
-    const hoursRemaining = Math.floor(remaining / (1000 * 60 * 60));
-    const minutesRemaining = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-    
-    return {
-      percentage: percentage.toFixed(1),
-      isOverdue: remaining < 0,
-      hoursRemaining: Math.abs(hoursRemaining),
-      minutesRemaining: Math.abs(minutesRemaining),
-      status: remaining < 0 ? 'overdue' : remaining < 3600000 ? 'critical' : remaining < 86400000 ? 'warning' : 'on-track'
-    };
-  };
-
-  // Get priority badge class
-  const getPriorityClass = (priorityCode) => {
-    const classes = {
-      'CRITICAL': 'priority-critical',
-      'HIGH': 'priority-high',
-      'MEDIUM': 'priority-medium',
-      'LOW': 'priority-low'
-    };
-    return classes[priorityCode] || 'priority-medium';
-  };
-
-  // Get status badge class
-  const getStatusClass = (statusCode) => {
-    const classes = {
+  // Get status color class
+  const getStatusColor = (status) => {
+    const colors = {
       'OPEN': 'status-open',
-      'IN_PROGRESS': 'status-in-progress',
-      'ON_HOLD': 'status-on-hold',
+      'IN_PROGRESS': 'status-progress',
+      'PENDING': 'status-pending',
+      'ON_HOLD': 'status-hold',
       'RESOLVED': 'status-resolved',
       'CLOSED': 'status-closed',
       'CANCELLED': 'status-cancelled'
     };
-    return classes[statusCode] || 'status-open';
+    return colors[status] || 'status-default';
   };
+
+  // Get priority color class
+  const getPriorityColor = (priority) => {
+    const colors = {
+      'CRITICAL': 'priority-critical',
+      'HIGH': 'priority-high',
+      'MEDIUM': 'priority-medium',
+      'LOW': 'priority-low',
+      'PLANNING': 'priority-planning'
+    };
+    return colors[priority] || 'priority-default';
+  };
+
+  // Get status icon
+  const getStatusIcon = (status) => {
+    const icons = {
+      'OPEN': AlertCircle,
+      'IN_PROGRESS': Clock,
+      'PENDING': Clock,
+      'ON_HOLD': Clock,
+      'RESOLVED': CheckCircle,
+      'CLOSED': CheckCircle,
+      'CANCELLED': X
+    };
+    const Icon = icons[status] || AlertCircle;
+    return <Icon size={20} />;
+  };
+
+  // ============================================
+  // ⭐ PHASE 3 FIX: SLA HELPER FUNCTIONS
+  // ============================================
+  
+  // Calculate SLA percentage and status
+  const calculateSlaStatus = (ticket) => {
+    if (!ticket.due_date || !ticket.created_at) {
+      return { 
+        status: 'none', 
+        percentage: 0, 
+        color: '#94a3b8', 
+        label: 'No SLA',
+        isClosed: false 
+      };
+    }
+
+    const now = new Date();
+    const created = new Date(ticket.created_at);
+    const due = new Date(ticket.due_date);
+    const resolved = ticket.resolved_at ? new Date(ticket.resolved_at) : null;
+    
+    // Check if ticket is closed
+    const isClosed = ticket.is_final_status || 
+                     ticket.status_code === 'RESOLVED' || 
+                     ticket.status_code === 'CLOSED';
+    
+    // For closed tickets, show final status
+    if (isClosed) {
+      const resolvedAt = resolved || now;
+      const wasMet = resolvedAt <= due;
+      
+      if (wasMet) {
+        return {
+          status: 'met',
+          percentage: 100,
+          color: '#10b981',
+          label: 'SLA Met',
+          isClosed: true,
+          resolvedAt: resolvedAt,
+          dueDate: due
+        };
+      } else {
+        return {
+          status: 'breached',
+          percentage: 100,
+          color: '#ef4444',
+          label: 'SLA Breached',
+          isClosed: true,
+          resolvedAt: resolvedAt,
+          dueDate: due
+        };
+      }
+    }
+    
+    // For open tickets, calculate progress
+    const totalTime = due - created;
+    const elapsed = now - created;
+    const percentage = Math.min((elapsed / totalTime) * 100, 100);
+
+    // Check if breached
+    if (now > due) {
+      return { 
+        status: 'breached', 
+        percentage: 100, 
+        color: '#ef4444', 
+        label: 'Breached',
+        isClosed: false 
+      };
+    }
+
+    // Check if in warning zone
+    const warningThreshold = 80;
+    if (percentage >= warningThreshold) {
+      return { 
+        status: 'warning', 
+        percentage, 
+        color: '#f59e0b', 
+        label: 'At Risk',
+        isClosed: false 
+      };
+    }
+
+    // All good
+    return { 
+      status: 'ok', 
+      percentage, 
+      color: '#10b981', 
+      label: 'On Track',
+        isClosed: false 
+    };
+  };
+
+  // Format time remaining
+  const formatTimeRemaining = (ticket) => {
+    if (!ticket.due_date) return 'No SLA set';
+
+    const now = new Date();
+    const due = new Date(ticket.due_date);
+    const resolved = ticket.resolved_at ? new Date(ticket.resolved_at) : null;
+    
+    // Check if ticket is closed
+    const isClosed = ticket.is_final_status || 
+                     ticket.status_code === 'RESOLVED' || 
+                     ticket.status_code === 'CLOSED';
+    
+    if (isClosed) {
+      // Show final status for closed tickets
+      const resolvedAt = resolved || now;
+      const wasMet = resolvedAt <= due;
+      
+      if (wasMet) {
+        const diff = due - resolvedAt;
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const days = Math.floor(hours / 24);
+        
+        if (days > 0) {
+          return `Resolved ${days}d ${hours % 24}h before deadline`;
+        } else if (hours > 0) {
+          return `Resolved ${hours}h before deadline`;
+        } else {
+          return `Resolved on time`;
+        }
+      } else {
+        const diff = resolvedAt - due;
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const days = Math.floor(hours / 24);
+        
+        if (days > 0) {
+          return `Resolved ${days}d ${hours % 24}h after deadline`;
+        } else if (hours > 0) {
+          return `Resolved ${hours}h after deadline`;
+        } else {
+          return `Resolved after deadline`;
+        }
+      }
+    }
+
+    // For open tickets, show remaining time
+    const diff = due - now;
+
+    if (diff < 0) {
+      const hours = Math.abs(Math.floor(diff / (1000 * 60 * 60)));
+      const days = Math.floor(hours / 24);
+      if (days > 0) {
+        return `Overdue by ${days}d ${hours % 24}h`;
+      }
+      return `Overdue by ${hours}h`;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    if (days > 0) return `${days}d ${hours}h remaining`;
+    if (hours > 0) return `${hours}h ${mins}m remaining`;
+    return `${mins}m remaining`;
+  };
+
+  // Format total SLA time
+  const formatTotalSlaTime = (ticket) => {
+    if (!ticket.due_date || !ticket.created_at) return 'N/A';
+
+    const created = new Date(ticket.created_at);
+    const due = new Date(ticket.due_date);
+    const diff = due - created;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+    if (days > 0) return `${days}d ${hours}h`;
+    return `${hours}h`;
+  };
+
+  // ============================================
+  // END SLA HELPER FUNCTIONS
+  // ============================================
 
   // Get file icon
   const getFileIcon = (fileName) => {
     const ext = fileName.split('.').pop().toLowerCase();
-    if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
+    if (['jpg', 'jpeg', 'png', 'gif', 'svg'].includes(ext)) {
       return <ImageIcon size={20} />;
     }
     if (['pdf'].includes(ext)) {
@@ -232,31 +451,42 @@ const TicketDetail = () => {
   // Format file size
   const formatFileSize = (sizeInKB) => {
     if (sizeInKB < 1024) {
-      return `${sizeInKB} KB`;
+      return `${sizeInKB.toFixed(1)} KB`;
     }
     return `${(sizeInKB / 1024).toFixed(1)} MB`;
   };
 
   // Download attachment with authentication
+  // Developer: Suvadip Panja
+  // Date: February 03, 2026
+  // Uses axios to fetch file with auth headers, then triggers browser download
   const handleDownloadAttachment = async (attachmentId, fileName) => {
     try {
       console.log('📥 Downloading attachment:', { attachmentId, fileName });
 
+      // Fetch file as blob with authentication
       const response = await api.get(
         `/tickets/${id}/attachments/${attachmentId}/download`,
         {
-          responseType: 'blob',
+          responseType: 'blob', // Important: Get response as blob
         }
       );
 
       console.log('✅ File fetched successfully');
 
+      // Create a temporary URL for the blob
       const url = window.URL.createObjectURL(new Blob([response.data]));
+      
+      // Create a temporary <a> element to trigger download
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', fileName);
+      link.setAttribute('download', fileName); // Set the file name
+      
+      // Append to body, click, and remove
       document.body.appendChild(link);
       link.click();
+      
+      // Cleanup
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
 
@@ -276,104 +506,35 @@ const TicketDetail = () => {
     return false;
   };
 
-  // Handle edit
-  const handleEdit = () => {
-    navigate(`/tickets/${id}/edit`);
+  // Check if user can delete
+  const canDelete = () => {
+    return user?.permissions?.can_delete_tickets;
   };
 
-  // Handle delete
-  const handleDelete = async () => {
-    try {
-      const response = await api.delete(`/tickets/${id}`);
-      if (response.data.success) {
-        navigate('/tickets');
-      }
-    } catch (err) {
-      console.error('Error deleting ticket:', err);
-      alert('Failed to delete ticket');
-    }
+  // Check if user can assign
+  const canAssign = () => {
+    return user?.permissions?.can_assign_tickets;
   };
 
-  // Handle assign ticket
-  const handleAssignTicket = async () => {
-    if (!selectedEngineer) {
-      alert('Please select an engineer');
-      return;
-    }
-
-    try {
-      setAssignLoading(true);
-      const response = await api.patch(`/tickets/${id}/assign`, {
-        assigned_to: parseInt(selectedEngineer)
-      });
-
-      if (response.data.success) {
-        // Refresh ticket details
-        fetchTicketDetails();
-        alert('Ticket assigned successfully');
-      }
-    } catch (err) {
-      console.error('Error assigning ticket:', err);
-      alert('Failed to assign ticket');
-    } finally {
-      setAssignLoading(false);
-    }
-  };
-
-  // Handle add comment
-  const handleAddComment = async (e) => {
-    e.preventDefault();
-    
-    if (!newComment.trim()) {
-      return;
-    }
-
-    try {
-      setCommentLoading(true);
-      const response = await api.post(`/tickets/${id}/comments`, {
-        comment_text: newComment,
-        is_internal: isInternalNote
-      });
-
-      if (response.data.success) {
-        setNewComment('');
-        setIsInternalNote(false);
-        fetchTicketDetails(); // Refresh to get updated comments
-      }
-    } catch (err) {
-      console.error('Error adding comment:', err);
-      alert('Failed to add comment');
-    } finally {
-      setCommentLoading(false);
-    }
-  };
-
-  // Handle refresh
-  const handleRefresh = () => {
-    fetchTicketDetails();
-  };
-
-  // Loading state
   if (loading) {
     return (
-      <div className="ticket-detail-container">
-        <div className="loading-state">
-          <RefreshCw className="spinner" size={40} />
+      <div className="ticket-detail-page">
+        <div className="loading-container">
+          <div className="spinner"></div>
           <p>Loading ticket details...</p>
         </div>
       </div>
     );
   }
 
-  // Error state
   if (error || !ticket) {
     return (
-      <div className="ticket-detail-container">
-        <div className="error-state">
-          <XCircle size={48} />
-          <h2>Error Loading Ticket</h2>
-          <p>{error || 'Ticket not found'}</p>
-          <button onClick={() => navigate('/tickets')} className="btn-primary">
+      <div className="ticket-detail-page">
+        <div className="error-container">
+          <AlertCircle size={64} className="error-icon" />
+          <h2>Ticket Not Found</h2>
+          <p>{error || 'The ticket you are looking for does not exist or you do not have permission to view it.'}</p>
+          <button className="btn-primary" onClick={() => navigate('/tickets')}>
             <ArrowLeft size={18} />
             Back to Tickets
           </button>
@@ -382,282 +543,387 @@ const TicketDetail = () => {
     );
   }
 
-  const slaProgress = calculateSLAProgress();
+  // Calculate SLA for display
+  const slaData = calculateSlaStatus(ticket);
 
   return (
-    <div className="ticket-detail-enhanced">
-      {/* Header Section */}
-      <div className="ticket-header">
-        <div className="header-top">
-          <button onClick={() => navigate('/tickets')} className="btn-back">
+    <div className="ticket-detail-page">
+      {/* Header */}
+      <div className="ticket-detail-header">
+        <div className="header-left">
+          <button className="btn-back" onClick={() => navigate('/tickets')}>
             <ArrowLeft size={20} />
             <span>Back to Tickets</span>
           </button>
-
-          <div className="header-actions">
-            <button onClick={handleRefresh} className="btn-icon" title="Refresh">
-              <RefreshCw size={20} />
+          <div className="ticket-number-badge">
+            <span className="ticket-hash">#</span>
+            <span className="ticket-number">{ticket.ticket_number}</span>
+          </div>
+          {ticket.is_escalated && (
+            <span className="escalated-badge-large">
+              <AlertTriangle size={16} />
+              <span>Escalated</span>
+            </span>
+          )}
+        </div>
+        <div className="header-right">
+          <button className="btn-icon-action" onClick={fetchTicketDetails} title="Refresh">
+            <RefreshCw size={18} />
+          </button>
+          {canEdit() && (
+            <button className="btn-secondary" onClick={handleEditTicket}>
+              <Edit size={18} />
+              <span>Edit</span>
             </button>
-            
-            {canEdit() && (
-              <>
-                <button onClick={handleEdit} className="btn-icon" title="Edit">
-                  <Edit size={20} />
-                </button>
-                
-                {user.permissions?.can_delete_tickets && (
-                  <button 
-                    onClick={() => setShowDeleteConfirm(true)} 
-                    className="btn-icon btn-danger" 
-                    title="Delete"
-                  >
-                    <Trash2 size={20} />
-                  </button>
-                )}
-              </>
-            )}
-          </div>
+          )}
+          {canDelete() && (
+            <button className="btn-danger" onClick={() => setShowDeleteConfirm(true)}>
+              <Trash2 size={18} />
+              <span>Delete</span>
+            </button>
+          )}
         </div>
-
-        <div className="header-main">
-          <div className="ticket-title-section">
-            <div className="ticket-number">
-              <Hash size={24} />
-              <span>{ticket.ticket_number}</span>
-            </div>
-            <h1 className="ticket-title">{ticket.subject}</h1>
-            <div className="ticket-meta">
-              <span className="meta-item">
-                <Calendar size={16} />
-                Created {formatRelativeTime(ticket.created_at)}
-              </span>
-              <span className="meta-item">
-                <User size={16} />
-                by {ticket.requester_name}
-              </span>
-            </div>
-          </div>
-
-          <div className="ticket-badges">
-            <span className={`badge-status ${getStatusClass(ticket.status_code)}`}>
-              {ticket.status_name}
-            </span>
-            <span className={`badge-priority ${getPriorityClass(ticket.priority_code)}`}>
-              {ticket.priority_name}
-            </span>
-            {ticket.is_escalated && (
-              <span className="badge-escalated">
-                <AlertTriangle size={16} />
-                Escalated
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* SLA Progress Bar */}
-        {slaProgress && (
-          <div className="sla-progress-container">
-            <div className="sla-progress-header">
-              <span className="sla-label">
-                <Clock size={16} />
-                SLA Timeline
-              </span>
-              <span className={`sla-status sla-${slaProgress.status}`}>
-                {slaProgress.isOverdue ? (
-                  <>Overdue by {slaProgress.hoursRemaining}h {slaProgress.minutesRemaining}m</>
-                ) : (
-                  <>{slaProgress.hoursRemaining}h {slaProgress.minutesRemaining}m remaining</>
-                )}
-              </span>
-            </div>
-            <div className="sla-progress-bar">
-              <div 
-                className={`sla-progress-fill sla-${slaProgress.status}`}
-                style={{ width: `${slaProgress.percentage}%` }}
-              />
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Main Content */}
-      <div className="ticket-content">
-        {/* Left Column - Main Info */}
-        <div className="content-main">
-          {/* Tab Navigation */}
-          <div className="tab-nav">
-            <button 
-              className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
-              onClick={() => setActiveTab('overview')}
+      <div className="ticket-detail-content">
+        {/* Left Column - Ticket Info */}
+        <div className="ticket-info-section">
+          {/* Status, Priority, and SLA Badges */}
+          <div className="ticket-badges">
+            <div className={`status-badge-large ${getStatusColor(ticket.status_code)}`}>
+              {getStatusIcon(ticket.status_code)}
+              <span>{ticket.status_name}</span>
+            </div>
+            <div className={`priority-badge-large ${getPriorityColor(ticket.priority_code)}`}>
+              {ticket.priority_code === 'CRITICAL' || ticket.priority_code === 'HIGH' ? (
+                <AlertTriangle size={18} />
+              ) : null}
+              <span>{ticket.priority_name}</span>
+            </div>
+            {/* SLA Badge */}
+            <div 
+              className={`sla-badge-large sla-${slaData.status}`}
+              style={{ borderColor: slaData.color, color: slaData.color }}
             >
-              <Info size={18} />
-              Overview
-            </button>
-            <button 
+              {slaData.status === 'breached' && <XCircle size={18} />}
+              {slaData.status === 'met' && <CheckCircle size={18} />}
+              {slaData.status === 'warning' && <AlertTriangle size={18} />}
+              {slaData.status === 'ok' && <CheckCircle size={18} />}
+              {slaData.status === 'none' && <Clock size={18} />}
+              <span>{slaData.label}</span>
+            </div>
+          </div>
+
+          {/* ⭐ PHASE 3: CONDITIONAL SLA CARD */}
+          {slaData.status !== 'none' && (
+            <div className="detail-card sla-card">
+              <h2 className="detail-card-title">
+                <TrendingUp size={18} />
+                SLA Information
+              </h2>
+              
+              {slaData.isClosed ? (
+                // CLOSED TICKET: Show final status
+                <div className="sla-closed-status">
+                  <div 
+                    className="sla-final-badge" 
+                    style={{ 
+                      backgroundColor: slaData.status === 'met' ? '#f0fdf4' : '#fef2f2',
+                      borderColor: slaData.color,
+                      color: slaData.color
+                    }}
+                  >
+                    {slaData.status === 'met' ? (
+                      <CheckCircle size={24} />
+                    ) : (
+                      <XCircle size={24} />
+                    )}
+                    <div className="sla-final-content">
+                      <span className="sla-final-label">{slaData.label}</span>
+                      <span className="sla-final-description">
+                        {formatTimeRemaining(ticket)}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="sla-details-grid">
+                    <div className="sla-detail-item">
+                      <label>Total SLA Time</label>
+                      <p>{formatTotalSlaTime(ticket)}</p>
+                    </div>
+                    <div className="sla-detail-item">
+                      <label>Started At</label>
+                      <p>{formatDate(ticket.created_at)}</p>
+                    </div>
+                    <div className="sla-detail-item">
+                      <label>Due By</label>
+                      <p>{formatDate(ticket.due_date)}</p>
+                    </div>
+                    <div className="sla-detail-item">
+                      <label>Resolved At</label>
+                      <p className={slaData.status === 'breached' ? 'text-danger' : ''}>
+                        {formatDate(ticket.resolved_at || ticket.updated_at)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                // OPEN TICKET: Show progress bar
+                <>
+                  <div className="sla-progress-section">
+                    <div className="sla-progress-header">
+                      <span className="sla-progress-label">Time Elapsed</span>
+                      <span className="sla-progress-percentage" style={{ color: slaData.color }}>
+                        {Math.round(slaData.percentage)}%
+                      </span>
+                    </div>
+                    <div className="sla-progress-bar-large">
+                      <div 
+                        className="sla-progress-fill-large"
+                        style={{ 
+                          width: `${Math.min(slaData.percentage, 100)}%`,
+                          backgroundColor: slaData.color 
+                        }}
+                      />
+                    </div>
+                    <div className="sla-time-remaining-large" style={{ color: slaData.color }}>
+                      {formatTimeRemaining(ticket)}
+                    </div>
+                  </div>
+
+                  <div className="sla-details-grid">
+                    <div className="sla-detail-item">
+                      <label>Total SLA Time</label>
+                      <p>{formatTotalSlaTime(ticket)}</p>
+                    </div>
+                    <div className="sla-detail-item">
+                      <label>Started At</label>
+                      <p>{formatDate(ticket.created_at)}</p>
+                    </div>
+                    <div className="sla-detail-item">
+                      <label>Due By</label>
+                      <p className={slaData.status === 'breached' ? 'text-danger' : ''}>
+                        {formatDate(ticket.due_date)}
+                      </p>
+                    </div>
+                    <div className="sla-detail-item">
+                      <label>Time Remaining</label>
+                      <p style={{ color: slaData.color, fontWeight: 600 }}>
+                        {formatTimeRemaining(ticket)}
+                      </p>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+
+          {/* Ticket Details Card */}
+          <div className="detail-card">
+            <h2 className="detail-card-title">Ticket Information</h2>
+            
+            <div className="detail-item">
+              <label>Subject</label>
+              <p className="ticket-subject">
+                {ticket.subject || ticket.title || 'No Subject'}
+              </p>
+            </div>
+
+            <div className="detail-item">
+              <label>Description</label>
+              <p className="ticket-description">
+                {ticket.description || 'No description provided'}
+              </p>
+            </div>
+
+            <div className="detail-grid">
+              <div className="detail-item">
+                <label>
+                  <Tag size={14} />
+                  Category
+                </label>
+                <p>{ticket.category_name || 'N/A'}</p>
+              </div>
+
+              <div className="detail-item">
+                <label>
+                  <User size={14} />
+                  Requester
+                </label>
+                <p>{ticket.requester_name || 'Unknown'}</p>
+              </div>
+
+              <div className="detail-item">
+                <label>
+                  <UserCheck size={14} />
+                  Assigned To
+                </label>
+                <p>{ticket.assigned_to_name || 'Unassigned'}</p>
+              </div>
+
+              <div className="detail-item">
+                <label>
+                  <Calendar size={14} />
+                  Created
+                </label>
+                <p>{formatDate(ticket.created_at)}</p>
+              </div>
+
+              {ticket.resolved_at && (
+                <div className="detail-item">
+                  <label>
+                    <CheckCircle size={14} />
+                    Resolved At
+                  </label>
+                  <p>{formatDate(ticket.resolved_at)}</p>
+                </div>
+              )}
+
+              {ticket.resolution_notes && (
+                <div className="detail-item full-width">
+                  <label>Resolution Notes</label>
+                  <p className="resolution-notes">{ticket.resolution_notes}</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Assignment Card */}
+          {canAssign() && (
+            <div className="detail-card">
+              <h2 className="detail-card-title">
+                <UserCheck size={18} />
+                Assign Engineer
+              </h2>
+              <div className="assign-form">
+                <select
+                  className="assign-select"
+                  value={selectedEngineer}
+                  onChange={(e) => setSelectedEngineer(e.target.value)}
+                >
+                  <option value="">Select Engineer...</option>
+                  {engineers.map((engineer) => (
+                    <option key={engineer.user_id} value={engineer.user_id}>
+                      {engineer.full_name || engineer.username}
+                      {engineer.user_id === ticket.assigned_to_id && ' (Current)'}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  className="btn-assign"
+                  onClick={handleAssignEngineer}
+                  disabled={assignLoading || !selectedEngineer}
+                >
+                  <UserCheck size={18} />
+                  <span>{assignLoading ? 'Assigning...' : 'Assign'}</span>
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Right Column - Tabs */}
+        <div className="ticket-tabs-section">
+          {/* Tab Navigation */}
+          <div className="tabs-nav">
+            <button
               className={`tab-btn ${activeTab === 'comments' ? 'active' : ''}`}
               onClick={() => setActiveTab('comments')}
             >
               <MessageSquare size={18} />
-              Comments
+              <span>Comments</span>
               <span className="tab-badge">{comments.length}</span>
             </button>
-            <button 
+            <button
               className={`tab-btn ${activeTab === 'activity' ? 'active' : ''}`}
               onClick={() => setActiveTab('activity')}
             >
               <Activity size={18} />
-              Activity
+              <span>Activity</span>
               <span className="tab-badge">{activities.length}</span>
             </button>
-            <button 
+            <button
               className={`tab-btn ${activeTab === 'attachments' ? 'active' : ''}`}
               onClick={() => setActiveTab('attachments')}
             >
               <Paperclip size={18} />
-              Attachments
+              <span>Attachments</span>
               <span className="tab-badge">{attachments.length}</span>
             </button>
           </div>
 
           {/* Tab Content */}
-          <div className="tab-content">
-            {/* Overview Tab */}
-            {activeTab === 'overview' && (
-              <div className="overview-tab">
-                <div className="info-card">
-                  <h3 className="card-title">
-                    <FileText size={20} />
-                    Description
-                  </h3>
-                  <div className="card-content">
-                    <p className="description-text">{ticket.description}</p>
-                  </div>
-                </div>
-
-                {ticket.resolution_notes && (
-                  <div className="info-card">
-                    <h3 className="card-title">
-                      <CheckCircle size={20} />
-                      Resolution
-                    </h3>
-                    <div className="card-content">
-                      <p className="resolution-text">{ticket.resolution_notes}</p>
-                      {ticket.resolved_at && (
-                        <div className="resolution-meta">
-                          <Clock size={16} />
-                          Resolved on {formatDate(ticket.resolved_at)}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {attachments.length > 0 && (
-                  <div className="info-card">
-                    <h3 className="card-title">
-                      <Paperclip size={20} />
-                      Quick Attachments
-                    </h3>
-                    <div className="attachments-quick">
-                      {attachments.slice(0, 3).map((attachment) => (
-                        <div key={attachment.attachment_id} className="attachment-quick-item">
-                          <div className="attachment-icon">
-                            {getFileIcon(attachment.file_name)}
-                          </div>
-                          <div className="attachment-info">
-                            <span className="attachment-name">{attachment.file_name}</span>
-                            <span className="attachment-size">{formatFileSize(attachment.file_size_kb)}</span>
-                          </div>
-                          <button 
-                            onClick={() => handleDownloadAttachment(attachment.attachment_id, attachment.file_name)}
-                            className="btn-download-small"
-                          >
-                            <Download size={16} />
-                          </button>
-                        </div>
-                      ))}
-                      {attachments.length > 3 && (
-                        <button 
-                          onClick={() => setActiveTab('attachments')}
-                          className="view-all-link"
-                        >
-                          View all {attachments.length} attachments →
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
+          <div className="tabs-content">
             {/* Comments Tab */}
             {activeTab === 'comments' && (
-              <div className="comments-tab">
+              <div className="comments-container">
                 {/* Add Comment Form */}
-                <form onSubmit={handleAddComment} className="comment-form">
-                  <div className="form-header">
-                    <h3>Add Comment</h3>
-                    <label className="internal-note-toggle">
+                <div className="add-comment-form">
+                  <div className="comment-input-wrapper">
+                    <textarea
+                      value={newComment}
+                      onChange={(e) => setNewComment(e.target.value)}
+                      placeholder="Write a comment..."
+                      className="comment-textarea"
+                      rows={4}
+                    />
+                  </div>
+                  <div className="comment-actions">
+                    <label className="internal-note-checkbox">
                       <input
                         type="checkbox"
                         checked={isInternalNote}
                         onChange={(e) => setIsInternalNote(e.target.checked)}
                       />
-                      <span>Internal Note</span>
-                      {isInternalNote && <Eye size={16} />}
-                      {!isInternalNote && <EyeOff size={16} />}
+                      {isInternalNote ? <EyeOff size={16} /> : <Eye size={16} />}
+                      <span>Internal Note (Staff Only)</span>
                     </label>
-                  </div>
-                  <textarea
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="Type your comment here..."
-                    className="comment-textarea"
-                    rows="4"
-                  />
-                  <div className="form-actions">
-                    <button 
-                      type="submit" 
+                    <button
                       className="btn-primary"
+                      onClick={handleAddComment}
                       disabled={commentLoading || !newComment.trim()}
                     >
-                      {commentLoading ? (
-                        <RefreshCw className="spinner" size={18} />
-                      ) : (
-                        <Send size={18} />
-                      )}
-                      {commentLoading ? 'Posting...' : 'Post Comment'}
+                      <Send size={16} />
+                      <span>{commentLoading ? 'Posting...' : 'Post Comment'}</span>
                     </button>
                   </div>
-                </form>
+                </div>
 
                 {/* Comments List */}
                 <div className="comments-list">
                   {comments.length === 0 ? (
-                    <div className="empty-state">
-                      <MessageSquare size={48} />
+                    <div className="empty-state-small">
+                      <MessageSquare size={48} className="empty-icon" />
                       <p>No comments yet</p>
-                      <span>Be the first to comment on this ticket</span>
+                      <small>Be the first to comment on this ticket</small>
                     </div>
                   ) : (
                     comments.map((comment) => (
-                      <div key={comment.comment_id} className={`comment-item ${comment.is_internal ? 'internal' : ''}`}>
-                        <div className="comment-avatar">
-                          <User size={24} />
-                        </div>
-                        <div className="comment-content">
-                          <div className="comment-header">
-                            <span className="comment-author">{comment.commenter_name}</span>
-                            <span className="comment-role">{comment.commenter_role}</span>
-                            <span className="comment-time">{formatRelativeTime(comment.commented_at)}</span>
+                      <div
+                        key={comment.comment_id}
+                        className={`comment-item ${comment.is_internal ? 'internal' : ''}`}
+                      >
+                        <div className="comment-header">
+                          <div className="comment-author">
+                            <User size={16} />
+                            <strong>{comment.commenter_name || 'Unknown'}</strong>
+                            {comment.commenter_role && (
+                              <span className="comment-role">({comment.commenter_role})</span>
+                            )}
+                          </div>
+                          <div className="comment-meta">
                             {comment.is_internal && (
                               <span className="internal-badge">
-                                <Eye size={14} />
+                                <EyeOff size={12} />
                                 Internal
                               </span>
                             )}
+                            <span className="comment-time">{formatDate(comment.commented_at)}</span>
                           </div>
-                          <p className="comment-text">{comment.comment_text}</p>
+                        </div>
+                        <div className="comment-body">
+                          {comment.comment_text}
                         </div>
                       </div>
                     ))
@@ -668,279 +934,70 @@ const TicketDetail = () => {
 
             {/* Activity Tab */}
             {activeTab === 'activity' && (
-              <div className="activity-tab">
-                {activities.length === 0 ? (
-                  <div className="empty-state">
-                    <Activity size={48} />
-                    <p>No activity yet</p>
-                  </div>
-                ) : (
-                  <div className="activity-timeline">
-                    {activities.map((activity, index) => (
-                      <div key={activity.activity_id} className="timeline-item">
-                        <div className="timeline-marker"></div>
-                        <div className="timeline-content">
-                          <div className="activity-header">
-                            <span className="activity-type">{activity.activity_type}</span>
-                            <span className="activity-time">{formatRelativeTime(activity.performed_at)}</span>
-                          </div>
+              <div className="activity-container">
+                <div className="activity-list">
+                  {activities.length === 0 ? (
+                    <div className="empty-state-small">
+                      <Activity size={48} className="empty-icon" />
+                      <p>No activity yet</p>
+                      <small>Activity will appear here as changes are made</small>
+                    </div>
+                  ) : (
+                    activities.map((activity) => (
+                      <div key={activity.activity_id} className="activity-item">
+                        <div className="activity-icon">
+                          <Activity size={16} />
+                        </div>
+                        <div className="activity-content">
                           <p className="activity-description">{activity.description}</p>
-                          {activity.performed_by_name && (
-                            <span className="activity-user">
-                              by {activity.performed_by_name}
-                            </span>
-                          )}
+                          <span className="activity-meta">
+                            by {activity.performed_by_name || 'System'} • {formatDate(activity.performed_at)}
+                          </span>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                )}
+                    ))
+                  )}
+                </div>
               </div>
             )}
 
             {/* Attachments Tab */}
             {activeTab === 'attachments' && (
-              <div className="attachments-tab">
-                {attachments.length === 0 ? (
-                  <div className="empty-state">
-                    <Paperclip size={48} />
-                    <p>No attachments</p>
-                  </div>
-                ) : (
-                  <div className="attachments-grid">
-                    {attachments.map((attachment) => (
-                      <div key={attachment.attachment_id} className="attachment-card">
-                        <div className="attachment-preview">
+              <div className="attachments-container">
+                <div className="attachments-list">
+                  {attachments.length === 0 ? (
+                    <div className="empty-state-small">
+                      <Paperclip size={48} className="empty-icon" />
+                      <p>No attachments</p>
+                      <small>Files attached to this ticket will appear here</small>
+                    </div>
+                  ) : (
+                    attachments.map((attachment) => (
+                      <div key={attachment.attachment_id} className="attachment-item">
+                        <div className="attachment-icon">
                           {getFileIcon(attachment.file_name)}
                         </div>
-                        <div className="attachment-details">
-                          <span className="attachment-name" title={attachment.file_name}>
-                            {attachment.file_name}
-                          </span>
-                          <div className="attachment-meta">
-                            <span>{formatFileSize(attachment.file_size_kb)}</span>
-                            <span>•</span>
-                            <span>{formatRelativeTime(attachment.uploaded_at)}</span>
-                          </div>
-                          <span className="attachment-uploader">
-                            by {attachment.uploaded_by_name || 'Unknown'}
+                        <div className="attachment-info">
+                          <span className="attachment-name">{attachment.file_name}</span>
+                          <span className="attachment-meta">
+                            {formatFileSize(attachment.file_size_kb)} • 
+                            {formatDate(attachment.uploaded_at)} •
+                            {attachment.uploaded_by_name || 'Unknown'}
                           </span>
                         </div>
                         <button
+                          className="btn-icon-action"
                           onClick={() => handleDownloadAttachment(attachment.attachment_id, attachment.file_name)}
-                          className="btn-download"
+                          title="Download"
                         >
                           <Download size={18} />
-                          Download
                         </button>
                       </div>
-                    ))}
-                  </div>
-                )}
+                    ))
+                  )}
+                </div>
               </div>
             )}
-          </div>
-        </div>
-
-        {/* Right Column - Sidebar */}
-        <div className="content-sidebar">
-          {/* Ticket Info Card */}
-          <div className="sidebar-card">
-            <h3 className="sidebar-title">Ticket Information</h3>
-            <div className="info-grid">
-              <div className="info-item">
-                <span className="info-label">
-                  <Tag size={16} />
-                  Status
-                </span>
-                <span className={`info-value badge-status ${getStatusClass(ticket.status_code)}`}>
-                  {ticket.status_name}
-                </span>
-              </div>
-
-              <div className="info-item">
-                <span className="info-label">
-                  <Zap size={16} />
-                  Priority
-                </span>
-                <span className={`info-value badge-priority ${getPriorityClass(ticket.priority_code)}`}>
-                  {ticket.priority_name}
-                </span>
-              </div>
-
-              <div className="info-item">
-                <span className="info-label">
-                  <Layers size={16} />
-                  Category
-                </span>
-                <span className="info-value">{ticket.category_name || 'N/A'}</span>
-              </div>
-
-              <div className="info-item">
-                <span className="info-label">
-                  <Building size={16} />
-                  Department
-                </span>
-                <span className="info-value">{ticket.department_name || 'N/A'}</span>
-              </div>
-
-              <div className="info-item">
-                <span className="info-label">
-                  <Calendar size={16} />
-                  Created
-                </span>
-                <span className="info-value">{formatDate(ticket.created_at)}</span>
-              </div>
-
-              <div className="info-item">
-                <span className="info-label">
-                  <Clock size={16} />
-                  Due Date
-                </span>
-                <span className={`info-value ${slaProgress?.isOverdue ? 'text-danger' : ''}`}>
-                  {ticket.due_date ? formatDate(ticket.due_date) : 'No SLA'}
-                </span>
-              </div>
-
-              {ticket.updated_at && (
-                <div className="info-item">
-                  <span className="info-label">
-                    <RefreshCw size={16} />
-                    Last Updated
-                  </span>
-                  <span className="info-value">{formatRelativeTime(ticket.updated_at)}</span>
-                </div>
-              )}
-
-              {ticket.resolved_at && (
-                <div className="info-item">
-                  <span className="info-label">
-                    <CheckCircle size={16} />
-                    Resolved
-                  </span>
-                  <span className="info-value">{formatDate(ticket.resolved_at)}</span>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* People Card */}
-          <div className="sidebar-card">
-            <h3 className="sidebar-title">People</h3>
-            <div className="people-list">
-              <div className="person-item">
-                <div className="person-avatar">
-                  <User size={20} />
-                </div>
-                <div className="person-info">
-                  <span className="person-label">Requester</span>
-                  <span className="person-name">{ticket.requester_name}</span>
-                  {ticket.requester_email && (
-                    <span className="person-contact">
-                      <Mail size={14} />
-                      {ticket.requester_email}
-                    </span>
-                  )}
-                  {ticket.requester_phone && (
-                    <span className="person-contact">
-                      <Phone size={14} />
-                      {ticket.requester_phone}
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {ticket.assigned_to_name && (
-                <div className="person-item">
-                  <div className="person-avatar assigned">
-                    <UserCheck size={20} />
-                  </div>
-                  <div className="person-info">
-                    <span className="person-label">Assigned To</span>
-                    <span className="person-name">{ticket.assigned_to_name}</span>
-                    {ticket.assigned_to_email && (
-                      <span className="person-contact">
-                        <Mail size={14} />
-                        {ticket.assigned_to_email}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {ticket.escalated_to_name && (
-                <div className="person-item">
-                  <div className="person-avatar escalated">
-                    <AlertTriangle size={20} />
-                  </div>
-                  <div className="person-info">
-                    <span className="person-label">Escalated To</span>
-                    <span className="person-name">{ticket.escalated_to_name}</span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Assignment Card */}
-          {user.permissions?.can_assign_tickets && (
-            <div className="sidebar-card">
-              <h3 className="sidebar-title">Assign Ticket</h3>
-              <div className="assignment-form">
-                <select
-                  value={selectedEngineer}
-                  onChange={(e) => setSelectedEngineer(e.target.value)}
-                  className="select-engineer"
-                >
-                  <option value="">Select Engineer</option>
-                  {engineers.map((engineer) => (
-                    <option key={engineer.user_id} value={engineer.user_id}>
-                      {engineer.full_name}
-                    </option>
-                  ))}
-                </select>
-                <button
-                  onClick={handleAssignTicket}
-                  disabled={assignLoading || !selectedEngineer}
-                  className="btn-assign"
-                >
-                  {assignLoading ? (
-                    <RefreshCw className="spinner" size={18} />
-                  ) : (
-                    <UserCheck size={18} />
-                  )}
-                  {assignLoading ? 'Assigning...' : 'Assign'}
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Quick Stats Card */}
-          <div className="sidebar-card stats-card">
-            <h3 className="sidebar-title">Quick Stats</h3>
-            <div className="stats-grid">
-              <div className="stat-item">
-                <MessageSquare size={20} />
-                <div className="stat-info">
-                  <span className="stat-value">{comments.length}</span>
-                  <span className="stat-label">Comments</span>
-                </div>
-              </div>
-              <div className="stat-item">
-                <Paperclip size={20} />
-                <div className="stat-info">
-                  <span className="stat-value">{attachments.length}</span>
-                  <span className="stat-label">Attachments</span>
-                </div>
-              </div>
-              <div className="stat-item">
-                <Activity size={20} />
-                <div className="stat-info">
-                  <span className="stat-value">{activities.length}</span>
-                  <span className="stat-label">Activities</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -949,24 +1006,23 @@ const TicketDetail = () => {
       {showDeleteConfirm && (
         <div className="modal-overlay" onClick={() => setShowDeleteConfirm(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <AlertTriangle size={24} />
-              <h3>Delete Ticket</h3>
-            </div>
+            <h3>Confirm Delete</h3>
             <p>Are you sure you want to delete this ticket? This action cannot be undone.</p>
             <div className="modal-actions">
               <button 
+                className="btn-secondary" 
                 onClick={() => setShowDeleteConfirm(false)}
-                className="btn-secondary"
               >
                 Cancel
               </button>
               <button 
-                onClick={handleDelete}
-                className="btn-danger"
+                className="btn-danger" 
+                onClick={() => {
+                  handleDeleteTicket();
+                  setShowDeleteConfirm(false);
+                }}
               >
-                <Trash2 size={18} />
-                Delete Ticket
+                Delete
               </button>
             </div>
           </div>
