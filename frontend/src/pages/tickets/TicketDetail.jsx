@@ -1,11 +1,3 @@
-// ============================================
-// MODERN TICKET DETAIL PAGE - PRODUCTION READY
-// Industry-standard design with 3-column layout
-// Developer: Suvadip Panja
-// Created: February 03, 2026
-// Features: Profile pictures, animations, responsive, modern UI
-// ============================================
-
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -25,47 +17,28 @@ import {
   Tag,
   MessageSquare,
   Activity,
+  Upload,
   FileText,
   Image as ImageIcon,
   File,
+  X,
   Eye,
   EyeOff,
+  MoreVertical,
   RefreshCw,
   UserCheck,
   TrendingUp,
-  XCircle,
-  MoreVertical,
-  Mail,
-  Phone,
-  Building2,
-  Zap,
-  Target,
-  Timer,
-  Copy,
-  ExternalLink,
-  LinkIcon,
-  Share2,
-  Sparkles,
-  BookOpen,
-  FileType,
-  History,
-  Users,
-  Bell,
-  Settings,
-  ChevronRight,
-  ChevronDown
+  XCircle
 } from 'lucide-react';
 import api from '../../services/api';
-import '../../styles/TicketDetailModern.css';
+import '../../styles/TicketDetail.css';
 
-const TicketDetailModern = () => {
+const TicketDetail = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  // ============================================
-  // STATE MANAGEMENT
-  // ============================================
+  // State management
   const [ticket, setTicket] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -88,35 +61,21 @@ const TicketDetailModern = () => {
   const [assignLoading, setAssignLoading] = useState(false);
 
   // UI state
-  const [activeTab, setActiveTab] = useState('details');
+  const [activeTab, setActiveTab] = useState('comments');
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [showQuickActions, setShowQuickActions] = useState(false);
-  
-  // Collapsible sections state
-  const [expandedSections, setExpandedSections] = useState({
-    people: true,
-    metadata: true,
-    related: false,
-    sla: true
-  });
 
-  // ============================================
-  // FETCH DATA ON MOUNT
-  // ============================================
+  // Fetch engineers on mount
   useEffect(() => {
     fetchEngineers();
   }, []);
 
+  // Fetch ticket details on mount
   useEffect(() => {
     if (id) {
       fetchTicketDetails();
     }
   }, [id]);
 
-  // ============================================
-  // API CALLS
-  // ============================================
-  
   // Fetch engineers list
   const fetchEngineers = async () => {
     try {
@@ -144,6 +103,7 @@ const TicketDetailModern = () => {
         setActivities(ticketData.activities || []);
         setAttachments(ticketData.attachments || []);
         
+        // Set currently assigned engineer in dropdown
         if (ticketData.assigned_to_id) {
           setSelectedEngineer(ticketData.assigned_to_id.toString());
         }
@@ -173,8 +133,11 @@ const TicketDetailModern = () => {
       });
 
       if (response.data.success) {
+        // Clear form
         setNewComment('');
         setIsInternalNote(false);
+
+        // Refresh ticket to get updated data
         fetchTicketDetails();
       }
     } catch (err) {
@@ -201,6 +164,7 @@ const TicketDetailModern = () => {
 
       if (response.data.success) {
         alert('Ticket assigned successfully!');
+        // Refresh ticket details
         fetchTicketDetails();
       }
     } catch (err) {
@@ -227,15 +191,11 @@ const TicketDetailModern = () => {
     }
   };
 
-  // Navigate to edit
+  // Navigate to edit - ⭐ ORIGINAL ROUTE PRESERVED
   const handleEditTicket = () => {
     navigate(`/tickets/edit/${id}`);
   };
 
-  // ============================================
-  // HELPER FUNCTIONS
-  // ============================================
-  
   // Format date
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
@@ -256,25 +216,6 @@ const TicketDetailModern = () => {
     } catch {
       return 'Invalid Date';
     }
-  };
-
-  // Format relative time (e.g., "2 hours ago")
-  const formatRelativeTime = (dateString) => {
-    if (!dateString) return '';
-    
-    const now = new Date();
-    const date = new Date(dateString);
-    const diff = now - date;
-    
-    const seconds = Math.floor(diff / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    
-    if (days > 0) return `${days}d ago`;
-    if (hours > 0) return `${hours}h ago`;
-    if (minutes > 0) return `${minutes}m ago`;
-    return 'just now';
   };
 
   // Get status color class
@@ -303,6 +244,25 @@ const TicketDetailModern = () => {
     return colors[priority] || 'priority-default';
   };
 
+  // Get status icon
+  const getStatusIcon = (status) => {
+    const icons = {
+      'OPEN': AlertCircle,
+      'IN_PROGRESS': Clock,
+      'PENDING': Clock,
+      'ON_HOLD': Clock,
+      'RESOLVED': CheckCircle,
+      'CLOSED': CheckCircle,
+      'CANCELLED': X
+    };
+    const Icon = icons[status] || AlertCircle;
+    return <Icon size={20} />;
+  };
+
+  // ============================================
+  // ⭐ PHASE 3 FIX: SLA HELPER FUNCTIONS
+  // ============================================
+  
   // Calculate SLA percentage and status
   const calculateSlaStatus = (ticket) => {
     if (!ticket.due_date || !ticket.created_at) {
@@ -320,10 +280,12 @@ const TicketDetailModern = () => {
     const due = new Date(ticket.due_date);
     const resolved = ticket.resolved_at ? new Date(ticket.resolved_at) : null;
     
+    // Check if ticket is closed
     const isClosed = ticket.is_final_status || 
                      ticket.status_code === 'RESOLVED' || 
                      ticket.status_code === 'CLOSED';
     
+    // For closed tickets, show final status
     if (isClosed) {
       const resolvedAt = resolved || now;
       const wasMet = resolvedAt <= due;
@@ -351,10 +313,12 @@ const TicketDetailModern = () => {
       }
     }
     
+    // For open tickets, calculate progress
     const totalTime = due - created;
     const elapsed = now - created;
     const percentage = Math.min((elapsed / totalTime) * 100, 100);
 
+    // Check if breached
     if (now > due) {
       return { 
         status: 'breached', 
@@ -365,6 +329,7 @@ const TicketDetailModern = () => {
       };
     }
 
+    // Check if in warning zone
     const warningThreshold = 80;
     if (percentage >= warningThreshold) {
       return { 
@@ -376,12 +341,13 @@ const TicketDetailModern = () => {
       };
     }
 
+    // All good
     return { 
       status: 'ok', 
       percentage, 
       color: '#10b981', 
       label: 'On Track',
-      isClosed: false 
+        isClosed: false 
     };
   };
 
@@ -393,11 +359,13 @@ const TicketDetailModern = () => {
     const due = new Date(ticket.due_date);
     const resolved = ticket.resolved_at ? new Date(ticket.resolved_at) : null;
     
+    // Check if ticket is closed
     const isClosed = ticket.is_final_status || 
                      ticket.status_code === 'RESOLVED' || 
                      ticket.status_code === 'CLOSED';
     
     if (isClosed) {
+      // Show final status for closed tickets
       const resolvedAt = resolved || now;
       const wasMet = resolvedAt <= due;
       
@@ -407,11 +375,11 @@ const TicketDetailModern = () => {
         const days = Math.floor(hours / 24);
         
         if (days > 0) {
-          return `${days}d ${hours % 24}h before deadline`;
+          return `Resolved ${days}d ${hours % 24}h before deadline`;
         } else if (hours > 0) {
-          return `${hours}h before deadline`;
+          return `Resolved ${hours}h before deadline`;
         } else {
-          return `On time`;
+          return `Resolved on time`;
         }
       } else {
         const diff = resolvedAt - due;
@@ -419,15 +387,16 @@ const TicketDetailModern = () => {
         const days = Math.floor(hours / 24);
         
         if (days > 0) {
-          return `${days}d ${hours % 24}h after deadline`;
+          return `Resolved ${days}d ${hours % 24}h after deadline`;
         } else if (hours > 0) {
-          return `${hours}h after deadline`;
+          return `Resolved ${hours}h after deadline`;
         } else {
-          return `After deadline`;
+          return `Resolved after deadline`;
         }
       }
     }
 
+    // For open tickets, show remaining time
     const diff = due - now;
 
     if (diff < 0) {
@@ -448,19 +417,35 @@ const TicketDetailModern = () => {
     return `${mins}m remaining`;
   };
 
+  // Format total SLA time
+  const formatTotalSlaTime = (ticket) => {
+    if (!ticket.due_date || !ticket.created_at) return 'N/A';
+
+    const created = new Date(ticket.created_at);
+    const due = new Date(ticket.due_date);
+    const diff = due - created;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+    if (days > 0) return `${days}d ${hours}h`;
+    return `${hours}h`;
+  };
+
+  // ============================================
+  // END SLA HELPER FUNCTIONS
+  // ============================================
+
   // Get file icon
   const getFileIcon = (fileName) => {
     const ext = fileName.split('.').pop().toLowerCase();
-    if (['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'].includes(ext)) {
-      return <ImageIcon size={20} className="file-icon" />;
+    if (['jpg', 'jpeg', 'png', 'gif', 'svg'].includes(ext)) {
+      return <ImageIcon size={20} />;
     }
     if (['pdf'].includes(ext)) {
-      return <FileText size={20} className="file-icon" />;
+      return <FileText size={20} />;
     }
-    if (['doc', 'docx'].includes(ext)) {
-      return <FileType size={20} className="file-icon" />;
-    }
-    return <File size={20} className="file-icon" />;
+    return <File size={20} />;
   };
 
   // Format file size
@@ -471,36 +456,48 @@ const TicketDetailModern = () => {
     return `${(sizeInKB / 1024).toFixed(1)} MB`;
   };
 
-  // Download attachment
+  // Download attachment with authentication
+  // Developer: Suvadip Panja
+  // Date: February 03, 2026
+  // Uses axios to fetch file with auth headers, then triggers browser download
   const handleDownloadAttachment = async (attachmentId, fileName) => {
     try {
+      console.log('📥 Downloading attachment:', { attachmentId, fileName });
+
+      // Fetch file as blob with authentication
       const response = await api.get(
         `/tickets/${id}/attachments/${attachmentId}/download`,
-        { responseType: 'blob' }
+        {
+          responseType: 'blob', // Important: Get response as blob
+        }
       );
 
+      console.log('✅ File fetched successfully');
+
+      // Create a temporary URL for the blob
       const url = window.URL.createObjectURL(new Blob([response.data]));
+      
+      // Create a temporary <a> element to trigger download
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', fileName);
+      link.setAttribute('download', fileName); // Set the file name
+      
+      // Append to body, click, and remove
       document.body.appendChild(link);
       link.click();
+      
+      // Cleanup
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
+
+      console.log('✅ Download triggered successfully');
     } catch (error) {
-      console.error('Error downloading attachment:', error);
+      console.error('❌ Error downloading attachment:', error);
       alert('Failed to download attachment. Please try again.');
     }
   };
 
-  // Get profile picture URL
-  const getProfilePictureUrl = (profilePicture) => {
-    if (!profilePicture) return null;
-    if (profilePicture.startsWith('http')) return profilePicture;
-    return `http://localhost:5000/uploads/profiles/${profilePicture}`;
-  };
-
-  // Permission checks
+  // Check if user can edit
   const canEdit = () => {
     if (!user || !ticket) return false;
     if (user.permissions?.can_assign_tickets) return true;
@@ -509,61 +506,37 @@ const TicketDetailModern = () => {
     return false;
   };
 
+  // Check if user can delete
   const canDelete = () => {
     return user?.permissions?.can_delete_tickets;
   };
 
+  // Check if user can assign
   const canAssign = () => {
     return user?.permissions?.can_assign_tickets;
   };
 
-  // Toggle section
-  const toggleSection = (section) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [section]: !prev[section]
-    }));
-  };
-
-  // Copy ticket link
-  const handleCopyLink = () => {
-    const link = window.location.href;
-    navigator.clipboard.writeText(link);
-    alert('Ticket link copied to clipboard!');
-  };
-
-  // ============================================
-  // LOADING STATE
-  // ============================================
   if (loading) {
     return (
-      <div className="ticket-detail-modern">
-        <div className="loading-container-modern">
-          <div className="loading-spinner-modern"></div>
-          <div className="loading-text">Loading ticket details...</div>
-          <div className="loading-subtext">Please wait</div>
+      <div className="ticket-detail-page">
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <p>Loading ticket details...</p>
         </div>
       </div>
     );
   }
 
-  // ============================================
-  // ERROR STATE
-  // ============================================
   if (error || !ticket) {
     return (
-      <div className="ticket-detail-modern">
-        <div className="error-container-modern">
-          <div className="error-icon-wrapper">
-            <AlertCircle size={64} className="error-icon-modern" />
-          </div>
-          <h2 className="error-title">Ticket Not Found</h2>
-          <p className="error-message">
-            {error || 'The ticket you are looking for does not exist or you do not have permission to view it.'}
-          </p>
-          <button className="btn-modern btn-primary" onClick={() => navigate('/tickets')}>
+      <div className="ticket-detail-page">
+        <div className="error-container">
+          <AlertCircle size={64} className="error-icon" />
+          <h2>Ticket Not Found</h2>
+          <p>{error || 'The ticket you are looking for does not exist or you do not have permission to view it.'}</p>
+          <button className="btn-primary" onClick={() => navigate('/tickets')}>
             <ArrowLeft size={18} />
-            <span>Back to Tickets</span>
+            Back to Tickets
           </button>
         </div>
       </div>
@@ -573,648 +546,341 @@ const TicketDetailModern = () => {
   // Calculate SLA for display
   const slaData = calculateSlaStatus(ticket);
 
-  // ============================================
-  // MAIN RENDER
-  // ============================================
   return (
-    <div className="ticket-detail-modern">
-      {/* ============================================
-          HERO SECTION - Sticky Header
-          ============================================ */}
-      <div className="hero-section">
-        <div className="hero-header">
-          <div className="hero-left">
-            <button className="btn-back-modern" onClick={() => navigate('/tickets')}>
-              <ArrowLeft size={20} />
-              <span>Tickets</span>
-            </button>
-            <div className="ticket-number-modern">
-              <span className="ticket-hash">#</span>
-              <span>{ticket.ticket_number}</span>
-            </div>
-            {ticket.is_escalated && (
-              <div className="escalated-badge-modern">
-                <AlertTriangle size={16} />
-                <span>ESCALATED</span>
-              </div>
-            )}
-          </div>
-          <div className="hero-right">
-            <button 
-              className="btn-icon-modern" 
-              onClick={fetchTicketDetails} 
-              title="Refresh"
-            >
-              <RefreshCw size={18} />
-            </button>
-            <div className="quick-actions-dropdown">
-              <button 
-                className="btn-icon-modern" 
-                onClick={() => setShowQuickActions(!showQuickActions)}
-                title="More actions"
-              >
-                <MoreVertical size={18} />
-              </button>
-              {showQuickActions && (
-                <div className="quick-actions-menu">
-                  <button onClick={handleCopyLink}>
-                    <Copy size={16} />
-                    <span>Copy Link</span>
-                  </button>
-                  {canEdit() && (
-                    <button onClick={handleEditTicket}>
-                      <Edit size={16} />
-                      <span>Edit Ticket</span>
-                    </button>
-                  )}
-                  {canDelete() && (
-                    <button 
-                      onClick={() => setShowDeleteConfirm(true)}
-                      className="danger-action"
-                    >
-                      <Trash2 size={16} />
-                      <span>Delete Ticket</span>
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Status Badges Row */}
-        <div className="hero-badges">
-          <div className={`badge-pill ${getPriorityColor(ticket.priority_code)}`}>
-            {(ticket.priority_code === 'CRITICAL' || ticket.priority_code === 'HIGH') && (
-              <AlertTriangle size={16} />
-            )}
-            <span>{ticket.priority_name}</span>
-          </div>
-          <div className={`badge-pill ${getStatusColor(ticket.status_code)}`}>
-            <Clock size={16} />
-            <span>{ticket.status_name}</span>
-          </div>
-          <div className="badge-pill badge-category">
-            <Tag size={16} />
-            <span>{ticket.category_name}</span>
-          </div>
-          <div className="badge-pill badge-department">
-            <Building2 size={16} />
-            <span>{ticket.department_name}</span>
-          </div>
-        </div>
-
-        {/* Ticket Title */}
-        <div className="hero-title">
-          <h1>{ticket.subject || ticket.title || 'No Subject'}</h1>
-          <div className="hero-meta">
-            <span className="meta-item">
-              <Timer size={14} />
-              {slaData.status !== 'none' ? formatTimeRemaining(ticket) : 'No SLA'}
-            </span>
-            <span className="meta-separator">•</span>
-            <span className="meta-item">
-              Created {formatRelativeTime(ticket.created_at)}
-            </span>
-            <span className="meta-separator">•</span>
-            <span className="meta-item">
-              Updated {formatRelativeTime(ticket.updated_at)}
-            </span>
-          </div>
-        </div>
-
-        {/* Quick Action Buttons */}
-        <div className="hero-actions">
-          {canAssign() && (
-            <button className="btn-modern btn-primary">
-              <UserCheck size={18} />
-              <span>Assign</span>
-            </button>
-          )}
-          <button className="btn-modern btn-secondary">
-            <RefreshCw size={18} />
-            <span>Change Status</span>
+    <div className="ticket-detail-page">
+      {/* Header */}
+      <div className="ticket-detail-header">
+        <div className="header-left">
+          <button className="btn-back" onClick={() => navigate('/tickets')}>
+            <ArrowLeft size={20} />
+            <span>Back to Tickets</span>
           </button>
-          {ticket.status_code !== 'RESOLVED' && ticket.status_code !== 'CLOSED' && (
-            <button className="btn-modern btn-success">
-              <CheckCircle size={18} />
-              <span>Resolve</span>
+          <div className="ticket-number-badge">
+            <span className="ticket-hash">#</span>
+            <span className="ticket-number">{ticket.ticket_number}</span>
+          </div>
+          {ticket.is_escalated && (
+            <span className="escalated-badge-large">
+              <AlertTriangle size={16} />
+              <span>Escalated</span>
+            </span>
+          )}
+        </div>
+        <div className="header-right">
+          <button className="btn-icon-action" onClick={fetchTicketDetails} title="Refresh">
+            <RefreshCw size={18} />
+          </button>
+          {canEdit() && (
+            <button className="btn-secondary" onClick={handleEditTicket}>
+              <Edit size={18} />
+              <span>Edit</span>
             </button>
           )}
-          <div className="comments-preview">
-            <MessageSquare size={18} />
-            <span>{comments.length}</span>
-          </div>
+          {canDelete() && (
+            <button className="btn-danger" onClick={() => setShowDeleteConfirm(true)}>
+              <Trash2 size={18} />
+              <span>Delete</span>
+            </button>
+          )}
         </div>
       </div>
 
-      {/* ============================================
-          THREE-COLUMN LAYOUT
-          ============================================ */}
-      <div className="three-column-grid">
-        
-        {/* ============================================
-            LEFT SIDEBAR - Context & Quick Info
-            ============================================ */}
-        <div className="left-sidebar">
-          
-          {/* Quick Stats Card */}
+      {/* Main Content */}
+      <div className="ticket-detail-content">
+        {/* Left Column - Ticket Info */}
+        <div className="ticket-info-section">
+          {/* Status, Priority, and SLA Badges */}
+          <div className="ticket-badges">
+            <div className={`status-badge-large ${getStatusColor(ticket.status_code)}`}>
+              {getStatusIcon(ticket.status_code)}
+              <span>{ticket.status_name}</span>
+            </div>
+            <div className={`priority-badge-large ${getPriorityColor(ticket.priority_code)}`}>
+              {ticket.priority_code === 'CRITICAL' || ticket.priority_code === 'HIGH' ? (
+                <AlertTriangle size={18} />
+              ) : null}
+              <span>{ticket.priority_name}</span>
+            </div>
+            {/* SLA Badge */}
+            <div 
+              className={`sla-badge-large sla-${slaData.status}`}
+              style={{ borderColor: slaData.color, color: slaData.color }}
+            >
+              {slaData.status === 'breached' && <XCircle size={18} />}
+              {slaData.status === 'met' && <CheckCircle size={18} />}
+              {slaData.status === 'warning' && <AlertTriangle size={18} />}
+              {slaData.status === 'ok' && <CheckCircle size={18} />}
+              {slaData.status === 'none' && <Clock size={18} />}
+              <span>{slaData.label}</span>
+            </div>
+          </div>
+
+          {/* ⭐ PHASE 3: CONDITIONAL SLA CARD */}
           {slaData.status !== 'none' && (
-            <div className="sidebar-card">
-              <div 
-                className="card-header" 
-                onClick={() => toggleSection('sla')}
-              >
-                <div className="card-header-left">
-                  <TrendingUp size={18} />
-                  <h3>SLA Tracking</h3>
-                </div>
-                {expandedSections.sla ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
-              </div>
+            <div className="detail-card sla-card">
+              <h2 className="detail-card-title">
+                <TrendingUp size={18} />
+                SLA Information
+              </h2>
               
-              {expandedSections.sla && (
-                <div className="card-content">
-                  {/* Circular Progress */}
-                  <div className="sla-circular-progress">
-                    <svg className="progress-ring" width="120" height="120">
-                      <circle
-                        className="progress-ring-circle-bg"
-                        stroke="#e2e8f0"
-                        strokeWidth="8"
-                        fill="transparent"
-                        r="52"
-                        cx="60"
-                        cy="60"
-                      />
-                      <circle
-                        className="progress-ring-circle"
-                        stroke={slaData.color}
-                        strokeWidth="8"
-                        fill="transparent"
-                        r="52"
-                        cx="60"
-                        cy="60"
-                        strokeDasharray={`${2 * Math.PI * 52}`}
-                        strokeDashoffset={`${2 * Math.PI * 52 * (1 - slaData.percentage / 100)}`}
-                        transform="rotate(-90 60 60)"
-                      />
-                    </svg>
-                    <div className="progress-text">
-                      <div className="progress-percentage" style={{ color: slaData.color }}>
-                        {Math.round(slaData.percentage)}%
-                      </div>
-                      <div className="progress-label">{slaData.label}</div>
+              {slaData.isClosed ? (
+                // CLOSED TICKET: Show final status
+                <div className="sla-closed-status">
+                  <div 
+                    className="sla-final-badge" 
+                    style={{ 
+                      backgroundColor: slaData.status === 'met' ? '#f0fdf4' : '#fef2f2',
+                      borderColor: slaData.color,
+                      color: slaData.color
+                    }}
+                  >
+                    {slaData.status === 'met' ? (
+                      <CheckCircle size={24} />
+                    ) : (
+                      <XCircle size={24} />
+                    )}
+                    <div className="sla-final-content">
+                      <span className="sla-final-label">{slaData.label}</span>
+                      <span className="sla-final-description">
+                        {formatTimeRemaining(ticket)}
+                      </span>
                     </div>
                   </div>
 
-                  {/* SLA Details */}
-                  <div className="sla-details-list">
-                    <div className="sla-detail-row">
-                      <Zap size={14} />
-                      <div className="sla-detail-info">
-                        <span className="sla-detail-label">Response SLA</span>
-                        <span className="sla-detail-value success">
-                          {ticket.first_response_sla_met ? '✓ Met' : '✗ Missed'}
-                        </span>
-                      </div>
+                  <div className="sla-details-grid">
+                    <div className="sla-detail-item">
+                      <label>Total SLA Time</label>
+                      <p>{formatTotalSlaTime(ticket)}</p>
                     </div>
-                    <div className="sla-detail-row">
-                      <Target size={14} />
-                      <div className="sla-detail-info">
-                        <span className="sla-detail-label">Resolution SLA</span>
-                        <span className="sla-detail-value" style={{ color: slaData.color }}>
-                          {formatTimeRemaining(ticket)}
-                        </span>
-                      </div>
+                    <div className="sla-detail-item">
+                      <label>Started At</label>
+                      <p>{formatDate(ticket.created_at)}</p>
                     </div>
-                    <div className="sla-detail-row">
-                      <Calendar size={14} />
-                      <div className="sla-detail-info">
-                        <span className="sla-detail-label">Due Date</span>
-                        <span className="sla-detail-value">
-                          {formatDate(ticket.due_date)}
-                        </span>
-                      </div>
+                    <div className="sla-detail-item">
+                      <label>Due By</label>
+                      <p>{formatDate(ticket.due_date)}</p>
+                    </div>
+                    <div className="sla-detail-item">
+                      <label>Resolved At</label>
+                      <p className={slaData.status === 'breached' ? 'text-danger' : ''}>
+                        {formatDate(ticket.resolved_at || ticket.updated_at)}
+                      </p>
                     </div>
                   </div>
                 </div>
+              ) : (
+                // OPEN TICKET: Show progress bar
+                <>
+                  <div className="sla-progress-section">
+                    <div className="sla-progress-header">
+                      <span className="sla-progress-label">Time Elapsed</span>
+                      <span className="sla-progress-percentage" style={{ color: slaData.color }}>
+                        {Math.round(slaData.percentage)}%
+                      </span>
+                    </div>
+                    <div className="sla-progress-bar-large">
+                      <div 
+                        className="sla-progress-fill-large"
+                        style={{ 
+                          width: `${Math.min(slaData.percentage, 100)}%`,
+                          backgroundColor: slaData.color 
+                        }}
+                      />
+                    </div>
+                    <div className="sla-time-remaining-large" style={{ color: slaData.color }}>
+                      {formatTimeRemaining(ticket)}
+                    </div>
+                  </div>
+
+                  <div className="sla-details-grid">
+                    <div className="sla-detail-item">
+                      <label>Total SLA Time</label>
+                      <p>{formatTotalSlaTime(ticket)}</p>
+                    </div>
+                    <div className="sla-detail-item">
+                      <label>Started At</label>
+                      <p>{formatDate(ticket.created_at)}</p>
+                    </div>
+                    <div className="sla-detail-item">
+                      <label>Due By</label>
+                      <p className={slaData.status === 'breached' ? 'text-danger' : ''}>
+                        {formatDate(ticket.due_date)}
+                      </p>
+                    </div>
+                    <div className="sla-detail-item">
+                      <label>Time Remaining</label>
+                      <p style={{ color: slaData.color, fontWeight: 600 }}>
+                        {formatTimeRemaining(ticket)}
+                      </p>
+                    </div>
+                  </div>
+                </>
               )}
             </div>
           )}
 
-          {/* People Card */}
-          <div className="sidebar-card">
-            <div 
-              className="card-header" 
-              onClick={() => toggleSection('people')}
-            >
-              <div className="card-header-left">
-                <Users size={18} />
-                <h3>People</h3>
-              </div>
-              {expandedSections.people ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
-            </div>
+          {/* Ticket Details Card */}
+          <div className="detail-card">
+            <h2 className="detail-card-title">Ticket Information</h2>
             
-            {expandedSections.people && (
-              <div className="card-content">
-                {/* Requester */}
-                <div className="person-card">
-                  <div className="person-label">Requester</div>
-                  <div className="person-info">
-                    <div className="person-avatar">
-                      {getProfilePictureUrl(ticket.requester_profile_picture) ? (
-                        <img 
-                          src={getProfilePictureUrl(ticket.requester_profile_picture)} 
-                          alt={ticket.requester_name}
-                          onError={(e) => {
-                            e.target.style.display = 'none';
-                            e.target.nextSibling.style.display = 'flex';
-                          }}
-                        />
-                      ) : null}
-                      <div className="person-avatar-fallback" style={{ display: getProfilePictureUrl(ticket.requester_profile_picture) ? 'none' : 'flex' }}>
-                        {(ticket.requester_name || 'U').charAt(0).toUpperCase()}
-                      </div>
-                    </div>
-                    <div className="person-details">
-                      <div className="person-name">{ticket.requester_name || 'Unknown'}</div>
-                      {ticket.requester_email && (
-                        <div className="person-email">
-                          <Mail size={12} />
-                          <span>{ticket.requester_email}</span>
-                        </div>
-                      )}
-                      {ticket.requester_phone && (
-                        <div className="person-phone">
-                          <Phone size={12} />
-                          <span>{ticket.requester_phone}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="person-actions">
-                    <button className="btn-person-action" title="Send email">
-                      <Mail size={14} />
-                    </button>
-                    <button className="btn-person-action" title="View profile">
-                      <ExternalLink size={14} />
-                    </button>
-                  </div>
-                </div>
+            <div className="detail-item">
+              <label>Subject</label>
+              <p className="ticket-subject">
+                {ticket.subject || ticket.title || 'No Subject'}
+              </p>
+            </div>
 
-                {/* Assigned Engineer */}
-                {ticket.assigned_to_name && (
-                  <div className="person-card">
-                    <div className="person-label">Assigned Engineer</div>
-                    <div className="person-info">
-                      <div className="person-avatar">
-                        {getProfilePictureUrl(ticket.assigned_profile_picture) ? (
-                          <img 
-                            src={getProfilePictureUrl(ticket.assigned_profile_picture)} 
-                            alt={ticket.assigned_to_name}
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                              e.target.nextSibling.style.display = 'flex';
-                            }}
-                          />
-                        ) : null}
-                        <div className="person-avatar-fallback" style={{ display: getProfilePictureUrl(ticket.assigned_profile_picture) ? 'none' : 'flex' }}>
-                          {(ticket.assigned_to_name || 'E').charAt(0).toUpperCase()}
-                        </div>
-                      </div>
-                      <div className="person-details">
-                        <div className="person-name">{ticket.assigned_to_name}</div>
-                        {ticket.assigned_to_email && (
-                          <div className="person-email">
-                            <Mail size={12} />
-                            <span>{ticket.assigned_to_email}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    {canAssign() && (
-                      <button className="btn-reassign">
-                        <RefreshCw size={14} />
-                        <span>Reassign</span>
-                      </button>
-                    )}
-                  </div>
-                )}
+            <div className="detail-item">
+              <label>Description</label>
+              <p className="ticket-description">
+                {ticket.description || 'No description provided'}
+              </p>
+            </div>
 
-                {/* Escalated To */}
-                {ticket.is_escalated && ticket.escalated_to_name && (
-                  <div className="person-card escalated">
-                    <div className="person-label">
-                      <AlertTriangle size={14} />
-                      Escalated To
-                    </div>
-                    <div className="person-info">
-                      <div className="person-avatar">
-                        <div className="person-avatar-fallback">
-                          {(ticket.escalated_to_name || 'M').charAt(0).toUpperCase()}
-                        </div>
-                      </div>
-                      <div className="person-details">
-                        <div className="person-name">{ticket.escalated_to_name}</div>
-                        <div className="person-meta">
-                          Escalated {formatRelativeTime(ticket.escalated_at)}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
+            <div className="detail-grid">
+              <div className="detail-item">
+                <label>
+                  <Tag size={14} />
+                  Category
+                </label>
+                <p>{ticket.category_name || 'N/A'}</p>
               </div>
-            )}
+
+              <div className="detail-item">
+                <label>
+                  <User size={14} />
+                  Requester
+                </label>
+                <p>{ticket.requester_name || 'Unknown'}</p>
+              </div>
+
+              <div className="detail-item">
+                <label>
+                  <UserCheck size={14} />
+                  Assigned To
+                </label>
+                <p>{ticket.assigned_to_name || 'Unassigned'}</p>
+              </div>
+
+              <div className="detail-item">
+                <label>
+                  <Calendar size={14} />
+                  Created
+                </label>
+                <p>{formatDate(ticket.created_at)}</p>
+              </div>
+
+              {ticket.resolved_at && (
+                <div className="detail-item">
+                  <label>
+                    <CheckCircle size={14} />
+                    Resolved At
+                  </label>
+                  <p>{formatDate(ticket.resolved_at)}</p>
+                </div>
+              )}
+
+              {ticket.resolution_notes && (
+                <div className="detail-item full-width">
+                  <label>Resolution Notes</label>
+                  <p className="resolution-notes">{ticket.resolution_notes}</p>
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Metadata Card */}
-          <div className="sidebar-card">
-            <div 
-              className="card-header" 
-              onClick={() => toggleSection('metadata')}
-            >
-              <div className="card-header-left">
-                <Settings size={18} />
-                <h3>Metadata</h3>
+          {/* Assignment Card */}
+          {canAssign() && (
+            <div className="detail-card">
+              <h2 className="detail-card-title">
+                <UserCheck size={18} />
+                Assign Engineer
+              </h2>
+              <div className="assign-form">
+                <select
+                  className="assign-select"
+                  value={selectedEngineer}
+                  onChange={(e) => setSelectedEngineer(e.target.value)}
+                >
+                  <option value="">Select Engineer...</option>
+                  {engineers.map((engineer) => (
+                    <option key={engineer.user_id} value={engineer.user_id}>
+                      {engineer.full_name || engineer.username}
+                      {engineer.user_id === ticket.assigned_to_id && ' (Current)'}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  className="btn-assign"
+                  onClick={handleAssignEngineer}
+                  disabled={assignLoading || !selectedEngineer}
+                >
+                  <UserCheck size={18} />
+                  <span>{assignLoading ? 'Assigning...' : 'Assign'}</span>
+                </button>
               </div>
-              {expandedSections.metadata ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
             </div>
-            
-            {expandedSections.metadata && (
-              <div className="card-content">
-                <div className="metadata-list">
-                  <div className="metadata-item">
-                    <Tag size={14} />
-                    <div className="metadata-info">
-                      <span className="metadata-label">Category</span>
-                      <span className="metadata-value">{ticket.category_name || 'N/A'}</span>
-                    </div>
-                  </div>
-                  <div className="metadata-item">
-                    <Building2 size={14} />
-                    <div className="metadata-info">
-                      <span className="metadata-label">Department</span>
-                      <span className="metadata-value">{ticket.department_name || 'N/A'}</span>
-                    </div>
-                  </div>
-                  <div className="metadata-item">
-                    <Calendar size={14} />
-                    <div className="metadata-info">
-                      <span className="metadata-label">Created</span>
-                      <span className="metadata-value">{formatDate(ticket.created_at)}</span>
-                      <span className="metadata-submeta">by {ticket.created_by_name || 'System'}</span>
-                    </div>
-                  </div>
-                  <div className="metadata-item">
-                    <Clock size={14} />
-                    <div className="metadata-info">
-                      <span className="metadata-label">Last Updated</span>
-                      <span className="metadata-value">{formatDate(ticket.updated_at)}</span>
-                      <span className="metadata-submeta">{formatRelativeTime(ticket.updated_at)}</span>
-                    </div>
-                  </div>
-                  {ticket.resolved_at && (
-                    <div className="metadata-item">
-                      <CheckCircle size={14} />
-                      <div className="metadata-info">
-                        <span className="metadata-label">Resolved</span>
-                        <span className="metadata-value">{formatDate(ticket.resolved_at)}</span>
-                      </div>
-                    </div>
-                  )}
-                  {ticket.due_date && (
-                    <div className="metadata-item">
-                      <Target size={14} />
-                      <div className="metadata-info">
-                        <span className="metadata-label">Due Date</span>
-                        <span className="metadata-value" style={{ color: slaData.color }}>
-                          {formatDate(ticket.due_date)}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Related Items Card */}
-          <div className="sidebar-card">
-            <div 
-              className="card-header" 
-              onClick={() => toggleSection('related')}
-            >
-              <div className="card-header-left">
-                <LinkIcon size={18} />
-                <h3>Related</h3>
-              </div>
-              {expandedSections.related ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
-            </div>
-            
-            {expandedSections.related && (
-              <div className="card-content">
-                <div className="related-section">
-                  <div className="related-section-header">
-                    <Sparkles size={14} />
-                    <span>Similar Issues</span>
-                  </div>
-                  <div className="empty-state-small">
-                    No similar issues found
-                  </div>
-                </div>
-                <div className="related-section">
-                  <div className="related-section-header">
-                    <BookOpen size={14} />
-                    <span>Knowledge Base</span>
-                  </div>
-                  <div className="empty-state-small">
-                    No related articles
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
+          )}
         </div>
 
-        {/* ============================================
-            MAIN CONTENT - Details & Activity
-            ============================================ */}
-        <div className="main-content">
-          
-          {/* Modern Tab Navigation */}
-          <div className="tabs-modern">
-            <button 
-              className={`tab-modern ${activeTab === 'details' ? 'active' : ''}`}
-              onClick={() => setActiveTab('details')}
-            >
-              <FileText size={18} />
-              <span>Details</span>
-            </button>
-            <button 
-              className={`tab-modern ${activeTab === 'comments' ? 'active' : ''}`}
+        {/* Right Column - Tabs */}
+        <div className="ticket-tabs-section">
+          {/* Tab Navigation */}
+          <div className="tabs-nav">
+            <button
+              className={`tab-btn ${activeTab === 'comments' ? 'active' : ''}`}
               onClick={() => setActiveTab('comments')}
             >
               <MessageSquare size={18} />
               <span>Comments</span>
-              <span className="tab-badge-modern">{comments.length}</span>
+              <span className="tab-badge">{comments.length}</span>
             </button>
-            <button 
-              className={`tab-modern ${activeTab === 'activity' ? 'active' : ''}`}
+            <button
+              className={`tab-btn ${activeTab === 'activity' ? 'active' : ''}`}
               onClick={() => setActiveTab('activity')}
             >
               <Activity size={18} />
               <span>Activity</span>
-              <span className="tab-badge-modern">{activities.length}</span>
+              <span className="tab-badge">{activities.length}</span>
             </button>
-            <button 
-              className={`tab-modern ${activeTab === 'files' ? 'active' : ''}`}
-              onClick={() => setActiveTab('files')}
+            <button
+              className={`tab-btn ${activeTab === 'attachments' ? 'active' : ''}`}
+              onClick={() => setActiveTab('attachments')}
             >
               <Paperclip size={18} />
-              <span>Files</span>
-              <span className="tab-badge-modern">{attachments.length}</span>
-            </button>
-            <button 
-              className={`tab-modern ${activeTab === 'history' ? 'active' : ''}`}
-              onClick={() => setActiveTab('history')}
-            >
-              <History size={18} />
-              <span>History</span>
+              <span>Attachments</span>
+              <span className="tab-badge">{attachments.length}</span>
             </button>
           </div>
 
           {/* Tab Content */}
-          <div className="tab-content-modern">
-            
-            {/* DETAILS TAB */}
-            {activeTab === 'details' && (
-              <div className="details-tab animate-fade-in">
-                
-                {/* Description Section */}
-                <div className="content-card">
-                  <div className="content-card-header">
-                    <FileText size={18} />
-                    <h3>Description</h3>
-                  </div>
-                  <div className="content-card-body">
-                    <div className="description-text">
-                      {ticket.description || 'No description provided'}
-                    </div>
-                  </div>
-                  <div className="content-card-footer">
-                    <button className="btn-text">
-                      <Copy size={14} />
-                      <span>Copy</span>
-                    </button>
-                    {canEdit() && (
-                      <button className="btn-text">
-                        <Edit size={14} />
-                        <span>Edit</span>
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                {/* Resolution Notes */}
-                {ticket.resolution_notes && (
-                  <div className="content-card success-card">
-                    <div className="content-card-header">
-                      <CheckCircle size={18} />
-                      <h3>Resolution Notes</h3>
-                      <span className="badge-success">Resolved</span>
-                    </div>
-                    <div className="content-card-body">
-                      <div className="resolution-header">
-                        <span className="resolution-badge">
-                          ✓ Resolved by {ticket.assigned_to_name || 'System'}
-                        </span>
-                        <span className="resolution-date">
-                          {formatDate(ticket.resolved_at)}
-                        </span>
-                      </div>
-                      <div className="resolution-text">
-                        {ticket.resolution_notes}
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Customer Feedback */}
-                {(ticket.rating || ticket.feedback) && (
-                  <div className="content-card">
-                    <div className="content-card-header">
-                      <Sparkles size={18} />
-                      <h3>Customer Feedback</h3>
-                    </div>
-                    <div className="content-card-body">
-                      {ticket.rating && (
-                        <div className="rating-display">
-                          <span className="rating-label">Rating:</span>
-                          <div className="rating-stars">
-                            {[...Array(5)].map((_, i) => (
-                              <span 
-                                key={i} 
-                                className={i < ticket.rating ? 'star-filled' : 'star-empty'}
-                              >
-                                ★
-                              </span>
-                            ))}
-                          </div>
-                          <span className="rating-value">{ticket.rating}.0</span>
-                        </div>
-                      )}
-                      {ticket.feedback && (
-                        <div className="feedback-text">
-                          "{ticket.feedback}"
-                        </div>
-                      )}
-                      <div className="feedback-meta">
-                        - {ticket.requester_name}, {formatDate(ticket.resolved_at)}
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-              </div>
-            )}
-
-            {/* COMMENTS TAB */}
+          <div className="tabs-content">
+            {/* Comments Tab */}
             {activeTab === 'comments' && (
-              <div className="comments-tab animate-fade-in">
-                
+              <div className="comments-container">
                 {/* Add Comment Form */}
-                <div className="comment-composer">
-                  <div className="composer-header">
-                    <div className="composer-title">Add Comment</div>
-                    <label className="internal-toggle">
+                <div className="add-comment-form">
+                  <div className="comment-input-wrapper">
+                    <textarea
+                      value={newComment}
+                      onChange={(e) => setNewComment(e.target.value)}
+                      placeholder="Write a comment..."
+                      className="comment-textarea"
+                      rows={4}
+                    />
+                  </div>
+                  <div className="comment-actions">
+                    <label className="internal-note-checkbox">
                       <input
                         type="checkbox"
                         checked={isInternalNote}
                         onChange={(e) => setIsInternalNote(e.target.checked)}
                       />
-                      <span className="toggle-slider"></span>
-                      <span className="toggle-label">
-                        {isInternalNote ? <EyeOff size={14} /> : <Eye size={14} />}
-                        Internal Note
-                      </span>
+                      {isInternalNote ? <EyeOff size={16} /> : <Eye size={16} />}
+                      <span>Internal Note (Staff Only)</span>
                     </label>
-                  </div>
-                  <textarea
-                    className="comment-input"
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="Write a comment or add internal notes..."
-                    rows={4}
-                  />
-                  <div className="composer-actions">
-                    <div className="composer-tools">
-                      <button className="btn-tool" title="Attach file">
-                        <Paperclip size={16} />
-                      </button>
-                    </div>
                     <button
-                      className="btn-modern btn-primary"
+                      className="btn-primary"
                       onClick={handleAddComment}
                       disabled={commentLoading || !newComment.trim()}
                     >
@@ -1227,77 +893,66 @@ const TicketDetailModern = () => {
                 {/* Comments List */}
                 <div className="comments-list">
                   {comments.length === 0 ? (
-                    <div className="empty-state">
-                      <MessageSquare size={48} />
-                      <h3>No comments yet</h3>
-                      <p>Be the first to comment on this ticket</p>
+                    <div className="empty-state-small">
+                      <MessageSquare size={48} className="empty-icon" />
+                      <p>No comments yet</p>
+                      <small>Be the first to comment on this ticket</small>
                     </div>
                   ) : (
                     comments.map((comment) => (
                       <div
                         key={comment.comment_id}
-                        className={`comment-card ${comment.is_internal ? 'internal' : ''}`}
+                        className={`comment-item ${comment.is_internal ? 'internal' : ''}`}
                       >
-                        <div className="comment-avatar">
-                          <div className="avatar-circle">
-                            {(comment.commenter_name || 'U').charAt(0).toUpperCase()}
-                          </div>
-                        </div>
-                        <div className="comment-content">
-                          <div className="comment-header">
-                            <span className="comment-author">{comment.commenter_name || 'Unknown'}</span>
+                        <div className="comment-header">
+                          <div className="comment-author">
+                            <User size={16} />
+                            <strong>{comment.commenter_name || 'Unknown'}</strong>
                             {comment.commenter_role && (
                               <span className="comment-role">({comment.commenter_role})</span>
                             )}
+                          </div>
+                          <div className="comment-meta">
                             {comment.is_internal && (
                               <span className="internal-badge">
                                 <EyeOff size={12} />
                                 Internal
                               </span>
                             )}
-                            <span className="comment-time">{formatRelativeTime(comment.commented_at)}</span>
+                            <span className="comment-time">{formatDate(comment.commented_at)}</span>
                           </div>
-                          <div className="comment-body">
-                            {comment.comment_text}
-                          </div>
+                        </div>
+                        <div className="comment-body">
+                          {comment.comment_text}
                         </div>
                       </div>
                     ))
                   )}
                 </div>
-
               </div>
             )}
 
-            {/* ACTIVITY TAB */}
+            {/* Activity Tab */}
             {activeTab === 'activity' && (
-              <div className="activity-tab animate-fade-in">
-                <div className="timeline">
+              <div className="activity-container">
+                <div className="activity-list">
                   {activities.length === 0 ? (
-                    <div className="empty-state">
-                      <Activity size={48} />
-                      <h3>No activity yet</h3>
-                      <p>Activity will appear here as changes are made</p>
+                    <div className="empty-state-small">
+                      <Activity size={48} className="empty-icon" />
+                      <p>No activity yet</p>
+                      <small>Activity will appear here as changes are made</small>
                     </div>
                   ) : (
                     activities.map((activity) => (
-                      <div key={activity.activity_id} className="timeline-item">
-                        <div className="timeline-marker">
-                          <Activity size={14} />
+                      <div key={activity.activity_id} className="activity-item">
+                        <div className="activity-icon">
+                          <Activity size={16} />
                         </div>
-                        <div className="timeline-content">
-                          <div className="timeline-description">
-                            {activity.description}
-                          </div>
-                          <div className="timeline-meta">
-                            <span className="timeline-author">
-                              {activity.performed_by_name || 'System'}
-                            </span>
-                            <span className="timeline-separator">•</span>
-                            <span className="timeline-time">
-                              {formatRelativeTime(activity.performed_at)}
-                            </span>
-                          </div>
+                        <div className="activity-content">
+                          <p className="activity-description">{activity.description}</p>
+                          <span className="activity-meta">
+                            by {activity.performed_by_name || 'System'} • {formatDate(activity.performed_at)}
+                          </span>
                         </div>
                       </div>
                     ))
@@ -1306,40 +961,36 @@ const TicketDetailModern = () => {
               </div>
             )}
 
-            {/* FILES TAB */}
-            {activeTab === 'files' && (
-              <div className="files-tab animate-fade-in">
-                <div className="files-grid">
+            {/* Attachments Tab */}
+            {activeTab === 'attachments' && (
+              <div className="attachments-container">
+                <div className="attachments-list">
                   {attachments.length === 0 ? (
-                    <div className="empty-state">
-                      <Paperclip size={48} />
-                      <h3>No attachments</h3>
-                      <p>Files attached to this ticket will appear here</p>
+                    <div className="empty-state-small">
+                      <Paperclip size={48} className="empty-icon" />
+                      <p>No attachments</p>
+                      <small>Files attached to this ticket will appear here</small>
                     </div>
                   ) : (
                     attachments.map((attachment) => (
-                      <div key={attachment.attachment_id} className="file-card">
-                        <div className="file-preview">
+                      <div key={attachment.attachment_id} className="attachment-item">
+                        <div className="attachment-icon">
                           {getFileIcon(attachment.file_name)}
                         </div>
-                        <div className="file-info">
-                          <div className="file-name">{attachment.file_name}</div>
-                          <div className="file-meta">
-                            <span>{formatFileSize(attachment.file_size_kb)}</span>
-                            <span className="file-separator">•</span>
-                            <span>{formatRelativeTime(attachment.uploaded_at)}</span>
-                          </div>
-                          <div className="file-uploader">
-                            <User size={10} />
+                        <div className="attachment-info">
+                          <span className="attachment-name">{attachment.file_name}</span>
+                          <span className="attachment-meta">
+                            {formatFileSize(attachment.file_size_kb)} • 
+                            {formatDate(attachment.uploaded_at)} •
                             {attachment.uploaded_by_name || 'Unknown'}
-                          </div>
+                          </span>
                         </div>
                         <button
-                          className="btn-file-download"
+                          className="btn-icon-action"
                           onClick={() => handleDownloadAttachment(attachment.attachment_id, attachment.file_name)}
                           title="Download"
                         >
-                          <Download size={16} />
+                          <Download size={18} />
                         </button>
                       </div>
                     ))
@@ -1347,202 +998,38 @@ const TicketDetailModern = () => {
                 </div>
               </div>
             )}
-
-            {/* HISTORY TAB */}
-            {activeTab === 'history' && (
-              <div className="history-tab animate-fade-in">
-                <div className="empty-state">
-                  <History size={48} />
-                  <h3>Change History</h3>
-                  <p>Version control and change tracking coming soon</p>
-                </div>
-              </div>
-            )}
-
           </div>
-
         </div>
-
-        {/* ============================================
-            RIGHT SIDEBAR - Actions & Insights
-            ============================================ */}
-        <div className="right-sidebar">
-          
-          {/* Suggested Actions */}
-          <div className="sidebar-card">
-            <div className="card-header">
-              <Sparkles size={18} />
-              <h3>Suggested Actions</h3>
-            </div>
-            <div className="card-content">
-              <div className="suggestion-list">
-                <button className="suggestion-item">
-                  <LinkIcon size={16} />
-                  <div className="suggestion-content">
-                    <div className="suggestion-title">Link KB Article</div>
-                    <div className="suggestion-desc">Similar issue resolved</div>
-                  </div>
-                </button>
-                <button className="suggestion-item">
-                  <Users size={16} />
-                  <div className="suggestion-content">
-                    <div className="suggestion-title">Notify Stakeholders</div>
-                    <div className="suggestion-desc">High-priority issue</div>
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Ticket Metrics */}
-          <div className="sidebar-card">
-            <div className="card-header">
-              <Activity size={18} />
-              <h3>Metrics</h3>
-            </div>
-            <div className="card-content">
-              <div className="metrics-grid">
-                <div className="metric-item">
-                  <div className="metric-icon">
-                    <Zap size={16} />
-                  </div>
-                  <div className="metric-info">
-                    <div className="metric-label">Response Time</div>
-                    <div className="metric-value success">
-                      {ticket.first_response_at ? '12 minutes' : 'N/A'}
-                    </div>
-                  </div>
-                </div>
-                <div className="metric-item">
-                  <div className="metric-icon">
-                    <Clock size={16} />
-                  </div>
-                  <div className="metric-info">
-                    <div className="metric-label">Time to Resolve</div>
-                    <div className="metric-value">
-                      {ticket.resolved_at ? formatRelativeTime(ticket.resolved_at) : 'Pending'}
-                    </div>
-                  </div>
-                </div>
-                <div className="metric-item">
-                  <div className="metric-icon">
-                    <MessageSquare size={16} />
-                  </div>
-                  <div className="metric-info">
-                    <div className="metric-label">Comments</div>
-                    <div className="metric-value">{comments.length}</div>
-                  </div>
-                </div>
-                <div className="metric-item">
-                  <div className="metric-icon">
-                    <Paperclip size={16} />
-                  </div>
-                  <div className="metric-info">
-                    <div className="metric-label">Attachments</div>
-                    <div className="metric-value">{attachments.length}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Notifications */}
-          <div className="sidebar-card">
-            <div className="card-header">
-              <Bell size={18} />
-              <h3>Notifications</h3>
-            </div>
-            <div className="card-content">
-              <div className="notification-settings">
-                <div className="notification-item">
-                  <span>Email updates</span>
-                  <div className="toggle-switch active">
-                    <div className="toggle-knob"></div>
-                  </div>
-                </div>
-                <div className="notification-item">
-                  <span>Watching</span>
-                  <div className="toggle-switch">
-                    <div className="toggle-knob"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* More Actions */}
-          <div className="sidebar-card">
-            <div className="card-header">
-              <Settings size={18} />
-              <h3>More Actions</h3>
-            </div>
-            <div className="card-content">
-              <div className="action-list">
-                <button className="action-item">
-                  <FileText size={16} />
-                  <span>Export as PDF</span>
-                </button>
-                <button className="action-item" onClick={handleCopyLink}>
-                  <Copy size={16} />
-                  <span>Copy ticket link</span>
-                </button>
-                <button className="action-item">
-                  <Share2 size={16} />
-                  <span>Share ticket</span>
-                </button>
-                {canDelete() && (
-                  <button className="action-item danger" onClick={() => setShowDeleteConfirm(true)}>
-                    <Trash2 size={16} />
-                    <span>Delete ticket</span>
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-
-        </div>
-
       </div>
 
-      {/* ============================================
-          DELETE CONFIRMATION MODAL
-          ============================================ */}
+      {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="modal-overlay" onClick={() => setShowDeleteConfirm(false)}>
-          <div className="modal-content-modern" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header-modern">
-              <AlertTriangle size={24} className="modal-icon-danger" />
-              <h3>Confirm Delete</h3>
-            </div>
-            <div className="modal-body-modern">
-              <p>Are you sure you want to delete this ticket? This action cannot be undone.</p>
-              <div className="modal-info">
-                <strong>Ticket:</strong> {ticket.ticket_number}
-                <br />
-                <strong>Subject:</strong> {ticket.subject}
-              </div>
-            </div>
-            <div className="modal-actions-modern">
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h3>Confirm Delete</h3>
+            <p>Are you sure you want to delete this ticket? This action cannot be undone.</p>
+            <div className="modal-actions">
               <button 
-                className="btn-modern btn-secondary" 
+                className="btn-secondary" 
                 onClick={() => setShowDeleteConfirm(false)}
               >
                 Cancel
               </button>
               <button 
-                className="btn-modern btn-danger" 
-                onClick={handleDeleteTicket}
+                className="btn-danger" 
+                onClick={() => {
+                  handleDeleteTicket();
+                  setShowDeleteConfirm(false);
+                }}
               >
-                <Trash2 size={16} />
-                <span>Delete Ticket</span>
+                Delete
               </button>
             </div>
           </div>
         </div>
       )}
-
     </div>
   );
 };
 
-export default TicketDetailModern;
+export default TicketDetail;
