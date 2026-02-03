@@ -13396,3 +13396,23 @@
 2026-02-03 14:15:00.136 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2026-02-03 14:15:00.136 [ERROR] 🚨 🔴 Breaches: 12 tickets
 2026-02-03 14:15:00.136 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 68ms
+2026-02-03 14:56:36.250 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 14:56:36.609 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 14:56:36.608 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 14:56:36.625 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 14:56:36.721 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 14:56:36.755 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 14:56:36.900 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 14:56:36.912 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 14:56:36.920 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 14:56:37.002 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 14:56:37.299 [WARN] [SYSTEM] ⚠️ Authentication failed - Invalid or expired session | {
+2026-02-03 14:56:37.436 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-02-03 14:56:37.594 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 14:56:37.600 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-03 14:56:37.691 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-03 14:56:37.854 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 14:56:37.876 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 14:56:37.912 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 14:56:37.925 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 14:56:37.987 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
