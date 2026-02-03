@@ -1817,3 +1817,15 @@
 2026-02-03 11:45:00.057 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2026-02-03 11:45:00.057 [ERROR] 🚨 🔴 Breaches: 12 tickets
 2026-02-03 11:45:00.057 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 40ms
+2026-02-03 11:45:44.650 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-03 11:45:44.651 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-03 11:45:44.651 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-03 11:45:44.653 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-03 11:45:44.652 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-03 11:45:44.666 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-03 11:45:44.669 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-03 11:45:44.679 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-03 11:45:44.682 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-03 11:45:44.686 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-03 11:45:44.684 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-03 11:45:44.691 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
