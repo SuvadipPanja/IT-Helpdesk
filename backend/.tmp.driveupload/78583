@@ -6458,3 +6458,15 @@
 2026-02-04 12:15:00.185 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2026-02-04 12:15:00.185 [ERROR] 🚨 🔴 Breaches: 12 tickets
 2026-02-04 12:15:00.186 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 111ms
+2026-02-04 12:15:04.376 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 12:15:04.374 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 12:15:04.376 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 12:15:04.377 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 12:15:04.378 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 12:15:04.385 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 12:15:04.392 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 12:15:04.403 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 12:15:04.410 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 12:15:04.417 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 12:15:04.421 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 12:15:04.428 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
