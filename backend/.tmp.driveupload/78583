@@ -2924,3 +2924,21 @@
 2026-02-04 11:43:56.667 [TRY] [OPERATION] 🔄 Fetching users list | {
 2026-02-04 11:43:56.679 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
 2026-02-04 11:43:56.677 [SUCCESS] [OPERATION] ✅ Users list fetched successfully | {
+2026-02-04 11:44:01.202 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 11:44:01.192 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 11:44:01.202 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
+2026-02-04 11:44:01.204 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-02-04 11:44:03.309 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 11:44:03.307 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 11:44:03.309 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 11:44:03.314 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 11:44:03.312 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 11:44:03.318 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 11:44:03.319 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-04 11:44:03.327 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-04 11:44:03.335 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 11:44:03.367 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 11:44:03.371 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 11:44:03.375 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 11:44:03.378 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 11:44:03.386 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
