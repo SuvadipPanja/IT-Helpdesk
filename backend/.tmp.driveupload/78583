@@ -5821,3 +5821,15 @@
 2026-02-04 12:10:00.155 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-02-04 12:10:00.165 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2026-02-04 12:10:00.166 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-04 12:10:04.389 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 12:10:04.386 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 12:10:04.389 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 12:10:04.391 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 12:10:04.393 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 12:10:04.403 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 12:10:04.409 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 12:10:04.422 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 12:10:04.428 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 12:10:04.434 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 12:10:04.432 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 12:10:04.445 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
