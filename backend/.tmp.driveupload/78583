@@ -9459,3 +9459,38 @@
 2026-02-04 12:43:17.489 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-04 12:43:17.485 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-04 12:43:17.497 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-04 12:43:22.958 [DEBUG] 🐛 Request Body | {
+2026-02-04 12:43:22.955 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 12:43:22.961 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 12:43:22.961 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 12:43:22.963 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 12:43:22.964 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 12:43:22.971 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 12:43:22.980 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 12:43:23.011 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 12:43:23.015 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 12:43:23.025 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 12:43:23.022 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 12:43:23.030 [TRY] [OPERATION] 🔄 Updating user | {
+2026-02-04 12:43:23.200 [TRY] [OPERATION] 🔄 Fetching password expiry policy from system settings
+2026-02-04 12:43:23.210 [SUCCESS] [OPERATION] ✅ Password expiry date will be set | {
+2026-02-04 12:43:23.208 [INFO] [SYSTEM] ℹ️ Password expiry policy | {
+2026-02-04 12:43:23.211 [TRY] [OPERATION] 🔄 Saving password to history | {
+2026-02-04 12:43:23.219 [SUCCESS] [OPERATION] ✅ Password saved to history | {
+2026-02-04 12:43:23.224 [INFO] [SYSTEM] ℹ️ Password history updated for user | {
+2026-02-04 12:43:23.245 [SUCCESS] [OPERATION] ✅ User updated successfully | {
+2026-02-04 12:43:23.249 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-04 12:43:24.678 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 12:43:24.675 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 12:43:24.667 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 12:43:24.662 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 12:43:24.679 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 12:43:24.684 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 12:43:24.690 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 12:43:24.699 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 12:43:24.702 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 12:43:24.709 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 12:43:24.712 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 12:43:24.715 [TRY] [OPERATION] 🔄 Fetching users list | {
+2026-02-04 12:43:24.734 [SUCCESS] [OPERATION] ✅ Users list fetched successfully | {
+2026-02-04 12:43:24.741 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
