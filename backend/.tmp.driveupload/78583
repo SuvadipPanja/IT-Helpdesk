@@ -3118,3 +3118,15 @@
 2026-02-04 11:45:00.133 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2026-02-04 11:45:00.135 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 86ms
 2026-02-04 11:45:00.134 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-02-04 11:45:03.299 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 11:45:03.295 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 11:45:03.300 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 11:45:03.301 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 11:45:03.311 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 11:45:03.318 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 11:45:03.324 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 11:45:03.353 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 11:45:03.357 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 11:45:03.367 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 11:45:03.377 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 11:45:03.384 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
