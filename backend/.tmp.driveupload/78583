@@ -6369,3 +6369,15 @@
 2026-02-04 12:13:57.254 [INFO] [SYSTEM] ℹ️ ✅ OK: 2 tickets
 2026-02-04 12:13:57.301 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [279]
 2026-02-04 12:13:57.301 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2026-02-04 12:14:03.982 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 12:14:03.984 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 12:14:03.986 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 12:14:03.984 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 12:14:03.987 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 12:14:04.000 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 12:14:04.007 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 12:14:04.040 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 12:14:04.045 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 12:14:04.054 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 12:14:04.050 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 12:14:04.064 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
