@@ -3819,3 +3819,17 @@
 2026-02-04 11:54:45.731 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2026-02-04 11:54:45.743 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
 2026-02-04 11:54:45.749 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-04 11:54:54.649 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 11:54:54.653 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 11:54:54.656 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 11:54:54.654 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 11:54:54.657 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 11:54:54.664 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-04 11:54:54.663 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 11:54:54.672 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-04 11:54:54.678 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 11:54:54.688 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 11:54:54.693 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 11:54:54.697 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 11:54:54.699 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 11:54:54.708 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
