@@ -6079,3 +6079,15 @@
 2026-02-04 12:10:59.336 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 98ms
 2026-02-04 12:10:59.378 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
 2026-02-04 12:10:59.377 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [278]
+2026-02-04 12:11:03.976 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 12:11:03.980 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 12:11:03.980 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 12:11:03.982 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 12:11:03.983 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 12:11:03.999 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 12:11:04.006 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 12:11:04.048 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 12:11:04.059 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 12:11:04.067 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 12:11:04.073 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 12:11:04.087 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
