@@ -3003,3 +3003,42 @@
 2026-02-04 11:44:35.859 [TRY] [OPERATION] 🔄 Authenticating request | {
 2026-02-04 11:44:35.859 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
 2026-02-04 11:44:35.863 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-02-04 11:44:40.306 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 11:44:40.314 [DEBUG] 🐛 Request Body | {
+2026-02-04 11:44:40.315 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-02-04 11:44:40.315 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-02-04 11:44:40.323 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-02-04 11:44:40.329 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 11:44:40.328 [SUCCESS] [OPERATION] ✅ User account is active
+2026-02-04 11:44:40.332 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 11:44:40.333 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 11:44:40.333 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 11:44:40.335 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 11:44:40.335 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 11:44:40.344 [TRY] [OPERATION] 🔄 Verifying password
+2026-02-04 11:44:40.344 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-02-04 11:44:40.452 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 11:44:40.340 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-02-04 11:44:40.509 [WARN] [SYSTEM] ⚠️ Password comparison completed - No match
+2026-02-04 11:44:40.517 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 11:44:40.537 [WARN] [SYSTEM] ⚠️ Login failed - Invalid password | {
+2026-02-04 11:44:40.535 [INFO] [SYSTEM] ℹ️ Failed login attempt recorded | {
+2026-02-04 11:44:40.542 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 11:44:40.546 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 11:44:40.548 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
+2026-02-04 11:44:40.550 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-02-04 11:44:40.556 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 11:44:40.564 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 11:44:40.570 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-04 11:44:43.298 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 11:44:43.300 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 11:44:43.301 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 11:44:43.299 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 11:44:43.297 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 11:44:43.313 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 11:44:43.320 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 11:44:43.338 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 11:44:43.345 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 11:44:43.352 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 11:44:43.356 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 11:44:43.372 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
