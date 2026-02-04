@@ -10398,3 +10398,17 @@
 2026-02-04 12:47:26.306 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-04 12:47:26.313 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-04 12:47:26.320 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-04 12:47:34.155 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 12:47:34.187 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 12:47:34.188 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 12:47:34.196 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 12:47:34.197 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 12:47:34.206 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 12:47:34.207 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-04 12:47:34.217 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-04 12:47:34.222 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 12:47:34.256 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 12:47:34.265 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 12:47:34.270 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 12:47:34.272 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 12:47:34.287 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
