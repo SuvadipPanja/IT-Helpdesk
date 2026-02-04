@@ -4401,3 +4401,15 @@
 2026-02-04 11:57:05.602 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-04 11:57:05.617 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-04 11:57:05.619 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-04 11:57:40.250 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 11:57:40.252 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 11:57:40.252 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 11:57:40.255 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 11:57:40.256 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 11:57:40.289 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 11:57:40.294 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 11:57:40.324 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 11:57:40.329 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 11:57:40.334 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 11:57:40.332 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 11:57:40.340 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
