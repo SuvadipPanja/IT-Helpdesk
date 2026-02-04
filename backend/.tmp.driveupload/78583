@@ -844,3 +844,15 @@
 2026-02-04 11:29:20.648 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
 2026-02-04 11:29:20.686 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-04 11:29:20.691 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-04 11:29:36.174 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-04 11:29:36.178 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-04 11:29:36.178 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-04 11:29:36.181 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-04 11:29:36.183 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-04 11:29:36.194 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-04 11:29:36.199 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-04 11:29:36.230 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-04 11:29:36.236 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-04 11:29:36.242 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-04 11:29:36.239 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-04 11:29:36.251 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
