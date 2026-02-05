@@ -125,3 +125,33 @@
 2026-02-05 11:37:12.655 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
 2026-02-05 11:37:12.653 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
 2026-02-05 11:37:12.656 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-02-05 11:37:22.511 [DEBUG] 🐛 Request Body | {
+2026-02-05 11:37:22.524 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-02-05 11:37:22.504 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-05 11:37:22.524 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-02-05 11:37:22.538 [SUCCESS] [OPERATION] ✅ User account is active
+2026-02-05 11:37:22.536 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-02-05 11:37:22.538 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-05 11:37:22.543 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-02-05 11:37:22.545 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-02-05 11:37:22.544 [TRY] [OPERATION] 🔄 Verifying password
+2026-02-05 11:37:22.714 [WARN] [SYSTEM] ⚠️ Password comparison completed - No match
+2026-02-05 11:37:22.761 [INFO] [SYSTEM] ℹ️ Failed login attempt recorded | {
+2026-02-05 11:37:22.765 [WARN] [SYSTEM] ⚠️ Login failed - Invalid password | {
+2026-02-05 11:37:22.803 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
+2026-02-05 11:37:22.807 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-02-05 11:37:26.468 [DEBUG] 🐛 Request Body | {
+2026-02-05 11:37:26.473 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-02-05 11:37:26.461 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-05 11:37:26.473 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-02-05 11:37:26.491 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-02-05 11:37:26.493 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-05 11:37:26.493 [SUCCESS] [OPERATION] ✅ User account is active
+2026-02-05 11:37:26.498 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-02-05 11:37:26.499 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-02-05 11:37:26.498 [TRY] [OPERATION] 🔄 Verifying password
+2026-02-05 11:37:26.691 [WARN] [SYSTEM] ⚠️ Password comparison completed - No match
+2026-02-05 11:37:26.725 [WARN] [SYSTEM] ⚠️ Login failed - Invalid password | {
+2026-02-05 11:37:26.722 [INFO] [SYSTEM] ℹ️ Failed login attempt recorded | {
+2026-02-05 11:37:26.737 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-02-05 11:37:26.732 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
