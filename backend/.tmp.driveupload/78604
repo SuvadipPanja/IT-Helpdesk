@@ -4544,3 +4544,20 @@
 2026-02-05 15:54:23.217 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
 2026-02-05 15:54:23.217 [TRY] [OPERATION] 🔄 Fetching public settings
 2026-02-05 15:54:23.218 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-02-05 15:54:33.691 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-05 15:54:33.733 [DEBUG] 🐛 Request Body | {
+2026-02-05 15:54:33.735 [TRY] [OPERATION] 🔄 FORGOT PASSWORD REQUEST | {
+2026-02-05 15:54:33.767 [WARN] [SYSTEM] ⚠️ Email not found in database | {
+2026-02-05 15:54:33.769 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-05 15:54:35.932 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-05 15:54:35.932 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-05 15:54:35.925 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-05 15:54:35.934 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-05 15:54:35.935 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-05 15:54:35.947 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-05 15:54:35.953 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-05 15:54:35.991 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-05 15:54:35.999 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-05 15:54:36.007 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-05 15:54:36.003 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-05 15:54:36.018 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
