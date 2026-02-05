@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext'; // ⭐ Toast Notifications
 import {
   ArrowLeft,
   Edit,
@@ -37,6 +38,7 @@ const TicketDetail = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const toast = useToast(); // ⭐ Toast notifications
 
   // State management
   const [ticket, setTicket] = useState(null);
@@ -137,12 +139,15 @@ const TicketDetail = () => {
         setNewComment('');
         setIsInternalNote(false);
 
+        // Success toast
+        toast.success(isInternalNote ? 'Internal note added successfully!' : 'Comment added successfully!');
+
         // Refresh ticket to get updated data
         fetchTicketDetails();
       }
     } catch (err) {
       console.error('Error adding comment:', err);
-      alert(err.response?.data?.message || 'Failed to add comment');
+      toast.error(err.response?.data?.message || 'Failed to add comment');
     } finally {
       setCommentLoading(false);
     }
@@ -151,7 +156,7 @@ const TicketDetail = () => {
   // Assign engineer
   const handleAssignEngineer = async () => {
     if (!selectedEngineer) {
-      alert('Please select an engineer to assign');
+      toast.warning('Please select an engineer to assign');
       return;
     }
 
@@ -163,13 +168,15 @@ const TicketDetail = () => {
       });
 
       if (response.data.success) {
-        alert('Ticket assigned successfully!');
+        // Find engineer name for better message
+        const engineerName = engineers.find(e => e.user_id === parseInt(selectedEngineer))?.full_name || 'Engineer';
+        toast.success(`Ticket assigned to ${engineerName} successfully!`);
         // Refresh ticket details
         fetchTicketDetails();
       }
     } catch (err) {
       console.error('Error assigning ticket:', err);
-      alert(err.response?.data?.message || 'Failed to assign ticket');
+      toast.error(err.response?.data?.message || 'Failed to assign ticket');
     } finally {
       setAssignLoading(false);
     }
@@ -181,12 +188,12 @@ const TicketDetail = () => {
       const response = await api.delete(`/tickets/${id}`);
       
       if (response.data.success) {
-        alert('Ticket deleted successfully!');
+        toast.success(`Ticket #${ticket.ticket_id} deleted successfully!`);
         navigate('/tickets');
       }
     } catch (err) {
       console.error('Error deleting ticket:', err);
-      alert(err.response?.data?.message || 'Failed to delete ticket');
+      toast.error(err.response?.data?.message || 'Failed to delete ticket');
       setShowDeleteConfirm(false);
     }
   };
@@ -194,51 +201,6 @@ const TicketDetail = () => {
   // Navigate to edit - ⭐ ORIGINAL ROUTE PRESERVED
   const handleEditTicket = () => {
     navigate(`/tickets/edit/${id}`);
-  };
-
-  // Close ticket - Quick action for assigned engineer/admin
-  // Developer: Suvadip Panja
-  // Date: February 04, 2026
-  const [closeLoading, setCloseLoading] = useState(false);
-  
-  const handleCloseTicket = async () => {
-    if (!window.confirm('Are you sure you want to close this ticket?')) {
-      return;
-    }
-
-    try {
-      setCloseLoading(true);
-
-      // First, get the status_id for CLOSED status
-      const statusesResponse = await api.get('/system/statuses');
-      
-      if (!statusesResponse.data.success) {
-        throw new Error('Failed to fetch statuses');
-      }
-
-      const statuses = statusesResponse.data.data;
-      const closedStatus = statuses.find(s => s.status_code === 'CLOSED');
-      
-      if (!closedStatus) {
-        throw new Error('CLOSED status not found');
-      }
-
-      // Update ticket with the correct status_id
-      const response = await api.put(`/tickets/${id}`, {
-        status_id: closedStatus.status_id
-      });
-
-      if (response.data.success) {
-        alert('Ticket closed successfully!');
-        // Refresh ticket details to show updated status
-        fetchTicketDetails();
-      }
-    } catch (err) {
-      console.error('Error closing ticket:', err);
-      alert(err.response?.data?.message || 'Failed to close ticket');
-    } finally {
-      setCloseLoading(false);
-    }
   };
 
   // Format date
@@ -536,9 +498,10 @@ const TicketDetail = () => {
       window.URL.revokeObjectURL(url);
 
       console.log('✅ Download triggered successfully');
+      toast.success(`Downloading ${attachment.original_name}...`);
     } catch (error) {
       console.error('❌ Error downloading attachment:', error);
-      alert('Failed to download attachment. Please try again.');
+      toast.error('Failed to download attachment. Please try again.');
     }
   };
 
@@ -559,20 +522,6 @@ const TicketDetail = () => {
   // Check if user can assign
   const canAssign = () => {
     return user?.permissions?.can_assign_tickets;
-  };
-
-  // Check if user can close - Only assigned engineer or admin
-  // Developer: Suvadip Panja
-  // Date: February 04, 2026
-  const canClose = () => {
-    if (!user || !ticket) return false;
-    // Check if ticket is already closed
-    if (ticket.status_code === 'CLOSED' || ticket.status_code === 'CANCELLED') return false;
-    // Administrator can close any ticket
-    if (user.permissions?.can_assign_tickets || user.permissions?.can_manage_system) return true;
-    // Assigned engineer can close their tickets
-    if (ticket.assigned_to_id === user.user_id) return true;
-    return false;
   };
 
   if (loading) {
@@ -629,21 +578,6 @@ const TicketDetail = () => {
           <button className="btn-icon-action" onClick={fetchTicketDetails} title="Refresh">
             <RefreshCw size={18} />
           </button>
-          {canClose() && (
-            <button 
-              className="btn-close-ticket" 
-              onClick={handleCloseTicket}
-              disabled={closeLoading}
-              title="Close Ticket"
-            >
-              {closeLoading ? (
-                <RefreshCw size={18} className="spinning" />
-              ) : (
-                <CheckCircle size={18} />
-              )}
-              <span>{closeLoading ? 'Closing...' : 'Close'}</span>
-            </button>
-          )}
           {canEdit() && (
             <button className="btn-secondary" onClick={handleEditTicket}>
               <Edit size={18} />
