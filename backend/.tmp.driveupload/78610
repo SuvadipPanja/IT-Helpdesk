@@ -1,0 +1,132 @@
+2026-02-06 14:36:40.975 [INFO] [SYSTEM] ℹ️ Initializing security middleware
+2026-02-06 14:36:40.983 [SUCCESS] [OPERATION] ✅ Rate limiting enabled | {
+2026-02-06 14:36:41.135 [INFO] [SYSTEM] ℹ️ Initializing body parsers
+2026-02-06 14:36:41.141 [SUCCESS] [OPERATION] ✅ Body parsers initialized
+2026-02-06 14:36:40.978 [SUCCESS] [OPERATION] ✅ CORS enabled | {
+2026-02-06 14:36:41.142 [SUCCESS] [OPERATION] ✅ Response compression enabled
+2026-02-06 14:36:41.145 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-02-06 14:36:41.144 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-02-06 14:36:41.148 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-02-06 14:36:41.151 [SUCCESS] [OPERATION] ✅ Static file serving enabled with CORS | {
+2026-02-06 14:36:41.146 [INFO] [SYSTEM] ℹ️ Directory exists | {
+2026-02-06 14:36:41.153 [INFO] [SYSTEM] ℹ️ Initializing API routes
+2026-02-06 14:36:42.028 [INFO] [SYSTEM] ℹ️ Starting IT Helpdesk Backend Server
+2026-02-06 14:36:42.028 [INFO] [SYSTEM] ℹ️ Environment | {
+2026-02-06 14:36:42.029 [INFO] [SYSTEM] ℹ️ Node Version | {
+2026-02-06 14:36:42.026 [SUCCESS] [OPERATION] ✅ Error handlers initialized
+2026-02-06 14:36:42.024 [SUCCESS] [OPERATION] ✅ API routes initialized | {
+2026-02-06 14:36:42.030 [INFO] [SYSTEM] ℹ️ Platform | {
+2026-02-06 14:36:42.031 [TRY] [OPERATION] 🔄 Testing database connection
+2026-02-06 14:36:42.270 [INFO] [SYSTEM] ℹ️ Database details | {
+2026-02-06 14:36:42.269 [SUCCESS] [OPERATION] ✅ Database connection test passed
+2026-02-06 14:36:42.282 [SUCCESS] [OPERATION] ✅ Server is running on port 5000
+2026-02-06 14:36:42.282 [SUCCESS] [OPERATION] ✅ API Base URL: http://localhost:5000/api/v1
+2026-02-06 14:36:42.284 [SUCCESS] [OPERATION] ✅ Test Uploads: http://localhost:5000/test-uploads
+2026-02-06 14:36:42.284 [INFO] [SYSTEM] ℹ️ Server Details | {
+2026-02-06 14:36:42.283 [SUCCESS] [OPERATION] ✅ Health Check: http://localhost:5000/health
+2026-02-06 14:36:42.288 [INFO] [SYSTEM] ℹ️ 🎉 IT Helpdesk Backend is ready to accept requests!
+2026-02-06 14:36:42.291 [INFO] [SYSTEM] ℹ️ 📂 File uploads enabled at: /uploads
+2026-02-06 14:36:42.293 [INFO] [SYSTEM] ℹ️ 🖼️ Profile pictures: /uploads/profiles
+2026-02-06 14:36:42.295 [INFO] [SYSTEM] ℹ️ 📎 Ticket attachments: /uploads/tickets
+2026-02-06 14:36:42.296 [INFO] [SYSTEM] ℹ️ 🔓 CORS enabled for cross-origin requests
+2026-02-06 14:36:42.297 [INFO] [SYSTEM] ℹ️ 🔗 Attachments endpoint: /api/v1/tickets/:id/attachments
+2026-02-06 14:36:42.299 [INFO] [SYSTEM] ℹ️ 👥 Users endpoint: /api/v1/users
+2026-02-06 14:36:42.300 [INFO] [SYSTEM] ℹ️ 👤 Profile endpoint: /api/v1/profile
+2026-02-06 14:36:42.301 [INFO] [SYSTEM] ℹ️ 🔐 Security endpoint: /api/v1/security
+2026-02-06 14:36:42.303 [INFO] [SYSTEM] ℹ️ ⏰ Password Expiry endpoint: /api/v1/password-expiry
+2026-02-06 14:36:42.305 [INFO] [SYSTEM] ℹ️ 🔒 Two-Factor Auth endpoint: /api/v1/2fa
+2026-02-06 14:36:42.308 [INFO] [SYSTEM] ℹ️ 📧 Email Queue endpoint: /api/v1/email-queue
+2026-02-06 14:36:42.309 [INFO] [SYSTEM] ℹ️ 📝 Email Templates endpoint: /api/v1/email-templates
+2026-02-06 14:36:42.310 [INFO] [SYSTEM] ℹ️ ✅ Ticket Approvals endpoint: /api/v1/ticket-approvals
+2026-02-06 14:36:42.311 [INFO] [SYSTEM] ℹ️ 💾 Backup endpoint: /api/v1/backup
+2026-02-06 14:36:42.311 [INFO] [SYSTEM] ℹ️ Press CTRL+C to stop the server
+2026-02-06 14:36:42.313 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Job...
+2026-02-06 14:36:42.314 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 5 minutes (*/5 * * * *)
+2026-02-06 14:36:42.313 [INFO] [SYSTEM] ℹ️ 📧 Starting Email Processor Cron Job
+2026-02-06 14:36:42.344 [SUCCESS] [OPERATION] ✅ ✅ Email Processor Cron Job started successfully
+2026-02-06 14:36:42.344 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Job...
+2026-02-06 14:36:42.345 [INFO] [SYSTEM] ℹ️ 🚨 Starting Auto-Escalation Cron Job
+2026-02-06 14:36:42.346 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Job...
+2026-02-06 14:36:42.347 [INFO] [SYSTEM] ℹ️ 🔒 Starting Auto-Close Tickets Cron Job
+2026-02-06 14:36:42.347 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-06 14:36:42.348 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Cron Job
+2026-02-06 14:36:42.347 [INFO] [SYSTEM] ℹ️ ⚠️ Starting SLA Breach Detection Job...
+2026-02-06 14:36:42.358 [SUCCESS] [OPERATION] ✅ Password expiry reminder job scheduled (Daily at 9:00 AM IST)
+2026-02-06 14:36:42.358 [INFO] [SYSTEM] ℹ️ 🧹 Starting Session Cleanup Job...
+2026-02-06 14:36:42.359 [INFO] [SYSTEM] ℹ️ 🕐 Session Cleanup scheduled | {
+2026-02-06 14:36:42.349 [INFO] [SYSTEM] ℹ️ 🔐 Starting Password Expiry Job...
+2026-02-06 14:36:42.365 [SUCCESS] [OPERATION] ✅ ✅ Session Cleanup started successfully
+2026-02-06 14:36:42.366 [INFO] [SYSTEM] ℹ️ 🕐 Auto Unlock scheduled | {
+2026-02-06 14:36:42.366 [INFO] [SYSTEM] ℹ️ 🔓 Starting Auto-Unlock Job...
+2026-02-06 14:36:42.377 [INFO] [SYSTEM] ℹ️ 💾 Starting Backup Job...
+2026-02-06 14:36:42.380 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-06 14:36:42.379 [TRY] [OPERATION] 🔄 Starting backup job
+2026-02-06 14:36:42.349 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-06 14:36:42.375 [SUCCESS] [OPERATION] ✅ ✅ Auto Unlock started successfully
+2026-02-06 14:36:42.560 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2026-02-06 14:36:42.551 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
+2026-02-06 14:36:42.552 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2026-02-06 14:36:42.568 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-06 14:36:42.571 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: Every 15 minutes (*/15 * * * *)
+2026-02-06 14:36:42.571 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
+2026-02-06 14:36:42.573 [INFO] [SYSTEM] ℹ️ ⚠️ Warning Threshold: 90%
+2026-02-06 14:36:42.576 [INFO] [SYSTEM] ℹ️ 🕐 Business Hours: 09:00 - 17:00
+2026-02-06 14:36:42.576 [INFO] [SYSTEM] ℹ️ 📅 Working Days: mon, tue, wed, thu, fri, sat
+2026-02-06 14:36:42.581 [SUCCESS] [OPERATION] ✅ ✅ SLA Breach Detection Cron Job started successfully
+2026-02-06 14:36:42.596 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-06 14:36:42.598 [INFO] [SYSTEM] ℹ️ 📊 Status: Disabled
+2026-02-06 14:36:42.599 [WARN] [SYSTEM] ⚠️ ⚠️ Auto-Close job is DISABLED in settings
+2026-02-06 14:36:42.608 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-06 14:36:42.616 [SUCCESS] [OPERATION] ✅ ✅ Backup job started successfully | {
+2026-02-06 14:36:42.623 [INFO] [SYSTEM] ℹ️ Next backup scheduled for | {
+2026-02-06 14:36:42.610 [INFO] [SYSTEM] ℹ️ Backup job configuration loaded | {
+2026-02-06 14:36:47.352 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-06 14:36:47.352 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-06 14:36:47.496 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-06 14:36:47.497 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-06 14:36:52.591 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-06 14:36:52.592 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 06/02/2026, 02:36:52 pm IST
+2026-02-06 14:36:52.593 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-06 14:36:52.612 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-06 14:36:52.625 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2026-02-06 14:36:52.624 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [288]
+2026-02-06 14:36:52.659 [INFO] [SYSTEM] ℹ️ 🎫 Found 13 open tickets to check
+2026-02-06 14:36:52.660 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-06 14:36:52.661 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-06 14:36:52.663 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:36:52.664 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-06 14:36:52.667 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-06 14:36:52.667 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:36:52.670 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-06 14:36:52.670 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:36:52.676 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:36:52.676 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-06 14:36:52.679 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:36:52.679 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-06 14:36:52.681 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:36:52.682 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2026-02-06 14:36:52.684 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:36:52.687 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:36:52.685 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2026-02-06 14:36:52.688 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2026-02-06 14:36:52.692 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:36:52.693 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2026-02-06 14:36:52.695 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:36:52.696 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2026-02-06 14:36:52.697 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:36:52.698 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2026-02-06 14:36:52.700 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:36:52.701 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-02-06 14:36:52.702 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-06 14:36:52.702 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-02-06 14:36:52.703 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 113ms
+2026-02-06 14:38:20.328 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 14:38:20.333 [TRY] [OPERATION] 🔄 Fetching public settings
+2026-02-06 14:38:20.334 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2026-02-06 14:38:20.346 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-02-06 14:38:22.403 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 14:38:22.415 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 14:38:22.414 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 14:38:22.433 [ERROR] 🚨 Authentication middleware error | {
+2026-02-06 14:38:22.431 [WARN] [SYSTEM] ⚠️ JWT token expired | {
+2026-02-06 14:38:22.446 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
