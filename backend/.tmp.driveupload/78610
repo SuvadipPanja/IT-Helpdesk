@@ -12869,3 +12869,15 @@
 2026-02-06 16:38:33.050 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-06 16:38:33.051 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-06 16:38:33.055 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:38:53.043 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:38:53.044 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 16:38:53.044 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 16:38:53.045 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 16:38:53.045 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 16:38:53.047 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 16:38:53.048 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:38:53.052 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 16:38:53.054 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 16:38:53.056 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 16:38:53.055 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 16:38:53.058 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
