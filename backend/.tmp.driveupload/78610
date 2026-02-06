@@ -708,3 +708,88 @@
 2026-02-06 14:44:51.637 [INFO] [SYSTEM] ℹ️ ⏰ Schedule: 0 */1 * * *
 2026-02-06 14:44:51.638 [INFO] [SYSTEM] ℹ️ 📊 Status: Enabled
 2026-02-06 14:44:51.642 [SUCCESS] [OPERATION] ✅ ✅ Auto-Escalation Cron Job started successfully
+2026-02-06 14:44:56.479 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-06 14:44:56.485 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-06 14:44:56.508 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-06 14:44:56.507 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-06 14:45:00.053 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-06 14:45:00.054 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-06 14:45:00.058 [TRY] [OPERATION] 🔄 Finding accounts with expired lockouts
+2026-02-06 14:45:00.058 [TRY] [OPERATION] 🔄 Running Auto Unlock
+2026-02-06 14:45:00.065 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-06 14:45:00.067 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 06/02/2026, 02:45:00 pm IST
+2026-02-06 14:45:00.069 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-06 14:45:00.101 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-06 14:45:00.102 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-06 14:45:00.110 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-06 14:45:00.119 [INFO] [SYSTEM] ℹ️ No accounts found with expired lockouts
+2026-02-06 14:45:00.171 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-06 14:45:00.173 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-06 14:45:00.170 [INFO] [SYSTEM] ℹ️ 🎫 Found 13 open tickets to check
+2026-02-06 14:45:00.179 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-06 14:45:00.177 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:00.185 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:00.192 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:00.186 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-06 14:45:00.193 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-06 14:45:00.200 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:00.200 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-06 14:45:00.204 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:00.205 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-06 14:45:00.208 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:00.209 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2026-02-06 14:45:00.212 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:00.215 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2026-02-06 14:45:00.218 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:00.221 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:00.219 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2026-02-06 14:45:00.222 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2026-02-06 14:45:00.226 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2026-02-06 14:45:00.232 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:00.233 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2026-02-06 14:45:00.225 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:00.237 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-02-06 14:45:00.235 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:00.239 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-02-06 14:45:00.238 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-06 14:45:00.240 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 175ms
+2026-02-06 14:45:01.141 [TRY] [OPERATION] 🔄 Fetching public settings
+2026-02-06 14:45:01.134 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 14:45:01.142 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2026-02-06 14:45:01.159 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-02-06 14:45:01.599 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-06 14:45:01.599 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 06/02/2026, 02:45:01 pm IST
+2026-02-06 14:45:01.600 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-06 14:45:01.604 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-06 14:45:01.611 [INFO] [SYSTEM] ℹ️ 🎫 Found 13 open tickets to check
+2026-02-06 14:45:01.612 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-06 14:45:01.613 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-06 14:45:01.614 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:01.617 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-06 14:45:01.615 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-06 14:45:01.616 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:01.618 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-06 14:45:01.617 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:01.621 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:01.621 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-06 14:45:01.623 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2026-02-06 14:45:01.624 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:01.625 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:01.625 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2026-02-06 14:45:01.626 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2026-02-06 14:45:01.627 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:01.622 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:01.628 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2026-02-06 14:45:01.631 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2026-02-06 14:45:01.632 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:01.633 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2026-02-06 14:45:01.634 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-02-06 14:45:01.634 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:01.619 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:01.620 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-06 14:45:01.628 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 14:45:01.634 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-06 14:45:01.635 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-02-06 14:45:01.635 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 36ms
+2026-02-06 14:45:01.654 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [289]
+2026-02-06 14:45:01.655 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
