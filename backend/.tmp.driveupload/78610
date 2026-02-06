@@ -15168,3 +15168,75 @@
 2026-02-06 16:52:12.049 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-06 16:52:12.050 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-06 16:52:12.052 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:52:26.716 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:52:26.719 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 16:52:26.717 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 16:52:26.718 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 16:52:26.717 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 16:52:26.720 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:52:26.720 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 16:52:26.721 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 16:52:26.721 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 16:52:26.720 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 16:52:26.724 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 16:52:26.724 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-06 16:52:26.725 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 16:52:26.725 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-06 16:52:26.728 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-06 16:52:26.730 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-06 16:52:26.734 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:52:26.735 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:52:26.739 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 16:52:26.741 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 16:52:26.742 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 16:52:26.744 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 16:52:26.748 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 16:52:26.745 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 16:52:26.749 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2026-02-06 16:52:26.752 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 16:52:26.755 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2026-02-06 16:52:26.754 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 16:52:26.758 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2026-02-06 16:52:26.759 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:52:26.762 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:52:26.762 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 16:52:26.764 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 16:52:26.762 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 16:52:26.764 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 16:52:26.768 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 16:52:26.771 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:52:26.777 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2026-02-06 16:52:26.782 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 16:52:26.781 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:52:26.783 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:52:26.785 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 16:52:26.785 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 16:52:26.786 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 16:52:26.787 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 16:52:26.791 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 16:52:26.792 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 16:52:26.795 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 16:52:26.794 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 16:52:26.797 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2026-02-06 16:52:26.799 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:52:26.805 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:52:26.803 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2026-02-06 16:52:26.810 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 16:52:26.811 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 16:52:26.814 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 16:52:26.815 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 16:52:26.816 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2026-02-06 16:52:26.822 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2026-02-06 16:52:26.824 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:52:28.601 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 16:52:28.602 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 16:52:28.601 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 16:52:28.600 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:52:28.601 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 16:52:28.604 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 16:52:28.606 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:52:28.609 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 16:52:28.611 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 16:52:28.615 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 16:52:28.612 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 16:52:28.618 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
