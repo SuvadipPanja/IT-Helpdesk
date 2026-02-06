@@ -11128,3 +11128,17 @@
 2026-02-06 16:14:12.699 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-06 16:14:12.702 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-06 16:14:12.713 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:14:32.650 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:14:32.660 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 16:14:32.661 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 16:14:32.653 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 16:14:32.653 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 16:14:32.667 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 16:14:32.667 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-06 16:14:32.678 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-06 16:14:32.683 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:14:32.696 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 16:14:32.699 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 16:14:32.708 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 16:14:32.702 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 16:14:32.713 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
