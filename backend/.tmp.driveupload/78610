@@ -5620,3 +5620,15 @@
 2026-02-06 15:43:04.665 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-06 15:43:04.682 [SUCCESS] [OPERATION] ✅ Notifications fetched | {
 2026-02-06 15:43:04.687 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 15:43:23.042 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 15:43:23.044 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 15:43:23.044 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 15:43:23.047 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 15:43:23.053 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 15:43:23.070 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 15:43:23.074 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 15:43:23.102 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 15:43:23.107 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 15:43:23.110 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 15:43:23.115 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 15:43:23.127 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
