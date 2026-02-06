@@ -15786,3 +15786,49 @@
 2026-02-06 16:53:56.247 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
 2026-02-06 16:53:56.249 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
 2026-02-06 16:53:56.245 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:54:03.049 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 16:54:03.050 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 16:54:03.049 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:54:03.050 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 16:54:03.049 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 16:54:03.052 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 16:54:03.054 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:54:03.057 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 16:54:03.058 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 16:54:03.061 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 16:54:03.060 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 16:54:03.064 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:54:04.608 [DEBUG] 🐛 Request Body | {
+2026-02-06 16:54:04.610 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-02-06 16:54:04.610 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-02-06 16:54:04.607 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:54:04.616 [SUCCESS] [OPERATION] ✅ User account is active
+2026-02-06 16:54:04.615 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-02-06 16:54:04.616 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:54:04.617 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-02-06 16:54:04.618 [TRY] [OPERATION] 🔄 Verifying password
+2026-02-06 16:54:04.618 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-02-06 16:54:04.693 [INFO] [SYSTEM] ℹ️ Resetting failed login attempts
+2026-02-06 16:54:04.693 [SUCCESS] [OPERATION] ✅ Password verified successfully
+2026-02-06 16:54:04.692 [SUCCESS] [OPERATION] ✅ Password comparison successful - Match found
+2026-02-06 16:54:04.702 [TRY] [OPERATION] 🔄 Checking password expiry status
+2026-02-06 16:54:04.701 [INFO] [SYSTEM] ℹ️ Failed login attempts reset | {
+2026-02-06 16:54:04.703 [TRY] [OPERATION] 🔄 Checking 2FA status | {
+2026-02-06 16:54:04.703 [TRY] [OPERATION] 🔄 Checking if 2FA is enabled for user
+2026-02-06 16:54:04.703 [SUCCESS] [OPERATION] ✅ Password expiry check passed
+2026-02-06 16:54:04.707 [INFO] [SYSTEM] ℹ️ 2FA is enabled for user, initiating 2FA flow | {
+2026-02-06 16:54:04.707 [TRY] [OPERATION] 🔄 Sending OTP to user email
+2026-02-06 16:54:04.708 [TRY] [OPERATION] 🔄 Sending OTP email | {
+2026-02-06 16:54:04.707 [SUCCESS] [OPERATION] ✅ 2FA status checked | {
+2026-02-06 16:54:04.708 [TRY] [OPERATION] 🔄 Invalidating pending OTPs | {
+2026-02-06 16:54:04.712 [SUCCESS] [OPERATION] ✅ Pending OTPs invalidated | {
+2026-02-06 16:54:04.714 [TRY] [OPERATION] 🔄 Creating OTP for user | {
+2026-02-06 16:54:04.719 [SUCCESS] [OPERATION] ✅ OTP created successfully | {
+2026-02-06 16:54:04.722 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-06 16:54:04.726 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-06 16:54:04.727 [SUCCESS] [OPERATION] ✅ OTP sent successfully | {
+2026-02-06 16:54:04.728 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-06 16:54:04.727 [SUCCESS] [OPERATION] ✅ OTP email queued successfully | {
+2026-02-06 16:54:04.736 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-06 16:54:04.735 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-06 16:54:04.746 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
