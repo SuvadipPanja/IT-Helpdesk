@@ -16231,3 +16231,50 @@
 2026-02-06 16:55:16.750 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-06 16:55:16.751 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-06 16:55:16.753 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:55:23.820 [DEBUG] 🐛 Request Body | {
+2026-02-06 16:55:23.819 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:55:23.822 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 16:55:23.821 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 16:55:23.821 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 16:55:23.821 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 16:55:23.824 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 16:55:23.825 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:55:23.829 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 16:55:23.831 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 16:55:23.834 [TRY] [OPERATION] 🔄 Adding comment to ticket | {
+2026-02-06 16:55:23.832 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 16:55:23.833 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 16:55:23.848 [SUCCESS] [OPERATION] ✅ Comment notification sent to requester
+2026-02-06 16:55:23.849 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-06 16:55:23.852 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20251107-0001' (2 occurrences)
+2026-02-06 16:55:23.853 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{commenter_name}}' with 'Suvadip Panja' (1 occurrences)
+2026-02-06 16:55:23.852 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'test for notifacatation' (2 occurrences)
+2026-02-06 16:55:23.853 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{comment_text}}' with 'i will close it ' (1 occurrences)
+2026-02-06 16:55:23.853 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{user_name}}' with 'Siddhartha Sengupta' (1 occurrences)
+2026-02-06 16:55:23.851 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-06 16:55:23.853 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-06 16:55:23.853 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/48' (1 occurrences)
+2026-02-06 16:55:23.854 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-06 16:55:23.854 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-06 16:55:23.857 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-06 16:55:23.857 [SUCCESS] [OPERATION] ✅ Comment email queued for requester | {
+2026-02-06 16:55:23.859 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:55:23.857 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-06 16:55:23.858 [SUCCESS] [OPERATION] ✅ Comment added with notifications | {
+2026-02-06 16:55:23.859 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-06 16:55:23.864 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 16:55:23.864 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 16:55:23.863 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:55:23.867 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-06 16:55:23.865 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 16:55:23.868 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-06 16:55:23.866 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 16:55:23.871 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 16:55:23.872 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:55:23.875 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 16:55:23.876 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 16:55:23.879 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 16:55:23.880 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2026-02-06 16:55:23.877 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 16:55:23.886 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2026-02-06 16:55:23.887 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
