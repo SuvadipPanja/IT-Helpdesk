@@ -11814,3 +11814,82 @@
 2026-02-06 16:29:06.078 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-06 16:29:06.083 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2026-02-06 16:29:06.085 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:30:00.017 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-06 16:30:00.018 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-06 16:30:00.017 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 06/02/2026, 04:30:00 pm IST
+2026-02-06 16:30:00.019 [TRY] [OPERATION] 🔄 Running Auto Unlock
+2026-02-06 16:30:00.019 [TRY] [OPERATION] 🔄 Finding accounts with expired lockouts
+2026-02-06 16:30:00.020 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-06 16:30:00.020 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-06 16:30:00.021 [INFO] [SYSTEM] ℹ️ Backup job triggered | {
+2026-02-06 16:30:00.052 [INFO] [SYSTEM] ℹ️ No accounts found with expired lockouts
+2026-02-06 16:30:00.049 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-06 16:30:00.054 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-06 16:30:00.053 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-06 16:30:00.056 [ERROR] 🚨 Failed to log job execution | {
+2026-02-06 16:30:00.058 [SUCCESS] [OPERATION] ✅ Backup is enabled - proceeding with backup
+2026-02-06 16:30:00.059 [TRY] [OPERATION] 🔄 Starting backup process | {
+2026-02-06 16:30:00.058 [TRY] [OPERATION] 🔄 Checking backup settings
+2026-02-06 16:30:00.059 [TRY] [OPERATION] 🔄 Loading backup settings from database
+2026-02-06 16:30:00.059 [TRY] [OPERATION] 🔄 Creating backup directories | {
+2026-02-06 16:30:00.059 [SUCCESS] [OPERATION] ✅ Backup settings loaded | {
+2026-02-06 16:30:00.061 [TRY] [OPERATION] 🔄 Creating backup record in database
+2026-02-06 16:30:00.061 [SUCCESS] [OPERATION] ✅ Backup directories created
+2026-02-06 16:30:00.069 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-06 16:30:00.068 [INFO] [SYSTEM] ℹ️ 🎫 Found 13 open tickets to check
+2026-02-06 16:30:00.069 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-06 16:30:00.070 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-06 16:30:00.070 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 16:30:00.071 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 16:30:00.071 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 16:30:00.071 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-06 16:30:00.072 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-06 16:30:00.072 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 16:30:00.072 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-06 16:30:00.074 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 16:30:00.074 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0001 | {
+2026-02-06 16:30:00.074 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 16:30:00.073 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 16:30:00.073 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-06 16:30:00.075 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251105-0002 | {
+2026-02-06 16:30:00.076 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 16:30:00.076 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251106-0002 | {
+2026-02-06 16:30:00.076 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 16:30:00.077 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251111-0002 | {
+2026-02-06 16:30:00.077 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 16:30:00.075 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 16:30:00.075 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251107-0001 | {
+2026-02-06 16:30:00.077 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20251206-0001 | {
+2026-02-06 16:30:00.078 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-02-06 16:30:00.078 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-06 16:30:00.078 [ERROR] 🚨 🔴 Breaches: 12 tickets
+2026-02-06 16:30:00.078 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 63ms
+2026-02-06 16:30:00.078 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-06 16:30:00.080 [SUCCESS] [OPERATION] ✅ Backup record created | {
+2026-02-06 16:30:00.081 [TRY] [OPERATION] 🔄 Starting database backup
+2026-02-06 16:30:00.081 [TRY] [OPERATION] 🔄 Executing SQL Server BACKUP command
+2026-02-06 16:30:00.082 [INFO] [SYSTEM] ℹ️ ================================================================================
+2026-02-06 16:30:00.082 [INFO] [SYSTEM] ℹ️ 🔍 DIAGNOSTIC: Node.js Database Connection Info
+2026-02-06 16:30:00.083 [INFO] [SYSTEM] ℹ️ ================================================================================
+2026-02-06 16:30:00.083 [INFO] [SYSTEM] ℹ️ [DIAGNOSTIC] System User: sa
+2026-02-06 16:30:00.084 [INFO] [SYSTEM] ℹ️ [DIAGNOSTIC] Original Login: sa
+2026-02-06 16:30:00.084 [INFO] [SYSTEM] ℹ️ [DIAGNOSTIC] Database User: dbo
+2026-02-06 16:30:00.084 [INFO] [SYSTEM] ℹ️ [DIAGNOSTIC] Is SysAdmin: YES
+2026-02-06 16:30:00.084 [INFO] [SYSTEM] ℹ️ ================================================================================
+2026-02-06 16:30:00.084 [INFO] [SYSTEM] ℹ️ [DIAGNOSTIC] Has Backup Permission: NO (but might still work)
+2026-02-06 16:30:00.085 [INFO] [SYSTEM] ℹ️ SQL Backup command | {
+2026-02-06 16:30:00.668 [SUCCESS] [OPERATION] ✅ Database backup completed | {
+2026-02-06 16:30:00.669 [TRY] [OPERATION] 🔄 Copying files from uploads directory | {
+2026-02-06 16:30:00.669 [SUCCESS] [OPERATION] ✅ Database backup completed | {
+2026-02-06 16:30:00.669 [TRY] [OPERATION] 🔄 Starting file backup
+2026-02-06 16:30:00.694 [SUCCESS] [OPERATION] ✅ Files copied successfully | {
+2026-02-06 16:30:00.695 [SUCCESS] [OPERATION] ✅ File backup completed | {
+2026-02-06 16:30:00.695 [SUCCESS] [OPERATION] ✅ Metadata file created | {
+2026-02-06 16:30:00.701 [TRY] [OPERATION] 🔄 Cleaning up old backups
+2026-02-06 16:30:00.701 [TRY] [OPERATION] 🔄 Cleaning up backups older than retention period | {
+2026-02-06 16:30:00.701 [SUCCESS] [OPERATION] ✅ Backup record updated to COMPLETED
+2026-02-06 16:30:00.705 [SUCCESS] [OPERATION] ✅ ✅ Automatic backup completed successfully | {
+2026-02-06 16:30:00.705 [SUCCESS] [OPERATION] ✅ ✅ BACKUP COMPLETED SUCCESSFULLY | {
+2026-02-06 16:30:00.704 [INFO] [SYSTEM] ℹ️ No old backups to clean up
+2026-02-06 16:30:00.707 [ERROR] 🚨 Failed to log job execution | {
+2026-02-06 16:30:00.708 [INFO] [SYSTEM] ℹ️ Email notifications disabled - skipping backup notification
