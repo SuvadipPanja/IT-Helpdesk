@@ -500,3 +500,15 @@
 2026-02-06 14:38:41.104 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-06 14:38:41.119 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-06 14:38:41.122 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 14:38:50.063 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 14:38:50.066 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 14:38:50.066 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 14:38:50.067 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 14:38:50.068 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 14:38:50.081 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 14:38:50.087 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 14:38:50.102 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 14:38:50.110 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 14:38:50.117 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 14:38:50.118 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 14:38:50.126 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
