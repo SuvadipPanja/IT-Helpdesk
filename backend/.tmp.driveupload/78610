@@ -8627,3 +8627,88 @@
 2026-02-06 15:57:14.714 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2026-02-06 15:57:14.736 [SUCCESS] [OPERATION] ✅ Backup history retrieved | {
 2026-02-06 15:57:14.742 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 15:57:18.558 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 15:57:18.560 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 15:57:18.561 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 15:57:18.560 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 15:57:18.562 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 15:57:18.566 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 15:57:18.570 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 15:57:18.592 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 15:57:18.597 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 15:57:18.600 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 15:57:18.602 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 15:57:18.609 [TRY] [OPERATION] 🔄 Creating manual backup | {
+2026-02-06 15:57:18.610 [TRY] [OPERATION] 🔄 Loading backup settings from database
+2026-02-06 15:57:18.610 [TRY] [OPERATION] 🔄 Starting backup process | {
+2026-02-06 15:57:18.611 [SUCCESS] [OPERATION] ✅ Backup settings loaded | {
+2026-02-06 15:57:18.612 [TRY] [OPERATION] 🔄 Creating backup directories | {
+2026-02-06 15:57:18.614 [TRY] [OPERATION] 🔄 Creating backup record in database
+2026-02-06 15:57:18.613 [SUCCESS] [OPERATION] ✅ Backup directories created
+2026-02-06 15:57:18.627 [SUCCESS] [OPERATION] ✅ Backup record created | {
+2026-02-06 15:57:18.628 [TRY] [OPERATION] 🔄 Executing SQL Server BACKUP command
+2026-02-06 15:57:18.627 [TRY] [OPERATION] 🔄 Starting database backup
+2026-02-06 15:57:18.633 [INFO] [SYSTEM] ℹ️ 🔍 DIAGNOSTIC: Node.js Database Connection Info
+2026-02-06 15:57:18.633 [INFO] [SYSTEM] ℹ️ ================================================================================
+2026-02-06 15:57:18.631 [INFO] [SYSTEM] ℹ️ ================================================================================
+2026-02-06 15:57:18.633 [INFO] [SYSTEM] ℹ️ [DIAGNOSTIC] System User: sa
+2026-02-06 15:57:18.636 [INFO] [SYSTEM] ℹ️ [DIAGNOSTIC] Original Login: sa
+2026-02-06 15:57:18.635 [INFO] [SYSTEM] ℹ️ [DIAGNOSTIC] Database User: dbo
+2026-02-06 15:57:18.637 [INFO] [SYSTEM] ℹ️ [DIAGNOSTIC] Is SysAdmin: YES
+2026-02-06 15:57:18.641 [INFO] [SYSTEM] ℹ️ [DIAGNOSTIC] Has Backup Permission: NO (but might still work)
+2026-02-06 15:57:18.642 [INFO] [SYSTEM] ℹ️ ================================================================================
+2026-02-06 15:57:18.642 [INFO] [SYSTEM] ℹ️ SQL Backup command | {
+2026-02-06 15:57:19.563 [SUCCESS] [OPERATION] ✅ Database backup completed | {
+2026-02-06 15:57:19.564 [TRY] [OPERATION] 🔄 Starting file backup
+2026-02-06 15:57:19.564 [SUCCESS] [OPERATION] ✅ Database backup completed | {
+2026-02-06 15:57:19.565 [TRY] [OPERATION] 🔄 Copying files from uploads directory | {
+2026-02-06 15:57:19.629 [SUCCESS] [OPERATION] ✅ Files copied successfully | {
+2026-02-06 15:57:19.630 [SUCCESS] [OPERATION] ✅ File backup completed | {
+2026-02-06 15:57:19.632 [SUCCESS] [OPERATION] ✅ Metadata file created | {
+2026-02-06 15:57:19.648 [SUCCESS] [OPERATION] ✅ Backup record updated to COMPLETED
+2026-02-06 15:57:19.648 [TRY] [OPERATION] 🔄 Cleaning up old backups
+2026-02-06 15:57:19.649 [TRY] [OPERATION] 🔄 Cleaning up backups older than retention period | {
+2026-02-06 15:57:19.669 [SUCCESS] [OPERATION] ✅ Manual backup created successfully | {
+2026-02-06 15:57:19.667 [SUCCESS] [OPERATION] ✅ ✅ BACKUP COMPLETED SUCCESSFULLY | {
+2026-02-06 15:57:19.675 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 15:57:19.664 [INFO] [SYSTEM] ℹ️ No old backups to clean up
+2026-02-06 15:57:19.686 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 15:57:19.689 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 15:57:19.689 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 15:57:19.690 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 15:57:19.691 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 15:57:19.694 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 15:57:19.697 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 15:57:19.707 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 15:57:19.710 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 15:57:19.715 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 15:57:19.713 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 15:57:19.716 [TRY] [OPERATION] 🔄 Getting backup history | {
+2026-02-06 15:57:19.726 [SUCCESS] [OPERATION] ✅ Backup history retrieved | {
+2026-02-06 15:57:19.729 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 15:57:19.742 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 15:57:19.742 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 15:57:19.736 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 15:57:19.744 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 15:57:19.743 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 15:57:19.748 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 15:57:19.752 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 15:57:19.762 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 15:57:19.765 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 15:57:19.768 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 15:57:19.770 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 15:57:19.773 [TRY] [OPERATION] 🔄 Getting backup statistics
+2026-02-06 15:57:19.777 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 15:57:19.775 [SUCCESS] [OPERATION] ✅ Backup statistics retrieved | {
+2026-02-06 15:57:23.445 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 15:57:23.448 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 15:57:23.448 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 15:57:23.450 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 15:57:23.449 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 15:57:23.460 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 15:57:23.464 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 15:57:23.498 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 15:57:23.503 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 15:57:23.510 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 15:57:23.512 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 15:57:23.523 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
