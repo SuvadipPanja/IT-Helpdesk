@@ -6883,3 +6883,71 @@
 2026-02-06 15:49:31.089 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-06 15:49:31.092 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-06 15:49:31.103 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 15:49:35.382 [DEBUG] 🐛 Request Body | {
+2026-02-06 15:49:35.379 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 15:49:35.383 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 15:49:35.384 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 15:49:35.385 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 15:49:35.386 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 15:49:35.399 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 15:49:35.403 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 15:49:35.414 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 15:49:35.417 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 15:49:35.420 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 15:49:35.422 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 15:49:35.424 [TRY] [OPERATION] 🔄 Assigning ticket | {
+2026-02-06 15:49:35.480 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-06 15:49:35.475 [SUCCESS] [OPERATION] ✅ Assignment notification sent to new engineer | {
+2026-02-06 15:49:35.486 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-06 15:49:35.487 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260206-0002' (2 occurrences)
+2026-02-06 15:49:35.487 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Test 55' (2 occurrences)
+2026-02-06 15:49:35.488 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Medium' (1 occurrences)
+2026-02-06 15:49:35.489 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '10/02/2026, 03:49 pm' (1 occurrences)
+2026-02-06 15:49:35.490 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{assigned_to_name}}' with 'Pankaj Shaw' (1 occurrences)
+2026-02-06 15:49:35.491 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-06 15:49:35.490 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/59' (1 occurrences)
+2026-02-06 15:49:35.492 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-06 15:49:35.493 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-06 15:49:35.519 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-06 15:49:35.515 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-06 15:49:35.522 [SUCCESS] [OPERATION] ✅ Assignment email queued for new engineer | {
+2026-02-06 15:49:35.533 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-06 15:49:35.550 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-06 15:49:35.558 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-06 15:49:35.566 [SUCCESS] [OPERATION] ✅ Assignment notification sent to requester
+2026-02-06 15:49:35.567 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-06 15:49:35.572 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-06 15:49:35.573 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Test 55' (1 occurrences)
+2026-02-06 15:49:35.573 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260206-0002' (2 occurrences)
+2026-02-06 15:49:35.574 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{assigned_to_name}}' with 'Pankaj Shaw' (1 occurrences)
+2026-02-06 15:49:35.574 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{requester_name}}' with 'Siddhartha Sengupta' (1 occurrences)
+2026-02-06 15:49:35.575 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/59' (1 occurrences)
+2026-02-06 15:49:35.575 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-06 15:49:35.576 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-06 15:49:35.575 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-06 15:49:35.588 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-06 15:49:35.589 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-06 15:49:35.590 [SUCCESS] [OPERATION] ✅ Assignment completed with all notifications | {
+2026-02-06 15:49:35.589 [SUCCESS] [OPERATION] ✅ Assignment email queued for requester | {
+2026-02-06 15:49:35.592 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 15:49:35.599 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-06 15:49:35.605 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 15:49:35.606 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 15:49:35.608 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 15:49:35.609 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 15:49:35.606 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 15:49:35.618 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-06 15:49:35.619 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-06 15:49:35.630 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 15:49:35.636 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 15:49:35.641 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 15:49:35.645 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 15:49:35.651 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 15:49:35.652 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2026-02-06 15:49:35.651 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 15:49:35.667 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2026-02-06 15:49:35.669 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 15:49:37.676 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-06 15:49:37.677 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-06 15:49:37.698 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-06 15:49:37.697 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
