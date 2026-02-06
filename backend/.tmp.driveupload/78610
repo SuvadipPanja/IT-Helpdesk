@@ -15832,3 +15832,41 @@
 2026-02-06 16:54:04.736 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
 2026-02-06 16:54:04.735 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
 2026-02-06 16:54:04.746 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:54:09.033 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:54:09.033 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 16:54:09.034 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 16:54:09.033 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 16:54:09.034 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 16:54:09.035 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 16:54:09.036 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:54:09.040 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 16:54:09.041 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 16:54:09.043 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 16:54:09.044 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 16:54:09.047 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:54:13.048 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 16:54:13.049 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 16:54:13.049 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 16:54:13.047 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:54:13.048 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 16:54:13.051 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 16:54:13.053 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:54:13.056 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 16:54:13.058 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 16:54:13.060 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 16:54:13.059 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 16:54:13.065 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 16:54:13.166 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-06 16:54:13.166 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-06 16:54:13.923 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 16:54:13.923 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 16:54:13.923 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 16:54:13.925 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 16:54:13.924 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 16:54:13.929 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 16:54:13.933 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 16:54:13.964 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 16:54:13.966 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 16:54:13.969 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 16:54:13.970 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 16:54:13.974 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
