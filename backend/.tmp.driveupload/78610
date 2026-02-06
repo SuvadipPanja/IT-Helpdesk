@@ -6521,3 +6521,17 @@
 2026-02-06 15:48:36.719 [SUCCESS] [OPERATION] ✅ Departments fetched successfully | {
 2026-02-06 15:48:36.721 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2026-02-06 15:48:36.732 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-06 15:48:43.051 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-06 15:48:43.052 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-06 15:48:43.052 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-06 15:48:43.053 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-06 15:48:43.054 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-06 15:48:43.058 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-06 15:48:43.058 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-06 15:48:43.068 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-06 15:48:43.071 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-06 15:48:43.081 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-06 15:48:43.084 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-06 15:48:43.087 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-06 15:48:43.089 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-06 15:48:43.097 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
