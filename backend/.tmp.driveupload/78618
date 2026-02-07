@@ -19415,3 +19415,56 @@
 2026-02-07 12:14:55.330 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
 2026-02-07 12:14:55.331 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
 2026-02-07 12:14:55.332 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-02-07 12:15:00.019 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-07 12:15:00.020 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 07/02/2026, 12:15:00 pm IST
+2026-02-07 12:15:00.021 [TRY] [OPERATION] 🔄 Finding accounts with expired lockouts
+2026-02-07 12:15:00.020 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-07 12:15:00.021 [TRY] [OPERATION] 🔄 Running Auto Unlock
+2026-02-07 12:15:00.021 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-07 12:15:00.021 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-07 12:15:00.028 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-07 12:15:00.035 [INFO] [SYSTEM] ℹ️ No accounts found with expired lockouts
+2026-02-07 12:15:00.043 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-07 12:15:00.043 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-07 12:15:00.052 [INFO] [SYSTEM] ℹ️ 🎫 Found 7 open tickets to check
+2026-02-07 12:15:00.052 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-07 12:15:00.053 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-07 12:15:00.053 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-07 12:15:00.054 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-07 12:15:00.053 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-07 12:15:00.056 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-07 12:15:00.054 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-07 12:15:00.054 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-07 12:15:00.057 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-07 12:15:00.059 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-07 12:15:00.058 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-07 12:15:00.058 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-07 12:15:00.059 [ERROR] 🚨 🔴 Breaches: 6 tickets
+2026-02-07 12:15:00.055 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-07 12:15:00.059 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-07 12:15:00.059 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-02-07 12:15:00.059 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 40ms
+2026-02-07 12:15:02.130 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-07 12:15:02.118 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-07 12:15:02.130 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-07 12:15:02.118 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-07 12:15:02.119 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-07 12:15:02.129 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-07 12:15:02.119 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-07 12:15:02.119 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-07 12:15:02.119 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-07 12:15:02.120 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-07 12:15:02.121 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-07 12:15:02.122 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-07 12:15:02.124 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-07 12:15:02.125 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-07 12:15:02.131 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-07 12:15:02.133 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-07 12:15:02.134 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-07 12:15:02.138 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-07 12:15:02.137 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-07 12:15:02.137 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-07 12:15:02.143 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-07 12:15:02.144 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-07 12:15:02.147 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-07 12:15:02.151 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
