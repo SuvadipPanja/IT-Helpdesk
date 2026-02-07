@@ -21268,3 +21268,33 @@
 2026-02-07 12:28:46.531 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-07 12:28:46.529 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-07 12:28:46.536 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-07 12:28:55.774 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-07 12:28:55.775 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-07 12:28:55.775 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-07 12:28:55.775 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-07 12:28:55.775 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-07 12:28:55.777 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-07 12:28:55.779 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-07 12:28:55.784 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-07 12:28:55.786 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-07 12:28:55.788 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-07 12:28:55.788 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-07 12:28:55.789 [TRY] [OPERATION] 🔄 Calculating total tickets
+2026-02-07 12:28:55.789 [TRY] [OPERATION] 🔄 Fetching dashboard statistics | {
+2026-02-07 12:28:55.792 [SUCCESS] [OPERATION] ✅ Total tickets calculated | {
+2026-02-07 12:28:55.792 [TRY] [OPERATION] 🔄 Calculating tickets by status
+2026-02-07 12:28:55.796 [TRY] [OPERATION] 🔄 Calculating escalated tickets
+2026-02-07 12:28:55.795 [SUCCESS] [OPERATION] ✅ Status counts calculated | {
+2026-02-07 12:28:55.800 [TRY] [OPERATION] 🔄 Calculating total active users
+2026-02-07 12:28:55.800 [SUCCESS] [OPERATION] ✅ Escalated tickets calculated | {
+2026-02-07 12:28:55.803 [SUCCESS] [OPERATION] ✅ Total users calculated | {
+2026-02-07 12:28:55.803 [TRY] [OPERATION] 🔄 Calculating SLA statistics
+2026-02-07 12:28:55.806 [SUCCESS] [OPERATION] ✅ SLA statistics calculated | {
+2026-02-07 12:28:55.807 [TRY] [OPERATION] 🔄 Fetching recent tickets
+2026-02-07 12:28:55.812 [TRY] [OPERATION] 🔄 Calculating tickets by priority
+2026-02-07 12:28:55.811 [SUCCESS] [OPERATION] ✅ Recent tickets fetched | {
+2026-02-07 12:28:55.817 [TRY] [OPERATION] 🔄 Calculating my assigned tickets
+2026-02-07 12:28:55.817 [SUCCESS] [OPERATION] ✅ Priority counts calculated
+2026-02-07 12:28:55.821 [SUCCESS] [OPERATION] ✅ Dashboard statistics compiled successfully | {
+2026-02-07 12:28:55.820 [SUCCESS] [OPERATION] ✅ My assigned tickets calculated | {
+2026-02-07 12:28:55.822 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
