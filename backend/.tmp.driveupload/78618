@@ -15324,3 +15324,52 @@
 2026-02-07 11:22:25.660 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-07 11:22:25.673 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-07 11:22:25.674 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-07 11:22:30.794 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-07 11:22:30.796 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-07 11:22:30.798 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-07 11:22:30.798 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-07 11:22:30.795 [DEBUG] 🐛 Request Body | {
+2026-02-07 11:22:30.797 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-07 11:22:30.811 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-07 11:22:30.808 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-07 11:22:30.829 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-07 11:22:30.832 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-07 11:22:30.840 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-07 11:22:30.838 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-07 11:22:30.842 [TRY] [OPERATION] 🔄 Assigning ticket | {
+2026-02-07 11:22:30.880 [SUCCESS] [OPERATION] ✅ Assignment notification sent to new engineer | {
+2026-02-07 11:22:30.880 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-07 11:22:30.888 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-07 11:22:30.889 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260207-0001' (2 occurrences)
+2026-02-07 11:22:30.890 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Testing ' (2 occurrences)
+2026-02-07 11:22:30.890 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'High' (1 occurrences)
+2026-02-07 11:22:30.891 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '09/02/2026, 11:22 am' (1 occurrences)
+2026-02-07 11:22:30.892 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{assigned_to_name}}' with 'Pankaj Shaw' (1 occurrences)
+2026-02-07 11:22:30.892 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/60' (1 occurrences)
+2026-02-07 11:22:30.893 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-07 11:22:30.894 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-07 11:22:30.894 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-07 11:22:30.914 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-07 11:22:30.915 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-07 11:22:30.916 [SUCCESS] [OPERATION] ✅ Assignment email queued for new engineer | {
+2026-02-07 11:22:30.923 [SUCCESS] [OPERATION] ✅ Assignment completed with all notifications | {
+2026-02-07 11:22:30.931 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-07 11:22:30.926 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-07 11:22:30.942 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-07 11:22:30.944 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-07 11:22:30.944 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-07 11:22:30.946 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-07 11:22:30.947 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-07 11:22:30.954 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-07 11:22:30.957 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-07 11:22:30.971 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-07 11:22:30.975 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-07 11:22:30.982 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-07 11:22:30.987 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-07 11:22:30.990 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-07 11:22:30.993 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-07 11:22:31.003 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2026-02-07 11:22:31.018 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2026-02-07 11:22:31.024 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-07 11:22:32.760 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-07 11:22:32.761 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
