@@ -1145,10 +1145,10 @@ a,
 }
 
 /* ============================================
-   ANIMATED BUCKETS - SCOPED STYLES (tl-*)
+   ANIMATED BUCKETS + TITLE HOVER POPUP
    ============================================
-   Add this at the END of your TicketsList.css
-   All classes prefixed with "tl-" to prevent conflicts
+   APPEND this to END of: frontend/src/styles/TicketsList.css
+   All classes scoped with "tl-" prefix
    
    Developer: Suvadip Panja
    Date: February 2026
@@ -1166,7 +1166,7 @@ a,
 }
 
 /* ==========================================
-   INDIVIDUAL BUCKET - 3D BUCKET DESIGN
+   INDIVIDUAL BUCKET
    ========================================== */
 .tl-bucket {
   position: relative;
@@ -1177,7 +1177,6 @@ a,
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   
-  /* Glassmorphism */
   background: linear-gradient(145deg, 
     rgba(255, 255, 255, 0.95) 0%, 
     rgba(248, 250, 252, 0.9) 100%);
@@ -1195,10 +1194,7 @@ a,
     0 0 0 1px rgba(102, 126, 234, 0.3) inset;
 }
 
-/* ==========================================
-   BUCKET THEMES
-   ========================================== */
-/* Created by Me - Purple/Blue */
+/* Created by Me - Purple */
 .tl-bucket-created {
   background: linear-gradient(145deg, 
     rgba(102, 126, 234, 0.08) 0%, 
@@ -1213,7 +1209,7 @@ a,
   border-color: rgba(102, 126, 234, 0.4);
 }
 
-/* Assigned to Me - Teal/Emerald */
+/* Assigned to Me - Teal */
 .tl-bucket-assigned {
   background: linear-gradient(145deg, 
     rgba(20, 184, 166, 0.08) 0%, 
@@ -1228,9 +1224,7 @@ a,
   border-color: rgba(20, 184, 166, 0.4);
 }
 
-/* ==========================================
-   ACTIVE STATE - FULL COLOR
-   ========================================== */
+/* Active State */
 .tl-bucket.tl-bucket-active {
   transform: translateY(-4px);
 }
@@ -1253,9 +1247,7 @@ a,
     0 0 0 4px rgba(20, 184, 166, 0.15);
 }
 
-/* ==========================================
-   BUCKET BACKGROUND EFFECT
-   ========================================== */
+/* Background Effect */
 .tl-bucket-bg {
   position: absolute;
   top: 0;
@@ -1270,9 +1262,7 @@ a,
   pointer-events: none;
 }
 
-/* ==========================================
-   WAVE ANIMATION (Bucket Water Effect)
-   ========================================== */
+/* Wave Animation */
 .tl-bucket-wave {
   position: absolute;
   bottom: 0;
@@ -1319,9 +1309,7 @@ a,
   50% { transform: translateX(25%) scaleY(1.3); }
 }
 
-/* ==========================================
-   BUCKET CONTENT
-   ========================================== */
+/* Bucket Content */
 .tl-bucket-content {
   position: relative;
   z-index: 10;
@@ -1411,9 +1399,7 @@ a,
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
-/* ==========================================
-   CHECK MARK (Active Indicator)
-   ========================================== */
+/* Check Mark */
 .tl-bucket-check {
   position: absolute;
   top: 14px;
@@ -1436,9 +1422,7 @@ a,
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* ==========================================
-   SPARKLE DECORATION
-   ========================================== */
+/* Sparkle */
 .tl-bucket-sparkle {
   position: absolute;
   top: 16px;
@@ -1463,6 +1447,109 @@ a,
 @keyframes tl-sparkle-pulse {
   0%, 100% { transform: scale(1) rotate(0deg); }
   50% { transform: scale(1.2) rotate(15deg); }
+}
+
+/* ==========================================
+   TITLE & DETAILS HOVER POPUP
+   ========================================== */
+.title-cell {
+  max-width: 280px;
+  overflow: visible !important;
+}
+
+.tl-title-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 280px;
+}
+
+.tl-title {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tl-title:hover {
+  color: #667eea;
+}
+
+.tl-desc {
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/* Hover Popup Card */
+.tl-hover-card {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 380px;
+  max-width: 90vw;
+  padding: 16px 20px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.25s ease;
+  pointer-events: none;
+}
+
+/* Show on hover */
+.tl-title-wrapper:hover .tl-hover-card {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Arrow */
+.tl-hover-card::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 24px;
+  width: 14px;
+  height: 14px;
+  background: white;
+  border-left: 1px solid #e2e8f0;
+  border-top: 1px solid #e2e8f0;
+  transform: rotate(45deg);
+}
+
+.tl-hover-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 10px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.tl-hover-desc {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.6;
+  max-height: 150px;
+  overflow-y: auto;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 /* ==========================================
@@ -1493,6 +1580,36 @@ a,
   color: #94a3b8;
 }
 
+[data-theme="dark"] .tl-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .tl-title:hover {
+  color: #818cf8;
+}
+
+[data-theme="dark"] .tl-desc {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .tl-hover-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .tl-hover-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .tl-hover-desc {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .tl-hover-card::before {
+  background: #1e293b;
+  border-color: #334155;
+}
+
 /* ==========================================
    RESPONSIVE
    ========================================== */
@@ -1516,10 +1633,20 @@ a,
   .tl-bucket-count {
     font-size: 28px;
   }
+  
+  .title-cell,
+  .tl-title-wrapper {
+    max-width: 160px;
+  }
+  
+  .tl-hover-card {
+    width: 280px;
+    left: -20px;
+  }
 }
 
 /* ==========================================
-   SPINNING ANIMATION
+   SPINNING ANIMATION (for refresh button)
    ========================================== */
 @keyframes spin {
   from { transform: rotate(0deg); }
