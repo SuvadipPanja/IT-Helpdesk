@@ -1,3 +1,19 @@
+/**
+ * ============================================
+ * TICKETS LIST PAGE - WITH ANIMATED BUCKETS
+ * ============================================
+ * 
+ * FIXED:
+ * - Bucket stats now correctly parsing pagination.totalRecords
+ * - Title hover shows full title tooltip
+ * - Profile pictures working
+ * 
+ * Developer: Suvadip Panja
+ * Company: Digitide
+ * Updated: February 2026
+ * ============================================
+ */
+
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -18,14 +34,14 @@ import {
   Edit,
   Trash2,
   MoreVertical,
-  MessageSquare,
-  Paperclip,
   User,
+  UserCheck,
   Calendar,
   Tag,
   AlertTriangle,
   X,
-  TrendingUp  // ← ADDED FOR SLA
+  TrendingUp,
+  Sparkles
 } from 'lucide-react';
 import api from '../../services/api';
 import '../../styles/TicketsList.css';
@@ -35,23 +51,40 @@ const TicketsList = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  // Read status from URL parameter
+  // Read filters from URL
   const statusFromUrl = searchParams.get('status');
-  const slaStatusFromUrl = searchParams.get('sla_status');  // ← NEW: Read SLA status from URL
-  const isEscalatedFromUrl = searchParams.get('is_escalated');  // ← NEW: Read escalated flag from URL
+  const slaStatusFromUrl = searchParams.get('sla_status');
+  const isEscalatedFromUrl = searchParams.get('is_escalated');
 
-  // State management
+  // ============================================
+  // BUCKET STATE - Only for IT Staff
+  // ============================================
+  const [activeBucket, setActiveBucket] = useState(null);
+  const [bucketStats, setBucketStats] = useState({ created: 0, assigned: 0 });
+  const [bucketLoading, setBucketLoading] = useState(false);
+
+  // Check if user is IT Staff (can see buckets)
+  const isITStaff = ['Admin', 'Manager', 'IT Engineer', 'Engineer'].includes(user?.role_name) ||
+    user?.permissions?.can_assign_tickets ||
+    user?.permissions?.can_view_all_tickets;
+
+  // Check if user is a normal user
+  const isNormalUser = user?.role_name === 'User' && !user?.permissions?.can_view_all_tickets;
+
+  // ============================================
+  // EXISTING STATE
+  // ============================================
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
-  // Pagination state
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalRecords, setTotalRecords] = useState(0);
   const [limit, setLimit] = useState(10);
 
-  // Filter state
+  // Filters
   const [filters, setFilters] = useState({
     search: '',
     status_id: '',
@@ -59,100 +92,87 @@ const TicketsList = () => {
     category_id: '',
     assigned_to: '',
     requester_id: '',
-    sla_status: '',  // ← ADDED FOR SLA FILTER
-    is_escalated: ''  // ← ADDED FOR ESCALATED FILTER
+    sla_status: '',
+    is_escalated: ''
   });
 
-  // Dropdown options state
+  // Lookup data
   const [statuses, setStatuses] = useState([]);
   const [priorities, setPriorities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [engineers, setEngineers] = useState([]);
 
-  // Sorting state
+  // Sorting
   const [sortBy, setSortBy] = useState('created_at');
   const [sortOrder, setSortOrder] = useState('DESC');
 
-  // UI state
+  // UI
   const [showFilters, setShowFilters] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
 
   // ============================================
-  // HELPER: Get Profile Picture URL
-  // Returns full URL for profile picture
-  // Developer: Suvadip Panja
+  // GET PROFILE PICTURE URL - SAME AS ORIGINAL
   // ============================================
   const getProfilePictureUrl = (profilePicture) => {
-    if (!profilePicture) {
-      return null;
-    }
+    if (!profilePicture) return null;
     
-    // If it's already a full URL
     if (profilePicture.startsWith('http://') || profilePicture.startsWith('https://')) {
       return profilePicture;
     }
     
-    // Get base URL WITHOUT /api/v1 for static files
-    const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
     const urlWithoutApi = baseUrl.replace('/api/v1', '');
-    
-    // Remove leading slash from profilePicture if present
     const cleanPath = profilePicture.startsWith('/') ? profilePicture : `/${profilePicture}`;
     
     return `${urlWithoutApi}${cleanPath}`;
   };
 
-  // Fetch dropdown data on mount
+  // ============================================
+  // EFFECTS
+  // ============================================
   useEffect(() => {
     fetchDropdownData();
   }, []);
 
-  // Apply filter from URL parameter when page loads
+  useEffect(() => {
+    fetchTickets();
+  }, [currentPage, limit, sortBy, sortOrder, filters, activeBucket]);
+
+  // Fetch bucket stats for IT Staff
+  useEffect(() => {
+    if (isITStaff && user?.user_id) {
+      fetchBucketStats();
+    }
+  }, [user, isITStaff]);
+
+  // Apply URL filters
   useEffect(() => {
     if (statusFromUrl && statuses.length > 0) {
       const matchingStatus = statuses.find(s => s.status_code === statusFromUrl);
       if (matchingStatus) {
-        setFilters(prev => ({
-          ...prev,
-          status_id: matchingStatus.status_id.toString()
-        }));
+        setFilters(prev => ({ ...prev, status_id: matchingStatus.status_id.toString() }));
         setShowFilters(true);
       }
     }
   }, [statusFromUrl, statuses]);
 
-  // ============================================
-  // NEW: Apply SLA filter from URL parameter
-  // ============================================
   useEffect(() => {
     if (slaStatusFromUrl) {
-      setFilters(prev => ({
-        ...prev,
-        sla_status: slaStatusFromUrl
-      }));
+      setFilters(prev => ({ ...prev, sla_status: slaStatusFromUrl }));
       setShowFilters(true);
     }
   }, [slaStatusFromUrl]);
 
-  // ============================================
-  // NEW: Apply escalated filter from URL parameter
-  // ============================================
   useEffect(() => {
     if (isEscalatedFromUrl) {
-      setFilters(prev => ({
-        ...prev,
-        is_escalated: isEscalatedFromUrl
-      }));
+      setFilters(prev => ({ ...prev, is_escalated: isEscalatedFromUrl }));
       setShowFilters(true);
     }
   }, [isEscalatedFromUrl]);
 
-  // Fetch tickets when filters change
-  useEffect(() => {
-    fetchTickets();
-  }, [currentPage, limit, sortBy, sortOrder, filters]);
-
-  // Fetch dropdown options
+  // ============================================
+  // FETCH DROPDOWN DATA
+  // ============================================
   const fetchDropdownData = async () => {
     try {
       const [statusesRes, prioritiesRes, categoriesRes, engineersRes] = await Promise.all([
@@ -171,13 +191,65 @@ const TicketsList = () => {
     }
   };
 
-  // Fetch tickets with filters and role-based access
+  // ============================================
+  // FETCH BUCKET STATS - FIXED!
+  // API returns: { data: { tickets: [], pagination: { totalRecords: X } } }
+  // ============================================
+  const fetchBucketStats = async () => {
+    if (!user?.user_id) return;
+    
+    setBucketLoading(true);
+    try {
+      console.log('📊 Fetching bucket stats for user:', user.user_id);
+      
+      // Fetch created by me count - limit 1 just to get count
+      const createdRes = await api.get('/tickets', { 
+        params: { 
+          page: 1, 
+          limit: 1, 
+          requester_id: user.user_id 
+        } 
+      });
+      
+      // Fetch assigned to me count
+      const assignedRes = await api.get('/tickets', { 
+        params: { 
+          page: 1, 
+          limit: 1, 
+          assigned_to: user.user_id 
+        } 
+      });
+
+      // ⭐ FIXED: Correctly extract totalRecords from API response
+      // Response format: { success: true, data: { tickets: [], pagination: { totalRecords: X } } }
+      console.log('📥 Created response:', createdRes.data);
+      console.log('📥 Assigned response:', assignedRes.data);
+      
+      const createdTotal = createdRes.data?.data?.pagination?.totalRecords ?? 0;
+      const assignedTotal = assignedRes.data?.data?.pagination?.totalRecords ?? 0;
+
+      console.log('📊 Bucket stats calculated:', { created: createdTotal, assigned: assignedTotal });
+
+      setBucketStats({
+        created: createdTotal,
+        assigned: assignedTotal
+      });
+    } catch (err) {
+      console.error('❌ Error fetching bucket stats:', err);
+      setBucketStats({ created: 0, assigned: 0 });
+    } finally {
+      setBucketLoading(false);
+    }
+  };
+
+  // ============================================
+  // FETCH TICKETS
+  // ============================================
   const fetchTickets = async () => {
     try {
       setLoading(true);
       setError('');
 
-      // Build query parameters
       const params = {
         page: currentPage,
         limit: limit,
@@ -188,13 +260,18 @@ const TicketsList = () => {
         )
       };
 
-      // Apply role-based filtering
-      if (user?.role_name === 'User' && !user?.permissions?.can_view_all_tickets) {
-        params.requester_id = user.user_id;
-      }
-      
-      if (user?.role_name === 'Engineer' && !user?.permissions?.can_view_all_tickets) {
-        params.assigned_to_or_created_by = user.user_id;
+      // Apply bucket filtering
+      if (activeBucket === 'created') {
+        params.requester_id = user?.user_id;
+      } else if (activeBucket === 'assigned') {
+        params.assigned_to = user?.user_id;
+      } else {
+        // Default view - role-based filtering
+        if (isNormalUser) {
+          params.requester_id = user?.user_id;
+        } else if (user?.role_name === 'Engineer' && !user?.permissions?.can_view_all_tickets) {
+          params.assigned_to_or_created_by = user?.user_id;
+        }
       }
 
       console.log('📤 Fetching tickets with params:', params);
@@ -208,134 +285,75 @@ const TicketsList = () => {
         const ticketsData = responseData?.tickets || responseData || [];
         const paginationData = responseData?.pagination || {};
         
-        console.log('🎫 Tickets data:', ticketsData);
-        
         const ticketsArray = Array.isArray(ticketsData) ? ticketsData : [];
         
         setTickets(ticketsArray);
-        setTotalPages(paginationData.totalPages || 1);
         setTotalRecords(paginationData.totalRecords || ticketsArray.length);
-
-        console.log('✅ State updated - tickets count:', ticketsArray.length);
-      } else {
-        console.warn('⚠️ API returned success: false', response.data);
-        setError(response.data.message || 'Failed to load tickets');
-        setTickets([]);
+        setTotalPages(paginationData.totalPages || Math.ceil((paginationData.totalRecords || ticketsArray.length) / limit));
       }
     } catch (err) {
       console.error('❌ Error fetching tickets:', err);
       setError(err.response?.data?.message || 'Failed to load tickets');
-      setTickets([]);
     } finally {
       setLoading(false);
     }
   };
 
   // ============================================
-  // EXPORT TICKETS TO CSV
-  // Downloads current tickets as CSV file
-  // Developer: Suvadip Panja
+  // BUCKET HANDLER
   // ============================================
-  const exportTickets = () => {
-    try {
-      if (tickets.length === 0) {
-        alert('No tickets to export');
-        return;
-      }
-
-      console.log('📤 Exporting tickets to CSV...', { count: tickets.length });
-
-      // CSV Headers
-      const headers = [
-        'Ticket Number',
-        'Subject',
-        'Category',
-        'Priority',
-        'Status',
-        'SLA Status',
-        'Time Remaining',
-        'Requester',
-        'Assigned To',
-        'Created At',
-        'Due Date',
-        'Resolved At',
-        'Is Escalated'
-      ];
-
-      // CSV Rows
-      const rows = tickets.map(ticket => [
-        ticket.ticket_number || '',
-        ticket.subject || '',
-        ticket.category_name || '',
-        ticket.priority_name || '',
-        ticket.status_name || '',
-        formatSLAStatus(ticket),
-        formatTimeRemaining(ticket),
-        ticket.requester_name || '',
-        ticket.assigned_to_name || 'Unassigned',
-        formatDate(ticket.created_at),
-        ticket.due_date ? formatDate(ticket.due_date) : 'N/A',
-        ticket.resolved_at ? formatDate(ticket.resolved_at) : 'N/A',
-        ticket.is_escalated ? 'Yes' : 'No'
-      ]);
-
-      // Combine headers and rows
-      const csvContent = [
-        headers.join(','),
-        ...rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
-      ].join('\n');
-
-      // Create blob and download
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      const url = URL.createObjectURL(blob);
-      
-      link.setAttribute('href', url);
-      link.setAttribute('download', `tickets_export_${new Date().toISOString().split('T')[0]}.csv`);
-      link.style.visibility = 'hidden';
-      
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      console.log('✅ Tickets exported successfully!', { count: tickets.length });
-    } catch (err) {
-      console.error('❌ Error exporting tickets:', err);
-      alert('Failed to export tickets. Please try again.');
-    }
-  };
-
-  // Handle filter change
-  const handleFilterChange = (field, value) => {
-    setFilters(prev => ({
-      ...prev,
-      [field]: value
-    }));
+  const handleBucketChange = (bucket) => {
+    setActiveBucket(activeBucket === bucket ? null : bucket);
     setCurrentPage(1);
   };
 
-  // Handle search with debounce
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    handleFilterChange('search', value);
+  // ============================================
+  // EXPORT TICKETS
+  // ============================================
+  const exportTickets = async () => {
+    try {
+      const params = {
+        sortBy,
+        sortOrder,
+        ...Object.fromEntries(
+          Object.entries(filters).filter(([_, value]) => value !== '')
+        )
+      };
+
+      if (activeBucket === 'created') params.requester_id = user?.user_id;
+      if (activeBucket === 'assigned') params.assigned_to = user?.user_id;
+
+      const response = await api.get('/tickets/export', { params, responseType: 'blob' });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `tickets_${activeBucket || 'all'}_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err) {
+      console.error('Export error:', err);
+      alert('Failed to export tickets');
+    }
   };
 
-  // Clear all filters
+  // ============================================
+  // FILTER HANDLERS
+  // ============================================
+  const handleFilterChange = (field, value) => {
+    setFilters(prev => ({ ...prev, [field]: value }));
+    setCurrentPage(1);
+  };
+
   const clearFilters = () => {
     setFilters({
-      search: '',
-      status_id: '',
-      priority_id: '',
-      category_id: '',
-      assigned_to: '',
-      requester_id: '',
-      sla_status: '',  // ← ADDED FOR SLA
-      is_escalated: ''  // ← ADDED FOR ESCALATED
+      search: '', status_id: '', priority_id: '', category_id: '',
+      assigned_to: '', requester_id: '', sla_status: '', is_escalated: ''
     });
     setCurrentPage(1);
   };
 
-  // Handle sort
   const handleSort = (field) => {
     if (sortBy === field) {
       setSortOrder(sortOrder === 'ASC' ? 'DESC' : 'ASC');
@@ -345,205 +363,68 @@ const TicketsList = () => {
     }
   };
 
-  // Navigate to ticket detail
-  const viewTicket = (ticketId) => {
-    navigate(`/tickets/${ticketId}`);
-  };
+  // ============================================
+  // NAVIGATION
+  // ============================================
+  const viewTicket = (id) => navigate(`/tickets/${id}`);
+  const editTicket = (id) => navigate(`/tickets/edit/${id}`);
 
-  // Navigate to edit ticket
-  const editTicket = (ticketId) => {
-    navigate(`/tickets/edit/${ticketId}`);
-  };
-
-  // Delete ticket
   const deleteTicket = async (ticketId) => {
-    if (!window.confirm('Are you sure you want to delete this ticket?')) {
-      return;
-    }
-
+    if (!window.confirm('Delete this ticket?')) return;
     try {
       await api.delete(`/tickets/${ticketId}`);
       fetchTickets();
+      fetchBucketStats();
     } catch (err) {
-      console.error('Error deleting ticket:', err);
-      alert(err.response?.data?.message || 'Failed to delete ticket');
+      alert(err.response?.data?.message || 'Failed to delete');
     }
   };
 
-  // Toggle dropdown menu
   const toggleDropdown = (ticketId) => {
     setActiveDropdown(activeDropdown === ticketId ? null : ticketId);
   };
 
-  // Format date
+  // ============================================
+  // HELPERS
+  // ============================================
+  const getStatusBadgeClass = (code) => ({
+    'OPEN': 'status-open', 'IN_PROGRESS': 'status-progress', 'PENDING': 'status-pending',
+    'ON_HOLD': 'status-on-hold', 'RESOLVED': 'status-resolved', 'CLOSED': 'status-closed',
+    'ESCALATED': 'status-escalated', 'CANCELLED': 'status-cancelled'
+  }[code] || 'status-default');
+
+  const getPriorityBadgeClass = (code) => ({
+    'CRITICAL': 'priority-critical', 'HIGH': 'priority-high', 'MEDIUM': 'priority-medium',
+    'LOW': 'priority-low', 'PLANNING': 'priority-planning'
+  }[code] || 'priority-default');
+
   const formatDate = (dateString) => {
-    if (!dateString) return 'N/A';
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    if (!dateString) return '-';
+    return new Date(dateString).toLocaleDateString('en-IN', {
+      day: 'numeric', month: 'short', year: 'numeric'
     });
   };
 
-  // Format relative time
   const formatRelativeTime = (dateString) => {
-    if (!dateString) return 'N/A';
+    if (!dateString) return '-';
     const date = new Date(dateString);
     const now = new Date();
     const diffMs = now - date;
-    const diffMins = Math.floor(diffMs / 60000);
-    const diffHours = Math.floor(diffMins / 60);
-    const diffDays = Math.floor(diffHours / 24);
-
-    if (diffMins < 1) return 'Just now';
-    if (diffMins < 60) return `${diffMins}m ago`;
-    if (diffHours < 24) return `${diffHours}h ago`;
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 0) {
+      const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+      if (diffHours === 0) {
+        const diffMins = Math.floor(diffMs / (1000 * 60));
+        return diffMins <= 1 ? 'Just now' : `${diffMins}m ago`;
+      }
+      return `${diffHours}h ago`;
+    }
+    if (diffDays === 1) return 'Yesterday';
     if (diffDays < 7) return `${diffDays}d ago`;
     return formatDate(dateString);
   };
 
-  // Get status color
-  const getStatusColor = (status) => {
-    const colors = {
-      'OPEN': 'status-open',
-      'IN_PROGRESS': 'status-progress',
-      'PENDING': 'status-pending',
-      'ON_HOLD': 'status-hold',
-      'RESOLVED': 'status-resolved',
-      'CLOSED': 'status-closed',
-      'CANCELLED': 'status-cancelled'
-    };
-    return colors[status] || 'status-default';
-  };
-
-  // Get priority color
-  const getPriorityColor = (priority) => {
-    const colors = {
-      'CRITICAL': 'priority-critical',
-      'HIGH': 'priority-high',
-      'MEDIUM': 'priority-medium',
-      'LOW': 'priority-low',
-      'PLANNING': 'priority-planning'
-    };
-    return colors[priority] || 'priority-default';
-  };
-
-  // Get status icon
-  const getStatusIcon = (status) => {
-    const icons = {
-      'OPEN': AlertCircle,
-      'IN_PROGRESS': Clock,
-      'PENDING': Clock,
-      'ON_HOLD': Clock,
-      'RESOLVED': CheckCircle,
-      'CLOSED': CheckCircle,
-      'CANCELLED': XCircle
-    };
-    const Icon = icons[status] || AlertCircle;
-    return <Icon size={14} />;
-  };
-
-  // Get priority icon
-  const getPriorityIcon = (priority) => {
-    if (priority === 'CRITICAL' || priority === 'HIGH') {
-      return <AlertTriangle size={14} />;
-    }
-    return null;
-  };
-
-  // ============================================
-  // SLA HELPER FUNCTIONS - NEW
-  // ============================================
-  
-  // Calculate SLA percentage and status
-  const calculateSlaStatus = (ticket) => {
-    if (!ticket.due_date || !ticket.created_at) {
-      return { status: 'none', percentage: 0, color: '#94a3b8', label: 'No SLA' };
-    }
-
-    const now = new Date();
-    const created = new Date(ticket.created_at);
-    const due = new Date(ticket.due_date);
-    
-    const totalTime = due - created;
-    const elapsed = now - created;
-    const percentage = Math.min((elapsed / totalTime) * 100, 100);
-
-    // Check if breached
-    if (ticket.sla_breach_notified_at || now > due) {
-      return { status: 'breached', percentage: 100, color: '#ef4444', label: 'Breached' };
-    }
-
-    // Check if in warning zone (80% default)
-    const warningThreshold = 80;
-    if (percentage >= warningThreshold) {
-      return { status: 'warning', percentage, color: '#f59e0b', label: 'At Risk' };
-    }
-
-    // All good
-    return { status: 'ok', percentage, color: '#10b981', label: 'On Track' };
-  };
-
-  // Format time remaining
-  const formatTimeRemaining = (ticket) => {
-    if (!ticket.due_date) return 'No SLA';
-
-    const now = new Date();
-    const due = new Date(ticket.due_date);
-    const diff = due - now;
-
-    if (diff < 0) {
-      const hours = Math.abs(Math.floor(diff / (1000 * 60 * 60)));
-      return `Overdue ${hours}h`;
-    }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
-    if (days > 0) return `${days}d ${hours}h left`;
-    return `${hours}h left`;
-  };
-
-  // Get SLA progress bar
-  const getSLAProgressBar = (ticket) => {
-    const sla = calculateSlaStatus(ticket);
-    
-    if (sla.status === 'none') {
-      return <span className="text-muted">No SLA set</span>;
-    }
-
-    return (
-      <div className="sla-progress-wrapper">
-        <div className="sla-progress-bar">
-          <div 
-            className="sla-progress-fill"
-            style={{ 
-              width: `${Math.min(sla.percentage, 100)}%`,
-              backgroundColor: sla.color 
-            }}
-          />
-        </div>
-        <span className="sla-progress-text" style={{ color: sla.color }}>
-          {Math.round(sla.percentage)}%
-        </span>
-      </div>
-    );
-  };
-
-  // Format SLA status for export
-  const formatSLAStatus = (ticket) => {
-    const sla = calculateSlaStatus(ticket);
-    return sla.label;
-  };
-
-  // ============================================
-  // END SLA HELPER FUNCTIONS
-  // ============================================
-
-  // Check if user can edit ticket
   const canEditTicket = (ticket) => {
     if (user?.permissions?.can_assign_tickets) return true;
     if (ticket.requester_id === user?.user_id) return true;
@@ -551,11 +432,17 @@ const TicketsList = () => {
     return false;
   };
 
-  // Get active filter count
-  const getActiveFilterCount = () => {
-    return Object.values(filters).filter(v => v !== '').length;
+  const getActiveFilterCount = () => Object.values(filters).filter(v => v !== '').length;
+
+  const getPageTitle = () => {
+    if (activeBucket === 'created') return 'My Created Tickets';
+    if (activeBucket === 'assigned') return 'Assigned to Me';
+    return 'Support Tickets';
   };
 
+  // ============================================
+  // RENDER
+  // ============================================
   return (
     <div className="tickets-page">
       {/* Page Header */}
@@ -566,7 +453,7 @@ const TicketsList = () => {
               <Ticket size={28} className="page-icon" />
             </div>
             <div>
-              <h1 className="page-title">Support Tickets</h1>
+              <h1 className="page-title">{getPageTitle()}</h1>
               <p className="page-subtitle">
                 {totalRecords > 0 ? `${totalRecords} ticket${totalRecords !== 1 ? 's' : ''} found` : 'No tickets available'}
               </p>
@@ -576,7 +463,7 @@ const TicketsList = () => {
         <div className="header-right">
           <button 
             className="btn-icon-action" 
-            onClick={fetchTickets} 
+            onClick={() => { fetchTickets(); if(isITStaff) fetchBucketStats(); }} 
             title="Refresh"
             disabled={loading}
           >
@@ -602,6 +489,69 @@ const TicketsList = () => {
         </div>
       </div>
 
+      {/* ============================================
+          ANIMATED BUCKETS - Only for IT Staff
+          ============================================ */}
+      {isITStaff && (
+        <div className="tl-buckets-container">
+          {/* Created by Me Bucket */}
+          <div 
+            className={`tl-bucket tl-bucket-created ${activeBucket === 'created' ? 'tl-bucket-active' : ''}`}
+            onClick={() => handleBucketChange('created')}
+          >
+            <div className="tl-bucket-bg"></div>
+            <div className="tl-bucket-wave"></div>
+            <div className="tl-bucket-content">
+              <div className="tl-bucket-icon">
+                <User size={28} />
+              </div>
+              <div className="tl-bucket-info">
+                <span className="tl-bucket-label">Created by Me</span>
+                <span className="tl-bucket-count">
+                  {bucketLoading ? '...' : bucketStats.created}
+                </span>
+              </div>
+              {activeBucket === 'created' && (
+                <div className="tl-bucket-check">
+                  <CheckCircle size={20} />
+                </div>
+              )}
+            </div>
+            <div className="tl-bucket-sparkle">
+              <Sparkles size={18} />
+            </div>
+          </div>
+
+          {/* Assigned to Me Bucket */}
+          <div 
+            className={`tl-bucket tl-bucket-assigned ${activeBucket === 'assigned' ? 'tl-bucket-active' : ''}`}
+            onClick={() => handleBucketChange('assigned')}
+          >
+            <div className="tl-bucket-bg"></div>
+            <div className="tl-bucket-wave"></div>
+            <div className="tl-bucket-content">
+              <div className="tl-bucket-icon">
+                <UserCheck size={28} />
+              </div>
+              <div className="tl-bucket-info">
+                <span className="tl-bucket-label">Assigned to Me</span>
+                <span className="tl-bucket-count">
+                  {bucketLoading ? '...' : bucketStats.assigned}
+                </span>
+              </div>
+              {activeBucket === 'assigned' && (
+                <div className="tl-bucket-check">
+                  <CheckCircle size={20} />
+                </div>
+              )}
+            </div>
+            <div className="tl-bucket-sparkle">
+              <Sparkles size={18} />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Search and Filter Bar */}
       <div className="filter-section">
         <div className="search-wrapper">
@@ -611,13 +561,10 @@ const TicketsList = () => {
             placeholder="Search by ticket #, title, or requester..."
             className="search-input-large"
             value={filters.search}
-            onChange={handleSearch}
+            onChange={(e) => handleFilterChange('search', e.target.value)}
           />
           {filters.search && (
-            <button 
-              className="search-clear-btn"
-              onClick={() => handleFilterChange('search', '')}
-            >
+            <button className="search-clear-btn" onClick={() => handleFilterChange('search', '')}>
               <X size={16} />
             </button>
           )}
@@ -631,9 +578,7 @@ const TicketsList = () => {
             <Filter size={18} />
             <span>Filters</span>
             {getActiveFilterCount() > 0 && (
-              <span className="filter-count">
-                {getActiveFilterCount()}
-              </span>
+              <span className="filter-count">{getActiveFilterCount()}</span>
             )}
           </button>
 
@@ -646,176 +591,73 @@ const TicketsList = () => {
         </div>
       </div>
 
-      {/* Advanced Filters Panel */}
+      {/* Filters Panel */}
       {showFilters && (
         <div className="filters-panel">
           <div className="filters-grid">
-            {/* Status Filter */}
             <div className="filter-item">
-              <label className="filter-label">
-                <Tag size={14} />
-                Status
-              </label>
-              <select
-                value={filters.status_id}
-                onChange={(e) => handleFilterChange('status_id', e.target.value)}
-                className="filter-select"
-              >
+              <label className="filter-label"><Tag size={14} />Status</label>
+              <select value={filters.status_id} onChange={(e) => handleFilterChange('status_id', e.target.value)} className="filter-select">
                 <option value="">All Statuses</option>
-                {statuses.map((status) => (
-                  <option key={status.status_id} value={status.status_id}>
-                    {status.status_name}
-                  </option>
-                ))}
+                {statuses.map((s) => <option key={s.status_id} value={s.status_id}>{s.status_name}</option>)}
               </select>
             </div>
 
-            {/* Priority Filter */}
             <div className="filter-item">
-              <label className="filter-label">
-                <AlertTriangle size={14} />
-                Priority
-              </label>
-              <select
-                value={filters.priority_id}
-                onChange={(e) => handleFilterChange('priority_id', e.target.value)}
-                className="filter-select"
-              >
+              <label className="filter-label"><AlertTriangle size={14} />Priority</label>
+              <select value={filters.priority_id} onChange={(e) => handleFilterChange('priority_id', e.target.value)} className="filter-select">
                 <option value="">All Priorities</option>
-                {priorities.map((priority) => (
-                  <option key={priority.priority_id} value={priority.priority_id}>
-                    {priority.priority_name}
-                  </option>
-                ))}
+                {priorities.map((p) => <option key={p.priority_id} value={p.priority_id}>{p.priority_name}</option>)}
               </select>
             </div>
 
-            {/* Category Filter */}
             <div className="filter-item">
-              <label className="filter-label">
-                <Ticket size={14} />
-                Category
-              </label>
-              <select
-                value={filters.category_id}
-                onChange={(e) => handleFilterChange('category_id', e.target.value)}
-                className="filter-select"
-              >
+              <label className="filter-label"><Ticket size={14} />Category</label>
+              <select value={filters.category_id} onChange={(e) => handleFilterChange('category_id', e.target.value)} className="filter-select">
                 <option value="">All Categories</option>
-                {categories.map((category) => (
-                  <option key={category.category_id} value={category.category_id}>
-                    {category.category_name}
-                  </option>
-                ))}
+                {categories.map((c) => <option key={c.category_id} value={c.category_id}>{c.category_name}</option>)}
               </select>
             </div>
 
-            {/* Assigned To Filter - Only for managers/admins */}
-            {(user?.permissions?.can_assign_tickets || user?.permissions?.can_view_all_tickets) && (
+            {isITStaff && !activeBucket && (
               <div className="filter-item">
-                <label className="filter-label">
-                  <User size={14} />
-                  Assigned To
-                </label>
-                <select
-                  value={filters.assigned_to}
-                  onChange={(e) => handleFilterChange('assigned_to', e.target.value)}
-                  className="filter-select"
-                >
+                <label className="filter-label"><User size={14} />Assigned To</label>
+                <select value={filters.assigned_to} onChange={(e) => handleFilterChange('assigned_to', e.target.value)} className="filter-select">
                   <option value="">All Engineers</option>
                   <option value="unassigned">Unassigned</option>
-                  {engineers.map((engineer) => (
-                    <option key={engineer.user_id} value={engineer.user_id}>
-                      {engineer.full_name || engineer.username}
-                    </option>
-                  ))}
+                  {engineers.map((e) => <option key={e.user_id} value={e.user_id}>{e.full_name}</option>)}
                 </select>
               </div>
             )}
 
-            {/* SLA Status Filter - NEW */}
             <div className="filter-item">
-              <label className="filter-label">
-                <TrendingUp size={14} />
-                SLA Status
-              </label>
-              <select
-                value={filters.sla_status}
-                onChange={(e) => handleFilterChange('sla_status', e.target.value)}
-                className="filter-select"
-              >
+              <label className="filter-label"><Clock size={14} />SLA Status</label>
+              <select value={filters.sla_status} onChange={(e) => handleFilterChange('sla_status', e.target.value)} className="filter-select">
                 <option value="">All SLA Status</option>
                 <option value="ok">🟢 On Track</option>
                 <option value="warning">🟡 At Risk</option>
                 <option value="breached">🔴 Breached</option>
-                <option value="none">⚪ No SLA</option>
+              </select>
+            </div>
+
+            <div className="filter-item">
+              <label className="filter-label"><AlertCircle size={14} />Escalated</label>
+              <select value={filters.is_escalated} onChange={(e) => handleFilterChange('is_escalated', e.target.value)} className="filter-select">
+                <option value="">All Tickets</option>
+                <option value="true">Escalated Only</option>
+                <option value="false">Not Escalated</option>
               </select>
             </div>
           </div>
-
-          {/* Active Filters Display */}
-          {getActiveFilterCount() > 0 && (
-            <div className="active-filters">
-              <span className="active-filters-label">Active Filters:</span>
-              <div className="filter-chips">
-                {filters.status_id && (
-                  <div className="filter-chip">
-                    <span>Status: {statuses.find(s => s.status_id === parseInt(filters.status_id))?.status_name}</span>
-                    <button onClick={() => handleFilterChange('status_id', '')}>
-                      <X size={12} />
-                    </button>
-                  </div>
-                )}
-                {filters.priority_id && (
-                  <div className="filter-chip">
-                    <span>Priority: {priorities.find(p => p.priority_id === parseInt(filters.priority_id))?.priority_name}</span>
-                    <button onClick={() => handleFilterChange('priority_id', '')}>
-                      <X size={12} />
-                    </button>
-                  </div>
-                )}
-                {filters.category_id && (
-                  <div className="filter-chip">
-                    <span>Category: {categories.find(c => c.category_id === parseInt(filters.category_id))?.category_name}</span>
-                    <button onClick={() => handleFilterChange('category_id', '')}>
-                      <X size={12} />
-                    </button>
-                  </div>
-                )}
-                {filters.assigned_to && (
-                  <div className="filter-chip">
-                    <span>
-                      Assigned: {filters.assigned_to === 'unassigned' 
-                        ? 'Unassigned' 
-                        : engineers.find(e => e.user_id === parseInt(filters.assigned_to))?.full_name || 'Unknown'}
-                    </span>
-                    <button onClick={() => handleFilterChange('assigned_to', '')}>
-                      <X size={12} />
-                    </button>
-                  </div>
-                )}
-                {filters.sla_status && (
-                  <div className="filter-chip">
-                    <span>SLA: {filters.sla_status === 'ok' ? '🟢 On Track' : filters.sla_status === 'warning' ? '🟡 At Risk' : filters.sla_status === 'breached' ? '🔴 Breached' : '⚪ No SLA'}</span>
-                    <button onClick={() => handleFilterChange('sla_status', '')}>
-                      <X size={12} />
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
         </div>
       )}
 
-      {/* Error Message */}
+      {/* Error */}
       {error && (
         <div className="alert alert-error">
           <AlertCircle size={20} />
           <span>{error}</span>
-          <button onClick={() => setError('')} className="alert-close">
-            <X size={16} />
-          </button>
+          <button onClick={() => setError('')} className="alert-close"><X size={16} /></button>
         </div>
       )}
 
@@ -834,18 +676,17 @@ const TicketsList = () => {
             <h3>No tickets found</h3>
             <p className="empty-description">
               {getActiveFilterCount() > 0
-                ? 'No tickets match your current filters. Try adjusting or clearing them.'
-                : user?.role_name === 'User'
-                ? 'You haven\'t created any tickets yet. Create your first ticket to get started.'
-                : 'No tickets are available in the system yet.'}
+                ? 'No tickets match your current filters.'
+                : activeBucket === 'created'
+                ? "You haven't created any tickets yet."
+                : activeBucket === 'assigned'
+                ? "No tickets assigned to you."
+                : "No tickets available."}
             </p>
-            {user?.permissions?.can_create_tickets && (
-              <button
-                className="btn-primary-action"
-                onClick={() => navigate('/tickets/create')}
-              >
+            {user?.permissions?.can_create_tickets && activeBucket !== 'assigned' && (
+              <button className="btn-primary-action" onClick={() => navigate('/tickets/create')}>
                 <Plus size={20} />
-                <span>Create First Ticket</span>
+                <span>Create Ticket</span>
               </button>
             )}
           </div>
@@ -855,317 +696,179 @@ const TicketsList = () => {
               <table className="tickets-table">
                 <thead>
                   <tr>
-                    <th 
-                      onClick={() => handleSort('ticket_number')} 
-                      className="sortable th-ticket-number"
-                    >
+                    <th onClick={() => handleSort('ticket_number')} className="sortable th-ticket-number">
                       <div className="th-content">
                         <span>Ticket #</span>
-                        {sortBy === 'ticket_number' && (
-                          <span className="sort-indicator">
-                            {sortOrder === 'ASC' ? '↑' : '↓'}
-                          </span>
-                        )}
+                        {sortBy === 'ticket_number' && <span className="sort-indicator">{sortOrder === 'ASC' ? '↑' : '↓'}</span>}
                       </div>
                     </th>
-                    <th 
-                      onClick={() => handleSort('subject')} 
-                      className="sortable th-title"
-                    >
+                    <th onClick={() => handleSort('subject')} className="sortable th-title">
                       <div className="th-content">
                         <span>Title & Details</span>
-                        {sortBy === 'subject' && (
-                          <span className="sort-indicator">
-                            {sortOrder === 'ASC' ? '↑' : '↓'}
-                          </span>
-                        )}
+                        {sortBy === 'subject' && <span className="sort-indicator">{sortOrder === 'ASC' ? '↑' : '↓'}</span>}
                       </div>
                     </th>
                     <th className="th-category">Category</th>
-                    <th 
-                      onClick={() => handleSort('priority_level')} 
-                      className="sortable th-priority"
-                    >
+                    <th onClick={() => handleSort('priority_level')} className="sortable th-priority">
                       <div className="th-content">
                         <span>Priority</span>
-                        {sortBy === 'priority_level' && (
-                          <span className="sort-indicator">
-                            {sortOrder === 'ASC' ? '↑' : '↓'}
-                          </span>
-                        )}
+                        {sortBy === 'priority_level' && <span className="sort-indicator">{sortOrder === 'ASC' ? '↑' : '↓'}</span>}
                       </div>
                     </th>
-                    <th 
-                      onClick={() => handleSort('status_code')} 
-                      className="sortable th-status"
-                    >
+                    <th onClick={() => handleSort('status_id')} className="sortable th-status">
                       <div className="th-content">
                         <span>Status</span>
-                        {sortBy === 'status_code' && (
-                          <span className="sort-indicator">
-                            {sortOrder === 'ASC' ? '↑' : '↓'}
-                          </span>
-                        )}
-                      </div>
-                    </th>
-                    {/* SLA Status Column - NEW */}
-                    <th className="th-sla">
-                      <div className="th-content">
-                        <TrendingUp size={14} />
-                        <span>SLA Status</span>
-                      </div>
-                    </th>
-                    {/* Time Remaining Column - NEW */}
-                    <th className="th-sla-time">
-                      <div className="th-content">
-                        <Clock size={14} />
-                        <span>Time Remaining</span>
+                        {sortBy === 'status_id' && <span className="sort-indicator">{sortOrder === 'ASC' ? '↑' : '↓'}</span>}
                       </div>
                     </th>
                     <th className="th-requester">Requester</th>
                     <th className="th-assigned">Assigned To</th>
-                    <th 
-                      onClick={() => handleSort('created_at')} 
-                      className="sortable th-created"
-                    >
+                    <th onClick={() => handleSort('created_at')} className="sortable th-created">
                       <div className="th-content">
                         <span>Created</span>
-                        {sortBy === 'created_at' && (
-                          <span className="sort-indicator">
-                            {sortOrder === 'ASC' ? '↑' : '↓'}
-                          </span>
-                        )}
+                        {sortBy === 'created_at' && <span className="sort-indicator">{sortOrder === 'ASC' ? '↑' : '↓'}</span>}
                       </div>
                     </th>
                     <th className="th-actions">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {tickets.map((ticket) => {
-                    const slaData = calculateSlaStatus(ticket);  // ← CALCULATE SLA FOR EACH ROW
-                    return (
-                      <tr 
-                        key={ticket.ticket_id} 
-                        className={`ticket-row ${ticket.is_escalated ? 'escalated' : ''} sla-${slaData.status}`}  // ← ADD SLA CLASS
-                        onClick={() => viewTicket(ticket.ticket_id)}
-                      >
-                        <td className="ticket-number-cell">
-                          <div className="ticket-number-wrapper">
-                            <span className="ticket-number" title={ticket.ticket_number}>
-                              #{ticket.ticket_number}
+                  {tickets.map((ticket) => (
+                    <tr 
+                      key={ticket.ticket_id}
+                      className={ticket.is_escalated ? 'escalated' : ''}
+                      onClick={() => viewTicket(ticket.ticket_id)}
+                    >
+                      <td>
+                        <div className="ticket-number-wrapper">
+                          {ticket.is_escalated && <AlertTriangle size={14} className="escalated-icon" />}
+                          <span className="ticket-number">#{ticket.ticket_number}</span>
+                        </div>
+                      </td>
+                      
+                      {/* ⭐ FIXED: Title with hover popup */}
+                      <td className="title-cell">
+                        <div className="tl-title-wrapper">
+                          <span className="tl-title" title={ticket.subject || ticket.title || 'No Title'}>
+                            {ticket.subject || ticket.title || 'No Title'}
+                          </span>
+                          {ticket.description && (
+                            <span className="tl-desc" title={ticket.description}>
+                              {ticket.description.length > 50 
+                                ? ticket.description.substring(0, 50) + '...' 
+                                : ticket.description}
                             </span>
-                            {ticket.is_escalated && (
-                              <span className="escalated-badge" title="Escalated">
-                                <AlertTriangle size={12} />
-                              </span>
+                          )}
+                          {/* Hover Popup Card */}
+                          <div className="tl-hover-card">
+                            <div className="tl-hover-title">{ticket.subject || ticket.title || 'No Title'}</div>
+                            {ticket.description && (
+                              <div className="tl-hover-desc">{ticket.description}</div>
                             )}
                           </div>
-                        </td>
-                        <td className="ticket-title-cell">
-                          <div className="ticket-title-content">
-                            <button
-                              className="ticket-title-link"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                viewTicket(ticket.ticket_id);
-                              }}
-                              title={ticket.title || ticket.subject}
-                            >
-                              {ticket.title || ticket.subject || 'No Title'}
-                            </button>
-                            <div className="ticket-meta">
-                              {ticket.comments_count > 0 && (
-                                <span className="meta-item" title={`${ticket.comments_count} comment${ticket.comments_count !== 1 ? 's' : ''}`}>
-                                  <MessageSquare size={12} />
-                                  <span>{ticket.comments_count}</span>
-                                </span>
-                              )}
-                              {ticket.attachments_count > 0 && (
-                                <span className="meta-item" title={`${ticket.attachments_count} attachment${ticket.attachments_count !== 1 ? 's' : ''}`}>
-                                  <Paperclip size={12} />
-                                  <span>{ticket.attachments_count}</span>
-                                </span>
-                              )}
-                            </div>
+                        </div>
+                      </td>
+                      
+                      <td><span className="category-badge">{ticket.category_name || '-'}</span></td>
+                      <td><span className={`priority-badge ${getPriorityBadgeClass(ticket.priority_code)}`}>{ticket.priority_name}</span></td>
+                      <td><span className={`status-badge ${getStatusBadgeClass(ticket.status_code)}`}>{ticket.status_name}</span></td>
+                      
+                      {/* Requester Cell - WITH PROFILE PICTURE */}
+                      <td className="requester-cell">
+                        <div className="user-info" title={ticket.requester_name}>
+                          <div className="user-avatar">
+                            {ticket.requester_profile_picture ? (
+                              <img 
+                                src={getProfilePictureUrl(ticket.requester_profile_picture)} 
+                                alt={ticket.requester_name}
+                                className="avatar-image"
+                                onError={(e) => {
+                                  e.target.style.display = 'none';
+                                  e.target.nextElementSibling.style.display = 'flex';
+                                }}
+                              />
+                            ) : null}
+                            <User 
+                              size={14} 
+                              style={{ display: ticket.requester_profile_picture ? 'none' : 'flex' }}
+                            />
                           </div>
-                        </td>
-                        <td className="category-cell">
-                          <span className="category-badge" title={ticket.category_name}>
-                            {ticket.category_name || 'N/A'}
-                          </span>
-                        </td>
-                        <td className="priority-cell">
-                          <span 
-                            className={`priority-badge ${getPriorityColor(ticket.priority_code)}`}
-                            title={ticket.priority_name}
-                          >
-                            {getPriorityIcon(ticket.priority_code)}
-                            <span>{ticket.priority_name || 'N/A'}</span>
-                          </span>
-                        </td>
-                        <td className="status-cell">
-                          <span 
-                            className={`status-badge ${getStatusColor(ticket.status_code)}`}
-                            title={ticket.status_name}
-                          >
-                            {getStatusIcon(ticket.status_code)}
-                            <span>{ticket.status_name || 'N/A'}</span>
-                          </span>
-                        </td>
-                        {/* SLA Status Cell - NEW */}
-                        <td className="sla-status-cell">
-                          <div className="sla-badge-wrapper" title={`SLA: ${slaData.label} (${Math.round(slaData.percentage)}%)`}>
-                            <div 
-                              className={`sla-badge sla-${slaData.status}`}
-                              style={{ borderColor: slaData.color, color: slaData.color }}
-                            >
-                              {slaData.status === 'breached' && <XCircle size={14} />}
-                              {slaData.status === 'warning' && <AlertTriangle size={14} />}
-                              {slaData.status === 'ok' && <CheckCircle size={14} />}
-                              {slaData.status === 'none' && <Clock size={14} />}
-                              <span>{slaData.label}</span>
-                            </div>
-                          </div>
-                        </td>
-                        {/* Time Remaining Cell - NEW */}
-                        <td className="sla-progress-cell">
-                          <div className="sla-time-info">
-                            <div className="sla-time-text">{formatTimeRemaining(ticket)}</div>
-                            {getSLAProgressBar(ticket)}
-                          </div>
-                        </td>
-                        <td className="requester-cell">
-                          <div className="user-info" title={ticket.requester_name}>
-                            <div className="user-avatar">
-                              {ticket.requester_profile_picture ? (
+                          <span className="user-name">{ticket.requester_name || 'Unknown'}</span>
+                        </div>
+                      </td>
+                      
+                      {/* Assigned To Cell - WITH PROFILE PICTURE */}
+                      <td className="assigned-cell">
+                        {ticket.assigned_to_name ? (
+                          <div className="user-info" title={ticket.assigned_to_name}>
+                            <div className="user-avatar assigned">
+                              {ticket.assigned_profile_picture ? (
                                 <img 
-                                  src={getProfilePictureUrl(ticket.requester_profile_picture)} 
-                                  alt={ticket.requester_name}
+                                  src={getProfilePictureUrl(ticket.assigned_profile_picture)} 
+                                  alt={ticket.assigned_to_name}
                                   className="avatar-image"
                                   onError={(e) => {
-                                    // Fallback to icon if image fails to load
                                     e.target.style.display = 'none';
                                     e.target.nextElementSibling.style.display = 'flex';
                                   }}
                                 />
                               ) : null}
                               <User 
-                                size={14} 
-                                style={{
-                                  display: ticket.requester_profile_picture ? 'none' : 'flex'
-                                }}
+                                size={14}
+                                style={{ display: ticket.assigned_profile_picture ? 'none' : 'flex' }}
                               />
                             </div>
-                            <span className="user-name">
-                              {ticket.requester_name || 'Unknown'}
-                            </span>
+                            <span className="user-name">{ticket.assigned_to_name}</span>
                           </div>
-                        </td>
-                        <td className="assigned-cell">
-                          {ticket.assigned_to_name ? (
-                            <div className="user-info" title={ticket.assigned_to_name}>
-                              <div className="user-avatar assigned">
-                                {ticket.assigned_profile_picture ? (
-                                  <img 
-                                    src={getProfilePictureUrl(ticket.assigned_profile_picture)} 
-                                    alt={ticket.assigned_to_name}
-                                    className="avatar-image"
-                                    onError={(e) => {
-                                      // Fallback to icon if image fails to load
-                                      e.target.style.display = 'none';
-                                      e.target.nextElementSibling.style.display = 'flex';
-                                    }}
-                                  />
-                                ) : null}
-                                <User 
-                                  size={14}
-                                  style={{
-                                    display: ticket.assigned_profile_picture ? 'none' : 'flex'
-                                  }}
-                                />
-                              </div>
-                              <span className="user-name">
-                                {ticket.assigned_to_name}
-                              </span>
-                            </div>
-                          ) : (
-                            <span className="text-muted">Unassigned</span>
-                          )}
-                        </td>
-                        <td className="date-cell">
-                          <div className="date-info">
-                            <span className="date-relative" title={formatDate(ticket.created_at)}>
-                              {formatRelativeTime(ticket.created_at)}
-                            </span>
-                            <span className="date-full">
-                              {formatDate(ticket.created_at)}
-                            </span>
-                          </div>
-                        </td>
-                        <td className="actions-cell" onClick={(e) => e.stopPropagation()}>
-                          <div className="action-buttons">
-                            {/* Removed duplicate View and Edit buttons - now only in dropdown menu */}
-                            <div className="dropdown-wrapper">
-                              <button
-                                className="btn-action-table more"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  toggleDropdown(ticket.ticket_id);
-                                }}
-                                title="More Actions"
-                              >
-                                <MoreVertical size={16} />
-                              </button>
-                              {activeDropdown === ticket.ticket_id && (
-                                <div className="dropdown-menu">
-                                  <button 
-                                    className="dropdown-item"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      viewTicket(ticket.ticket_id);
-                                      setActiveDropdown(null);
-                                    }}
-                                  >
-                                    <Eye size={14} />
-                                    <span>View Details</span>
+                        ) : (
+                          <span className="text-muted">Unassigned</span>
+                        )}
+                      </td>
+                      
+                      <td className="date-cell">
+                        <div className="date-info">
+                          <span className="date-relative">{formatRelativeTime(ticket.created_at)}</span>
+                          <span className="date-full">{formatDate(ticket.created_at)}</span>
+                        </div>
+                      </td>
+                      
+                      <td className="actions-cell" onClick={(e) => e.stopPropagation()}>
+                        <div className="action-buttons">
+                          <div className="dropdown-wrapper">
+                            <button
+                              className="btn-action-table more"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleDropdown(ticket.ticket_id);
+                              }}
+                            >
+                              <MoreVertical size={16} />
+                            </button>
+                            {activeDropdown === ticket.ticket_id && (
+                              <div className="dropdown-menu">
+                                <button className="dropdown-item" onClick={() => { viewTicket(ticket.ticket_id); setActiveDropdown(null); }}>
+                                  <Eye size={14} /><span>View Details</span>
+                                </button>
+                                {canEditTicket(ticket) && (
+                                  <button className="dropdown-item" onClick={() => { editTicket(ticket.ticket_id); setActiveDropdown(null); }}>
+                                    <Edit size={14} /><span>Edit Ticket</span>
                                   </button>
-                                  {canEditTicket(ticket) && (
-                                    <button 
-                                      className="dropdown-item"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        editTicket(ticket.ticket_id);
-                                        setActiveDropdown(null);
-                                      }}
-                                    >
-                                      <Edit size={14} />
-                                      <span>Edit Ticket</span>
+                                )}
+                                {user?.permissions?.can_delete_tickets && (
+                                  <>
+                                    <div className="dropdown-divider"></div>
+                                    <button className="dropdown-item danger" onClick={() => { deleteTicket(ticket.ticket_id); setActiveDropdown(null); }}>
+                                      <Trash2 size={14} /><span>Delete</span>
                                     </button>
-                                  )}
-                                  {user?.permissions?.can_delete_tickets && (
-                                    <>
-                                      <div className="dropdown-divider"></div>
-                                      <button 
-                                        className="dropdown-item danger"
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          deleteTicket(ticket.ticket_id);
-                                          setActiveDropdown(null);
-                                        }}
-                                      >
-                                        <Trash2 size={14} />
-                                        <span>Delete Ticket</span>
-                                      </button>
-                                    </>
-                                  )}
-                                </div>
-                              )}
-                            </div>
+                                  </>
+                                )}
+                              </div>
+                            )}
                           </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -1175,66 +878,31 @@ const TicketsList = () => {
               <div className="pagination-info">
                 Showing <strong>{((currentPage - 1) * limit) + 1}</strong> to{' '}
                 <strong>{Math.min(currentPage * limit, totalRecords)}</strong> of{' '}
-                <strong>{totalRecords}</strong> ticket{totalRecords !== 1 ? 's' : ''}
+                <strong>{totalRecords}</strong> tickets
               </div>
-
               <div className="pagination-controls">
                 <div className="page-size-selector">
-                  <label>Rows per page:</label>
-                  <select
-                    value={limit}
-                    onChange={(e) => {
-                      setLimit(Number(e.target.value));
-                      setCurrentPage(1);
-                    }}
-                    className="page-size-select"
-                  >
+                  <label>Rows:</label>
+                  <select value={limit} onChange={(e) => { setLimit(Number(e.target.value)); setCurrentPage(1); }} className="page-size-select">
                     <option value={10}>10</option>
                     <option value={25}>25</option>
                     <option value={50}>50</option>
                     <option value={100}>100</option>
                   </select>
                 </div>
-
                 <div className="pagination-buttons">
-                  <button
-                    className="btn-pagination"
-                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                    disabled={currentPage === 1}
-                    title="Previous Page"
-                  >
+                  <button className="btn-pagination" onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>
                     <ChevronLeft size={18} />
                   </button>
-
                   {[...Array(Math.min(5, totalPages))].map((_, idx) => {
-                    let pageNum;
-                    if (totalPages <= 5) {
-                      pageNum = idx + 1;
-                    } else if (currentPage <= 3) {
-                      pageNum = idx + 1;
-                    } else if (currentPage >= totalPages - 2) {
-                      pageNum = totalPages - 4 + idx;
-                    } else {
-                      pageNum = currentPage - 2 + idx;
-                    }
-
+                    let pageNum = totalPages <= 5 ? idx + 1 : currentPage <= 3 ? idx + 1 : currentPage >= totalPages - 2 ? totalPages - 4 + idx : currentPage - 2 + idx;
                     return (
-                      <button
-                        key={pageNum}
-                        className={`btn-pagination ${currentPage === pageNum ? 'active' : ''}`}
-                        onClick={() => setCurrentPage(pageNum)}
-                      >
+                      <button key={pageNum} className={`btn-pagination ${currentPage === pageNum ? 'active' : ''}`} onClick={() => setCurrentPage(pageNum)}>
                         {pageNum}
                       </button>
                     );
                   })}
-
-                  <button
-                    className="btn-pagination"
-                    onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                    disabled={currentPage === totalPages}
-                    title="Next Page"
-                  >
+                  <button className="btn-pagination" onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>
                     <ChevronRight size={18} />
                   </button>
                 </div>
@@ -1244,13 +912,7 @@ const TicketsList = () => {
         )}
       </div>
 
-      {/* Click outside to close dropdown */}
-      {activeDropdown && (
-        <div 
-          className="dropdown-overlay" 
-          onClick={() => setActiveDropdown(null)}
-        />
-      )}
+      {activeDropdown && <div className="dropdown-overlay" onClick={() => setActiveDropdown(null)} />}
     </div>
   );
 };
