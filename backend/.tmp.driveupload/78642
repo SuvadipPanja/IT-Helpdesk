@@ -6221,3 +6221,15 @@
 2026-02-09 15:10:00.027 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
 2026-02-09 15:10:00.044 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
 2026-02-09 15:10:00.042 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-09 15:10:58.381 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-09 15:10:58.383 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-09 15:10:58.384 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-09 15:10:58.387 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-09 15:10:58.386 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-09 15:10:58.429 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-09 15:10:58.434 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-09 15:10:58.466 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-09 15:10:58.472 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-09 15:10:58.478 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-09 15:10:58.476 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-09 15:10:58.488 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
