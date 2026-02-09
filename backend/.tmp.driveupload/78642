@@ -6508,3 +6508,18 @@
 2026-02-09 15:53:58.443 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-09 15:53:58.445 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-09 15:53:58.453 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-09 15:54:58.381 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-09 15:54:58.389 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-09 15:54:58.389 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-09 15:54:58.391 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-09 15:54:58.392 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-09 15:54:58.426 [WARN] [SYSTEM] ⚠️ Authentication failed - Invalid or expired session | {
+2026-02-09 15:54:58.428 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-02-09 15:54:59.044 [TRY] [OPERATION] 🔄 Fetching public settings
+2026-02-09 15:54:59.043 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-09 15:54:59.045 [INFO] [SYSTEM] ℹ️ 📤 Response Sent | {
+2026-02-09 15:54:59.044 [SUCCESS] [OPERATION] ✅ Public settings retrieved | {
+2026-02-09 15:55:00.064 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-09 15:55:00.065 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-09 15:55:00.077 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-09 15:55:00.085 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
