@@ -872,3 +872,15 @@
 2026-02-09 13:25:00.029 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-02-09 13:25:00.035 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2026-02-09 13:25:00.036 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-09 13:25:10.384 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-09 13:25:10.385 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-09 13:25:10.386 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-09 13:25:10.385 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-09 13:25:10.385 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-09 13:25:10.388 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-09 13:25:10.389 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-09 13:25:10.391 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-09 13:25:10.392 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-09 13:25:10.394 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-09 13:25:10.395 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-09 13:25:10.398 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
