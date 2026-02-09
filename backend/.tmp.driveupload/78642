@@ -4118,3 +4118,19 @@
 2026-02-09 13:54:16.168 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
 2026-02-09 13:54:16.169 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
 2026-02-09 13:54:16.171 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-02-09 13:54:58.392 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-09 13:54:58.394 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-09 13:54:58.394 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-09 13:54:58.394 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-09 13:54:58.395 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-09 13:54:58.449 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-09 13:54:58.451 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-09 13:54:58.456 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-09 13:54:58.459 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-09 13:54:58.462 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-09 13:54:58.461 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-09 13:54:58.467 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-09 13:55:00.032 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-09 13:55:00.032 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-09 13:55:00.041 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-09 13:55:00.042 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
