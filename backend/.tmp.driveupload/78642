@@ -6101,3 +6101,15 @@
 2026-02-09 15:01:00.409 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-09 15:01:00.412 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-09 15:01:00.422 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-09 15:01:58.405 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-09 15:01:58.406 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-09 15:01:58.406 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-09 15:01:58.408 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-09 15:01:58.408 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-09 15:01:58.443 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-09 15:01:58.451 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-09 15:01:58.460 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-09 15:01:58.469 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-09 15:01:58.476 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-09 15:01:58.473 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-09 15:01:58.486 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
