@@ -684,3 +684,15 @@
 2026-02-10 09:10:57.889 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-10 09:10:57.896 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-10 09:10:57.904 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-10 09:11:57.836 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 09:11:57.838 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 09:11:57.838 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 09:11:57.843 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 09:11:57.842 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 09:11:57.888 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 09:11:57.896 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 09:11:57.927 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 09:11:57.933 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 09:11:57.945 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 09:11:57.939 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 09:11:57.953 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
