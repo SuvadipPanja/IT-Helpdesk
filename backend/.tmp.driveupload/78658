@@ -5978,3 +5978,15 @@
 2026-02-10 15:00:50.032 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-10 15:00:50.037 [SUCCESS] [OPERATION] ✅ Lookup data fetched successfully | {
 2026-02-10 15:00:50.039 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-10 15:00:57.738 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 15:00:57.739 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 15:00:57.741 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 15:00:57.740 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 15:00:57.739 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 15:00:57.743 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 15:00:57.745 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 15:00:57.749 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 15:00:57.750 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 15:00:57.753 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 15:00:57.752 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 15:00:57.757 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
