@@ -6795,3 +6795,15 @@
 2026-02-10 15:30:00.058 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
 2026-02-10 15:30:00.058 [ERROR] 🚨 🔴 Breaches: 6 tickets
 2026-02-10 15:30:00.058 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 34ms
+2026-02-10 15:30:43.730 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 15:30:43.729 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 15:30:43.730 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 15:30:43.731 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 15:30:43.731 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 15:30:43.746 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 15:30:43.748 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 15:30:43.757 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 15:30:43.760 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 15:30:43.763 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 15:30:43.762 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 15:30:43.767 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
