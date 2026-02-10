@@ -1547,3 +1547,15 @@
 2026-02-10 09:56:44.227 [TRY] [OPERATION] 🔄 Authenticating request | {
 2026-02-10 09:56:44.227 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
 2026-02-10 09:56:44.235 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-02-10 09:56:57.867 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 09:56:57.869 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 09:56:57.870 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 09:56:57.871 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 09:56:57.873 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 09:56:57.915 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 09:56:57.921 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 09:56:57.958 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 09:56:57.967 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 09:56:57.973 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 09:56:57.975 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 09:56:57.988 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
