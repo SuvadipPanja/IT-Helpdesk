@@ -2345,3 +2345,19 @@
 2026-02-10 14:00:00.084 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 10/02/2026, 02:00:00 pm IST
 2026-02-10 14:00:00.090 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-02-10 14:00:00.090 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-10 14:04:47.657 [ERROR] 🚨 Error loading settings | {
+2026-02-10 14:04:48.406 [TRY] [OPERATION] 🔄 Marking inactive sessions as expired
+2026-02-10 14:04:48.235 [ERROR] 🚨 Error getting settings by category | {
+2026-02-10 14:04:48.543 [ERROR] 🚨 Auto Unlock failed | {
+2026-02-10 14:04:48.850 [ERROR] 🚨 Failed to load SLA settings from database | {
+2026-02-10 14:04:49.024 [WARN] [SYSTEM] ⚠️ ⚠️ SLA monitoring is DISABLED in database settings
+2026-02-10 14:04:49.622 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-10 14:04:49.183 [ERROR] 🚨 Failed to process pending emails | {
+2026-02-10 14:04:49.752 [ERROR] 🚨 ❌ Auto-escalation job failed | {
+2026-02-10 14:04:50.036 [INFO] [SYSTEM] ℹ️ No inactive sessions found
+2026-02-10 14:04:50.040 [TRY] [OPERATION] 🔄 Marking expired sessions
+2026-02-10 14:04:50.051 [SUCCESS] [OPERATION] ✅ Marked 1 expired sessions
+2026-02-10 14:04:50.054 [TRY] [OPERATION] 🔄 Deleting old inactive sessions
+2026-02-10 14:04:50.067 [INFO] [SYSTEM] ℹ️ No old sessions to delete
+2026-02-10 14:04:50.080 [TRY] [OPERATION] 🔄 Getting session statistics
+2026-02-10 14:04:50.123 [SUCCESS] [OPERATION] ✅ Session Cleanup completed successfully | {
