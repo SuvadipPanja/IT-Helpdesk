@@ -4568,3 +4568,65 @@
 2026-02-10 14:44:45.101 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-10 14:44:45.111 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-10 14:44:45.125 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-10 14:44:57.766 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 14:44:57.760 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 14:44:57.766 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 14:44:57.769 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 14:44:57.772 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 14:44:57.791 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 14:44:57.798 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 14:44:57.836 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 14:44:57.851 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 14:44:57.859 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 14:44:57.863 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 14:44:57.878 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-10 14:45:00.063 [TRY] [OPERATION] 🔄 Finding accounts with expired lockouts
+2026-02-10 14:45:00.065 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-10 14:45:00.067 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-10 14:45:00.066 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 10/02/2026, 02:45:00 pm IST
+2026-02-10 14:45:00.063 [TRY] [OPERATION] 🔄 Running Auto Unlock
+2026-02-10 14:45:00.069 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-10 14:45:00.069 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-10 14:45:00.080 [INFO] [SYSTEM] ℹ️ No accounts found with expired lockouts
+2026-02-10 14:45:00.101 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-10 14:45:00.118 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-10 14:45:00.119 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-10 14:45:00.140 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-10 14:45:00.140 [INFO] [SYSTEM] ℹ️ 🎫 Found 8 open tickets to check
+2026-02-10 14:45:00.141 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-10 14:45:00.143 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 14:45:00.145 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-10 14:45:00.145 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 14:45:00.143 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-10 14:45:00.147 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 14:45:00.147 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-10 14:45:00.149 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 14:45:00.149 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-10 14:45:00.151 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 14:45:00.151 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-10 14:45:00.152 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 14:45:00.153 [WARN] [SYSTEM] ⚠️ ⚠️ SLA WARNING: ABCD-20260206-0002 | {
+2026-02-10 14:45:00.179 [ERROR] 🚨 Failed to log SLA activity | {
+2026-02-10 14:45:00.183 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-10 14:45:00.194 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-10 14:45:00.196 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Medium' (1 occurrences)
+2026-02-10 14:45:00.197 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '90.6%' (2 occurrences)
+2026-02-10 14:45:00.196 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Test 55' (1 occurrences)
+2026-02-10 14:45:00.195 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260206-0002' (3 occurrences)
+2026-02-10 14:45:00.197 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{remaining_hours}}' with '2.2' (1 occurrences)
+2026-02-10 14:45:00.197 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '10/02/2026, 03:49 pm' (1 occurrences)
+2026-02-10 14:45:00.198 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/59' (1 occurrences)
+2026-02-10 14:45:00.198 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-10 14:45:00.199 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-10 14:45:00.199 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-10 14:45:00.211 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-10 14:45:00.213 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-10 14:45:00.214 [INFO] [SYSTEM] ℹ️ 📧 Warning email queued for engineer: panja.suvadip@gmail.com
+2026-02-10 14:45:00.216 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-02-10 14:45:00.217 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 1 tickets (threshold: 90%)
+2026-02-10 14:45:00.215 [SUCCESS] [OPERATION] ✅ ✅ Warning notification sent for ABCD-20260206-0002
+2026-02-10 14:45:00.218 [ERROR] 🚨 🔴 Breaches: 6 tickets
+2026-02-10 14:45:00.220 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 152ms
+2026-02-10 14:45:00.225 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-10 14:45:00.232 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-10 14:45:00.235 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
