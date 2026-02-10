@@ -1391,3 +1391,15 @@
 2026-02-10 09:45:00.245 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2026-02-10 09:45:00.248 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 140ms
 2026-02-10 09:45:00.246 [ERROR] 🚨 🔴 Breaches: 6 tickets
+2026-02-10 09:45:57.862 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 09:45:57.864 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 09:45:57.864 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 09:45:57.866 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 09:45:57.867 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 09:45:57.903 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 09:45:57.910 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 09:45:57.942 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 09:45:57.948 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 09:45:57.952 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 09:45:57.957 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 09:45:57.965 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
