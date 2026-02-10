@@ -2106,3 +2106,17 @@
 2026-02-10 11:36:49.894 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-10 11:36:49.892 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-10 11:36:49.902 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-10 11:37:50.798 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 11:37:50.800 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 11:37:50.800 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 11:37:50.810 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 11:37:50.812 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 11:37:50.863 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 11:37:50.864 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-10 11:37:50.872 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-10 11:37:50.881 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 11:37:50.915 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 11:37:50.924 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 11:37:50.930 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 11:37:50.933 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 11:37:50.945 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
