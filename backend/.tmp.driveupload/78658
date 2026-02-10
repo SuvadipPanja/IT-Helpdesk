@@ -606,3 +606,15 @@
 2026-02-10 09:09:07.917 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-10 09:09:07.920 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-10 09:09:07.929 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-10 09:09:27.833 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 09:09:27.835 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 09:09:27.835 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 09:09:27.838 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 09:09:27.837 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 09:09:27.847 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 09:09:27.852 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 09:09:27.873 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 09:09:27.881 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 09:09:27.887 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 09:09:27.884 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 09:09:27.897 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
