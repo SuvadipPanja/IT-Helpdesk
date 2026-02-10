@@ -1350,3 +1350,44 @@
 2026-02-10 09:43:57.937 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-10 09:43:57.935 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-10 09:43:57.948 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-10 09:44:57.863 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 09:44:57.861 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 09:44:57.864 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 09:44:57.865 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 09:44:57.863 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 09:44:57.904 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 09:44:57.912 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 09:44:57.921 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 09:44:57.930 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 09:44:57.934 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 09:44:57.938 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 09:44:57.951 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-10 09:45:00.112 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-10 09:45:00.113 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 10/02/2026, 09:45:00 am IST
+2026-02-10 09:45:00.114 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-10 09:45:00.116 [TRY] [OPERATION] 🔄 Running Auto Unlock
+2026-02-10 09:45:00.116 [TRY] [OPERATION] 🔄 Finding accounts with expired lockouts
+2026-02-10 09:45:00.117 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-10 09:45:00.118 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-10 09:45:00.135 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-10 09:45:00.158 [INFO] [SYSTEM] ℹ️ No accounts found with expired lockouts
+2026-02-10 09:45:00.169 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-10 09:45:00.170 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-10 09:45:00.207 [INFO] [SYSTEM] ℹ️ 🎫 Found 8 open tickets to check
+2026-02-10 09:45:00.210 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-10 09:45:00.214 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 09:45:00.209 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-10 09:45:00.219 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 09:45:00.215 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-10 09:45:00.225 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 09:45:00.220 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-10 09:45:00.227 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-10 09:45:00.230 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 09:45:00.232 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-10 09:45:00.235 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 09:45:00.236 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-10 09:45:00.243 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 09:45:00.245 [INFO] [SYSTEM] ℹ️ ✅ OK: 2 tickets
+2026-02-10 09:45:00.245 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-10 09:45:00.248 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 140ms
+2026-02-10 09:45:00.246 [ERROR] 🚨 🔴 Breaches: 6 tickets
