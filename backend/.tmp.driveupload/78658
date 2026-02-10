@@ -8987,3 +8987,15 @@
 2026-02-10 16:10:00.052 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-02-10 16:10:00.063 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2026-02-10 16:10:00.064 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-10 16:10:57.765 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 16:10:57.767 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 16:10:57.767 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 16:10:57.769 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 16:10:57.770 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 16:10:57.803 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 16:10:57.812 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 16:10:57.845 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 16:10:57.851 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 16:10:57.856 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 16:10:57.861 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 16:10:57.872 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
