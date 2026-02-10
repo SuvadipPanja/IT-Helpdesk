@@ -4114,3 +4114,15 @@
 2026-02-10 14:40:00.034 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
 2026-02-10 14:40:00.048 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2026-02-10 14:40:00.050 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-10 14:40:05.034 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 14:40:05.036 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 14:40:05.037 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 14:40:05.038 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 14:40:05.040 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 14:40:05.051 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 14:40:05.055 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 14:40:05.089 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 14:40:05.095 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 14:40:05.101 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 14:40:05.099 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 14:40:05.111 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
