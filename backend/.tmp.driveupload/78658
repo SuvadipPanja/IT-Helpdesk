@@ -11464,3 +11464,138 @@
 2026-02-10 17:14:52.602 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-10 17:14:52.604 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-10 17:14:52.615 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-10 17:15:00.033 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-10 17:15:00.034 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-10 17:15:00.035 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-10 17:15:00.036 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 10/02/2026, 05:15:00 pm IST
+2026-02-10 17:15:00.037 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-10 17:15:00.040 [TRY] [OPERATION] 🔄 Running Auto Unlock
+2026-02-10 17:15:00.040 [TRY] [OPERATION] 🔄 Finding accounts with expired lockouts
+2026-02-10 17:15:00.053 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-10 17:15:00.053 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-10 17:15:00.069 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-10 17:15:00.081 [INFO] [SYSTEM] ℹ️ No accounts found with expired lockouts
+2026-02-10 17:15:00.104 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-10 17:15:00.108 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 17:15:00.104 [INFO] [SYSTEM] ℹ️ 🎫 Found 8 open tickets to check
+2026-02-10 17:15:00.108 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-10 17:15:00.105 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-10 17:15:00.111 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 17:15:00.114 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-10 17:15:00.117 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 17:15:00.118 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-10 17:15:00.120 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 17:15:00.121 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-10 17:15:00.124 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-10 17:15:00.126 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 17:15:00.127 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20260206-0002 | {
+2026-02-10 17:15:00.123 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-10 17:15:00.181 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-10 17:15:00.173 [ERROR] 🚨 Failed to log SLA activity | {
+2026-02-10 17:15:00.187 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-10 17:15:00.189 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Medium' (1 occurrences)
+2026-02-10 17:15:00.188 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260206-0002' (3 occurrences)
+2026-02-10 17:15:00.189 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Test 55' (1 occurrences)
+2026-02-10 17:15:00.190 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '100%' (1 occurrences)
+2026-02-10 17:15:00.192 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '10/02/2026, 03:49 pm' (1 occurrences)
+2026-02-10 17:15:00.193 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/59' (1 occurrences)
+2026-02-10 17:15:00.194 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-10 17:15:00.194 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-10 17:15:00.198 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-10 17:15:00.191 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '24' (1 occurrences)
+2026-02-10 17:15:00.190 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '24' (1 occurrences)
+2026-02-10 17:15:00.208 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-10 17:15:00.209 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-10 17:15:00.210 [INFO] [SYSTEM] ℹ️ 📧 Breach email queued for engineer: panja.suvadip@gmail.com
+2026-02-10 17:15:00.211 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-10 17:15:00.211 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-10 17:15:00.223 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-10 17:15:00.225 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260206-0002' (3 occurrences)
+2026-02-10 17:15:00.226 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Test 55' (1 occurrences)
+2026-02-10 17:15:00.226 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Medium' (1 occurrences)
+2026-02-10 17:15:00.227 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '100%' (1 occurrences)
+2026-02-10 17:15:00.236 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '24' (1 occurrences)
+2026-02-10 17:15:00.237 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '24' (1 occurrences)
+2026-02-10 17:15:00.237 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '10/02/2026, 03:49 pm' (1 occurrences)
+2026-02-10 17:15:00.238 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/59' (1 occurrences)
+2026-02-10 17:15:00.240 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-10 17:15:00.239 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-10 17:15:00.240 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-10 17:15:00.247 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-10 17:15:00.249 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-10 17:15:00.284 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-10 17:15:00.283 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-10 17:15:00.285 [INFO] [SYSTEM] ℹ️ 📧 Breach email queued for requester: Siddhartha.Sengupta@digitide.com
+2026-02-10 17:15:00.285 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-10 17:15:00.292 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-10 17:15:00.291 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-10 17:15:00.305 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-10 17:15:00.309 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-10 17:15:00.310 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260206-0002' (3 occurrences)
+2026-02-10 17:15:00.315 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Medium' (1 occurrences)
+2026-02-10 17:15:00.311 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Test 55' (1 occurrences)
+2026-02-10 17:15:00.316 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '100%' (1 occurrences)
+2026-02-10 17:15:00.316 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '24' (1 occurrences)
+2026-02-10 17:15:00.317 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '24' (1 occurrences)
+2026-02-10 17:15:00.317 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '10/02/2026, 03:49 pm' (1 occurrences)
+2026-02-10 17:15:00.317 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/59' (1 occurrences)
+2026-02-10 17:15:00.318 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-10 17:15:00.319 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-10 17:15:00.318 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-10 17:15:00.334 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-10 17:15:00.335 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-10 17:15:00.335 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-10 17:15:00.335 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-10 17:15:00.343 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-10 17:15:00.347 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Test 55' (1 occurrences)
+2026-02-10 17:15:00.344 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260206-0002' (3 occurrences)
+2026-02-10 17:15:00.347 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Medium' (1 occurrences)
+2026-02-10 17:15:00.348 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '100%' (1 occurrences)
+2026-02-10 17:15:00.348 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '24' (1 occurrences)
+2026-02-10 17:15:00.349 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '24' (1 occurrences)
+2026-02-10 17:15:00.349 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '10/02/2026, 03:49 pm' (1 occurrences)
+2026-02-10 17:15:00.349 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/59' (1 occurrences)
+2026-02-10 17:15:00.350 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-10 17:15:00.351 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-10 17:15:00.350 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-10 17:15:00.354 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-10 17:15:00.355 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-10 17:15:00.373 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-10 17:15:00.374 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-10 17:15:00.375 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-10 17:15:00.375 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-10 17:15:00.382 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-10 17:15:00.383 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260206-0002' (3 occurrences)
+2026-02-10 17:15:00.383 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Test 55' (1 occurrences)
+2026-02-10 17:15:00.384 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'Medium' (1 occurrences)
+2026-02-10 17:15:00.384 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{sla_percentage}}' with '100%' (1 occurrences)
+2026-02-10 17:15:00.385 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{elapsed_hours}}' with '24' (1 occurrences)
+2026-02-10 17:15:00.386 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '10/02/2026, 03:49 pm' (1 occurrences)
+2026-02-10 17:15:00.385 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{total_hours}}' with '24' (1 occurrences)
+2026-02-10 17:15:00.386 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/59' (1 occurrences)
+2026-02-10 17:15:00.386 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-10 17:15:00.386 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-10 17:15:00.387 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-10 17:15:00.393 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-10 17:15:00.398 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-10 17:15:00.404 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-10 17:15:00.404 [INFO] [SYSTEM] ℹ️ 📧 Breach emails queued for 3 manager(s)
+2026-02-10 17:15:00.403 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-10 17:15:00.407 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-02-10 17:15:00.408 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-10 17:15:00.408 [ERROR] 🚨 🔴 Breaches: 7 tickets
+2026-02-10 17:15:00.405 [SUCCESS] [OPERATION] ✅ ✅ Breach notification sent for ABCD-20260206-0002
+2026-02-10 17:15:00.409 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 371ms
+2026-02-10 17:15:00.416 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-10 17:15:00.422 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-10 17:15:00.424 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-10 17:15:02.298 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-10 17:15:02.299 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-10 17:15:02.307 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-10 17:15:02.310 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-10 17:15:02.315 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-10 17:15:02.316 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-10 17:15:02.308 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-10 17:15:02.318 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-10 17:15:02.317 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-10 17:15:02.319 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
