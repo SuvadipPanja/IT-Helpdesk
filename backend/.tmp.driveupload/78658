@@ -1990,3 +1990,15 @@
 2026-02-10 11:00:00.230 [ERROR] 🚨 🔴 Breaches: 6 tickets
 2026-02-10 11:00:00.232 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 153ms
 2026-02-10 11:00:00.272 [SUCCESS] [OPERATION] ✅ Session Cleanup completed successfully | {
+2026-02-10 11:00:57.807 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 11:00:57.810 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 11:00:57.810 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 11:00:57.813 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 11:00:57.814 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 11:00:57.846 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 11:00:57.853 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 11:00:57.888 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 11:00:57.896 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 11:00:57.906 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 11:00:57.909 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 11:00:57.921 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
