@@ -4630,3 +4630,17 @@
 2026-02-10 14:45:00.225 [TRY] [OPERATION] 🔄 Processing email from queue | {
 2026-02-10 14:45:00.232 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
 2026-02-10 14:45:00.235 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-10 14:45:05.033 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 14:45:05.040 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 14:45:05.040 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 14:45:05.042 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 14:45:05.043 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 14:45:05.053 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 14:45:05.060 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 14:45:05.093 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 14:45:05.101 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 14:45:05.110 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 14:45:05.112 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 14:45:05.122 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-10 14:45:06.069 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-10 14:45:06.066 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
