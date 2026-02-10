@@ -1703,3 +1703,17 @@
 2026-02-10 10:05:00.031 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-02-10 10:05:00.041 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2026-02-10 10:05:00.045 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-10 10:24:14.726 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-10 10:24:14.725 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-10 10:24:14.728 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-10 10:24:14.727 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-10 10:24:14.729 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-10 10:24:14.766 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-10 10:24:14.766 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-10 10:24:14.774 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-10 10:24:14.786 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-10 10:24:14.819 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-10 10:24:14.825 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-10 10:24:14.828 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-10 10:24:14.830 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-10 10:24:14.838 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
