@@ -14,3 +14,72 @@
 2026-02-11 08:40:00.033 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-02-11 08:40:00.071 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
 2026-02-11 08:40:00.070 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-11 09:00:00.078 [INFO] [SYSTEM] ℹ️ Starting password expiry reminder job
+2026-02-11 09:00:00.074 [INFO] [SYSTEM] ℹ️ ⏰ Password expiry reminder job triggered (Daily at 9:00 AM IST)
+2026-02-11 09:00:00.079 [TRY] [OPERATION] 🔄 Getting users with expiring passwords | {
+2026-02-11 09:00:00.081 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-11 09:00:00.083 [TRY] [OPERATION] 🔄 Running Auto Unlock
+2026-02-11 09:00:00.081 [TRY] [OPERATION] 🔄 Running Session Cleanup
+2026-02-11 09:00:00.084 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-11 09:00:00.083 [TRY] [OPERATION] 🔄 Finding accounts with expired lockouts
+2026-02-11 09:00:00.085 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 11/02/2026, 09:00:00 am IST
+2026-02-11 09:00:00.086 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-11 09:00:00.088 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
+2026-02-11 09:00:00.090 [TRY] [OPERATION] 🔄 Processing pending emails in queue
+2026-02-11 09:00:00.182 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-11 09:00:00.184 [TRY] [OPERATION] 🔄 Marking inactive sessions as expired
+2026-02-11 09:00:00.185 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-11 09:00:00.187 [INFO] [SYSTEM] ℹ️ No accounts found with expired lockouts
+2026-02-11 09:00:00.189 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-11 09:00:00.190 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-11 09:00:00.204 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2026-02-11 09:00:00.203 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [307]
+2026-02-11 09:00:00.210 [INFO] [SYSTEM] ℹ️ Found 1 users with expiring/expired passwords
+2026-02-11 09:00:00.208 [SUCCESS] [OPERATION] ✅ Users with expiring passwords retrieved | {
+2026-02-11 09:00:00.212 [TRY] [OPERATION] 🔄 Sending EXPIRED notification to enginer | {
+2026-02-11 09:00:00.214 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-11 09:00:00.218 [TRY] [OPERATION] 🔄 Marking expired sessions
+2026-02-11 09:00:00.217 [SUCCESS] [OPERATION] ✅ Marked 3 inactive sessions as expired | {
+2026-02-11 09:00:00.232 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-11 09:00:00.228 [INFO] [SYSTEM] ℹ️ 🎫 Found 8 open tickets to check
+2026-02-11 09:00:00.237 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-11 09:00:00.240 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-11 09:00:00.241 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-11 09:00:00.236 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-11 09:00:00.255 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-11 09:00:00.265 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-11 09:00:00.266 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-11 09:00:00.250 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-11 09:00:00.256 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-11 09:00:00.271 [ERROR] 🚨 🔴 SLA BREACH: ABCD-20260206-0002 | {
+2026-02-11 09:00:00.233 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-11 09:00:00.270 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-11 09:00:00.251 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-11 09:00:00.274 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-11 09:00:00.281 [ERROR] 🚨 🔴 Breaches: 7 tickets
+2026-02-11 09:00:00.281 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-11 09:00:00.279 [INFO] [SYSTEM] ℹ️ ✅ OK: 1 tickets
+2026-02-11 09:00:00.282 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 192ms
+2026-02-11 09:00:00.303 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{user_name}}' with 'Shayam Shorama' (1 occurrences)
+2026-02-11 09:00:00.304 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{expired_date}}' with '17 January 2026' (2 occurrences)
+2026-02-11 09:00:00.307 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{support_email}}' with 'support@company.com' (1 occurrences)
+2026-02-11 09:00:00.306 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{days_expired}}' with '0' (1 occurrences)
+2026-02-11 09:00:00.308 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{change_password_url}}' with 'http://localhost:5173/profile/change-password' (1 occurrences)
+2026-02-11 09:00:00.300 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-11 09:00:00.314 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-11 09:00:00.309 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-11 09:00:00.321 [TRY] [OPERATION] 🔄 Deleting old inactive sessions
+2026-02-11 09:00:00.320 [INFO] [SYSTEM] ℹ️ No expired sessions found
+2026-02-11 09:00:00.337 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-11 09:00:00.339 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-11 09:00:00.340 [SUCCESS] [OPERATION] ✅ EXPIRED notification sent to enginer
+2026-02-11 09:00:00.342 [SUCCESS] [OPERATION] ✅ Password expiry reminder job completed | {
+2026-02-11 09:00:00.352 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-11 09:00:00.353 [INFO] [SYSTEM] ℹ️ No old sessions to delete
+2026-02-11 09:00:00.354 [TRY] [OPERATION] 🔄 Getting session statistics
+2026-02-11 09:00:00.383 [SUCCESS] [OPERATION] ✅ Session Cleanup completed successfully | {
+2026-02-11 09:00:00.367 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-11 09:00:00.364 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-11 09:00:02.686 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-11 09:00:02.686 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-11 09:00:06.542 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
