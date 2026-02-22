@@ -19,16 +19,6 @@ const getRoles = async (req, res, next) => {
       userId: req.user.user_id,
     });
 
-    // ✅ FIXED: Check permission from permissions object
-    if (!req.user.permissions || !req.user.permissions.can_manage_roles) {
-      logger.warn('Unauthorized access attempt to roles', {
-        userId: req.user.user_id,
-      });
-      return res.status(403).json(
-        createResponse(false, 'You do not have permission to manage roles')
-      );
-    }
-
     const query = `
       SELECT 
         r.role_id,
@@ -115,16 +105,6 @@ const getRoleById = async (req, res, next) => {
       userId: req.user.user_id,
       roleId: id,
     });
-
-    // ✅ FIXED: Check permission from permissions object
-    if (!req.user.permissions || !req.user.permissions.can_manage_roles) {
-      logger.warn('Unauthorized access attempt', {
-        userId: req.user.user_id,
-      });
-      return res.status(403).json(
-        createResponse(false, 'You do not have permission to view roles')
-      );
-    }
 
     const roleId = parseInt(id, 10);
     if (isNaN(roleId)) {
@@ -218,16 +198,6 @@ const createRole = async (req, res, next) => {
       roleName: role_name,
       body: req.body,
     });
-
-    // ✅ FIXED: Check permission from permissions object
-    if (!req.user.permissions || !req.user.permissions.can_manage_roles) {
-      logger.warn('Unauthorized role creation attempt', {
-        userId: req.user.user_id,
-      });
-      return res.status(403).json(
-        createResponse(false, 'You do not have permission to create roles', null)
-      );
-    }
 
     if (!role_name || !role_code) {
       return res.status(400).json(
@@ -353,16 +323,6 @@ const updateRole = async (req, res, next) => {
       body: req.body,
     });
 
-    // ✅ FIXED: Check permission from permissions object
-    if (!req.user.permissions || !req.user.permissions.can_manage_roles) {
-      logger.warn('Unauthorized role update attempt', {
-        userId: req.user.user_id,
-      });
-      return res.status(403).json(
-        createResponse(false, 'You do not have permission to update roles', null)
-      );
-    }
-
     if (!role_name || !role_code) {
       return res.status(400).json(
         createResponse(false, 'Role name and code are required', null)
@@ -476,16 +436,6 @@ const deleteRole = async (req, res, next) => {
       roleId: id,
     });
 
-    // ✅ FIXED: Check permission from permissions object
-    if (!req.user.permissions || !req.user.permissions.can_manage_roles) {
-      logger.warn('Unauthorized role deletion attempt', {
-        userId: req.user.user_id,
-      });
-      return res.status(403).json(
-        createResponse(false, 'You do not have permission to delete roles', null)
-      );
-    }
-
     const roleId = parseInt(id, 10);
     if (isNaN(roleId)) {
       return res.status(400).json(
@@ -564,16 +514,6 @@ const getAvailablePermissions = async (req, res, next) => {
     logger.info('Fetching available permissions', {
       userId: req.user.user_id,
     });
-
-    // ✅ FIXED: Check permission from permissions object
-    if (!req.user.permissions || !req.user.permissions.can_manage_roles) {
-      logger.warn('Unauthorized access attempt', {
-        userId: req.user.user_id,
-      });
-      return res.status(403).json(
-        createResponse(false, 'You do not have permission to view permissions')
-      );
-    }
 
     const permissions = [
       {
