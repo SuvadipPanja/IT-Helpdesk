@@ -542,7 +542,7 @@ const TicketDetail = () => {
 
           {/* Horizontal Timeline Track */}
           <div className="td-hj-wrapper">
-            <div className="td-hj-track" ref={journeyScrollRef}>
+            <div className="td-hj-track" ref={journeyScrollRef} style={{ '--td-hj-count': journeyEvents.length }}>
               {/* Connecting lines span from first node center to last node center */}
               {journeyEvents.length > 1 && (
                 <>
