@@ -3101,3 +3101,46 @@
 2026-02-26 14:50:00.025 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-02-26 14:50:00.031 [INFO] [SYSTEM] ℹ️ No pending emails to process
 2026-02-26 14:50:00.032 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
+2026-02-26 14:50:32.584 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 14:50:32.584 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 14:50:32.583 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 14:50:32.585 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 14:50:32.585 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 14:50:32.648 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 14:50:32.648 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-26 14:50:32.653 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-26 14:50:32.656 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 14:50:32.661 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 14:50:32.664 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 14:50:32.666 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 14:50:32.668 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 14:50:32.675 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 14:50:35.585 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 14:50:35.586 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 14:50:35.586 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 14:50:35.587 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 14:50:35.587 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 14:50:35.589 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 14:50:35.588 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 14:50:35.589 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 14:50:35.590 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 14:50:35.591 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 14:50:35.596 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 14:50:35.601 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 14:50:35.606 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 14:50:35.609 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 14:50:35.622 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 14:50:35.623 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 14:50:35.627 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 14:50:35.626 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 14:50:35.631 [INFO] [SYSTEM] ℹ️ Fetching dashboard statistics | {
+2026-02-26 14:50:35.628 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 14:50:35.629 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 14:50:35.633 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 14:50:35.634 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 14:50:35.636 [ERROR] 🚨 Dashboard stats error | {
+2026-02-26 14:50:35.640 [ERROR] 🚨 📤 Response Sent | {
+2026-02-26 14:50:35.638 [ERROR] 🚨 Error Handler Caught Exception | {
+2026-02-26 14:50:35.643 [ERROR] 🚨 User activity error | {
+2026-02-26 14:50:35.646 [ERROR] 🚨 Error Handler Caught Exception | {
+2026-02-26 14:50:35.648 [ERROR] 🚨 📤 Response Sent | {
