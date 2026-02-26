@@ -20681,3 +20681,15 @@
 2026-02-26 22:56:12.484 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-26 22:56:12.500 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-26 22:56:12.504 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 22:56:32.459 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 22:56:32.460 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 22:56:32.460 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 22:56:32.462 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 22:56:32.463 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 22:56:32.473 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 22:56:32.477 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 22:56:32.490 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 22:56:32.496 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 22:56:32.500 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 22:56:32.505 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 22:56:32.517 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
