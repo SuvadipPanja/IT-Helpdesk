@@ -4255,3 +4255,133 @@
 2026-02-27 00:12:17.460 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-27 00:12:17.499 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-27 00:12:17.502 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:12:22.049 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:12:22.108 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:12:22.106 [DEBUG] 🐛 Request Body | {
+2026-02-27 00:12:22.108 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:12:22.110 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:12:22.111 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:12:22.124 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:12:22.129 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:12:22.166 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:12:22.172 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:12:22.176 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:12:22.177 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:12:22.182 [TRY] [OPERATION] 🔄 Updating ticket | {
+2026-02-27 00:12:22.216 [TRY] [OPERATION] 🔄 Sending status change notifications
+2026-02-27 00:12:22.239 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-27 00:12:22.238 [SUCCESS] [OPERATION] ✅ Status change notification sent to requester
+2026-02-27 00:12:22.261 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-27 00:12:22.269 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260226-0002' (2 occurrences)
+2026-02-27 00:12:22.271 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'just for testing ' (1 occurrences)
+2026-02-27 00:12:22.274 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{old_status}}' with 'Open' (1 occurrences)
+2026-02-27 00:12:22.278 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{new_status}}' with 'Closed' (2 occurrences)
+2026-02-27 00:12:22.291 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/64' (1 occurrences)
+2026-02-27 00:12:22.281 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{updated_by_name}}' with 'Pankaj Shaw' (1 occurrences)
+2026-02-27 00:12:22.287 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{user_name}}' with 'Siddhartha Sengupta' (1 occurrences)
+2026-02-27 00:12:22.299 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-27 00:12:22.299 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-27 00:12:22.299 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-27 00:12:22.312 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-27 00:12:22.316 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-27 00:12:22.318 [SUCCESS] [OPERATION] ✅ Status change email queued for requester
+2026-02-27 00:12:22.318 [SUCCESS] [OPERATION] ✅ Ticket updated | {
+2026-02-27 00:12:22.319 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:12:22.325 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-27 00:12:22.335 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-27 00:12:22.337 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-27 00:12:24.139 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:12:24.141 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:12:24.142 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:12:24.141 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:12:24.143 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:12:24.145 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:12:24.156 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:12:24.156 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:12:24.157 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:12:24.160 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:12:24.170 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:12:24.179 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:12:24.189 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:12:24.193 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:12:24.272 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-27 00:12:24.278 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-27 00:12:24.317 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:12:24.326 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:12:24.327 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:12:24.341 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:12:24.344 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:12:24.352 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2026-02-27 00:12:24.353 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:12:24.359 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:12:24.362 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:12:24.366 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2026-02-27 00:12:24.377 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2026-02-27 00:12:24.386 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:12:24.404 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:12:24.407 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:12:24.408 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:12:24.411 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:12:24.407 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:12:24.422 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:12:24.428 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:12:24.438 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2026-02-27 00:12:24.442 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:12:24.453 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:12:24.466 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:12:24.466 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:12:24.467 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:12:24.470 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:12:24.471 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:12:24.476 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:12:24.477 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:12:24.481 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:12:24.486 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:12:24.490 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2026-02-27 00:12:24.500 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:12:24.503 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2026-02-27 00:12:24.526 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:12:24.549 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:12:24.553 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:12:24.566 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:12:24.572 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:12:24.576 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2026-02-27 00:12:24.600 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2026-02-27 00:12:24.603 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:12:27.034 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:12:27.037 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:12:27.037 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:12:27.041 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:12:27.038 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:12:27.057 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:12:27.060 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:12:27.093 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:12:27.099 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:12:27.103 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:12:27.105 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:12:27.116 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:12:28.360 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
+2026-02-27 00:12:31.392 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:12:31.389 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:12:31.392 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:12:31.393 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:12:31.401 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:12:31.408 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:12:31.411 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:12:31.444 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:12:31.452 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:12:31.457 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:12:31.455 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:12:31.462 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:12:31.705 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:12:31.712 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:12:31.712 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:12:31.746 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:12:31.720 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:12:31.759 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:12:31.764 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:12:31.776 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:12:31.782 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:12:31.789 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:12:31.787 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:12:31.794 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
