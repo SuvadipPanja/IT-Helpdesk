@@ -1,0 +1,42 @@
+const { executeQuery } = require('./models/db');
+
+(async () => {
+  try {
+    // Find tickets with first_response_at but no actual response comments
+    const result = await executeQuery(`
+      SELECT t.ticket_id, t.ticket_number, t.first_response_at, t.created_at,
+        (SELECT COUNT(*) FROM ticket_comments tc 
+         WHERE tc.ticket_id = t.ticket_id 
+         AND tc.is_internal = 0 
+         AND tc.commented_by != t.requester_id) as response_comments
+      FROM tickets t 
+      WHERE t.first_response_at IS NOT NULL
+    `);
+    
+    console.log('Tickets with first_response_at:', result.recordset.length);
+    result.recordset.forEach(r => {
+      console.log(`  #${r.ticket_number} - response_comments: ${r.response_comments} - first_response_at: ${r.first_response_at}`);
+    });
+
+    // Reset first_response_at for tickets with NO actual response comments
+    const badTickets = result.recordset.filter(r => r.response_comments === 0);
+    if (badTickets.length > 0) {
+      console.log(`\nResetting ${badTickets.length} tickets with incorrect first_response_at...`);
+      for (const t of badTickets) {
+        await executeQuery(
+          `UPDATE tickets SET first_response_at = NULL, first_response_sla_met = NULL WHERE ticket_id = @ticketId`,
+          { ticketId: t.ticket_id }
+        );
+        console.log(`  Reset #${t.ticket_number}`);
+      }
+      console.log('Done!');
+    } else {
+      console.log('\nNo incorrect first_response_at values found.');
+    }
+
+    process.exit(0);
+  } catch (err) {
+    console.error('Error:', err.message);
+    process.exit(1);
+  }
+})();
