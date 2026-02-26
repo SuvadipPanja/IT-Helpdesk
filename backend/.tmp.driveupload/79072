@@ -7789,3 +7789,15 @@
 2026-02-26 15:52:06.359 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-26 15:52:06.363 [SUCCESS] [OPERATION] ✅ Dashboard stats fetched
 2026-02-26 15:52:06.365 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 15:52:14.857 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 15:52:14.858 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 15:52:14.859 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 15:52:14.858 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 15:52:14.858 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 15:52:14.861 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 15:52:14.862 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 15:52:14.866 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 15:52:14.870 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 15:52:14.872 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 15:52:14.873 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 15:52:14.876 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
