@@ -3455,3 +3455,15 @@
 2026-02-26 14:58:37.317 [TRY] [OPERATION] 🔄 Testing database connection
 2026-02-26 14:58:37.316 [SUCCESS] [OPERATION] ✅ Error handlers initialized
 2026-02-26 14:58:37.317 [INFO] [SYSTEM] ℹ️ Platform | {
+2026-02-26 14:58:55.576 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 14:58:55.577 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 14:58:55.578 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 14:58:55.577 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 14:58:55.577 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 14:58:55.580 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 14:58:55.581 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 14:58:55.583 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 14:58:55.584 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 14:58:55.588 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 14:58:55.586 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 14:58:55.590 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
