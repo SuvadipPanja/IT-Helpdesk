@@ -17884,3 +17884,15 @@
 2026-02-26 17:52:39.555 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-26 17:52:39.572 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-26 17:52:39.573 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 17:52:58.545 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 17:52:58.546 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 17:52:58.546 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 17:52:58.546 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 17:52:58.546 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 17:52:58.548 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 17:52:58.549 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 17:52:58.555 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 17:52:58.557 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 17:52:58.558 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 17:52:58.559 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 17:52:58.562 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
