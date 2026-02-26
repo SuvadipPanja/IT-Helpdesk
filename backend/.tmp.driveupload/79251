@@ -12765,3 +12765,30 @@
 2026-02-27 00:34:19.031 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2026-02-27 00:34:19.051 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
 2026-02-27 00:34:19.057 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-27 00:34:23.372 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:34:23.369 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:34:23.372 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:34:23.374 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:34:23.375 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:34:23.395 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:34:23.403 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:34:23.419 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:34:23.431 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:34:23.434 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:34:23.467 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:34:23.494 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2026-02-27 00:34:23.520 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
+2026-02-27 00:34:23.559 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2026-02-27 00:34:23.566 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:34:25.345 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:34:25.349 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:34:25.349 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:34:25.350 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:34:25.351 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:34:25.375 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:34:25.380 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:34:25.392 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:34:25.395 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:34:25.399 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:34:25.400 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:34:25.411 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
