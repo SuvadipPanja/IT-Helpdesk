@@ -21904,3 +21904,15 @@
 2026-02-26 23:18:24.461 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-26 23:18:24.481 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-26 23:18:24.484 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 23:18:32.438 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 23:18:32.440 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 23:18:32.440 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 23:18:32.442 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 23:18:32.441 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 23:18:32.451 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 23:18:32.456 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 23:18:32.488 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 23:18:32.494 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 23:18:32.498 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 23:18:32.504 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 23:18:32.515 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
