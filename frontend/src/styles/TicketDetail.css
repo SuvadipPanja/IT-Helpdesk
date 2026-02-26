@@ -1420,9 +1420,16 @@
 [data-theme='dark'] .td-old-val { background: #450a0a; color: #fca5a5; }
 [data-theme='dark'] .td-new-val { background: #064e3b; color: #6ee7b7; }
 
-/* Dark mode: internal note card */
-[data-theme='dark'] .td-timeline-item.td-internal .td-timeline-card {
-  background: #422006;
+/* Dark mode: internal note / detail panel */
+[data-theme='dark'] .td-hj-detail {
+  background: var(--td-card);
+  border-color: var(--td-card-border);
+}
+
+[data-theme='dark'] .td-hj-detail-close:hover {
+  background: #450a0a;
+  border-color: #f87171;
+  color: #f87171;
 }
 
 /* Dark mode: comment text */
