@@ -11636,3 +11636,17 @@
 2026-02-26 16:17:46.024 [TRY] [OPERATION] 🔄 Fetching tickets list | {
 2026-02-26 16:17:46.039 [SUCCESS] [OPERATION] ✅ Tickets fetched successfully | {
 2026-02-26 16:17:46.041 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 16:18:00.201 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 16:18:00.202 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 16:18:00.202 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 16:18:00.204 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 16:18:00.203 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 16:18:00.205 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 16:18:00.206 [TRY] [OPERATION] 🔄 Loading all settings from database
+2026-02-26 16:18:00.209 [SUCCESS] [OPERATION] ✅ Settings loaded into cache | {
+2026-02-26 16:18:00.211 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 16:18:00.218 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 16:18:00.219 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 16:18:00.221 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 16:18:00.222 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 16:18:00.224 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
