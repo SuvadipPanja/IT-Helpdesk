@@ -1165,9 +1165,9 @@ const updateTicket = async (req, res, next) => {
     await executeQuery(updateQuery, params);
 
     // Get updater's name
-    const updaterQuery = `SELECT first_name + ' ' + last_name as full_name FROM users WHERE user_id = @userId`;
+    const updaterQuery = `SELECT ISNULL(first_name, '') + ' ' + ISNULL(last_name, '') as full_name FROM users WHERE user_id = @userId`;
     const updaterResult = await executeQuery(updaterQuery, { userId });
-    const updaterName = updaterResult.recordset[0]?.full_name || 'System';
+    const updaterName = updaterResult.recordset[0]?.full_name?.trim() || 'System';
 
     // ============================================
     // LOG SPECIFIC ACTIVITIES — one per changed field
