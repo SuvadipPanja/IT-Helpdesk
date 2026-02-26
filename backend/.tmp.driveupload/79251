@@ -11039,3 +11039,27 @@
 2026-02-27 00:32:06.690 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-02-27 00:32:06.706 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
 2026-02-27 00:32:06.704 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-27 00:32:11.730 [INFO] [SYSTEM] ℹ️ 🔍 Starting SLA breach check
+2026-02-27 00:32:11.731 [INFO] [SYSTEM] ℹ️ ⏰ Execution Time: 27/02/2026, 12:32:11 am IST
+2026-02-27 00:32:11.737 [DEBUG] 🐛 📊 Loading SLA settings from database...
+2026-02-27 00:32:11.747 [SUCCESS] [OPERATION] ✅ ✅ Settings loaded from database | {
+2026-02-27 00:32:11.777 [INFO] [SYSTEM] ℹ️ 🔄 Processing auto-escalation [374]
+2026-02-27 00:32:11.787 [INFO] [SYSTEM] ℹ️ ⏸️ Auto-escalation is DISABLED in settings
+2026-02-27 00:32:11.803 [INFO] [SYSTEM] ℹ️ ⚠️ Using warning threshold: 90% (from database)
+2026-02-27 00:32:11.854 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-27 00:32:11.854 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0001 | {
+2026-02-27 00:32:11.793 [INFO] [SYSTEM] ℹ️ 🎫 Found 8 open tickets to check
+2026-02-27 00:32:11.879 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0002 | {
+2026-02-27 00:32:11.814 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251028-0001 | {
+2026-02-27 00:32:11.887 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-27 00:32:11.870 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-27 00:32:11.903 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0005 | {
+2026-02-27 00:32:11.910 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-27 00:32:11.911 [ERROR] 🚨 🔴 SLA BREACH: TKT-20251028-0001 | {
+2026-02-27 00:32:11.915 [ERROR] 🚨 🔴 SLA BREACH: SUV-20251029-0004 | {
+2026-02-27 00:32:11.914 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-27 00:32:11.921 [DEBUG] 🐛 Breach notification already sent, skipping
+2026-02-27 00:32:11.923 [INFO] [SYSTEM] ℹ️ ✅ OK: 2 tickets
+2026-02-27 00:32:11.923 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
+2026-02-27 00:32:11.923 [ERROR] 🚨 🔴 Breaches: 6 tickets
+2026-02-27 00:32:11.924 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 193ms
