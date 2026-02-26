@@ -12918,3 +12918,15 @@
 2026-02-26 16:37:44.975 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-26 16:37:44.980 [INFO] [SYSTEM] ℹ️ Retrieved email template | {
 2026-02-26 16:37:44.984 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 16:37:54.167 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 16:37:54.168 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 16:37:54.168 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 16:37:54.169 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 16:37:54.169 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 16:37:54.173 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 16:37:54.176 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 16:37:54.185 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 16:37:54.188 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 16:37:54.192 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 16:37:54.191 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 16:37:54.195 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
