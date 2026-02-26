@@ -10289,3 +10289,42 @@
 2026-02-26 16:10:54.191 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-26 16:10:54.192 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-26 16:10:54.194 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 16:11:03.764 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 16:11:03.762 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 16:11:03.764 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 16:11:03.765 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 16:11:03.765 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 16:11:03.763 [DEBUG] 🐛 Request Body | {
+2026-02-26 16:11:03.767 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 16:11:03.769 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 16:11:03.782 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 16:11:03.784 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 16:11:03.788 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 16:11:03.790 [TRY] [OPERATION] 🔄 Creating new user | {
+2026-02-26 16:11:03.787 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 16:11:03.795 [TRY] [OPERATION] 🔄 Hashing password
+2026-02-26 16:11:03.857 [SUCCESS] [OPERATION] ✅ Password hashed
+2026-02-26 16:11:03.857 [TRY] [OPERATION] 🔄 Inserting user into database
+2026-02-26 16:11:03.864 [TRY] [OPERATION] 🔄 Setting initial password expiry date for new user
+2026-02-26 16:11:03.868 [SUCCESS] [OPERATION] ✅ Initial password expiry date set
+2026-02-26 16:11:03.868 [TRY] [OPERATION] 🔄 Saving initial password to history
+2026-02-26 16:11:03.868 [TRY] [OPERATION] 🔄 Saving password to history | {
+2026-02-26 16:11:03.867 [SUCCESS] [OPERATION] ✅ Password expiry date updated | {
+2026-02-26 16:11:03.873 [SUCCESS] [OPERATION] ✅ Password saved to history | {
+2026-02-26 16:11:03.874 [SUCCESS] [OPERATION] ✅ User created successfully | {
+2026-02-26 16:11:03.874 [SUCCESS] [OPERATION] ✅ Initial password saved to history
+2026-02-26 16:11:03.875 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 16:11:03.879 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 16:11:03.881 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 16:11:03.880 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 16:11:03.880 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 16:11:03.881 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 16:11:03.884 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 16:11:03.887 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 16:11:03.890 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 16:11:03.892 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 16:11:03.895 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 16:11:03.894 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 16:11:03.896 [TRY] [OPERATION] 🔄 Fetching users list | {
+2026-02-26 16:11:03.904 [SUCCESS] [OPERATION] ✅ Users list fetched successfully | {
+2026-02-26 16:11:03.907 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
