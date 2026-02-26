@@ -10839,3 +10839,15 @@
 2026-02-27 00:30:00.252 [ERROR] 🚨 🔴 Breaches: 6 tickets
 2026-02-27 00:30:00.252 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2026-02-27 00:30:00.253 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 54ms
+2026-02-27 00:30:05.407 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:30:05.418 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:30:05.418 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:30:05.426 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:30:05.436 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:30:05.453 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:30:05.462 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:30:05.498 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:30:05.506 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:30:05.513 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:30:05.536 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:30:05.572 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
