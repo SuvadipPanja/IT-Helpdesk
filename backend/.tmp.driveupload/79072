@@ -5844,3 +5844,15 @@
 2026-02-26 15:10:28.649 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-26 15:10:28.656 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-26 15:10:28.657 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 15:10:32.543 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 15:10:32.544 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 15:10:32.544 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 15:10:32.545 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 15:10:32.546 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 15:10:32.548 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 15:10:32.550 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 15:10:32.556 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 15:10:32.558 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 15:10:32.560 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 15:10:32.561 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 15:10:32.566 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
