@@ -10119,3 +10119,33 @@
 2026-02-26 16:09:34.199 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-26 16:09:34.200 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-26 16:09:34.204 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 16:09:44.662 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 16:09:44.664 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 16:09:44.664 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 16:09:44.663 [DEBUG] 🐛 Request Body | {
+2026-02-26 16:09:44.664 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 16:09:44.664 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 16:09:44.666 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 16:09:44.669 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 16:09:44.678 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 16:09:44.680 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 16:09:44.682 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 16:09:44.683 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 16:09:44.684 [INFO] [SYSTEM] ℹ️ Creating new role | {
+2026-02-26 16:09:44.688 [INFO] [SYSTEM] ℹ️ Executing insert query | {
+2026-02-26 16:09:44.694 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 16:09:44.693 [SUCCESS] [OPERATION] ✅ Role created successfully | {
+2026-02-26 16:09:46.767 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 16:09:46.769 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 16:09:46.768 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 16:09:46.770 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 16:09:46.772 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 16:09:46.774 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 16:09:46.776 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 16:09:46.779 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 16:09:46.780 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 16:09:46.784 [INFO] [SYSTEM] ℹ️ Fetching all roles | {
+2026-02-26 16:09:46.782 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 16:09:46.783 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 16:09:46.791 [SUCCESS] [OPERATION] ✅ Roles fetched successfully | {
+2026-02-26 16:09:46.793 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
