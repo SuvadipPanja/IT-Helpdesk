@@ -378,8 +378,8 @@
 }
 
 @keyframes td-hint-pulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+  0%, 100% { opacity: 0.6; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(3px); }
 }
 
 .td-hj-wrapper {
@@ -392,11 +392,11 @@
   align-items: flex-start;
   gap: 0;
   position: relative;
-  padding: 16px 20px 24px;
+  padding: 30px 10px 24px;
   overflow-x: auto;
   overflow-y: visible;
   scroll-behavior: smooth;
-  min-height: 110px;
+  min-height: 120px;
 }
 
 /* Custom scrollbar */
