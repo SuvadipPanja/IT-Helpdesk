@@ -24465,3 +24465,15 @@
 2026-02-26 23:44:12.443 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-26 23:44:12.480 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-26 23:44:12.485 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 23:44:23.063 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 23:44:23.075 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 23:44:23.075 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 23:44:23.076 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 23:44:23.077 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 23:44:23.083 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 23:44:23.085 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 23:44:23.092 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 23:44:23.094 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 23:44:23.098 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 23:44:23.096 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 23:44:23.105 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
