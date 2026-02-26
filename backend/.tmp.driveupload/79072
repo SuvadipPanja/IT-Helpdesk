@@ -20443,3 +20443,15 @@
 2026-02-26 22:51:14.937 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-26 22:51:14.970 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-26 22:51:14.977 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 22:51:32.454 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 22:51:32.459 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 22:51:32.458 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 22:51:32.460 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 22:51:32.462 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 22:51:32.470 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 22:51:32.478 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 22:51:32.511 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 22:51:32.515 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 22:51:32.520 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 22:51:32.518 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 22:51:32.533 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
