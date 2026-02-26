@@ -38,6 +38,40 @@ const EVENT_CONFIG = {
 };
 
 // ============================================
+// Get actor sub-label for journey nodes
+// ============================================
+const getActorLabel = (event) => {
+  if (!event) return '';
+  switch (event.type) {
+    case 'created':
+      return `by ${event.user || 'Unknown'}`;
+    case 'assigned': {
+      const isAuto = (event.description || '').toLowerCase().includes('auto');
+      if (isAuto) return `Auto → ${event.newValue || 'Engineer'}`;
+      return `to ${event.newValue || event.user || 'Engineer'}`;
+    }
+    case 'comment':
+    case 'internal-note':
+      return `by ${event.user || 'Unknown'}`;
+    case 'status':
+      return event.newValue ? `→ ${event.newValue}` : `by ${event.user || 'System'}`;
+    case 'priority':
+      return event.newValue ? `→ ${event.newValue}` : `by ${event.user || 'System'}`;
+    case 'first-response':
+      return `by ${event.user || 'Agent'}`;
+    case 'escalated':
+      return `by ${event.user || 'System'}`;
+    case 'resolved':
+    case 'closed':
+      return `by ${event.user || 'System'}`;
+    case 'attachment':
+      return `by ${event.user || 'Unknown'}`;
+    default:
+      return event.user ? `by ${event.user}` : '';
+  }
+};
+
+// ============================================
 // Utility Functions
 // ============================================
 const formatDate = (dateString) => {
@@ -630,6 +664,7 @@ const TicketDetail = () => {
                     </div>
                     <div className="td-hj-label">
                       <span className="td-hj-type" style={{ color: config.color }}>{config.label}</span>
+                      <span className="td-hj-actor">{getActorLabel(event)}</span>
                       <span className="td-hj-time">{formatRelativeTime(event.timestamp)}</span>
                     </div>
                     {isActive && <div className="td-hj-pointer" style={{ borderBottomColor: config.color }} />}
