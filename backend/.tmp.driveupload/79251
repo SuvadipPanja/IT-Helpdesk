@@ -3258,3 +3258,15 @@
 2026-02-27 00:10:14.431 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2026-02-27 00:10:14.453 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-27 00:10:14.460 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:10:18.034 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:10:18.040 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:10:18.040 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:10:18.042 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:10:18.041 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:10:18.067 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:10:18.086 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:10:18.113 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:10:18.118 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:10:18.121 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:10:18.142 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:10:18.164 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
