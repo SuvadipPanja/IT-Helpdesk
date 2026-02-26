@@ -11273,3 +11273,197 @@
 2026-02-27 00:32:56.765 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-27 00:32:56.771 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-27 00:32:56.797 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:33:03.192 [DEBUG] 🐛 Request Body | {
+2026-02-27 00:33:03.184 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:33:03.194 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:33:03.194 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:33:03.196 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:33:03.199 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:33:03.211 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:33:03.216 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:33:03.226 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:33:03.230 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:33:03.234 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:33:03.240 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:33:03.245 [TRY] [OPERATION] 🔄 Creating new ticket | {
+2026-02-27 00:33:03.245 [TRY] [OPERATION] 🔄 Fetching all settings from database
+2026-02-27 00:33:03.246 [SUCCESS] [OPERATION] ✅ All settings loaded | {
+2026-02-27 00:33:03.261 [SUCCESS] [OPERATION] ✅ Ticket number generated | {
+2026-02-27 00:33:03.284 [INFO] [SYSTEM] ℹ️ 🔄 Loading SLA settings from database...
+2026-02-27 00:33:03.277 [INFO] [SYSTEM] ℹ️ 📅 Calculating SLA due date | {
+2026-02-27 00:33:03.286 [SUCCESS] [OPERATION] ✅ ✅ SLA settings loaded successfully | {
+2026-02-27 00:33:03.293 [INFO] [SYSTEM] ℹ️ 🔧 SLA Calculation Parameters | {
+2026-02-27 00:33:03.297 [SUCCESS] [OPERATION] ✅ ✅ SLA due date calculated successfully | {
+2026-02-27 00:33:03.299 [TRY] [OPERATION] 🔄 Auto-assignment enabled, determining engineer
+2026-02-27 00:33:03.317 [SUCCESS] [OPERATION] ✅ Engineer assigned (least loaded) | {
+2026-02-27 00:33:03.333 [SUCCESS] [OPERATION] ✅ Ticket inserted successfully | {
+2026-02-27 00:33:03.362 [TRY] [OPERATION] 🔄 Creating notifications for administrators
+2026-02-27 00:33:03.377 [TRY] [OPERATION] 🔄 Creating confirmation notification for ticket creator
+2026-02-27 00:33:03.376 [SUCCESS] [OPERATION] ✅ Notifications created for administrators
+2026-02-27 00:33:03.387 [SUCCESS] [OPERATION] ✅ Confirmation notification created for ticket creator
+2026-02-27 00:33:03.390 [TRY] [OPERATION] 🔄 Creating notification for assigned engineer
+2026-02-27 00:33:03.398 [SUCCESS] [OPERATION] ✅ Notification created for assigned engineer | {
+2026-02-27 00:33:03.399 [TRY] [OPERATION] 🔄 Sending ticket creation email notifications
+2026-02-27 00:33:03.409 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-27 00:33:03.432 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-27 00:33:03.434 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260226-0005' (2 occurrences)
+2026-02-27 00:33:03.435 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Auto Asigne functation testing 3' (2 occurrences)
+2026-02-27 00:33:03.437 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'High' (1 occurrences)
+2026-02-27 00:33:03.440 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{category}}' with 'Other' (1 occurrences)
+2026-02-27 00:33:03.441 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{requester_name}}' with 'Siddhartha Sengupta' (1 occurrences)
+2026-02-27 00:33:03.436 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{description}}' with 'Auto Asigne functation testing ' (1 occurrences)
+2026-02-27 00:33:03.442 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{requester_email}}' with 'Siddhartha.Sengupta@digitide.com' (1 occurrences)
+2026-02-27 00:33:03.443 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{created_at}}' with '27/02/2026, 06:03 am' (1 occurrences)
+2026-02-27 00:33:03.444 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/67' (1 occurrences)
+2026-02-27 00:33:03.445 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-27 00:33:03.447 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-27 00:33:03.446 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-27 00:33:03.500 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-27 00:33:03.485 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-27 00:33:03.467 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-27 00:33:03.503 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-27 00:33:03.554 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260226-0005' (2 occurrences)
+2026-02-27 00:33:03.566 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Auto Asigne functation testing 3' (2 occurrences)
+2026-02-27 00:33:03.583 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'High' (1 occurrences)
+2026-02-27 00:33:03.536 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-27 00:33:03.581 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{description}}' with 'Auto Asigne functation testing ' (1 occurrences)
+2026-02-27 00:33:03.585 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{category}}' with 'Other' (1 occurrences)
+2026-02-27 00:33:03.586 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{requester_name}}' with 'Siddhartha Sengupta' (1 occurrences)
+2026-02-27 00:33:03.591 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{requester_email}}' with 'Siddhartha.Sengupta@digitide.com' (1 occurrences)
+2026-02-27 00:33:03.593 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-27 00:33:03.593 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/67' (1 occurrences)
+2026-02-27 00:33:03.592 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{created_at}}' with '27/02/2026, 06:03 am' (1 occurrences)
+2026-02-27 00:33:03.594 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-27 00:33:03.594 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-27 00:33:03.599 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-27 00:33:03.601 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-27 00:33:03.643 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-27 00:33:03.644 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-27 00:33:03.645 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-27 00:33:03.646 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-27 00:33:03.650 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-27 00:33:03.653 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260226-0005' (2 occurrences)
+2026-02-27 00:33:03.657 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{description}}' with 'Auto Asigne functation testing ' (1 occurrences)
+2026-02-27 00:33:03.659 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'High' (1 occurrences)
+2026-02-27 00:33:03.656 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Auto Asigne functation testing 3' (2 occurrences)
+2026-02-27 00:33:03.660 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{category}}' with 'Other' (1 occurrences)
+2026-02-27 00:33:03.661 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{requester_name}}' with 'Siddhartha Sengupta' (1 occurrences)
+2026-02-27 00:33:03.663 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{created_at}}' with '27/02/2026, 06:03 am' (1 occurrences)
+2026-02-27 00:33:03.662 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{requester_email}}' with 'Siddhartha.Sengupta@digitide.com' (1 occurrences)
+2026-02-27 00:33:03.663 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/67' (1 occurrences)
+2026-02-27 00:33:03.665 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-27 00:33:03.664 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-27 00:33:03.665 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-27 00:33:03.673 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-27 00:33:03.675 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-27 00:33:03.700 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-27 00:33:03.698 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-27 00:33:03.702 [SUCCESS] [OPERATION] ✅ Email notifications queued for admins/managers | {
+2026-02-27 00:33:03.703 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-27 00:33:03.703 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-27 00:33:03.724 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-27 00:33:03.726 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260226-0005' (2 occurrences)
+2026-02-27 00:33:03.727 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Auto Asigne functation testing 3' (2 occurrences)
+2026-02-27 00:33:03.728 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{description}}' with 'Auto Asigne functation testing ' (1 occurrences)
+2026-02-27 00:33:03.729 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'High' (1 occurrences)
+2026-02-27 00:33:03.730 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{requester_name}}' with 'Siddhartha Sengupta' (1 occurrences)
+2026-02-27 00:33:03.729 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{category}}' with 'Other' (1 occurrences)
+2026-02-27 00:33:03.731 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{created_at}}' with '27/02/2026, 06:03 am' (1 occurrences)
+2026-02-27 00:33:03.731 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '27/02/2026, 05:00 pm' (1 occurrences)
+2026-02-27 00:33:03.732 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/67' (1 occurrences)
+2026-02-27 00:33:03.733 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-27 00:33:03.735 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-27 00:33:03.735 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-27 00:33:03.737 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-27 00:33:03.741 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-27 00:33:03.762 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-27 00:33:03.766 [SUCCESS] [OPERATION] ✅ Confirmation email queued for ticket creator | {
+2026-02-27 00:33:03.765 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-27 00:33:03.767 [TRY] [OPERATION] 🔄 Sending templated email | {
+2026-02-27 00:33:03.767 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-27 00:33:03.781 [INFO] [SYSTEM] ℹ️ 📝 Rendering template with variables: | {
+2026-02-27 00:33:03.786 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{subject}}' with 'Auto Asigne functation testing 3' (2 occurrences)
+2026-02-27 00:33:03.785 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_number}}' with 'ABCD-20260226-0005' (2 occurrences)
+2026-02-27 00:33:03.789 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{priority}}' with 'High' (1 occurrences)
+2026-02-27 00:33:03.812 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{assigned_to_name}}' with 'Pankaj Shaw' (1 occurrences)
+2026-02-27 00:33:03.816 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{due_date}}' with '27/02/2026, 05:00 pm' (1 occurrences)
+2026-02-27 00:33:03.825 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{ticket_url}}' with 'http://localhost:5173/tickets/67' (1 occurrences)
+2026-02-27 00:33:03.827 [INFO] [SYSTEM] ℹ️ ✅ Replacing '{{system_name}}' with 'Nexus Support' (1 occurrences)
+2026-02-27 00:33:03.829 [SUCCESS] [OPERATION] ✅ Template rendered successfully
+2026-02-27 00:33:03.831 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-27 00:33:03.829 [TRY] [OPERATION] 🔄 Adding email to queue | {
+2026-02-27 00:33:03.833 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-27 00:33:03.849 [SUCCESS] [OPERATION] ✅ Templated email queued | {
+2026-02-27 00:33:03.851 [SUCCESS] [OPERATION] ✅ Assignment email queued for engineer | {
+2026-02-27 00:33:03.848 [SUCCESS] [OPERATION] ✅ Email added to queue | {
+2026-02-27 00:33:03.856 [SUCCESS] [OPERATION] ✅ New ticket created with all notifications | {
+2026-02-27 00:33:03.860 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:33:03.862 [TRY] [OPERATION] 🔄 Processing email from queue | {
+2026-02-27 00:33:03.868 [INFO] [SYSTEM] ℹ️ 📧 Email settings loaded: | {
+2026-02-27 00:33:03.873 [INFO] [SYSTEM] ℹ️ 📧 Creating transporter with config: | {
+2026-02-27 00:33:05.619 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-27 00:33:05.633 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-27 00:33:05.620 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-27 00:33:05.630 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-27 00:33:05.634 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-27 00:33:05.636 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-27 00:33:05.638 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-27 00:33:05.640 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-27 00:33:05.649 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
+2026-02-27 00:33:05.647 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-27 00:33:05.881 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:33:05.885 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:33:05.885 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:33:05.886 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:33:05.885 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:33:05.893 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:33:05.896 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:33:05.897 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:33:05.896 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:33:05.899 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:33:05.913 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:33:05.912 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:33:05.926 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:33:05.925 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:33:05.944 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:33:05.945 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:33:05.951 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:33:05.957 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:33:05.962 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:33:05.965 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:33:05.966 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2026-02-27 00:33:05.968 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:33:05.972 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:33:05.976 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2026-02-27 00:33:05.987 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2026-02-27 00:33:05.998 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:33:06.010 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:33:06.013 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:33:06.013 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:33:06.014 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:33:06.016 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:33:06.028 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:33:06.031 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:33:06.043 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2026-02-27 00:33:06.049 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:33:06.051 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:33:06.051 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:33:06.052 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:33:06.053 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:33:06.046 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:33:06.054 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:33:06.069 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:33:06.074 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:33:06.077 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:33:06.080 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:33:06.081 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:33:06.083 [TRY] [OPERATION] 🔄 Fetching engineers | {
+2026-02-27 00:33:06.087 [SUCCESS] [OPERATION] ✅ Engineers fetched successfully | {
+2026-02-27 00:33:06.093 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:33:06.096 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:33:06.103 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:33:06.110 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:33:06.113 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2026-02-27 00:33:06.111 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:33:06.127 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2026-02-27 00:33:06.131 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
