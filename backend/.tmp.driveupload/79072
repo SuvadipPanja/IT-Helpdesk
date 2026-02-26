@@ -21724,3 +21724,15 @@
 2026-02-26 23:15:24.517 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-26 23:15:24.549 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-26 23:15:24.552 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 23:15:32.446 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 23:15:32.444 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 23:15:32.446 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 23:15:32.447 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 23:15:32.449 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 23:15:32.453 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 23:15:32.459 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 23:15:32.479 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 23:15:32.482 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 23:15:32.485 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 23:15:32.488 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 23:15:32.497 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
