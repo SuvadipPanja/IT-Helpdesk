@@ -3185,3 +3185,15 @@
 2026-02-26 14:51:35.614 [ERROR] 🚨 User activity error | {
 2026-02-26 14:51:35.616 [ERROR] 🚨 Error Handler Caught Exception | {
 2026-02-26 14:51:35.618 [ERROR] 🚨 📤 Response Sent | {
+2026-02-26 14:52:32.979 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 14:52:32.980 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 14:52:32.981 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 14:52:32.980 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 14:52:32.981 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 14:52:33.043 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 14:52:33.045 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 14:52:33.050 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 14:52:33.053 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 14:52:33.055 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 14:52:33.057 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 14:52:33.062 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
