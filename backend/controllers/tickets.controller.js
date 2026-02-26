@@ -1558,8 +1558,9 @@ const assignTicket = async (req, res, next) => {
     });
 
     // Log activity with proper field tracking
+    const newAssigneeName = newAssigneeDetails?.full_name?.trim() || 'Engineer';
     const activityDescription = assigned_to 
-      ? `Ticket assigned to ${newAssigneeDetails?.full_name || 'Engineer'} by ${assignerName}`
+      ? `Ticket assigned to ${newAssigneeName} by ${assignerName}`
       : `Ticket unassigned by ${assignerName}`;
 
     const activityQuery = `
@@ -1571,8 +1572,8 @@ const assignTicket = async (req, res, next) => {
 
     await executeQuery(activityQuery, {
       ticketId,
-      oldValue: ticket.old_assigned_name || 'Unassigned',
-      newValue: newAssigneeDetails?.full_name || 'Unassigned',
+      oldValue: ticket.old_assigned_name?.trim() || 'Unassigned',
+      newValue: newAssigneeName,
       description: activityDescription,
       userId,
     });
