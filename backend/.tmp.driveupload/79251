@@ -692,3 +692,17 @@
 2026-02-27 00:04:40.431 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-27 00:04:40.430 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-27 00:04:40.438 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:04:49.400 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:04:49.402 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:04:49.402 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:04:49.403 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:04:49.404 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:04:49.410 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:04:49.414 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:04:49.436 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:04:49.441 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:04:49.445 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:04:49.446 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:04:49.447 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2026-02-27 00:04:49.482 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2026-02-27 00:04:49.487 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
