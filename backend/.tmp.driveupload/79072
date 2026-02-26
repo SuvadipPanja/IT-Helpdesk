@@ -21393,3 +21393,17 @@
 2026-02-26 23:10:32.497 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
 2026-02-26 23:10:32.498 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
 2026-02-26 23:10:32.504 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 23:10:42.442 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 23:10:42.443 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 23:10:42.443 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 23:10:42.444 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 23:10:42.444 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 23:10:42.448 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 23:10:42.451 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 23:10:42.479 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 23:10:42.483 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 23:10:42.487 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 23:10:42.489 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2026-02-26 23:10:42.488 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 23:10:42.502 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2026-02-26 23:10:42.505 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
