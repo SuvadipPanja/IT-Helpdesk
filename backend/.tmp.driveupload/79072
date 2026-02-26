@@ -10253,3 +10253,15 @@
 2026-02-26 16:10:00.021 [INFO] [SYSTEM] ℹ️ 🔄 Processing pending emails...
 2026-02-26 16:10:00.026 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
 2026-02-26 16:10:00.025 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-26 16:10:14.175 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 16:10:14.178 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 16:10:14.177 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 16:10:14.177 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 16:10:14.178 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 16:10:14.180 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 16:10:14.181 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 16:10:14.189 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 16:10:14.191 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 16:10:14.194 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 16:10:14.193 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 16:10:14.196 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
