@@ -1259,25 +1259,36 @@
     padding: 16px;
   }
 
-  .td-timeline {
-    padding-left: 38px;
+  .td-hj-track {
+    padding: 16px 14px 20px;
   }
 
-  .td-timeline::before {
-    left: 13px;
+  .td-hj-node {
+    width: 80px;
   }
 
-  .td-timeline-marker {
+  .td-hj-node.milestone {
+    width: 90px;
+  }
+
+  .td-hj-dot {
     width: 28px;
     height: 28px;
-    left: -38px;
   }
 
-  .td-timeline-item.td-first .td-timeline-marker,
-  .td-timeline-item.td-last .td-timeline-marker {
-    width: 30px;
-    height: 30px;
-    left: -39px;
+  .td-hj-node.milestone .td-hj-dot {
+    width: 32px;
+    height: 32px;
+  }
+
+  .td-hj-node.first .td-hj-dot,
+  .td-hj-node.last .td-hj-dot {
+    width: 34px;
+    height: 34px;
+  }
+
+  .td-hj-line {
+    top: 30px;
   }
 
   .td-assign-form {
