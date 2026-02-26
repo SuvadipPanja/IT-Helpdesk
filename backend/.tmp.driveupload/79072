@@ -3693,3 +3693,15 @@
 2026-02-26 15:00:27.366 [TRY] [OPERATION] 🔄 Authenticating request | {
 2026-02-26 15:00:27.367 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
 2026-02-26 15:00:27.366 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
+2026-02-26 15:00:32.535 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 15:00:32.537 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 15:00:32.539 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 15:00:32.537 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 15:00:32.540 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 15:00:32.549 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 15:00:32.551 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 15:00:32.557 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 15:00:32.564 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 15:00:32.570 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 15:00:32.568 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 15:00:32.577 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
