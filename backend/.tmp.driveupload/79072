@@ -19060,3 +19060,17 @@
 2026-02-26 18:05:00.033 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-02-26 18:05:00.054 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
 2026-02-26 18:05:00.054 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-26 18:05:10.557 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 18:05:10.560 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 18:05:10.560 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 18:05:10.562 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 18:05:10.566 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 18:05:10.575 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 18:05:10.581 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 18:05:10.592 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 18:05:10.598 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 18:05:10.602 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 18:05:10.605 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 18:05:10.606 [TRY] [OPERATION] 🔄 Fetching ticket details | {
+2026-02-26 18:05:10.640 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
+2026-02-26 18:05:10.643 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
