@@ -24336,3 +24336,16 @@
 2026-02-26 23:42:26.362 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
 2026-02-26 23:42:28.145 [TRY] [OPERATION] 🔄 Sending email via SMTP | {
 2026-02-26 23:42:28.144 [SUCCESS] [OPERATION] ✅ ✅ SMTP transporter created and verified successfully
+2026-02-26 23:42:32.252 [SUCCESS] [OPERATION] ✅ Email sent successfully | {
+2026-02-26 23:42:32.286 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 23:42:32.296 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 23:42:32.296 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 23:42:32.304 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 23:42:32.297 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 23:42:32.312 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 23:42:32.317 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 23:42:32.328 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 23:42:32.331 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 23:42:32.354 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 23:42:32.334 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 23:42:32.366 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
