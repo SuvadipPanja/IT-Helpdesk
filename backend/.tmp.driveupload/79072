@@ -23147,3 +23147,15 @@
 2026-02-26 23:32:45.402 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-26 23:32:45.435 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-26 23:32:45.438 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-26 23:32:52.298 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 23:32:52.299 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 23:32:52.299 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 23:32:52.302 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 23:32:52.301 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 23:32:52.312 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 23:32:52.317 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 23:32:52.351 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 23:32:52.358 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 23:32:52.363 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 23:32:52.368 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 23:32:52.379 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
