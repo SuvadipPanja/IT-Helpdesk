@@ -9291,3 +9291,15 @@
 2026-02-26 16:00:00.102 [TRY] [OPERATION] 🔄 Getting session statistics
 2026-02-26 16:00:00.101 [INFO] [SYSTEM] ℹ️ No old sessions to delete
 2026-02-26 16:00:00.108 [SUCCESS] [OPERATION] ✅ Session Cleanup completed successfully | {
+2026-02-26 16:00:14.166 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 16:00:14.167 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 16:00:14.165 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 16:00:14.167 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 16:00:14.166 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 16:00:14.169 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 16:00:14.171 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 16:00:14.175 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 16:00:14.176 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 16:00:14.181 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 16:00:14.180 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 16:00:14.185 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
