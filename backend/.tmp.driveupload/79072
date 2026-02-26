@@ -14315,3 +14315,15 @@
 2026-02-26 16:50:00.037 [TRY] [OPERATION] 🔄 Processing pending emails in queue
 2026-02-26 16:50:00.041 [INFO] [SYSTEM] ℹ️ 📭 No pending emails to process
 2026-02-26 16:50:00.041 [INFO] [SYSTEM] ℹ️ No pending emails to process
+2026-02-26 16:50:14.173 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 16:50:14.174 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-26 16:50:14.174 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 16:50:14.175 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-26 16:50:14.175 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-26 16:50:14.180 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-26 16:50:14.182 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 16:50:14.189 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-26 16:50:14.192 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-26 16:50:14.194 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-26 16:50:14.195 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-26 16:50:14.200 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
