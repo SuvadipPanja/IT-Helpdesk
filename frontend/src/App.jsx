@@ -24,7 +24,7 @@ import MyTickets from './pages/tickets/MyTickets';
 import UsersList from './pages/users/UsersList';
 import DepartmentsList from './pages/departments/DepartmentsList';
 import RolesList from './pages/roles/RolesList';
-import Analytics from './pages/analytics/Analytics';
+import AnalyticsEnhanced from './pages/analytics/AnalyticsEnhanced';
 import AllNotifications from './pages/notifications/AllNotifications';
 import Profile from './pages/profile/Profile';
 import ChangePassword from './pages/profile/ChangePassword';
@@ -43,17 +43,28 @@ function App() {
   const [settingsLoaded, setSettingsLoaded] = useState(false);
 
   // ============================================
+  // SUPPRESS REACT ROUTER WARNINGS FOR NOW
+  // These are for v7 compatibility, can be addressed in future upgrades
+  // ============================================
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      // By having the future flags in BrowserRouter, this is already handled
+      // The warnings should now resolve
+    }
+  }, []);
+
+  // ============================================
   // LOAD SETTINGS ON APP START - ONCE
   // ============================================
   useEffect(() => {
     const loadAppSettings = async () => {
       try {
-        console.log('🚀 App starting - Loading settings...');
+        if (process.env.NODE_ENV === 'development') console.log('🚀 App starting - Loading settings...');
         await settingsLoader.loadSettings();
-        console.log('✅ Settings loaded successfully');
+        if (process.env.NODE_ENV === 'development') console.log('✅ Settings loaded successfully');
         setSettingsLoaded(true);
       } catch (error) {
-        console.error('❌ Failed to load settings:', error);
+        if (process.env.NODE_ENV === 'development') console.error('❌ Failed to load settings:', error);
         // Continue anyway with default settings
         setSettingsLoaded(true);
       }
@@ -124,7 +135,7 @@ function App() {
     <ToastProvider>
       <AuthProvider>
         <NotificationProvider>
-          <BrowserRouter>
+          <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplitPath: true }}>
             <Routes>
             {/* ============================================
                 PUBLIC ROUTES
@@ -268,7 +279,7 @@ function App() {
               element={
                 <ProtectedRoute requiredPermission="can_view_analytics">
                   <Layout>
-                    <Analytics />
+                    <AnalyticsEnhanced />
                   </Layout>
                 </ProtectedRoute>
               }

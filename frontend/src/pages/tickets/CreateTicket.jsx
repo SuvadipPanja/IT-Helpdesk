@@ -196,7 +196,7 @@ const CreateTicket = () => {
     });
 
     try {
-      console.log(`📎 Uploading ${attachments.length} file(s) to ticket ${ticketId}...`);
+      if (process.env.NODE_ENV === 'development') console.log(`📎 Uploading ${attachments.length} file(s) to ticket ${ticketId}...`);
       
       const response = await api.post(
         `/tickets/${ticketId}/attachments`,
@@ -210,16 +210,16 @@ const CreateTicket = () => {
               (progressEvent.loaded * 100) / progressEvent.total
             );
             setUploadProgress({ percent: percentCompleted });
-            console.log(`📊 Upload progress: ${percentCompleted}%`);
+            if (process.env.NODE_ENV === 'development') console.log(`📊 Upload progress: ${percentCompleted}%`);
           }
         }
       );
 
-      console.log('✅ Attachments uploaded successfully:', response.data);
+      if (process.env.NODE_ENV === 'development') console.log('✅ Attachments uploaded successfully:', response.data);
       return response.data;
     } catch (err) {
-      console.error('❌ Error uploading attachments:', err);
-      console.error('❌ Error response:', err.response?.data);
+      if (process.env.NODE_ENV === 'development') console.error('❌ Error uploading attachments:', err);
+      if (process.env.NODE_ENV === 'development') console.error('❌ Error response:', err.response?.data);
       throw err;
     }
   };
@@ -236,30 +236,30 @@ const CreateTicket = () => {
     setErrors({});
 
     try {
-      console.log('📤 Creating ticket with data:', formData);
+      if (process.env.NODE_ENV === 'development') console.log('📤 Creating ticket with data:', formData);
 
       // Create ticket
       const ticketResponse = await api.post('/tickets', formData);
 
-      console.log('📥 Ticket created response:', ticketResponse.data);
+      if (process.env.NODE_ENV === 'development') console.log('📥 Ticket created response:', ticketResponse.data);
 
       if (ticketResponse.data.success) {
         const ticketId = ticketResponse.data.data.ticket_id;
-        console.log('✅ Ticket created with ID:', ticketId);
+        if (process.env.NODE_ENV === 'development') console.log('✅ Ticket created with ID:', ticketId);
 
         // Upload attachments if any
         if (attachments.length > 0) {
-          console.log(`📎 Uploading ${attachments.length} attachment(s)...`);
+          if (process.env.NODE_ENV === 'development') console.log(`📎 Uploading ${attachments.length} attachment(s)...`);
           
           try {
             await uploadAttachments(ticketId);
-            console.log('✅ All attachments uploaded successfully');
+            if (process.env.NODE_ENV === 'development') console.log('✅ All attachments uploaded successfully');
           } catch (uploadErr) {
-            console.error('⚠️ Attachment upload failed:', uploadErr);
+            if (process.env.NODE_ENV === 'development') console.error('⚠️ Attachment upload failed:', uploadErr);
             // Continue anyway - ticket is created
           }
         } else {
-          console.log('ℹ️ No attachments to upload');
+          if (process.env.NODE_ENV === 'development') console.log('ℹ️ No attachments to upload');
         }
 
         // Show success message
@@ -272,8 +272,8 @@ const CreateTicket = () => {
         }, 2000);
       }
     } catch (err) {
-      console.error('❌ Error creating ticket:', err);
-      console.error('❌ Error response:', err.response);
+      if (process.env.NODE_ENV === 'development') console.error('❌ Error creating ticket:', err);
+      if (process.env.NODE_ENV === 'development') console.error('❌ Error response:', err.response);
       
       if (err.response?.data?.errors) {
         setErrors(err.response.data.errors);

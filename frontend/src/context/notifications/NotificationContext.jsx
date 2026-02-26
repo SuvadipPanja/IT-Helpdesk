@@ -54,7 +54,7 @@ export const NotificationProvider = ({ children }) => {
   const checkNotificationSettings = useCallback(async () => {
     try {
       // Get notification settings
-      const settings = await settingsService.getAllSettings();
+      const settings = await settingsService.fetchSettings();
       
       if (settings && settings.notification) {
         const enabled = settings.notification.notification_enabled?.value === 'true' ||
@@ -62,10 +62,12 @@ export const NotificationProvider = ({ children }) => {
         
         setNotificationsEnabled(enabled);
         
-        console.log('🔔 Notification settings loaded:', {
-          enabled,
-          raw: settings.notification.notification_enabled?.value
-        });
+        if (process.env.NODE_ENV === 'development') {
+          console.log('🔔 Notification settings loaded:', {
+            enabled,
+            raw: settings.notification.notification_enabled?.value
+          });
+        }
         
         return enabled;
       }
@@ -75,7 +77,7 @@ export const NotificationProvider = ({ children }) => {
       return true;
       
     } catch (error) {
-      console.error('❌ Error checking notification settings:', error);
+      if (process.env.NODE_ENV === 'development') console.error('❌ Error checking notification settings:', error);
       // Default to enabled on error
       setNotificationsEnabled(true);
       return true;
@@ -97,7 +99,7 @@ export const NotificationProvider = ({ children }) => {
     try {
       // ⭐ Check if notifications are enabled
       if (!notificationsEnabled) {
-        console.log('⏭️ Skipping notification fetch - notifications disabled');
+        if (process.env.NODE_ENV === 'development') console.log('⏭️ Skipping notification fetch - notifications disabled');
         setUnreadCount(0);
         return;
       }
@@ -107,7 +109,7 @@ export const NotificationProvider = ({ children }) => {
       
       // Prevent rapid requests (minimum 5 seconds between calls)
       if (timeSinceLastPoll < 5000) {
-        console.log('⏳ Skipping poll - too soon since last request');
+        if (process.env.NODE_ENV === 'development') console.log('⏳ Skipping poll - too soon since last request');
         return;
       }
 

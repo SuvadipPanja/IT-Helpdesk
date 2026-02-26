@@ -225,14 +225,14 @@ const TicketsList = () => {
     const now = Date.now();
     if (!forceRefresh && bucketStatsCache.current.data && 
         (now - bucketStatsCache.current.timestamp) < CACHE_DURATION) {
-      console.log('📊 Using cached bucket stats');
+      if (process.env.NODE_ENV === 'development') console.log('📊 Using cached bucket stats');
       setBucketStats(bucketStatsCache.current.data);
       return;
     }
     
     setBucketLoading(true);
     try {
-      console.log('📊 Fetching bucket stats...');
+      if (process.env.NODE_ENV === 'development') console.log('📊 Fetching bucket stats...');
       
       // ⭐ TRY OPTIMIZED STATS ENDPOINT FIRST (single COUNT query)
       try {
@@ -248,13 +248,13 @@ const TicketsList = () => {
           // Cache the result
           bucketStatsCache.current = { data: newStats, timestamp: now };
           
-          console.log('📊 Stats from optimized endpoint:', newStats);
+          if (process.env.NODE_ENV === 'development') console.log('📊 Stats from optimized endpoint:', newStats);
           setBucketStats(newStats);
           setBucketLoading(false);
           return;
         }
       } catch (statsErr) {
-        console.log('ℹ️ Stats endpoint not available, using fallback...');
+        if (process.env.NODE_ENV === 'development') console.log('ℹ️ Stats endpoint not available, using fallback...');
       }
       
       // ⭐ FALLBACK: Use pagination counts (slower but works)
@@ -275,7 +275,7 @@ const TicketsList = () => {
       // Cache the result
       bucketStatsCache.current = { data: newStats, timestamp: now };
 
-      console.log('📊 Stats from fallback:', newStats);
+      if (process.env.NODE_ENV === 'development') console.log('📊 Stats from fallback:', newStats);
       setBucketStats(newStats);
     } catch (err) {
       console.error('❌ Error fetching bucket stats:', err);

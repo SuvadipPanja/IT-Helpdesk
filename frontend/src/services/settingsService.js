@@ -32,14 +32,14 @@ class SettingsService {
         if (age < CACHE_DURATION) {
           this.cache = JSON.parse(cached);
           this.cacheTimestamp = parseInt(timestamp, 10);
-          console.log('✅ Settings loaded from localStorage cache');
+          if (process.env.NODE_ENV === 'development') console.log('✅ Settings loaded from localStorage cache');
         } else {
           this.clearCache();
-          console.log('⏰ Cache expired, cleared');
+          if (process.env.NODE_ENV === 'development') console.log('⏰ Cache expired, cleared');
         }
       }
     } catch (err) {
-      console.error('❌ Failed to load cache from storage:', err);
+      if (process.env.NODE_ENV === 'development') console.error('❌ Failed to load cache from storage:', err);
       this.clearCache();
     }
   }
@@ -54,7 +54,7 @@ class SettingsService {
       this.cache = data;
       this.cacheTimestamp = Date.now();
     } catch (err) {
-      console.error('❌ Failed to save cache to storage:', err);
+      if (process.env.NODE_ENV === 'development') console.error('❌ Failed to save cache to storage:', err);
     }
   }
 
@@ -99,11 +99,11 @@ class SettingsService {
         throw new Error('Failed to fetch settings');
       })
       .catch(error => {
-        console.error('❌ Settings API error:', error);
+        if (process.env.NODE_ENV === 'development') console.error('❌ Settings API error:', error);
         // Return cached data as fallback
         const cached = this.cache;
         if (cached) {
-          console.log('⚠️ API failed, using cached settings');
+          if (process.env.NODE_ENV === 'development') console.log('⚠️ API failed, using cached settings');
           return cached;
         }
         throw error;
@@ -139,7 +139,7 @@ class SettingsService {
       
       throw new Error(response.data.message || 'Failed to update setting');
     } catch (error) {
-      console.error('❌ Failed to update setting:', error);
+      if (process.env.NODE_ENV === 'development') console.error('❌ Failed to update setting:', error);
       throw error;
     }
   }
@@ -159,7 +159,7 @@ class SettingsService {
       
       throw new Error(response.data.message || 'Failed to update settings');
     } catch (error) {
-      console.error('❌ Failed to bulk update settings:', error);
+      if (process.env.NODE_ENV === 'development') console.error('❌ Failed to bulk update settings:', error);
       throw error;
     }
   }
@@ -176,7 +176,7 @@ class SettingsService {
       localStorage.removeItem(CACHE_KEY);
       localStorage.removeItem(CACHE_TIMESTAMP_KEY);
     } catch (err) {
-      console.error('❌ Failed to clear cache from storage:', err);
+      if (process.env.NODE_ENV === 'development') console.error('❌ Failed to clear cache from storage:', err);
     }
   }
 

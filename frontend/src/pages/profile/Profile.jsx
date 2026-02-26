@@ -66,7 +66,7 @@ const Profile = () => {
       if (response.data.success) {
         const profile = response.data.data;
         
-        console.log('📋 Profile data received:', profile);
+        if (process.env.NODE_ENV === 'development') console.log('📋 Profile data received:', profile);
         
         setProfileData({
           first_name: profile.first_name || '',
@@ -81,15 +81,15 @@ const Profile = () => {
         });
         
         if (profile.profile_picture) {
-          console.log('✅ Profile picture found:', profile.profile_picture);
+          if (process.env.NODE_ENV === 'development') console.log('✅ Profile picture found:', profile.profile_picture);
           setProfilePicture(profile.profile_picture);
         } else {
-          console.log('ℹ️ No profile picture set');
+          if (process.env.NODE_ENV === 'development') console.log('ℹ️ No profile picture set');
           setProfilePicture(null);
         }
       }
     } catch (err) {
-      console.error('❌ Profile fetch error:', err);
+      if (process.env.NODE_ENV === 'development') console.error('❌ Profile fetch error:', err);
       setError(err.response?.data?.message || 'Failed to fetch profile');
     } finally {
       setLoading(false);
@@ -164,7 +164,7 @@ const Profile = () => {
       const formData = new FormData();
       formData.append('profile_picture', file);
 
-      console.log('📤 Uploading profile picture:', file.name);
+      if (process.env.NODE_ENV === 'development') console.log('📤 Uploading profile picture:', file.name);
       
       const response = await api.post('/profile/picture', formData, {
         headers: {
@@ -174,7 +174,7 @@ const Profile = () => {
 
       if (response.data.success) {
         const newPicturePath = response.data.data.profile_picture;
-        console.log('✅ Upload successful! New path:', newPicturePath);
+        if (process.env.NODE_ENV === 'development') console.log('✅ Upload successful! New path:', newPicturePath);
         
         setProfilePicture(newPicturePath);
         setSuccess('Profile picture updated successfully!');
@@ -186,7 +186,7 @@ const Profile = () => {
         }, 1000);
       }
     } catch (err) {
-      console.error('❌ Upload error:', err);
+      if (process.env.NODE_ENV === 'development') console.error('❌ Upload error:', err);
       setError(err.response?.data?.message || 'Failed to upload profile picture');
     } finally {
       setUploading(false);
@@ -301,9 +301,9 @@ const Profile = () => {
                     display: 'block',
                     background: 'white'
                   }}
-                  onLoad={() => console.log('✅ Image loaded!')}
+                  onLoad={() => { if (process.env.NODE_ENV === 'development') console.log('✅ Image loaded!'); }}
                   onError={(e) => {
-                    console.error('❌ Failed to load:', e.target.src);
+                    if (process.env.NODE_ENV === 'development') console.error('❌ Failed to load:', e.target.src);
                   }}
                 />
               )}

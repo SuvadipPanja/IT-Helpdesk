@@ -1,9 +1,6 @@
 // ============================================
-// NEXUS SUPPORT - HELP CENTER
-// WORKING VERSION - All Syntax Errors Fixed
-// Developer: Suvadip Panja  
-// Date: February 1, 2026
-// Status: PRODUCTION READY ✅
+// NEXUS SUPPORT — HELP CENTER KNOWLEDGE BASE
+// Comprehensive IT help content
 // ============================================
 
 export const helpContent = {
@@ -14,7 +11,7 @@ export const helpContent = {
       icon: '🚀',
       color: '#3b82f6',
       description: 'Quick start guides and system overview',
-      articleCount: 6
+      articleCount: 3
     },
     {
       id: 'tickets',
@@ -22,15 +19,15 @@ export const helpContent = {
       icon: '🎫',
       color: '#8b5cf6',
       description: 'Creating, managing, and resolving support tickets',
-      articleCount: 10
+      articleCount: 4
     },
     {
       id: 'sla',
       title: 'SLA & Escalation',
       icon: '⏱️',
       color: '#f59e0b',
-      description: 'Service level agreements and auto-escalation',
-      articleCount: 3
+      description: 'Service level agreements and auto-escalation rules',
+      articleCount: 1
     },
     {
       id: 'users',
@@ -38,7 +35,7 @@ export const helpContent = {
       icon: '👥',
       color: '#10b981',
       description: 'Managing users, departments, and permissions',
-      articleCount: 4
+      articleCount: 1
     },
     {
       id: 'admin',
@@ -46,19 +43,20 @@ export const helpContent = {
       icon: '⚙️',
       color: '#ef4444',
       description: 'System settings, email, backup, and configuration',
-      articleCount: 5
+      articleCount: 1
     },
     {
       id: 'troubleshooting',
       title: 'Troubleshooting',
       icon: '🔧',
       color: '#06b6d4',
-      description: 'Common issues and step-by-step solutions',
-      articleCount: 6
+      description: 'Step-by-step solutions for common IT problems',
+      articleCount: 5
     }
   ],
 
   articles: [
+    // ── Getting Started ──
     {
       id: 'quick-start',
       category: 'getting-started',
@@ -69,11 +67,10 @@ export const helpContent = {
       views: 4521,
       helpful: 98,
       icon: '⚡',
-      content: "# Quick Start Guide\n\nWelcome to Nexus Support - your IT helpdesk solution!\n\n## Step 1: Login (2 min)\n\nNavigate to your Nexus Support URL and login with:\n- Username or email\n- Password\n- 2FA code (if enabled)\n\n## Step 2: Create Your First Ticket (3 min)\n\nClick \"New Ticket\" button and fill in:\n\n**Subject:** Be specific about the issue\n- ❌ Bad: \"Computer problem\"\n- ✅ Good: \"Cannot access shared drive on Windows 10\"\n\n**Priority:**\n- 🔴 Critical: Business stopped (4h resolution)\n- 🟠 High: Major issue (8h resolution)\n- 🟡 Medium: Work affected (24h resolution)\n- 🟢 Low: Minor issue (48h resolution)\n\n**Description:** Include:\n- What you were doing\n- What happened\n- Error messages (copy exactly)\n- When it started\n- What you've tried\n\n**Attachments:** (Optional)\n- Up to 5 files, 10MB each\n- Screenshots highly recommended\n\n## Step 3: Track Your Tickets (2 min)\n\nNavigate to \"My Tickets\" to see:\n- 🟢 Open: Just created\n- 🔵 Assigned: Engineer assigned\n- 🟡 In Progress: Being worked on\n- 🟠 Pending: Waiting for your response\n- ✅ Resolved: Fixed, awaiting confirmation\n- 🔒 Closed: Complete\n\n## Step 4: Communicate (2 min)\n\nAdd comments to:\n- Provide updates\n- Answer questions\n- Test solutions\n- Confirm resolution\n\n## Step 5: Your Profile (1 min)\n\nUpdate your:\n- Contact information\n- Department\n- Notification preferences\n- Profile picture\n\n## Quick Tips\n\n✅ Be specific in ticket titles\n✅ Include screenshots\n✅ Respond to \"Pending\" immediately\n✅ Use correct priority\n✅ Close tickets when done\n\n## SLA Response Times\n\n- 🔴 Critical: 1h response, 4h resolution\n- 🟠 High: 2h response, 8h resolution\n- 🟡 Medium: 4h response, 24h resolution\n- 🟢 Low: 8h response, 48h resolution\n\nAll times in business hours (Mon-Fri, 9AM-6PM IST).\n\n## Need Help?\n\n- Press Ctrl+K for quick search\n- Browse help categories\n- Contact support team\n- Check FAQs\n\nWelcome to Nexus Support! 🎉",
+      content: "# Quick Start Guide\n\nWelcome to Nexus Support — your IT helpdesk solution!\n\n## Step 1: Login (2 min)\n\nNavigate to your Nexus Support URL and login with:\n- Username or email\n- Password\n- 2FA code (if enabled)\n\n## Step 2: Create Your First Ticket (3 min)\n\nClick \"New Ticket\" button and fill in:\n\n**Subject:** Be specific about the issue\n- ❌ Bad: \"Computer problem\"\n- ✅ Good: \"Cannot access shared drive on Windows 10\"\n\n**Priority:**\n- 🔴 Critical: Business stopped (4h resolution)\n- 🟠 High: Major issue (8h resolution)\n- 🟡 Medium: Work affected (24h resolution)\n- 🟢 Low: Minor issue (48h resolution)\n\n**Description:** Include what you were doing, what happened, error messages, when it started, and what you've tried.\n\n**Attachments:** Up to 5 files, 10MB each. Screenshots highly recommended.\n\n## Step 3: Track Your Tickets\n\nNavigate to \"My Tickets\" to see status:\n- 🟢 Open — Just created\n- 🔵 Assigned — Engineer assigned\n- 🟡 In Progress — Being worked on\n- 🟠 Pending — Waiting for your response\n- ✅ Resolved — Fixed, awaiting confirmation\n- 🔒 Closed — Complete\n\n## Step 4: Communicate\n\nAdd comments to provide updates, answer questions, test solutions, and confirm resolution.\n\n## Quick Tips\n\n✅ Be specific in ticket titles\n✅ Include screenshots\n✅ Respond to \"Pending\" immediately\n✅ Use correct priority\n✅ Close tickets when done",
       relatedArticles: ['dashboard-overview', 'create-ticket', 'ticket-priorities'],
-      tags: ['quick start', 'beginner', 'tutorial']
+      tags: ['quick start', 'beginner', 'tutorial', 'getting started']
     },
-
     {
       id: 'dashboard-overview',
       category: 'getting-started',
@@ -84,11 +81,26 @@ export const helpContent = {
       views: 3245,
       helpful: 96,
       icon: '📊',
-      content: "# Dashboard Overview\n\nYour dashboard shows key metrics at a glance.\n\n## Top Statistics Cards\n\n**Open Tickets**\n- Total tickets waiting for action\n- Click to view all open tickets\n\n**In Progress**\n- Tickets currently being worked\n- Shows active work\n\n**Resolved Today**\n- Tickets closed today\n- Tracks daily productivity\n\n**Avg Response Time**\n- Average first response time\n- Key service metric\n\n## Priority Breakdown Chart\n\nVisual pie chart showing:\n- 🔴 Critical (red)\n- 🟠 High (orange)\n- 🟡 Medium (yellow)\n- 🟢 Low (green)\n\n## Recent Activity\n\nShows last 10 actions:\n- New tickets\n- Status changes\n- Comments\n- Assignments\n- Resolutions\n\n## Quick Access\n\n- My Tickets\n- Notifications\n- Create Ticket\n- Analytics\n\n## Auto-Refresh\n\nDashboard updates every 30 seconds automatically.\n\n## Mobile Responsive\n\nFull functionality on mobile devices with touch-friendly interface.",
-      relatedArticles: ['quick-start', 'analytics', 'notifications'],
-      tags: ['dashboard', 'overview', 'metrics']
+      content: "# Dashboard Overview\n\nYour dashboard shows key metrics at a glance.\n\n## Top Statistics Cards\n\n**Open Tickets** — Total tickets waiting for action\n**In Progress** — Tickets currently being worked on\n**Resolved Today** — Tickets closed today\n**Avg Response Time** — Average first response time\n\n## Priority Breakdown Chart\n\nVisual pie chart showing tickets by priority:\n- 🔴 Critical (red)\n- 🟠 High (orange)\n- 🟡 Medium (yellow)\n- 🟢 Low (green)\n\n## Recent Activity\n\nShows last 10 actions: new tickets, status changes, comments, assignments, and resolutions.\n\n## Auto-Refresh\n\nDashboard updates every 30 seconds automatically.\n\n## Mobile Responsive\n\nFull functionality on mobile devices with touch-friendly interface.",
+      relatedArticles: ['quick-start', 'ticket-status'],
+      tags: ['dashboard', 'overview', 'metrics', 'charts']
+    },
+    {
+      id: 'navigation-guide',
+      category: 'getting-started',
+      title: 'Navigation & Features Guide',
+      description: 'Learn the sidebar, shortcuts, and key features',
+      difficulty: 'Easy',
+      readTime: '6 min',
+      views: 2100,
+      helpful: 94,
+      icon: '🧭',
+      content: "# Navigation Guide\n\n## Sidebar Menu\n\nThe sidebar provides access to all features:\n- **Dashboard** — Overview and statistics\n- **My Tickets** — Your submitted tickets\n- **All Tickets** — Browse all tickets (agents/admins)\n- **Create Ticket** — Submit new request\n- **Analytics** — Performance metrics and charts\n- **Users** — User management (admin)\n- **Settings** — System configuration (admin)\n- **Help Center** — This page!\n\n## Keyboard Shortcuts\n\n- **Ctrl+K** — Quick search\n- **Ctrl+N** — New ticket\n- **Esc** — Close modal/dialog\n\n## Notifications\n\nClick the 🔔 bell icon (top right) to see alerts for ticket updates, assignments, and SLA warnings.\n\n## Profile Settings\n\nClick your avatar (top right) to access:\n- Profile information\n- Notification preferences\n- Security settings (2FA)\n- Theme toggle (light/dark mode)\n\n## Search\n\nUse the global search bar to find tickets by number, subject, or description.",
+      relatedArticles: ['quick-start', 'dashboard-overview'],
+      tags: ['navigation', 'sidebar', 'shortcuts', 'features']
     },
 
+    // ── Tickets ──
     {
       id: 'create-ticket',
       category: 'tickets',
@@ -99,189 +111,302 @@ export const helpContent = {
       views: 5234,
       helpful: 97,
       icon: '✍️',
-      content: "# Creating Effective Tickets\n\nWell-written tickets get resolved faster!\n\n## Why Good Tickets Matter\n\n**Well-written tickets:**\n- Get assigned faster\n- Receive accurate solutions\n- Resolved within SLA\n- Less back-and-forth\n\n## Required Fields\n\n**Subject (Required)**\n\nBe specific! Include:\n- What's affected\n- Type of issue\n- Error code if any\n\nExamples:\n- ❌ \"Help!\"\n- ❌ \"Computer not working\"\n- ✅ \"Cannot access shared drive after Windows update\"\n- ✅ \"Outlook freezing when opening PDF attachments\"\n\n**Description (Required)**\n\nInclude all details:\n\n1. What you were trying to do\n2. What actually happened\n3. Error messages (exact text)\n4. When it started\n5. What you've tried\n6. Business impact\n\n**Priority (Required)**\n\nChoose based on impact:\n- 🔴 Critical: Business stopped\n- 🟠 High: Major functionality broken\n- 🟡 Medium: Work affected\n- 🟢 Low: Minor issue\n\n**Category (Required)**\n\nSelect most relevant:\n- Hardware\n- Software\n- Network\n- Access\n- Email\n- Other\n\n**Department (Optional)**\n\nSelect your department for faster routing.\n\n## Attach Files\n\nSupported formats:\n- PDF, DOC, DOCX\n- XLS, XLSX\n- JPG, PNG, GIF\n- TXT, LOG, CSV\n- ZIP, RAR\n\nLimits:\n- Max 5 files per ticket\n- Max 10MB per file\n\n## Screenshot Tips\n\n**Windows:**\n- Full screen: PrintScreen key\n- Window: Alt+PrintScreen\n- Selection: Win+Shift+S\n\n**Mac:**\n- Full screen: Cmd+Shift+3\n- Selection: Cmd+Shift+4\n- Window: Cmd+Shift+4, then Space\n\nSave as PNG for best quality.\n\n## What to Include\n\n✅ Exact error messages\n✅ Screenshots\n✅ Steps to reproduce\n✅ System information\n✅ What you've tried\n✅ Business impact\n\n## Common Mistakes\n\n❌ Vague descriptions\n❌ Wrong priority\n❌ Multiple issues in one ticket\n❌ No follow-up\n❌ Missing screenshots\n\n## After Submission\n\nYou'll receive:\n- Confirmation email\n- Ticket number (e.g., TKT-001234)\n- Estimated response time\n\nTrack in \"My Tickets\" section.\n\n## Example Perfect Ticket\n\n**Subject:**\n\"Outlook crashes when opening PDF - Error 0x80070005\"\n\n**Description:**\nWhat I was doing: Opening PDF attachment from customer email\n\nWhat happened: Outlook freezes 10-15 seconds then crashes\n\nError message: \"Microsoft Outlook has stopped working\"\nEvent Viewer: Error 0x80070005\n\nWhen started: This morning after Windows updates\n\nWhat I tried:\n- Restarted Outlook (3x) - didn't help\n- Rebooted computer - didn't help\n- Different PDFs - all crash\n- Saved PDF, opened in Adobe - works fine\n\nBusiness impact:\nCannot read customer contracts via email\n5 urgent contracts waiting\n\n**Priority:** High\n**Category:** Software\n**Attachments:** screenshot_error.png, event_log.txt\n\nThis is perfect! ✅",
-      relatedArticles: ['ticket-priorities', 'attach-files', 'ticket-status'],
+      content: "# Creating Effective Tickets\n\nWell-written tickets get resolved faster!\n\n## Required Fields\n\n**Subject** — Be specific! Include what's affected and the type of issue.\n- ❌ \"Help!\"\n- ✅ \"Cannot access shared drive after Windows update\"\n\n**Description** — Include:\n1. What you were trying to do\n2. What actually happened\n3. Error messages (exact text)\n4. When it started\n5. What you've tried\n6. Business impact\n\n**Priority** — Based on business impact:\n- 🔴 Critical: Business stopped\n- 🟠 High: Major functionality broken\n- 🟡 Medium: Work affected but manageable\n- 🟢 Low: Minor issue or request\n\n**Category** — Select most relevant: Hardware, Software, Network, Access, Email, Other\n\n## Attach Files\n\nSupported: PDF, DOC, XLS, JPG, PNG, GIF, TXT, LOG, ZIP\nLimits: Max 5 files, 10MB each\n\n## Screenshot Tips\n\n**Windows:** Win+Shift+S for selection\n**Mac:** Cmd+Shift+4 for selection\n\n## Example Perfect Ticket\n\n**Subject:** \"Outlook crashes when opening PDF — Error 0x80070005\"\n\n**Description:**\nWhat I was doing: Opening PDF attachment from email\nWhat happened: Outlook freezes then crashes\nError: \"Microsoft Outlook has stopped working\" — Error 0x80070005\nStarted: This morning after Windows updates\nTried: Restarted Outlook 3x, rebooted computer\nImpact: Cannot read customer contracts — 5 urgent contracts waiting\n\n**Priority:** High\n**Attachments:** screenshot_error.png, event_log.txt\n\nThis gets resolved fast! ✅",
+      relatedArticles: ['ticket-priorities', 'ticket-status', 'attach-files'],
       tags: ['create', 'ticket', 'new', 'best practices']
     },
-
     {
       id: 'ticket-priorities',
       category: 'tickets',
       title: 'Understanding Ticket Priorities',
-      description: 'How to choose the right priority level',
+      description: 'How to choose the right priority level and SLA times',
       difficulty: 'Easy',
       readTime: '7 min',
       views: 5423,
       helpful: 97,
       icon: '🎯',
-      content: "# Ticket Priorities & SLA\n\nChoose the right priority for appropriate response times.\n\n## Priority Levels\n\n### 🔴 Critical Priority\n\n**SLA:** 1h response, 4h resolution\n\n**Use when:**\n- Entire system down\n- Business completely stopped\n- Security breach\n- Data loss\n- Multiple users cannot work\n\n**Examples:**\n- Production database down\n- Website completely offline\n- Email system down company-wide\n- Security breach in customer portal\n\n**What happens:**\n- Immediate assignment\n- Senior engineer\n- Manager notified\n- Updates every 30 min\n- Auto-escalates if not resolved in 4h\n\n### 🟠 High Priority\n\n**SLA:** 2h response, 8h resolution\n\n**Use when:**\n- Major functionality broken\n- Multiple users affected\n- Critical with workaround\n- Time-sensitive\n\n**Examples:**\n- Cannot print invoices\n- VPN failing for remote workers\n- Key report not generating\n- Customer portal login broken\n\n**What happens:**\n- Assigned within 30 min\n- Work begins within 2h\n- Updates every 2h\n- Workaround if possible\n- Auto-escalates if not resolved in 8h\n\n### 🟡 Medium Priority\n\n**SLA:** 4h response, 24h resolution\n\n**Use when:**\n- Single user affected\n- Work impacted but manageable\n- Minor functionality issue\n- Non-urgent\n\n**Examples:**\n- Computer running slowly\n- Printer jamming occasionally\n- Cannot access one file\n- Software feature odd behavior\n\n**What happens:**\n- Assigned during business hours\n- Engineer reviews within 4h\n- Resolution within 24h\n- Updates at milestones\n- Auto-escalates if not resolved in 24h\n\n### 🟢 Low Priority\n\n**SLA:** 8h response, 48h resolution\n\n**Use when:**\n- Minor annoyance\n- Enhancement request\n- Information question\n- Nice-to-have\n\n**Examples:**\n- Install optional software\n- How-to question\n- Cosmetic UI issue\n- Feature suggestion\n\n**What happens:**\n- Queued in workflow\n- Engineer when available\n- May be batched\n- Updates at key points\n- No auto-escalation\n\n## SLA Calculation\n\n**Business Hours (Default):**\n- Mon-Fri: 9AM-6PM IST\n- Weekends excluded\n- Holidays excluded\n- Timer pauses outside hours\n\n**Example:**\nHigh priority created Friday 3PM\n- Friday 3-6PM = 3 hours\n- Weekend = paused\n- Monday 9AM-2PM = 5 hours\n- Total = 8 hours\n- Due: Monday 2PM\n\n**Pending Status:**\nTimer PAUSES when waiting for your response!\n\n## Warning System\n\n**80% Warning:**\n- Yellow badge on ticket\n- Email to engineer\n- Dashboard notification\n\n**100% Breach:**\n- Red breach indicator\n- Status changes to \"Escalated\"\n- Emails to all stakeholders\n- Manager reviews\n\n## Decision Tree\n\n**Is business completely stopped?**\n- YES → 🔴 Critical\n- NO → Continue\n\n**Are multiple people unable to work?**\n- YES → 🟠 High\n- NO → Continue\n\n**Is your work significantly impacted?**\n- YES → 🟡 Medium\n- NO → 🟢 Low\n\n## Best Practices\n\n✅ Choose based on business impact\n✅ Be honest about priority\n✅ Explain your choice\n✅ Update if changes\n✅ Trust the process\n\n❌ Don't mark everything Critical\n❌ Don't change without reason\n❌ Don't create duplicates\n❌ Don't ignore \"Pending\"\n\n## Common Questions\n\n**Q: Can I have multiple Critical tickets?**\nA: Yes, but each must truly be critical.\n\n**Q: What if I disagree with priority?**\nA: Comment explaining impact. Manager will review.\n\n**Q: Do weekends count?**\nA: No (business hours mode). Admin can enable 24/7.\n\n**Q: What if engineer is sick?**\nA: Ticket reassigned. SLA continues counting.\n\nRemember: Priority = Business impact, not personal urgency! 🎯",
-      relatedArticles: ['create-ticket', 'sla-explained', 'auto-escalation'],
-      tags: ['priority', 'sla', 'critical', 'escalation']
+      content: "# Ticket Priorities & SLA\n\n## Priority Levels\n\n### 🔴 Critical\n**SLA:** 1h response, 4h resolution\n**Use when:** Entire system down, business stopped, security breach, data loss\n**What happens:** Immediate assignment, senior engineer, manager notified\n\n### 🟠 High\n**SLA:** 2h response, 8h resolution\n**Use when:** Major functionality broken, multiple users affected, time-sensitive\n**What happens:** Assigned within 30 min, workaround provided if possible\n\n### 🟡 Medium\n**SLA:** 4h response, 24h resolution\n**Use when:** Single user affected, work impacted but manageable\n**What happens:** Assigned during business hours, resolution within 24h\n\n### 🟢 Low\n**SLA:** 8h response, 48h resolution\n**Use when:** Minor annoyance, enhancement request, how-to question\n**What happens:** Queued, may be batched with similar requests\n\n## SLA Calculation\n\n**Business Hours:** Mon-Fri, 9AM-6PM IST\n- Weekends excluded\n- Holidays excluded\n- Timer pauses when status is \"Pending\"\n\n## Decision Tree\n\nBusiness completely stopped? → 🔴 Critical\nMultiple people can't work? → 🟠 High\nYour work significantly impacted? → 🟡 Medium\nMinor or nice-to-have? → 🟢 Low\n\n## Best Practices\n\n✅ Choose based on business impact, not personal urgency\n✅ Be honest about severity\n❌ Don't mark everything as Critical\n❌ Don't create duplicate tickets",
+      relatedArticles: ['create-ticket', 'ticket-status', 'sla-explained'],
+      tags: ['priority', 'sla', 'critical', 'escalation', 'response time']
     },
-
     {
       id: 'ticket-status',
       category: 'tickets',
       title: 'Ticket Status Explained',
-      description: 'What each ticket status means',
+      description: 'What each ticket status means and what to expect',
       difficulty: 'Easy',
       readTime: '6 min',
       views: 3982,
       helpful: 95,
       icon: '🔄',
-      content: "# Ticket Status Workflow\n\nUnderstanding statuses helps you know what to expect.\n\n## All Statuses\n\n### 🟢 Open\n**Meaning:** Just created, waiting assignment\n**Duration:** 15 min - 2 hours\n**Your action:** Wait for assignment\n**Next:** Usually \"Assigned\"\n\n### 🔵 Assigned\n**Meaning:** Engineer assigned\n**Duration:** Minutes to hours\n**Your action:** Wait for first response\n**Next:** Usually \"In Progress\"\n\n### 🟡 In Progress\n**Meaning:** Engineer actively working\n**Duration:** Varies by complexity\n**Your action:** Monitor for questions\n**Next:** \"Resolved\" or \"Pending\"\n\n### 🟠 Pending (⚠️ ACTION REQUIRED)\n**Meaning:** Waiting for YOUR response\n**Duration:** Should be hours, not days\n**Your action:** RESPOND IMMEDIATELY\n**Important:** SLA timer PAUSED\n**Next:** \"In Progress\" after you respond\n\n### ✅ Resolved\n**Meaning:** Engineer believes fixed\n**Duration:** 24-48h before auto-close\n**Your action:** Test and confirm or reopen\n**Next:** \"Closed\" or back to \"In Progress\"\n\n### 🔒 Closed\n**Meaning:** Ticket complete\n**Your action:** Can reopen within 30 days\n**Final:** Archived for reporting\n\n### 🚨 Escalated\n**Meaning:** SLA breached, escalated to management\n**Your action:** Continue cooperation\n**Next:** Back to \"In Progress\" with priority\n\n## Status Flow\n\n**Typical path:**\nOpen → Assigned → In Progress → Resolved → Closed\n\n**With info needed:**\nOpen → Assigned → In Progress → Pending → In Progress → Resolved → Closed\n\n**With SLA breach:**\nOpen → Assigned → In Progress → Escalated → In Progress → Resolved → Closed\n\n## Time Expectations\n\n**Critical Priority:**\n- Open: < 15 min\n- Assigned: < 15 min\n- In Progress: 1-3 hours\n- Total: < 4 hours\n\n**High Priority:**\n- Open: < 30 min\n- Assigned: < 1 hour\n- In Progress: 2-6 hours\n- Total: < 8 hours\n\n**Medium Priority:**\n- Open: < 2 hours\n- Assigned: < 4 hours\n- In Progress: 4-20 hours\n- Total: < 24 hours\n\n**Low Priority:**\n- Open: < 4 hours\n- Assigned: < 8 hours\n- In Progress: 8-40 hours\n- Total: < 48 hours\n\n## Email Notifications\n\nYou receive emails when:\n- Ticket created\n- Status changes\n- Assigned to engineer\n- Comment added\n- Escalated\n- Resolved\n- Auto-closed\n\nConfigure in Profile → Notifications\n\n## Common Questions\n\n**Q: Been \"In Progress\" for 2 days normal?**\nA: Depends on priority and complexity. Check comments for updates.\n\n**Q: Difference between Resolved and Closed?**\nA: Resolved = engineer thinks fixed. Closed = confirmed and complete.\n\n**Q: Can I change status?**\nA: No, only engineers. You can comment if seems wrong.\n\n**Q: How long does Pending last?**\nA: Should be brief. SLA paused, so respond quickly!\n\n**Q: Didn't respond to Resolved?**\nA: Auto-closes after 48h. Reopen if needed.\n\n## Tips\n\n💡 Respond to \"Pending\" immediately\n💡 Confirm resolutions quickly\n💡 Provide complete info upfront\n💡 Check status regularly\n💡 Communicate changes\n\nRemember: Status tells your ticket's story! 📊",
-      relatedArticles: ['create-ticket', 'ticket-priorities', 'notifications'],
-      tags: ['status', 'workflow', 'pending', 'resolved']
+      content: "# Ticket Status Workflow\n\n## All Statuses\n\n### 🟢 Open\nJust created, waiting for assignment. Duration: 15 min — 2 hours.\n\n### 🔵 Assigned\nEngineer assigned to your ticket. First response coming soon.\n\n### 🟡 In Progress\nEngineer actively working on it. Monitor for questions.\n\n### 🟠 Pending ⚠️ ACTION REQUIRED\nWaiting for YOUR response! SLA timer is PAUSED. Respond quickly!\n\n### ✅ Resolved\nEngineer believes it's fixed. Test and confirm, or reopen.\nAuto-closes after 48h if no response.\n\n### 🔒 Closed\nTicket complete and archived. Can reopen within 30 days.\n\n### 🚨 Escalated\nSLA breached — management involved. Higher priority attention.\n\n## Typical Flow\n\nOpen → Assigned → In Progress → Resolved → Closed\n\n## Tips\n\n✅ Respond to \"Pending\" immediately — SLA is paused waiting for you\n✅ Confirm resolutions quickly\n✅ Provide complete info upfront to avoid back-and-forth",
+      relatedArticles: ['create-ticket', 'ticket-priorities'],
+      tags: ['status', 'workflow', 'pending', 'resolved', 'closed']
     },
-
     {
       id: 'attach-files',
       category: 'tickets',
-      title: 'Attaching Files',
-      description: 'How to attach files and screenshots',
+      title: 'Attaching Files & Screenshots',
+      description: 'How to attach files and take effective screenshots',
       difficulty: 'Easy',
       readTime: '5 min',
       views: 2876,
       helpful: 94,
       icon: '📎',
-      content: "# Attaching Files to Tickets\n\nScreenshots and logs help engineers resolve issues faster.\n\n## Supported File Types\n\n**Documents:**\n- PDF (.pdf)\n- Word (.doc, .docx)\n- Excel (.xls, .xlsx)\n- Text (.txt, .log, .csv)\n\n**Images:**\n- JPEG (.jpg, .jpeg)\n- PNG (.png)\n- GIF (.gif)\n- BMP (.bmp)\n\n**Archives:**\n- ZIP (.zip)\n- RAR (.rar)\n- 7-Zip (.7z)\n\n**Blocked (Security):**\n- Executables (.exe, .bat, .cmd)\n- Scripts (.js, .vbs, .ps1)\n- System files (.dll, .sys)\n\nWorkaround: ZIP blocked files first\n\n## Size Limits\n\n**Per File:** Maximum 10 MB\n**Per Ticket:** Maximum 5 files\n**Total:** Maximum 50 MB\n\n## How to Attach\n\n**When Creating Ticket:**\n1. Fill ticket details\n2. Scroll to \"Attachments\"\n3. Click \"Upload\" or drag files\n4. Wait for progress bar\n5. See checkmark when done\n6. Submit ticket\n\n**On Existing Ticket:**\n1. Open ticket\n2. Go to \"Attachments\" tab\n3. Click \"Upload Files\"\n4. Select files\n5. Wait for upload\n\n## Taking Screenshots\n\n**Windows:**\n- Full screen: PrintScreen key\n- Window: Alt+PrintScreen\n- Selection: Win+Shift+S\n\n**Mac:**\n- Full screen: Cmd+Shift+3\n- Selection: Cmd+Shift+4\n- Window: Cmd+Shift+4, Space\n\n**Best format:** PNG for clarity\n\n## What to Screenshot\n\n✅ Full error messages\n✅ Error codes\n✅ Window title bars\n✅ Relevant context\n✅ System state\n\n❌ Blurry phone photos\n❌ Partial errors\n❌ No context\n❌ Too dark/bright\n\n## Sensitive Information\n\n**Before attaching, remove:**\n- Passwords\n- API keys\n- Personal info (SSN, etc.)\n- Credit card numbers\n- Confidential data\n\n**How to redact:**\n- Use Paint/Preview to black out\n- Use blur tools\n- Crop sensitive areas\n- Edit text files\n\n## Troubleshooting\n\n**File Too Large:**\n- Compress as ZIP\n- Resize images\n- Split large files\n- Use cloud storage link\n\n**File Type Not Supported:**\n- Check extension\n- ZIP the file\n- Convert to PDF\n- Contact admin\n\n**Upload Stuck:**\n- Check internet\n- Try smaller files\n- Clear browser cache\n- Try different browser\n- Disable VPN\n\n## Security\n\n**All files:**\n- Scanned for viruses\n- Encrypted at rest\n- Daily backups\n- Access controlled\n\n**Who can view:**\n- Ticket participants\n- Assigned engineer\n- Department manager\n- System admins\n\n**Retention:**\n- Kept with ticket\n- 30 days in backup\n- Deleted on request\n\n## Best Practices\n\n✅ Attach when creating ticket\n✅ Use clear filenames\n✅ Screenshot error messages\n✅ Include log files\n✅ Redact sensitive info\n✅ Use PNG format\n\n❌ Don't attach executables\n❌ Don't use phone photos\n❌ Don't upload huge files\n❌ Don't include passwords\n❌ Don't forget to attach\n\nRemember: Good attachments = Faster resolution! 📎",
-      relatedArticles: ['create-ticket', 'troubleshoot-upload', 'security'],
+      content: "# Attaching Files to Tickets\n\n## Supported File Types\n\n**Documents:** PDF, DOC, DOCX, XLS, XLSX, TXT, LOG, CSV\n**Images:** JPG, PNG, GIF, BMP\n**Archives:** ZIP, RAR, 7Z\n**Blocked (Security):** EXE, BAT, CMD, JS, VBS, PS1, DLL\n\n## Size Limits\n\nPer file: 10 MB maximum\nPer ticket: 5 files maximum\n\n## Taking Screenshots\n\n**Windows:**\n- Full screen: PrintScreen\n- Active window: Alt+PrintScreen\n- Selection: Win+Shift+S (recommended)\n\n**Mac:**\n- Full screen: Cmd+Shift+3\n- Selection: Cmd+Shift+4\n- Window: Cmd+Shift+4, then Space\n\n## What to Screenshot\n\n✅ Full error messages and codes\n✅ Window title bars for context\n✅ Relevant system state\n✅ Before/after comparisons\n\n❌ Don't use blurry phone photos\n❌ Don't capture sensitive passwords\n\n## Troubleshooting Uploads\n\n- **File too large:** Compress as ZIP, or resize images\n- **Type not supported:** ZIP the file first\n- **Upload stuck:** Clear browser cache, try different browser",
+      relatedArticles: ['create-ticket'],
       tags: ['attachments', 'files', 'upload', 'screenshots']
+    },
+
+    // ── SLA ──
+    {
+      id: 'sla-explained',
+      category: 'sla',
+      title: 'SLA & Auto-Escalation',
+      description: 'How SLA tracking and automatic escalation works',
+      difficulty: 'Medium',
+      readTime: '8 min',
+      views: 2340,
+      helpful: 93,
+      icon: '⏱️',
+      content: "# SLA & Auto-Escalation\n\n## What is SLA?\n\nService Level Agreement defines maximum response and resolution times for each priority level.\n\n## SLA Targets\n\n- 🔴 Critical: 1h response, 4h resolution\n- 🟠 High: 2h response, 8h resolution\n- 🟡 Medium: 4h response, 24h resolution\n- 🟢 Low: 8h response, 48h resolution\n\n## How SLA is Calculated\n\n**Business hours only:** Mon-Fri, 9AM-6PM IST\n- Timer starts when ticket is created\n- Timer PAUSES outside business hours, weekends, holidays\n- Timer PAUSES when ticket status is \"Pending\" (waiting for customer)\n- Timer RESUMES when ticket is back \"In Progress\"\n\n## Warning System\n\n**At 80%:** Yellow warning badge, email to engineer\n**At 100%:** RED breach indicator, auto-escalation triggered\n\n## Auto-Escalation\n\nWhen SLA breaches:\n1. Status changes to \"Escalated\"\n2. Notification sent to department manager\n3. All stakeholders alerted\n4. Manager reviews and may reassign\n5. Escalated tickets get priority attention\n\n## Tips to Avoid SLA Breach\n\n✅ Set correct priority from the start\n✅ Respond to \"Pending\" status immediately\n✅ Provide complete information upfront\n✅ Include screenshots and error details",
+      relatedArticles: ['ticket-priorities', 'ticket-status'],
+      tags: ['sla', 'escalation', 'auto-escalation', 'response time', 'breach']
+    },
+
+    // ── Users ──
+    {
+      id: 'roles-permissions',
+      category: 'users',
+      title: 'User Roles & Permissions',
+      description: 'Understanding the different user roles and access levels',
+      difficulty: 'Medium',
+      readTime: '6 min',
+      views: 1890,
+      helpful: 92,
+      icon: '👥',
+      content: "# User Roles & Permissions\n\n## Role Types\n\n### 🛡️ Administrator\nFull system access including:\n- User management (create, edit, disable)\n- System settings and configuration\n- Email templates and notifications\n- Backup and security settings\n- All ticket access\n- Analytics and reports\n\n### 📋 Manager\n- Department oversight\n- User management (own department)\n- Analytics and reports\n- Ticket escalations\n- Approval workflows\n\n### 🔧 Engineer / Agent\n- Assigned ticket management\n- Create and comment on tickets\n- View department tickets\n- Technical resolution work\n\n### 👤 Standard User\n- Create and track own tickets\n- Add comments and attachments\n- View personal ticket history\n- Profile management\n\n## Custom Roles\n\nAdmins can create custom roles with specific permissions for specialized access needs.\n\n## Department Access\n\nDepartments organize users and control ticket routing:\n- Each department has a manager\n- Tickets route to the appropriate department\n- Department-level analytics available",
+      relatedArticles: ['quick-start'],
+      tags: ['roles', 'permissions', 'admin', 'manager', 'agent', 'user']
+    },
+
+    // ── Admin ──
+    {
+      id: 'admin-settings',
+      category: 'admin',
+      title: 'System Administration',
+      description: 'Configure system settings, email, and backups',
+      difficulty: 'Advanced',
+      readTime: '12 min',
+      views: 1240,
+      helpful: 90,
+      icon: '⚙️',
+      content: "# System Administration\n\n## System Settings\n\nAccess via **Settings** in the sidebar (admin only).\n\n### General Settings\n- Company name and branding\n- Time zone and business hours\n- Default ticket settings\n- Auto-close configuration\n\n### Email Configuration\n- SMTP server settings\n- Email templates (customizable)\n- Notification preferences\n- Test email functionality\n\n### Security Settings\n- Password policies (length, complexity, expiry)\n- Two-factor authentication enforcement\n- Session timeout\n- Account lockout thresholds\n- IP restrictions\n\n## Backup & Recovery\n\n**Create Backup:** Settings → Backup → Create Backup Now\n- Creates ZIP with database and files\n- Download and store securely\n- Schedule automatic backups (daily/weekly)\n- Retained for 30 days (configurable)\n\n**Restore:** Contact system administrator with backup file\n\n## User Management\n\n- Create/edit/disable user accounts\n- Assign roles and departments\n- Reset passwords\n- Enable/disable 2FA\n- View user activity logs",
+      relatedArticles: ['roles-permissions'],
+      tags: ['admin', 'settings', 'configuration', 'backup', 'email', 'security']
+    },
+
+    // ── Troubleshooting ──
+    {
+      id: 'slow-computer',
+      category: 'troubleshooting',
+      title: 'Slow Computer Fix',
+      description: 'Step-by-step guide to speed up your PC or laptop',
+      difficulty: 'Easy',
+      readTime: '6 min',
+      views: 4120,
+      helpful: 95,
+      icon: '🐢',
+      content: "# Fix a Slow Computer\n\n## Quick Fixes (Try First)\n\n1. **Restart your computer** — Fixes most temporary issues\n2. **Close unnecessary programs** — Check Task Manager (Ctrl+Shift+Esc)\n3. **Close extra browser tabs** — Too many tabs consume RAM\n\n## Intermediate Steps\n\n4. **Check disk space** — Need at least 10% free\n   Open File Explorer → Right-click C: → Properties\n5. **Run Disk Cleanup** — Search \"Disk Cleanup\" in Start Menu\n6. **Disable startup programs** — Task Manager → Startup tab → Disable unnecessary items\n7. **Check for Windows updates** — Settings → Update & Security\n\n## Advanced Steps\n\n8. **Run antivirus scan** — Malware can severely impact performance\n9. **Check RAM usage** — Task Manager → Performance tab\n   - If consistently above 85%, you may need more RAM\n10. **Check for overheating** — Feel the bottom of laptop, listen for fans\n    - Clean dust from vents\n    - Use on hard, flat surface\n\n## When to Create a Ticket\n\nCreate a ticket if:\n- Problem persists after all steps above\n- RAM is maxed but no obvious cause\n- Frequent freezing or crashes\n- Computer is more than 4 years old\n\nInclude: Computer model, RAM info, disk space info, which specific apps are slow",
+      relatedArticles: ['blue-screen', 'network-issue'],
+      tags: ['slow', 'computer', 'performance', 'speed', 'lag', 'freeze']
+    },
+    {
+      id: 'network-issue',
+      category: 'troubleshooting',
+      title: 'Network & WiFi Issues',
+      description: 'Troubleshoot internet, WiFi, and VPN connectivity',
+      difficulty: 'Easy',
+      readTime: '7 min',
+      views: 3850,
+      helpful: 94,
+      icon: '📡',
+      content: "# Network & WiFi Troubleshooting\n\n## Step 1 — Check Basics\n\n- Is WiFi turned on? Check taskbar icon\n- Is Airplane mode OFF?\n- Can other devices connect to the same network?\n\n## Step 2 — Quick Fixes\n\n- Toggle WiFi off and on again\n- Disconnect and reconnect to the network\n- Restart your computer\n- \"Forget\" the network and reconnect with password\n\n## Step 3 — Network Reset\n\nOpen Command Prompt as Administrator and run:\n- ipconfig /release\n- ipconfig /renew\n- ipconfig /flushdns\n- netsh winsock reset\n\n## Step 4 — Hardware\n\n- Restart your router/modem (unplug for 30 seconds)\n- Check Ethernet cable if using wired connection\n- Try a different port or cable\n- Move closer to the WiFi router\n\n## VPN-Specific Issues\n\n- Disconnect and reconnect to VPN\n- Verify VPN credentials\n- Try a different VPN server\n- Disable/re-enable your network adapter\n- Check if VPN client needs an update\n\n## When to Create a Ticket\n\n- Network is down for multiple people\n- VPN won't connect after all troubleshooting\n- Intermittent disconnections throughout the day\n- Need access to a new network resource",
+      relatedArticles: ['slow-computer', 'file-access'],
+      tags: ['network', 'wifi', 'internet', 'vpn', 'connection', 'offline']
+    },
+    {
+      id: 'email-problems',
+      category: 'troubleshooting',
+      title: 'Email & Outlook Problems',
+      description: 'Fix sending, receiving, and Outlook crash issues',
+      difficulty: 'Easy',
+      readTime: '6 min',
+      views: 3200,
+      helpful: 93,
+      icon: '📧',
+      content: "# Email & Outlook Troubleshooting\n\n## Can't Send or Receive\n\n1. Check internet connection\n2. Restart Outlook\n3. Click **Send/Receive** → **Send/Receive All Folders**\n4. Check **Outbox** for stuck emails\n5. Check mailbox isn't full (limit usually 50GB)\n\n## Outlook Crashing\n\n1. Start in **Safe Mode**: Hold Ctrl while opening Outlook\n2. If it works in Safe Mode, disable add-ins:\n   File → Options → Add-ins → Manage → Disable all\n3. Repair Office: Settings → Apps → Microsoft Office → Modify → Repair\n4. Create new Outlook profile if persistent\n\n## Missing Emails\n\n- Check **Junk/Spam** folder\n- Check **Deleted Items**\n- Check **Focused Inbox** vs **Other** tab\n- Review email **Rules**: File → Manage Rules\n- Search by sender or subject\n\n## Calendar Issues\n\n- Ensure calendar is checked in sidebar\n- Verify correct date and time zone\n- Remove and re-add shared calendars\n\n## Out of Office\n\n1. File → Automatic Replies\n2. Set date range\n3. Write your message\n4. Enable for internal and/or external contacts",
+      relatedArticles: ['slow-computer', 'create-ticket'],
+      tags: ['email', 'outlook', 'mail', 'calendar', 'send', 'receive']
+    },
+    {
+      id: 'printer-fix',
+      category: 'troubleshooting',
+      title: 'Printer Troubleshooting',
+      description: 'Fix printer offline, paper jam, and print quality issues',
+      difficulty: 'Easy',
+      readTime: '5 min',
+      views: 2700,
+      helpful: 92,
+      icon: '🖨️',
+      content: "# Printer Troubleshooting\n\n## Printer Not Responding\n\n1. Check printer is powered ON and has paper\n2. Check USB cable or WiFi connection\n3. Restart the printer\n4. Go to **Settings → Devices → Printers & Scanners**\n5. Set your printer as **Default**\n6. Right-click → **Troubleshoot**\n\n## Printer Shows \"Offline\"\n\n1. Settings → Devices → Printers & Scanners\n2. Click your printer → **Open print queue**\n3. Click **Printer** menu → Uncheck **\"Use Printer Offline\"**\n4. Cancel all pending print jobs and try again\n\n## Paper Jam\n\n1. Turn off printer\n2. Open all access doors/trays\n3. Gently pull jammed paper in direction of travel\n4. Check for small torn pieces\n5. Close all doors and power on\n\n## Print Quality Issues\n\n- Run printer head cleaning (printer settings)\n- Replace low/empty ink or toner cartridges\n- Use correct paper type settings\n- Print alignment/test page\n- Clean scanner glass if copy quality is poor\n\n## Install New Printer\n\nCreate a support ticket with:\n- Printer make and model\n- Location where it will be used\n- Who needs access",
+      relatedArticles: ['create-ticket'],
+      tags: ['printer', 'print', 'offline', 'paper jam', 'quality']
+    },
+    {
+      id: 'blue-screen',
+      category: 'troubleshooting',
+      title: 'Blue Screen (BSOD) Recovery',
+      description: 'What to do when your computer shows a blue screen error',
+      difficulty: 'Medium',
+      readTime: '7 min',
+      views: 2450,
+      helpful: 91,
+      icon: '💻',
+      content: "# Blue Screen of Death (BSOD)\n\n## Immediate Steps\n\n1. **Note the error code** on the blue screen (e.g., DRIVER_IRQL_NOT_LESS_OR_EQUAL)\n2. **Take a photo** of the screen with your phone\n3. Let the computer restart on its own\n\n## If Computer Restarts Normally\n\n1. **Save your work** immediately\n2. Check **Event Viewer** for details:\n   - Search \"Event Viewer\" → Windows Logs → System\n   - Look for \"Critical\" level events\n3. Run **Windows Update** — driver fixes often resolve BSOD\n4. Think about recent changes (new software, drivers, hardware)\n\n## If Computer Keeps Crashing\n\n1. Boot into **Safe Mode**:\n   - Hold Shift + click Restart\n   - Troubleshoot → Advanced → Startup Settings → Safe Mode\n2. Uninstall recently installed software or drivers\n3. Open Command Prompt (Admin) and run:\n   - sfc /scannow\n   - DISM /Online /Cleanup-Image /RestoreHealth\n\n## ⚠️ Create a Critical Ticket If:\n\n- Blue screen happens repeatedly\n- Computer won't boot at all\n- Important data is at risk\n- Error mentions hardware failure\n\nInclude: photo of blue screen, error code, what you were doing when it happened, and whether it's repeating",
+      relatedArticles: ['slow-computer', 'create-ticket'],
+      tags: ['blue screen', 'bsod', 'crash', 'boot', 'error', 'restart']
     }
   ],
 
   faqs: [
+    // ── General ──
     {
       id: 'faq-create',
       category: 'general',
       question: 'How do I create a new ticket?',
-      answer: 'Click "New Ticket" button (top right) or go to Tickets → Create. Fill in required fields: Subject (be specific), Description (detailed), Priority (based on impact), and Category. Attach files if needed (up to 5 files, 10MB each). Submit and you will receive confirmation email with ticket number.'
+      answer: 'Click "New Ticket" button (top right) or go to Tickets → Create. Fill in required fields: Subject (be specific), Description (detailed), Priority (based on impact), and Category. Attach files if needed (up to 5 files, 10MB each). Submit and you\'ll receive a confirmation email with your ticket number.'
     },
     {
       id: 'faq-response',
       category: 'general',
       question: 'How long until I get a response?',
-      answer: 'Response times: Critical (1h), High (2h), Medium (4h), Low (8h). Resolution times: Critical (4h), High (8h), Medium (24h), Low (48h). All times based on business hours (Mon-Fri, 9AM-6PM IST).'
+      answer: 'Response times depend on priority: Critical (1 hour), High (2 hours), Medium (4 hours), Low (8 hours). Resolution times: Critical (4h), High (8h), Medium (24h), Low (48h). All times are based on business hours (Mon-Fri, 9AM-6PM IST). Weekends and holidays are excluded.'
     },
     {
       id: 'faq-track',
       category: 'general',
       question: 'How do I track my tickets?',
-      answer: 'Navigate to "My Tickets" in sidebar. You will see all your tickets with current status. Click any ticket for details, comments, and history. Email notifications sent for all updates.'
-    },
-    {
-      id: 'faq-priority',
-      category: 'tickets',
-      question: 'Which priority should I choose?',
-      answer: 'Critical = business stopped (4h), High = major issue (8h), Medium = work affected (24h), Low = minor issue (48h). Choose based on business impact, not personal urgency. When in doubt, choose Medium - engineers can adjust.'
-    },
-    {
-      id: 'faq-pending',
-      category: 'tickets',
-      question: 'What does "Pending" status mean?',
-      answer: 'Pending means engineer needs information from YOU. Check latest comment for what is needed. Important: SLA timer PAUSES while Pending, so respond quickly to resume progress on your ticket.'
-    },
-    {
-      id: 'faq-escalation',
-      category: 'tickets',
-      question: 'What is auto-escalation?',
-      answer: 'If ticket is not resolved within SLA time, it auto-escalates to department manager. Manager reviews, may reassign, and ensures resolution. All stakeholders receive notification. Prevents tickets from being forgotten.'
-    },
-    {
-      id: 'faq-attachments',
-      category: 'tickets',
-      question: 'What files can I attach?',
-      answer: 'Supported: PDF, Word (DOC/DOCX), Excel (XLS/XLSX), Images (JPG, PNG, GIF), Text (TXT, LOG), Archives (ZIP, RAR). Maximum 5 files per ticket, 10MB each. Executables (.exe, .bat) blocked for security. Screenshots highly encouraged!'
-    },
-    {
-      id: 'faq-reopen',
-      category: 'tickets',
-      question: 'Can I reopen a closed ticket?',
-      answer: 'Yes! If issue returns within 30 days, open closed ticket and click "Reopen". Add comment explaining why. Ticket returns to Open status. After 30 days, create new ticket and reference old number.'
-    },
-    {
-      id: 'faq-sla-calc',
-      category: 'sla',
-      question: 'How is SLA calculated?',
-      answer: 'SLA counts only business hours (Mon-Fri 9AM-6PM IST) by default. Timer pauses outside hours, weekends, and when in "Pending" status. Example: High priority (8h) created Friday 3PM reaches Monday 2PM (3h Friday + weekend pause + 5h Monday).'
-    },
-    {
-      id: 'faq-password',
-      category: 'account',
-      question: 'How do I reset my password?',
-      answer: 'On login page, click "Forgot Password". Enter email, check inbox for reset link (valid 1 hour). Create new password (min 8 chars with uppercase, lowercase, number, special character). Cannot reuse last 5 passwords.'
-    },
-    {
-      id: 'faq-2fa',
-      category: 'account',
-      question: 'How do I enable 2FA?',
-      answer: 'Profile → Security → Two-Factor Authentication. Choose Email (codes via email) or Authenticator App (Google/Microsoft Authenticator). Follow setup wizard, save 10 backup codes securely, enable. Verify on each login from new devices.'
-    },
-    {
-      id: 'faq-roles',
-      category: 'users',
-      question: 'What are the user roles?',
-      answer: 'Admin: Full access. Manager: Department oversight, user management, analytics. Engineer: Assigned tickets, technical work. User: Create and track own tickets. Custom roles can be created with specific permissions.'
-    },
-    {
-      id: 'faq-departments',
-      category: 'users',
-      question: 'What are departments for?',
-      answer: 'Departments organize users and tickets for better routing. Each has manager who oversees tickets. Selecting department when creating ticket routes to that team. Departments have own analytics.'
-    },
-    {
-      id: 'faq-no-email',
-      category: 'notifications',
-      question: 'Why no email notifications?',
-      answer: 'Check: (1) Profile → Notifications enabled, (2) Spam/junk folder, (3) Add noreply@company.com to contacts, (4) Verify email correct, (5) Ask admin if SMTP configured. Test: Settings → Email → Send Test Email.'
-    },
-    {
-      id: 'faq-backup',
-      category: 'admin',
-      question: 'How do I backup the system?',
-      answer: 'Admin only: Settings → Backup → Create Backup Now. Creates ZIP with database and files. Download and store securely. Can schedule automatic backups (daily/weekly). Retained 30 days (configurable).'
-    },
-    {
-      id: 'faq-cant-login',
-      category: 'troubleshooting',
-      question: 'Cannot login - what to do?',
-      answer: 'Check: (1) Username/password correct (Caps Lock off), (2) Account not locked (wait 30min or contact admin), (3) Clear browser cache, (4) Try different browser, (5) Use "Forgot Password", (6) Contact admin if disabled.'
-    },
-    {
-      id: 'faq-upload-failed',
-      category: 'troubleshooting',
-      question: 'Why does file upload fail?',
-      answer: 'Common causes: (1) File too large (max 10MB), (2) Unsupported format (ZIP it first), (3) Internet issue, (4) Browser cache (clear it), (5) Too many files (max 5). Try: smaller files, different browser, one at a time.'
+      answer: 'Navigate to "My Tickets" in the sidebar. You\'ll see all your tickets with current status. Click any ticket for full details, comments, and history. You also receive email notifications for all status changes.'
     },
     {
       id: 'faq-mobile',
       category: 'general',
       question: 'Is there a mobile app?',
-      answer: 'Currently accessible via mobile browsers with responsive design. Interface adapts to phone/tablet screens. Dedicated mobile app planned for future. You can add web app to home screen for app-like experience.'
+      answer: 'The system is fully accessible via mobile browsers with responsive design. The interface adapts to phone and tablet screens. You can add the web app to your home screen for an app-like experience. A dedicated mobile app is planned for the future.'
     },
     {
       id: 'faq-browsers',
       category: 'general',
-      question: 'Which browsers supported?',
-      answer: 'Best on: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+. Keep browser updated for best experience. Mobile: iOS Safari, Android Chrome supported. Internet Explorer NOT supported.'
+      question: 'Which browsers are supported?',
+      answer: 'Best experience on: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+. Keep your browser updated for the best experience. Mobile: iOS Safari and Android Chrome are supported. Internet Explorer is NOT supported.'
+    },
+
+    // ── Tickets ──
+    {
+      id: 'faq-priority',
+      category: 'tickets',
+      question: 'Which priority should I choose?',
+      answer: 'Choose based on business impact: Critical = business stopped (4h resolution), High = major issue (8h), Medium = work affected (24h), Low = minor issue (48h). When in doubt, choose Medium — engineers can adjust if needed. Don\'t mark everything as Critical.'
+    },
+    {
+      id: 'faq-pending',
+      category: 'tickets',
+      question: 'What does "Pending" status mean?',
+      answer: 'Pending means the engineer needs information from YOU. Check the latest comment for what\'s needed. Important: The SLA timer PAUSES while the ticket is Pending, so respond quickly to resume progress on your ticket.'
+    },
+    {
+      id: 'faq-escalation',
+      category: 'tickets',
+      question: 'What happens when a ticket is escalated?',
+      answer: 'If a ticket isn\'t resolved within SLA time, it auto-escalates to the department manager. The manager reviews the ticket, may reassign it, and ensures resolution with priority attention. All stakeholders receive notifications. This prevents tickets from being forgotten.'
+    },
+    {
+      id: 'faq-reopen',
+      category: 'tickets',
+      question: 'Can I reopen a closed ticket?',
+      answer: 'Yes! If the issue returns within 30 days, open the closed ticket and click "Reopen". Add a comment explaining why it needs to be reopened. After 30 days, create a new ticket and reference the old ticket number.'
+    },
+    {
+      id: 'faq-attachments',
+      category: 'tickets',
+      question: 'What files can I attach to tickets?',
+      answer: 'Supported formats: PDF, Word (DOC/DOCX), Excel (XLS/XLSX), Images (JPG, PNG, GIF), Text (TXT, LOG), Archives (ZIP, RAR). Maximum 5 files per ticket, 10MB each. Executables (.exe, .bat) are blocked for security. Screenshots are highly encouraged for faster resolution!'
     },
     {
       id: 'faq-ticket-number',
       category: 'tickets',
-      question: 'What does ticket number mean?',
-      answer: 'Format: TKT-XXXXXX (e.g., TKT-001234). "TKT" prefix identifies as ticket. Six-digit number is sequential and unique. Use when emailing support, calling helpdesk, referencing related tickets, or searching.'
-    }
-  ],
+      question: 'What does the ticket number mean?',
+      answer: 'Ticket numbers follow the format TKT-YYYYMMDD-XXXX (e.g., TKT-20260222-0001). The prefix identifies it as a ticket, followed by the date and a sequential number. Use this number when emailing support, calling the helpdesk, or referencing related tickets.'
+    },
 
-  shortcuts: [
-    { key: 'Ctrl + K', description: 'Quick search help', mac: 'Cmd + K' },
-    { key: 'Ctrl + N', description: 'Create new ticket', mac: 'Cmd + N' },
-    { key: 'Ctrl + /', description: 'Show shortcuts', mac: 'Cmd + /' },
-    { key: 'Ctrl + Enter', description: 'Submit form/comment', mac: 'Cmd + Enter' },
-    { key: 'Ctrl + S', description: 'Save (editing)', mac: 'Cmd + S' },
-    { key: 'Esc', description: 'Close modal/cancel', mac: 'Esc' },
-    { key: 'Alt + 1-9', description: 'Navigate tabs', mac: 'Opt + 1-9' },
-    { key: '?', description: 'Show help', mac: '?' }
+    // ── Account ──
+    {
+      id: 'faq-password',
+      category: 'account',
+      question: 'How do I reset my password?',
+      answer: 'On the login page, click "Forgot Password". Enter your email, then check your inbox for a reset link (valid for 1 hour). Create a new password that\'s at least 8 characters with uppercase, lowercase, number, and special character. You cannot reuse your last 5 passwords.'
+    },
+    {
+      id: 'faq-2fa',
+      category: 'account',
+      question: 'How do I set up Two-Factor Authentication?',
+      answer: 'Go to Profile → Security → Two-Factor Authentication. Choose Email (codes via email) or Authenticator App (Google/Microsoft Authenticator). Follow the setup wizard, save your 10 backup codes securely, and enable. You\'ll need to verify on each login from new devices.'
+    },
+    {
+      id: 'faq-cant-login',
+      category: 'account',
+      question: 'I can\'t log in — what should I do?',
+      answer: 'Check: (1) Username and password are correct (Caps Lock off!), (2) Account isn\'t locked — wait 30 minutes or contact admin, (3) Clear browser cache and cookies, (4) Try a different browser, (5) Use "Forgot Password" to reset, (6) Contact your system administrator if account is disabled.'
+    },
+
+    // ── Notifications ──
+    {
+      id: 'faq-no-email',
+      category: 'notifications',
+      question: 'Why am I not receiving email notifications?',
+      answer: 'Check: (1) Profile → Notification Preferences are enabled, (2) Check your spam/junk folder, (3) Add noreply@company.com to your contacts, (4) Verify your email address is correct in your profile, (5) Ask admin if SMTP is configured. You can test with: Settings → Email → Send Test Email.'
+    },
+
+    // ── SLA ──
+    {
+      id: 'faq-sla-calc',
+      category: 'sla',
+      question: 'How is SLA time calculated?',
+      answer: 'SLA counts only business hours (Mon-Fri, 9AM-6PM IST) by default. The timer pauses outside business hours, on weekends/holidays, and when the ticket is in "Pending" status. Example: A High priority ticket (8h SLA) created Friday at 3PM uses 3 hours Friday, pauses over the weekend, then continues Monday at 9AM — making it due by Monday 2PM.'
+    },
+
+    // ── Admin ──
+    {
+      id: 'faq-backup',
+      category: 'admin',
+      question: 'How do I backup the system?',
+      answer: 'Admin only: Go to Settings → Backup → Create Backup Now. This creates a ZIP file with database and file backups. Download and store securely. You can schedule automatic backups (daily/weekly). Backups are retained for 30 days (configurable in settings).'
+    },
+
+    // ── Troubleshooting ──
+    {
+      id: 'faq-upload-failed',
+      category: 'troubleshooting',
+      question: 'Why does my file upload fail?',
+      answer: 'Common causes: (1) File is too large — maximum 10MB per file, (2) Unsupported file format — try zipping it first, (3) Internet connection unstable, (4) Browser cache issue — clear cache and retry, (5) Too many files — maximum 5 per ticket. Try: smaller files, different browser, or upload one at a time.'
+    },
+    {
+      id: 'faq-slow-system',
+      category: 'troubleshooting',
+      question: 'The helpdesk system is loading slowly — what should I do?',
+      answer: 'Try: (1) Refresh the page (F5 or Ctrl+R), (2) Clear browser cache (Ctrl+Shift+Delete), (3) Try a different browser, (4) Check your internet connection, (5) Disable browser extensions that might interfere, (6) Try an incognito/private window. If the issue persists for multiple users, contact your admin.'
+    }
   ],
 
   quickLinks: [
@@ -316,16 +441,22 @@ export const helpContent = {
   ],
 
   popularSearches: [
-    'How to create ticket',
-    'Ticket priorities',
+    'Create ticket',
     'Reset password',
+    'Ticket priorities',
     'SLA response times',
+    'Slow computer',
+    'WiFi not working',
+    'Outlook problems',
     'Attach files',
     'Enable 2FA',
-    'Auto-escalation',
-    'Email notifications',
-    'Backup system',
-    'Pending status'
+    'Printer offline'
+  ],
+
+  shortcuts: [
+    { key: 'Ctrl + K', description: 'Quick search', mac: 'Cmd + K' },
+    { key: 'Ctrl + N', description: 'New ticket', mac: 'Cmd + N' },
+    { key: 'Esc', description: 'Close modal', mac: 'Esc' }
   ]
 };
 

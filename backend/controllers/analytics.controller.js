@@ -43,10 +43,10 @@ const getOverview = async (req, res, next) => {
          WHERE ts.is_final_status = 1 ${dateFilter}) as closed_tickets,
         
         -- Average Resolution Time (in hours)
-        (SELECT AVG(DATEDIFF(HOUR, t.created_at, t.updated_at))
+        (SELECT AVG(DATEDIFF(HOUR, t.created_at, COALESCE(t.closed_at, t.resolved_at)))
          FROM tickets t
          INNER JOIN ticket_statuses ts ON t.status_id = ts.status_id
-         WHERE ts.is_final_status = 1 ${dateFilter}) as avg_resolution_hours,
+         WHERE ts.is_final_status = 1 AND (t.closed_at IS NOT NULL OR t.resolved_at IS NOT NULL) ${dateFilter}) as avg_resolution_hours,
         
         -- Active Users
         (SELECT COUNT(*) FROM users WHERE is_active = 1) as active_users,
@@ -160,8 +160,7 @@ const getTicketsByDepartment = async (req, res, next) => {
         SUM(CASE WHEN ts.is_final_status = 0 THEN 1 ELSE 0 END) as open_tickets,
         SUM(CASE WHEN ts.is_final_status = 1 THEN 1 ELSE 0 END) as closed_tickets
       FROM departments d
-      LEFT JOIN users u ON d.department_id = u.department_id
-      LEFT JOIN tickets t ON u.user_id = t.requester_id ${dateFilter ? 'AND 1=1 ' + dateFilter : ''}
+      LEFT JOIN tickets t ON d.department_id = t.department_id ${dateFilter ? 'AND 1=1 ' + dateFilter : ''}
       LEFT JOIN ticket_statuses ts ON t.status_id = ts.status_id
       WHERE d.is_active = 1
       GROUP BY d.department_name
@@ -308,8 +307,8 @@ const getTopEngineers = async (req, res, next) => {
           ELSE 0 
         END as resolution_rate,
         AVG(CASE 
-          WHEN ts.is_final_status = 1 
-          THEN DATEDIFF(HOUR, t.created_at, t.updated_at)
+          WHEN ts.is_final_status = 1 AND (t.closed_at IS NOT NULL OR t.resolved_at IS NOT NULL)
+          THEN DATEDIFF(HOUR, t.created_at, COALESCE(t.closed_at, t.resolved_at))
           ELSE NULL 
         END) as avg_resolution_hours
       FROM users u

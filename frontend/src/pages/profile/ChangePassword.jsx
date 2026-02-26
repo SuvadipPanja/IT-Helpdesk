@@ -61,10 +61,10 @@ const ChangePassword = () => {
         setLoadingPolicy(true);
         
         // ⭐ NEW: Use dedicated security endpoint
-        console.log('📍 Fetching security settings from /security/settings API...');
+        if (process.env.NODE_ENV === 'development') console.log('📍 Fetching security settings from /security/settings API...');
         const response = await api.get('/security/settings');
         
-        console.log('✅ Security settings response:', response.data);
+        if (process.env.NODE_ENV === 'development') console.log('✅ Security settings response:', response.data);
         
         if (response.data.success && response.data.data) {
           const settings = response.data.data;
@@ -81,11 +81,11 @@ const ChangePassword = () => {
           };
           
           setPasswordPolicy(policy);
-          console.log('✅ Password policy loaded:', policy);
-          console.log('✅ Password history count:', policy.historyCount);
+          if (process.env.NODE_ENV === 'development') console.log('✅ Password policy loaded:', policy);
+          if (process.env.NODE_ENV === 'development') console.log('✅ Password history count:', policy.historyCount);
         }
       } catch (err) {
-        console.error('❌ Error fetching password policy:', err);
+        if (process.env.NODE_ENV === 'development') console.error('❌ Error fetching password policy:', err);
         // Fallback to defaults
         setPasswordPolicy({
           minLength: 8,

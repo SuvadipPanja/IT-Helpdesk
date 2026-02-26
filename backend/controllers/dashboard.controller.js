@@ -1,8 +1,7 @@
 // ============================================
-// Dashboard Controller
-// Handles dashboard statistics and metrics
-// FIXED: All permission checks now use req.user.permissions
-// ADDED: SLA Statistics Calculation
+// Dashboard Controller — Enhanced v2
+// Production-ready with parameterized queries,
+// consolidated SQL, trend data, and activity feed
 // ============================================
 
 const { executeQuery } = require('../config/database');
@@ -10,267 +9,234 @@ const { createResponse } = require('../utils/helpers');
 const logger = require('../utils/logger');
 
 /**
- * Get Dashboard Statistics
+ * Get Dashboard Statistics — Enhanced
  * @route GET /api/v1/dashboard/stats
  * @access Private
  */
 const getDashboardStats = async (req, res, next) => {
   try {
     const userId = req.user.user_id;
-    
-    // ✅ FIXED: Use req.user.permissions
     const canViewAll = req.user.permissions?.can_view_all_tickets || false;
 
-    logger.separator('DASHBOARD STATS REQUEST');
-    logger.try('Fetching dashboard statistics', {
-      userId,
-      username: req.user.username,
-      canViewAll,
-    });
+    logger.info('Fetching dashboard statistics', { userId, canViewAll });
 
-    // Base where clause for ticket filtering based on permissions
-    const ticketFilter = canViewAll 
-      ? '1=1' // Admin/Manager can see all tickets
-      : `(t.requester_id = ${userId} OR t.assigned_to = ${userId})`; // User sees only their tickets
+    // ── Build safe ticket filter ──
+    const ticketWhere = canViewAll
+      ? '1=1'
+      : '(t.requester_id = @userId OR t.assigned_to = @userId)';
 
-    // Query 1: Total Tickets Count
-    logger.try('Calculating total tickets');
-    const totalTicketsQuery = `
-      SELECT COUNT(*) as total_count
-      FROM tickets t
-      WHERE ${ticketFilter}
-    `;
-    const totalTicketsResult = await executeQuery(totalTicketsQuery);
-    const totalTickets = totalTicketsResult.recordset[0].total_count;
+    const params = [{ name: 'userId', type: 'Int', value: userId }];
 
-    logger.success('Total tickets calculated', { count: totalTickets });
-
-    // Query 2: Tickets by Status
-    logger.try('Calculating tickets by status');
-    const statusQuery = `
-      SELECT 
+    // ── CONSOLIDATED QUERY: Summary + Status + Priority + SLA (server-side) ──
+    const mainQuery = `
+      -- 1) Ticket status counts
+      SELECT
         ts.status_code,
         ts.status_name,
-        COUNT(t.ticket_id) as count
+        COUNT(t.ticket_id) AS cnt
       FROM ticket_statuses ts
-      LEFT JOIN tickets t ON ts.status_id = t.status_id 
-        AND ${ticketFilter}
+      LEFT JOIN tickets t ON ts.status_id = t.status_id AND ${ticketWhere}
       WHERE ts.is_active = 1
       GROUP BY ts.status_code, ts.status_name, ts.status_id
-      ORDER BY ts.status_id
-    `;
-    const statusResult = await executeQuery(statusQuery);
+      ORDER BY ts.status_id;
 
-    // Extract counts for each status
-    const statusMap = {};
-    statusResult.recordset.forEach(row => {
-      statusMap[row.status_code] = row.count;
-    });
+      -- 2) Priority distribution
+      SELECT
+        tp.priority_code,
+        tp.priority_name,
+        COUNT(t.ticket_id) AS cnt
+      FROM ticket_priorities tp
+      LEFT JOIN tickets t ON tp.priority_id = t.priority_id AND ${ticketWhere}
+      WHERE ISNULL(tp.is_active, 1) = 1
+      GROUP BY tp.priority_code, tp.priority_name, tp.priority_level
+      ORDER BY tp.priority_level DESC;
 
-    const openTickets = statusMap['OPEN'] || 0;
-    const inProgressTickets = statusMap['IN_PROGRESS'] || 0;
-    const pendingTickets = statusMap['PENDING'] || 0;
-    const onHoldTickets = statusMap['ON_HOLD'] || 0;
-    const resolvedTickets = statusMap['RESOLVED'] || 0;
-    const closedTickets = statusMap['CLOSED'] || 0;
-    const cancelledTickets = statusMap['CANCELLED'] || 0;
+      -- 3) SLA summary (computed in SQL, no JS loop)
+      SELECT
+        SUM(CASE WHEN sla_status = 'OK' THEN 1 ELSE 0 END)       AS on_track,
+        SUM(CASE WHEN sla_status = 'WARNING' THEN 1 ELSE 0 END)  AS at_risk,
+        SUM(CASE WHEN sla_status = 'BREACHED' THEN 1 ELSE 0 END) AS breached,
+        SUM(CASE WHEN sla_status = 'NO_SLA' THEN 1 ELSE 0 END)   AS no_sla,
+        COUNT(*) AS total
+      FROM (
+        SELECT
+          CASE
+            WHEN t.due_date IS NULL THEN 'NO_SLA'
+            WHEN GETDATE() > t.due_date AND ts2.is_final_status = 0 THEN 'BREACHED'
+            WHEN ts2.is_final_status = 1 AND t.resolved_at IS NOT NULL AND t.resolved_at <= t.due_date THEN 'OK'
+            WHEN ts2.is_final_status = 1 AND t.resolved_at IS NOT NULL AND t.resolved_at > t.due_date THEN 'BREACHED'
+            WHEN DATEDIFF(SECOND, t.created_at, GETDATE()) >= DATEDIFF(SECOND, t.created_at, t.due_date) * 0.8 THEN 'WARNING'
+            ELSE 'OK'
+          END AS sla_status
+        FROM tickets t
+        INNER JOIN ticket_statuses ts2 ON t.status_id = ts2.status_id
+        WHERE ${ticketWhere}
+      ) sla;
 
-    logger.success('Status counts calculated', {
-      open: openTickets,
-      inProgress: inProgressTickets,
-      pending: pendingTickets,
-      onHold: onHoldTickets,
-      resolved: resolvedTickets,
-      closed: closedTickets,
-      cancelled: cancelledTickets,
-    });
-
-    // Query 3: Escalated Tickets
-    logger.try('Calculating escalated tickets');
-    const escalatedQuery = `
-      SELECT COUNT(*) as count
-      FROM tickets t
-      WHERE ${ticketFilter}
-        AND t.is_escalated = 1
-        AND t.status_id NOT IN (
-          SELECT status_id FROM ticket_statuses WHERE is_final_status = 1
-        )
-    `;
-    const escalatedResult = await executeQuery(escalatedQuery);
-    const escalatedTickets = escalatedResult.recordset[0].count;
-    
-    logger.success('Escalated tickets calculated', { count: escalatedTickets });
-
-    // Query 4: Total Active Users (only for users with view all permission)
-    let totalUsers = 0;
-    if (canViewAll) {
-      logger.try('Calculating total active users');
-      const usersQuery = `
-        SELECT COUNT(*) as user_count
-        FROM users
-        WHERE is_active = 1
-      `;
-      const usersResult = await executeQuery(usersQuery);
-      totalUsers = usersResult.recordset[0].user_count;
-      logger.success('Total users calculated', { count: totalUsers });
-    }
-
-    // ============================================
-    // NEW: SLA STATISTICS CALCULATION
-    // ============================================
-    logger.try('Calculating SLA statistics');
-    
-    const slaQuery = `
-      SELECT 
-        t.ticket_id,
-        t.ticket_number,
-        t.created_at,
-        t.due_date,
-        t.resolved_at,
-        t.sla_breach_notified_at,
-        ts.is_final_status,
-        CASE
-          WHEN t.due_date IS NULL THEN 'NO_SLA'
-          WHEN GETDATE() > t.due_date AND ts.is_final_status = 0 THEN 'BREACHED'
-          WHEN ts.is_final_status = 1 AND t.resolved_at IS NOT NULL AND t.resolved_at <= t.due_date THEN 'OK'
-          WHEN ts.is_final_status = 1 AND t.resolved_at IS NOT NULL AND t.resolved_at > t.due_date THEN 'BREACHED'
-          WHEN DATEDIFF(SECOND, t.created_at, GETDATE()) >= DATEDIFF(SECOND, t.created_at, t.due_date) * 0.8 THEN 'WARNING'
-          ELSE 'OK'
-        END as sla_status,
-        CASE
-          WHEN t.due_date IS NULL THEN 0
-          WHEN ts.is_final_status = 1 AND t.resolved_at IS NOT NULL 
-            THEN (CAST(DATEDIFF(SECOND, t.created_at, t.resolved_at) AS FLOAT) / NULLIF(DATEDIFF(SECOND, t.created_at, t.due_date), 0)) * 100
-          ELSE (CAST(DATEDIFF(SECOND, t.created_at, GETDATE()) AS FLOAT) / NULLIF(DATEDIFF(SECOND, t.created_at, t.due_date), 0)) * 100
-        END as sla_percentage
+      -- 4) Escalated count (open only)
+      SELECT COUNT(*) AS cnt
       FROM tickets t
       INNER JOIN ticket_statuses ts ON t.status_id = ts.status_id
-      WHERE ${ticketFilter}
-    `;
+      WHERE ${ticketWhere}
+        AND t.is_escalated = 1
+        AND ts.is_final_status = 0;
 
-    const slaResult = await executeQuery(slaQuery);
-    
-    // Calculate SLA metrics
-    let onTrack = 0;
-    let atRisk = 0;
-    let breached = 0;
-    let noSla = 0;
+      -- 5) My assigned (open)
+      SELECT COUNT(*) AS cnt
+      FROM tickets t
+      INNER JOIN ticket_statuses ts ON t.status_id = ts.status_id
+      WHERE t.assigned_to = @userId AND ts.is_final_status = 0;
 
-    slaResult.recordset.forEach(ticket => {
-      switch(ticket.sla_status) {
-        case 'OK':
-          onTrack++;
-          break;
-        case 'WARNING':
-          atRisk++;
-          break;
-        case 'BREACHED':
-          breached++;
-          break;
-        case 'NO_SLA':
-          noSla++;
-          break;
-      }
-    });
+      -- 6) Total active users (admins only)
+      SELECT COUNT(*) AS cnt FROM users WHERE is_active = 1;
 
-    const totalWithSla = onTrack + atRisk + breached;
-    const compliant = onTrack + atRisk;
-    const complianceRate = totalWithSla > 0 ? ((compliant / totalWithSla) * 100).toFixed(1) : 0;
-
-    const slaStats = {
-      onTrack,
-      atRisk,
-      breached,
-      noSla,
-      total: slaResult.recordset.length,
-      complianceRate: parseFloat(complianceRate)
-    };
-
-    logger.success('SLA statistics calculated', slaStats);
-    // ============================================
-    // END SLA CALCULATION
-    // ============================================
-
-    // Query 5: Recent Tickets (last 5)
-    logger.try('Fetching recent tickets');
-    const recentTicketsQuery = `
-      SELECT TOP 5
+      -- 7) Recent tickets (last 10)
+      SELECT TOP 10
         t.ticket_id,
         t.ticket_number,
-        t.subject as title,
+        t.subject,
         t.created_at,
+        t.due_date,
         tc.category_name,
         tp.priority_name,
         tp.priority_code,
         ts.status_name,
         ts.status_code,
-        u.first_name + ' ' + u.last_name as requester_name
+        u.first_name + ' ' + u.last_name AS requester_name,
+        a.first_name + ' ' + a.last_name AS assigned_name
       FROM tickets t
       LEFT JOIN ticket_categories tc ON t.category_id = tc.category_id
       LEFT JOIN ticket_priorities tp ON t.priority_id = tp.priority_id
       LEFT JOIN ticket_statuses ts ON t.status_id = ts.status_id
       LEFT JOIN users u ON t.requester_id = u.user_id
-      WHERE ${ticketFilter}
-      ORDER BY t.created_at DESC
-    `;
-    const recentTicketsResult = await executeQuery(recentTicketsQuery);
+      LEFT JOIN users a ON t.assigned_to = a.user_id
+      WHERE ${ticketWhere}
+      ORDER BY t.created_at DESC;
 
-    logger.success('Recent tickets fetched', {
-      count: recentTicketsResult.recordset.length,
-    });
-
-    // Query 6: Tickets by Priority
-    logger.try('Calculating tickets by priority');
-    const priorityQuery = `
-      SELECT 
-        tp.priority_code,
-        tp.priority_name,
-        COUNT(t.ticket_id) as count
-      FROM ticket_priorities tp
-      LEFT JOIN tickets t ON tp.priority_id = t.priority_id 
-        AND ${ticketFilter}
-      WHERE tp.is_active = 1
-      GROUP BY tp.priority_code, tp.priority_name, tp.priority_level
-      ORDER BY tp.priority_level DESC
-    `;
-    const priorityResult = await executeQuery(priorityQuery);
-
-    logger.success('Priority counts calculated');
-
-    // Query 7: My Assigned Tickets (for current user)
-    logger.try('Calculating my assigned tickets');
-    const myAssignedQuery = `
-      SELECT COUNT(*) as count
+      -- 8) Ticket trend — last 7 days
+      SELECT
+        CAST(t.created_at AS DATE) AS date_key,
+        COUNT(*)                   AS created_count,
+        SUM(CASE WHEN ts.is_final_status = 1 THEN 1 ELSE 0 END) AS closed_count
       FROM tickets t
-      WHERE t.assigned_to = ${userId}
-        AND t.status_id NOT IN (
-          SELECT status_id FROM ticket_statuses WHERE is_final_status = 1
-        )
+      INNER JOIN ticket_statuses ts ON t.status_id = ts.status_id
+      WHERE t.created_at >= DATEADD(DAY, -6, CAST(GETDATE() AS DATE))
+        AND ${ticketWhere}
+      GROUP BY CAST(t.created_at AS DATE)
+      ORDER BY date_key;
+
+      -- 9) Department distribution (open tickets)
+      SELECT
+        d.department_name,
+        COUNT(t.ticket_id) AS cnt
+      FROM departments d
+      LEFT JOIN tickets t ON d.department_id = t.department_id AND ${ticketWhere}
+        AND t.status_id IN (SELECT status_id FROM ticket_statuses WHERE is_final_status = 0)
+      WHERE ISNULL(d.is_active, 1) = 1
+      GROUP BY d.department_name
+      HAVING COUNT(t.ticket_id) > 0
+      ORDER BY cnt DESC;
+
+      -- 10) Top performers (last 30 days)
+      SELECT TOP 5
+        u.first_name + ' ' + u.last_name AS agent_name,
+        COUNT(t.ticket_id) AS resolved_count,
+        AVG(DATEDIFF(HOUR, t.created_at, COALESCE(t.closed_at, t.resolved_at))) AS avg_hours
+      FROM users u
+      INNER JOIN tickets t ON u.user_id = t.assigned_to
+      INNER JOIN ticket_statuses ts ON t.status_id = ts.status_id
+      WHERE ts.is_final_status = 1
+        AND (t.closed_at IS NOT NULL OR t.resolved_at IS NOT NULL)
+        AND t.created_at >= DATEADD(DAY, -30, GETDATE())
+      GROUP BY u.first_name, u.last_name
+      HAVING COUNT(t.ticket_id) > 0
+      ORDER BY resolved_count DESC;
     `;
-    const myAssignedResult = await executeQuery(myAssignedQuery);
-    const myAssignedTickets = myAssignedResult.recordset[0].count;
 
-    logger.success('My assigned tickets calculated', { count: myAssignedTickets });
+    const result = await executeQuery(mainQuery, params);
 
-    // Compile dashboard data
+    // ── Parse recordsets ──
+    const statusRows      = result.recordsets[0];
+    const priorityRows    = result.recordsets[1];
+    const slaRow          = result.recordsets[2][0];
+    const escalatedCount  = result.recordsets[3][0]?.cnt || 0;
+    const myAssigned      = result.recordsets[4][0]?.cnt || 0;
+    const totalUsers      = result.recordsets[5][0]?.cnt || 0;
+    const recentTickets   = result.recordsets[6];
+    const trendRows       = result.recordsets[7];
+    const deptRows        = result.recordsets[8];
+    const topPerformers   = result.recordsets[9];
+
+    // ── Build status map ──
+    const statusMap = {};
+    let totalTickets = 0;
+    statusRows.forEach(r => { statusMap[r.status_code] = r.cnt; totalTickets += r.cnt; });
+
+    // ── SLA compliance ──
+    const onTrack  = slaRow?.on_track  || 0;
+    const atRisk   = slaRow?.at_risk   || 0;
+    const breached = slaRow?.breached  || 0;
+    const noSla    = slaRow?.no_sla    || 0;
+    const totalWithSla = onTrack + atRisk + breached;
+    const complianceRate = totalWithSla > 0
+      ? parseFloat(((onTrack + atRisk) / totalWithSla * 100).toFixed(1))
+      : 0;
+
+    // ── Fill 7-day trend (fill missing dates with 0) ──
+    const trend = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().slice(0, 10);
+      const row = trendRows.find(r => {
+        const rKey = new Date(r.date_key).toISOString().slice(0, 10);
+        return rKey === key;
+      });
+      trend.push({
+        date: key,
+        day: d.toLocaleDateString('en-US', { weekday: 'short' }),
+        created: row?.created_count || 0,
+        closed: row?.closed_count || 0,
+      });
+    }
+
+    // ── Compute comparison vs yesterday ──
+    const todayCreated = trend[trend.length - 1]?.created || 0;
+    const yesterdayCreated = trend[trend.length - 2]?.created || 0;
+    const trendDirection = todayCreated > yesterdayCreated ? 'up' :
+                           todayCreated < yesterdayCreated ? 'down' : 'flat';
+    const trendPercent = yesterdayCreated > 0
+      ? Math.round(Math.abs(todayCreated - yesterdayCreated) / yesterdayCreated * 100)
+      : 0;
+
+    // ── Build response ──
     const dashboardData = {
       summary: {
         totalTickets,
-        openTickets,
-        inProgressTickets,
-        pendingTickets,
-        onHoldTickets,
-        resolvedTickets,
-        closedTickets,
-        cancelledTickets,
-        escalatedTickets,
-        totalUsers: canViewAll ? totalUsers : null, // Only show for admin/manager
-        myAssignedTickets,
-        slaStats, // ✅ NEW: SLA statistics
+        openTickets: statusMap['OPEN'] || 0,
+        inProgressTickets: statusMap['IN_PROGRESS'] || 0,
+        pendingTickets: statusMap['PENDING'] || 0,
+        onHoldTickets: statusMap['ON_HOLD'] || 0,
+        closedTickets: (statusMap['CLOSED'] || 0) + (statusMap['RESOLVED'] || 0),
+        cancelledTickets: statusMap['CANCELLED'] || 0,
+        escalatedTickets: escalatedCount,
+        totalUsers: canViewAll ? totalUsers : null,
+        myAssignedTickets: myAssigned,
+        slaStats: { onTrack, atRisk, breached, noSla, total: slaRow?.total || 0, complianceRate },
+        trendDirection,
+        trendPercent,
+        todayCreated,
       },
-      recentTickets: recentTicketsResult.recordset,
-      ticketsByStatus: statusResult.recordset,
-      ticketsByPriority: priorityResult.recordset,
+      recentTickets,
+      ticketsByStatus: statusRows.map(r => ({ label: r.status_name, value: r.cnt, code: r.status_code })),
+      ticketsByPriority: priorityRows.map(r => ({ label: r.priority_name, value: r.cnt, code: r.priority_code })),
+      trend,
+      departmentLoad: deptRows.map(r => ({ name: r.department_name, count: r.cnt })),
+      topPerformers: topPerformers.map(r => ({
+        name: r.agent_name,
+        resolved: r.resolved_count,
+        avgHours: Math.round(r.avg_hours || 0),
+      })),
       userPermissions: {
         canViewAll,
         canCreateTickets: req.user.permissions?.can_create_tickets || false,
@@ -279,76 +245,62 @@ const getDashboardStats = async (req, res, next) => {
       },
     };
 
-    logger.separator('DASHBOARD STATS SUCCESS');
-    logger.success('Dashboard statistics compiled successfully', {
-      userId,
-      username: req.user.username,
-      totalTickets,
-      slaCompliance: complianceRate + '%',
-    });
-    logger.separator();
+    logger.success('Dashboard stats fetched');
 
     return res.status(200).json(
       createResponse(true, 'Dashboard statistics fetched successfully', dashboardData)
     );
-
   } catch (error) {
     logger.error('Dashboard stats error', error);
-    logger.separator();
     next(error);
   }
 };
 
 /**
- * Get User Activity Summary
+ * Get Recent Activity Feed
  * @route GET /api/v1/dashboard/activity
  * @access Private
  */
 const getUserActivity = async (req, res, next) => {
   try {
     const userId = req.user.user_id;
-    
-    // ✅ FIXED: Use req.user.permissions
     const canViewAll = req.user.permissions?.can_view_all_tickets || false;
+    const limit = Math.min(parseInt(req.query.limit) || 15, 50);
 
-    logger.try('Fetching user activity summary', { userId });
+    const filter = canViewAll
+      ? '1=1'
+      : '(t.requester_id = @userId OR t.assigned_to = @userId)';
 
-    const activityQuery = `
-      SELECT TOP 10
+    const query = `
+      SELECT TOP (@limit)
         ta.activity_id,
         ta.activity_type,
         ta.description,
         ta.performed_at,
-        ta.performed_by,
-        u.first_name + ' ' + u.last_name as performed_by_name,
+        u.first_name + ' ' + u.last_name AS performed_by_name,
         t.ticket_number,
-        t.subject as ticket_subject
+        t.subject AS ticket_subject
       FROM ticket_activities ta
       INNER JOIN tickets t ON ta.ticket_id = t.ticket_id
       INNER JOIN users u ON ta.performed_by = u.user_id
-      WHERE ${canViewAll ? '1=1' : `(t.requester_id = ${userId} OR t.assigned_to = ${userId})`}
+      WHERE ${filter}
       ORDER BY ta.performed_at DESC
     `;
 
-    const result = await executeQuery(activityQuery);
-
-    logger.success('User activity fetched', {
-      count: result.recordset.length,
-    });
+    const result = await executeQuery(query, [
+      { name: 'userId', type: 'Int', value: userId },
+      { name: 'limit', type: 'Int', value: limit },
+    ]);
 
     return res.status(200).json(
-      createResponse(true, 'Activity summary fetched successfully', result.recordset)
+      createResponse(true, 'Activity feed fetched successfully', result.recordset)
     );
-
   } catch (error) {
     logger.error('User activity error', error);
     next(error);
   }
 };
 
-// ============================================
-// EXPORT ALL FUNCTIONS
-// ============================================
 module.exports = {
   getDashboardStats,
   getUserActivity,

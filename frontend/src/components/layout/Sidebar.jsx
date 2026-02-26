@@ -240,6 +240,11 @@ const NavSection = memo(({ title, items, onItemClick, currentPath }) => {
 
   const sectionId = `nav-section-${title.toLowerCase().replace(/\s+/g, '-')}`;
 
+  // Only render if there are items to display
+  if (!items || items.length === 0) {
+    return null;
+  }
+
   return (
     <div 
       className="nav-section" 
@@ -274,16 +279,14 @@ NavSection.propTypes = {
   currentPath: PropTypes.string
 };
 
-NavSection.defaultProps = {
-  onItemClick: null,
-  currentPath: ''
-};
-
 // ============================================
 // SIDEBAR HEADER COMPONENT (Memoized)
 // Displays system branding
 // ============================================
-const SidebarHeader = memo(({ systemName, systemTitle }) => (
+const SidebarHeader = memo(({ 
+  systemName = DEFAULT_SETTINGS.systemName, 
+  systemTitle = DEFAULT_SETTINGS.systemTitle 
+}) => (
   <div className="sidebar-header">
     <div className="sidebar-logo">
       <div className="logo-icon-sidebar" aria-hidden="true">
@@ -302,11 +305,6 @@ SidebarHeader.displayName = 'SidebarHeader';
 SidebarHeader.propTypes = {
   systemName: PropTypes.string,
   systemTitle: PropTypes.string
-};
-
-SidebarHeader.defaultProps = {
-  systemName: DEFAULT_SETTINGS.systemName,
-  systemTitle: DEFAULT_SETTINGS.systemTitle
 };
 
 // ============================================
@@ -332,10 +330,6 @@ const SidebarError = memo(({ onRetry }) => (
 
 SidebarError.displayName = 'SidebarError';
 
-SidebarError.propTypes = {
-  onRetry: PropTypes.func
-};
-
 SidebarError.defaultProps = {
   onRetry: null
 };
@@ -343,7 +337,7 @@ SidebarError.defaultProps = {
 // ============================================
 // MAIN SIDEBAR COMPONENT
 // ============================================
-const Sidebar = ({ isOpen, toggleSidebar }) => {
+const Sidebar = ({ isOpen = false, toggleSidebar = () => {} }) => {
   // ----------------------------------------
   // HOOKS
   // ----------------------------------------
@@ -542,14 +536,6 @@ Sidebar.propTypes = {
   isOpen: PropTypes.bool,
   /** Callback to toggle sidebar open/closed state */
   toggleSidebar: PropTypes.func
-};
-
-// ============================================
-// DEFAULT PROPS
-// ============================================
-Sidebar.defaultProps = {
-  isOpen: false,
-  toggleSidebar: () => {}
 };
 
 // ============================================

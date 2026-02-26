@@ -246,7 +246,8 @@ app.get('/', (req, res) => {
       emailTemplates: `${config.apiPrefix}/email-templates`,
       ticketApprovals: `${config.apiPrefix}/ticket-approvals`,
       twoFactor: `${config.apiPrefix}/2fa`, // ⭐ NEW: 2FA endpoint
-      backup: `${config.apiPrefix}/backup` // 💾 NEW: Backup endpoint
+      backup: `${config.apiPrefix}/backup`, // 💾 NEW: Backup endpoint
+      ai: `${config.apiPrefix}/ai` // 🤖 NEW: AI Assistant endpoint
     }
   });
 });
@@ -277,6 +278,7 @@ const emailTemplatesRoutes = require('./routes/emailTemplates.routes');
 const ticketApprovalsRoutes = require('./routes/ticketApprovals.routes');
 const twoFactorRoutes = require('./routes/twoFactor.routes'); // ⭐ NEW: Two-Factor Authentication routes
 const backupRoutes = require('./routes/backup.routes'); // 💾 NEW: Backup routes
+const aiRoutes = require('./routes/ai.routes'); // 🤖 NEW: AI Assistant routes
 
 // Register routes
 app.use(`${config.apiPrefix}/auth`, authRoutes);
@@ -298,6 +300,7 @@ app.use(`${config.apiPrefix}/email-templates`, emailTemplatesRoutes);
 app.use(`${config.apiPrefix}/ticket-approvals`, ticketApprovalsRoutes);
 app.use(`${config.apiPrefix}/2fa`, twoFactorRoutes); // ⭐ NEW: Two-Factor Authentication route registration
 app.use(`${config.apiPrefix}/backup`, backupRoutes); // 💾 NEW: Backup route registration
+app.use(`${config.apiPrefix}/ai`, aiRoutes); // 🤖 NEW: AI Assistant route registration
 
 logger.success('API routes initialized', { 
   prefix: config.apiPrefix,
@@ -320,7 +323,8 @@ logger.success('API routes initialized', {
     'email-templates',
     'ticket-approvals',
     '2fa', // ⭐ NEW: Added 2FA to routes list
-    'backup' // 💾 NEW: Added backup to routes list
+    'backup', // 💾 NEW: Added backup to routes list
+    'ai' // 🤖 NEW: Added AI to routes list
   ]
 });
 

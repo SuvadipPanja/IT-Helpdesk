@@ -469,7 +469,7 @@ const TicketDetail = () => {
   // Uses axios to fetch file with auth headers, then triggers browser download
   const handleDownloadAttachment = async (attachmentId, fileName) => {
     try {
-      console.log('📥 Downloading attachment:', { attachmentId, fileName });
+      if (process.env.NODE_ENV === 'development') console.log('📥 Downloading attachment:', { attachmentId, fileName });
 
       // Fetch file as blob with authentication
       const response = await api.get(
@@ -479,7 +479,7 @@ const TicketDetail = () => {
         }
       );
 
-      console.log('✅ File fetched successfully');
+      if (process.env.NODE_ENV === 'development') console.log('✅ File fetched successfully');
 
       // Create a temporary URL for the blob
       const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -497,7 +497,7 @@ const TicketDetail = () => {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
 
-      console.log('✅ Download triggered successfully');
+      if (process.env.NODE_ENV === 'development') console.log('✅ Download triggered successfully');
       toast.success(`Downloading ${attachment.original_name}...`);
     } catch (error) {
       console.error('❌ Error downloading attachment:', error);
