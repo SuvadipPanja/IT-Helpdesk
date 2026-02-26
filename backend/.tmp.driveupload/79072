@@ -3674,3 +3674,22 @@
 2026-02-26 15:00:03.921 [WARN] [SYSTEM] ⚠️ ⚠️ Warnings: 0 tickets (threshold: 90%)
 2026-02-26 15:00:03.921 [INFO] [SYSTEM] ℹ️ ⏱️ Duration: 42ms
 2026-02-26 15:00:03.921 [ERROR] 🚨 🔴 Breaches: 7 tickets
+2026-02-26 15:00:27.104 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 15:00:27.105 [DEBUG] 🐛 Request Body | {
+2026-02-26 15:00:27.107 [TRY] [OPERATION] 🔄 User attempting to login | {
+2026-02-26 15:00:27.107 [TRY] [OPERATION] 🔄 Checking if user exists in database
+2026-02-26 15:00:27.116 [SUCCESS] [OPERATION] ✅ User account is active
+2026-02-26 15:00:27.116 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-26 15:00:27.116 [SUCCESS] [OPERATION] ✅ User found in database | {
+2026-02-26 15:00:27.119 [SUCCESS] [OPERATION] ✅ Account is not locked
+2026-02-26 15:00:27.119 [TRY] [OPERATION] 🔄 Verifying password
+2026-02-26 15:00:27.198 [WARN] [SYSTEM] ⚠️ Password comparison completed - No match
+2026-02-26 15:00:27.119 [TRY] [OPERATION] 🔄 Comparing password with hash
+2026-02-26 15:00:27.212 [WARN] [SYSTEM] ⚠️ Login failed - Invalid password | {
+2026-02-26 15:00:27.211 [INFO] [SYSTEM] ℹ️ Failed login attempt recorded | {
+2026-02-26 15:00:27.223 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-02-26 15:00:27.217 [WARN] [SYSTEM] ⚠️ Failed login attempt logged | {
+2026-02-26 15:00:27.364 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-26 15:00:27.366 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-26 15:00:27.367 [WARN] [SYSTEM] ⚠️ 📤 Response Sent | {
+2026-02-26 15:00:27.366 [WARN] [SYSTEM] ⚠️ Authentication failed - No token provided | {
