@@ -3961,3 +3961,15 @@
 2026-02-27 00:11:47.446 [TRY] [OPERATION] 🔄 Fetching ticket details | {
 2026-02-27 00:11:47.467 [SUCCESS] [OPERATION] ✅ Ticket details fetched successfully | {
 2026-02-27 00:11:47.475 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
+2026-02-27 00:11:51.391 [INFO] [SYSTEM] ℹ️ 📥 Incoming Request | {
+2026-02-27 00:11:51.392 [TRY] [OPERATION] 🔄 Authenticating request | {
+2026-02-27 00:11:51.392 [TRY] [OPERATION] 🔄 Verifying JWT token
+2026-02-27 00:11:51.394 [SUCCESS] [OPERATION] ✅ JWT token verified successfully | {
+2026-02-27 00:11:51.401 [TRY] [OPERATION] 🔄 Checking user session validity | {
+2026-02-27 00:11:51.407 [TRY] [OPERATION] 🔄 Checking session timeout
+2026-02-27 00:11:51.427 [TRY] [OPERATION] 🔄 Checking account lockout status
+2026-02-27 00:11:51.438 [TRY] [OPERATION] 🔄 Fetching user details with permissions | {
+2026-02-27 00:11:51.441 [TRY] [OPERATION] 🔄 Checking password expiry
+2026-02-27 00:11:51.444 [INFO] [SYSTEM] ℹ️ 🔐 User permissions loaded | {
+2026-02-27 00:11:51.449 [SUCCESS] [OPERATION] ✅ ✅ User authenticated successfully | {
+2026-02-27 00:11:51.460 [SUCCESS] [OPERATION] ✅ 📤 Response Sent | {
