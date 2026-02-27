@@ -396,10 +396,10 @@ const deleteDepartment = async (req, res, next) => {
     const checkQuery = `
       SELECT department_id 
       FROM departments 
-      WHERE department_id = ${departmentId}
+      WHERE department_id = @departmentId
     `;
 
-    const checkResult = await executeQuery(checkQuery);
+    const checkResult = await executeQuery(checkQuery, { departmentId });
 
     if (checkResult.recordset.length === 0) {
       return res.status(404).json(
