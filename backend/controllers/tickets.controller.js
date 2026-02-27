@@ -108,8 +108,10 @@ const getTickets = async (req, res, next) => {
     const totalRecords = countResult.recordset[0].total;
 
     // Fetch tickets
-    const sortBy = req.query.sortBy || 'created_at';
-    const sortOrder = req.query.sortOrder || 'DESC';
+    // Validate sortBy against allowed columns to prevent SQL injection
+    const allowedSortColumns = ['created_at', 'updated_at', 'ticket_number', 'subject', 'due_date', 'priority_id', 'status_id'];
+    const sortBy = allowedSortColumns.includes(req.query.sortBy) ? req.query.sortBy : 'created_at';
+    const sortOrder = req.query.sortOrder === 'ASC' ? 'ASC' : 'DESC';
 
     const ticketsQuery = `
       SELECT 

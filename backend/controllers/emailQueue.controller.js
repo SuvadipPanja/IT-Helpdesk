@@ -104,9 +104,12 @@ const getEmailQueue = async (req, res, next) => {
       LEFT JOIN users u ON eq.recipient_user_id = u.user_id
       ${whereClause}
       ORDER BY eq.created_at DESC
-      OFFSET ${offset} ROWS
-      FETCH NEXT ${limit} ROWS ONLY
+      OFFSET @offset ROWS
+      FETCH NEXT @pageLimit ROWS ONLY
     `;
+
+    params.offset = offset;
+    params.pageLimit = parseInt(limit);
 
     const dataResult = await executeQuery(dataQuery, params);
 

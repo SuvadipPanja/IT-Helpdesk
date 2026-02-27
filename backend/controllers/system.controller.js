@@ -315,10 +315,15 @@ const getDashboardStats = async (req, res, next) => {
       canViewAll,
     });
 
-    // Base where clause for ticket filtering
-    const whereClause = canViewAll 
-      ? '1=1' 
-      : `(t.requester_id = ${userId} OR t.assigned_to = ${userId})`;
+    // Base where clause for ticket filtering - parameterized
+    const params = {};
+    let whereClause;
+    if (canViewAll) {
+      whereClause = '1=1';
+    } else {
+      whereClause = '(t.requester_id = @userId OR t.assigned_to = @userId)';
+      params.userId = userId;
+    }
 
     const query = `
       -- Total tickets
@@ -338,10 +343,10 @@ const getDashboardStats = async (req, res, next) => {
          WHERE ${whereClause} AND ts.status_type = 'RESOLVED') as resolved_tickets,
         
         (SELECT COUNT(*) FROM tickets t 
-         WHERE ${whereClause} AND t.assigned_to = ${userId}) as assigned_to_me,
+         WHERE ${whereClause} AND t.assigned_to = @currentUserId) as assigned_to_me,
         
         (SELECT COUNT(*) FROM tickets t 
-         WHERE ${whereClause} AND t.requester_id = ${userId}) as created_by_me,
+         WHERE ${whereClause} AND t.requester_id = @currentUserId) as created_by_me,
         
         (SELECT COUNT(*) FROM tickets t 
          INNER JOIN ticket_priorities tp ON t.priority_id = tp.priority_id
@@ -352,7 +357,9 @@ const getDashboardStats = async (req, res, next) => {
          AND t.status_id NOT IN (SELECT status_id FROM ticket_statuses WHERE is_final_status = 1)) as overdue_tickets
     `;
 
-    const result = await executeQuery(query);
+    params.currentUserId = userId;
+
+    const result = await executeQuery(query, params);
     const stats = result.recordset[0];
 
     logger.success('Dashboard statistics fetched successfully', {
