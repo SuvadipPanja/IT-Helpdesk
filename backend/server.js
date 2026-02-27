@@ -146,11 +146,7 @@ const uploadDir = path.join(__dirname, 'uploads');
 // Static file serving with CORS headers
 app.use('/uploads', express.static(uploadDir, {
   setHeaders: (res, filePath) => {
-    // Log each file request for debugging
-    console.log('📁 Serving static file:', filePath);
-    
     // Add CORS headers for cross-origin access
-    res.set('Access-Control-Allow-Origin', '*');
     res.set('Cross-Origin-Resource-Policy', 'cross-origin');
     res.set('Cache-Control', 'public, max-age=31536000');
     
