@@ -203,7 +203,6 @@ const Login = () => {
       
       const savedTimer = secureStorage.get(STORAGE_KEYS.OTP_TIMER);
       const savedUsername = secureStorage.get(STORAGE_KEYS.USERNAME);
-      const savedPassword = secureStorage.get(STORAGE_KEYS.PASSWORD_HASH);
       
       const elapsed = Math.floor((Date.now() - savedState.timestamp) / 1000);
       const savedTimerInt = savedTimer || 300;
@@ -216,7 +215,7 @@ const Login = () => {
         if (savedUsername) {
           setFormData({ 
             username: savedUsername,
-            password: savedPassword || ''
+            password: ''
           });
         }
       } else {
@@ -235,9 +234,7 @@ const Login = () => {
       if (formData.username) {
         secureStorage.set(STORAGE_KEYS.USERNAME, formData.username);
       }
-      if (formData.password) {
-        secureStorage.set(STORAGE_KEYS.PASSWORD_HASH, formData.password);
-      }
+      // Password NOT stored in sessionStorage for security
     }
   }, [showTwoFactor, twoFactorData, timeRemaining, formData.username, formData.password]);
 
@@ -353,34 +350,13 @@ const Login = () => {
       // Developer: Suvadip Panja
       // Date: February 03, 2026
       // ============================================
-      if (result.data?.passwordExpired && result.data?.resetToken) {
-        // Store reset token and user info in session storage
-        sessionStorage.setItem('expired_password_reset_token', result.data.resetToken);
-        sessionStorage.setItem('expired_password_user_id', result.data.userId);
-        sessionStorage.setItem('expired_password_username', result.data.username);
-        sessionStorage.setItem('expired_password_email', result.data.email);
-        
-        // Redirect to reset password page with token
-        navigate(`/reset-password?token=${result.data.resetToken}&expired=true`, { 
-          replace: true,
-          state: {
-            passwordExpired: true,
-            daysExpired: result.data.daysExpired,
-            username: result.data.username
-          }
-        });
-        
-        setLoading(false);
-        return;
-      }
-      
-      // Handle old password expiry format (without token) - for backward compatibility
       if (result.data?.passwordExpired) {
         setPasswordExpired(true);
         setPasswordExpiredData({
-          daysExpired: result.data.daysExpired || 0
+          daysExpired: result.data.daysExpired || 0,
+          email: result.data.email || null
         });
-        setErrorWithTimer(result.message || 'Your password has expired. Please contact administrator.');
+        setErrorWithTimer(result.message || 'Your password has expired. A reset link has been sent to your email.');
         setLoading(false);
         return;
       }
@@ -612,7 +588,9 @@ const Login = () => {
                     </p>
                   )}
                   <p className="login-expired-help">
-                    Please contact your administrator or use the "Forgot Password" link below.
+                    {passwordExpiredData.email 
+                      ? `A password reset link has been sent to ${passwordExpiredData.email}.`
+                      : 'Please use the "Forgot Password" link below to reset your password.'}
                   </p>
                 </>
               ) : (

@@ -551,16 +551,16 @@ const createTicket = async (req, res, next) => {
     const finalCategoryId = category_id || ticketSettings.ticket_default_category || 9;
 
     // STEP 4: GENERATE TICKET NUMBER
-    const prefix = (ticketSettings.ticket_number_prefix || 'TKT').toUpperCase();
+    const prefix = (ticketSettings.ticket_number_prefix || 'TKT').toUpperCase().replace(/[^A-Z]/g, '');
     const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     
     const seqQuery = `
       SELECT ISNULL(MAX(CAST(RIGHT(ticket_number, 4) AS INT)), 0) + 1 AS next_seq
       FROM tickets
-      WHERE ticket_number LIKE '${prefix}-${dateStr}-%'
+      WHERE ticket_number LIKE @ticketPrefix
     `;
     
-    const seqResult = await executeQuery(seqQuery);
+    const seqResult = await executeQuery(seqQuery, { ticketPrefix: `${prefix}-${dateStr}-%` });
     const sequence = seqResult.recordset[0].next_seq;
     const ticketNumber = `${prefix}-${dateStr}-${String(sequence).padStart(4, '0')}`;
     
@@ -1878,6 +1878,24 @@ const addComment = async (req, res, next) => {
     }
 
     const ticket = ticketCheck.recordset[0];
+
+    // Check if user has permission to comment on this ticket
+    const canViewAll = req.user.permissions?.can_view_all_tickets || false;
+    const hasAccess = canViewAll || 
+                      ticket.requester_id === userId || 
+                      ticket.assigned_to === userId;
+
+    if (!hasAccess) {
+      logger.warn('Unauthorized comment attempt', {
+        ticketId,
+        userId,
+        requester: ticket.requester_id,
+        assigned: ticket.assigned_to,
+      });
+      return res.status(403).json(
+        createResponse(false, 'You do not have permission to comment on this ticket')
+      );
+    }
 
     // Get commenter's name
     const commenterQuery = `SELECT first_name + ' ' + last_name as full_name FROM users WHERE user_id = @userId`;

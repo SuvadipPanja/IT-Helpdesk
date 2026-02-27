@@ -20,6 +20,12 @@ const config = require('../config/config');
 const { createNotification } = require('./notifications.controller');
 const securityService = require('../services/security.service');
 const twoFactorService = require('../services/twoFactor.service'); // ⭐ 2FA Service
+const emailService = require('../services/email.service');
+
+/**
+ * Hash a token using SHA-256 for secure storage
+ */
+const hashToken = (token) => crypto.createHash('sha256').update(token).digest('hex');
 
 /**
  * User Login - UPDATED WITH PASSWORD EXPIRY CHECK
@@ -246,7 +252,10 @@ const login = async (req, res, next) => {
       await executeQuery(invalidateQuery, { userId: user.user_id });
       logger.info('Previous tokens invalidated');
       
-      // Store new token in database
+      // Hash token before storage — raw token sent to user, only hash in DB
+      const tokenHash = hashToken(resetToken);
+
+      // Store hashed token in database
       const insertTokenQuery = `
         INSERT INTO password_reset_tokens (
           user_id,
@@ -266,7 +275,7 @@ const login = async (req, res, next) => {
       
       await executeQuery(insertTokenQuery, {
         userId: user.user_id,
-        token: resetToken,
+        token: tokenHash,
         expiresAt: tokenExpiresAt,
         ipAddress: ip,
         userAgent: userAgent
@@ -294,20 +303,37 @@ const login = async (req, res, next) => {
         true
       );
       
+      // SECURITY FIX: Send reset token via email instead of exposing in response body
+      const frontendURL = process.env.FRONTEND_URL || 'http://localhost:5173';
+      const resetUrl = `${frontendURL}/reset-password?token=${resetToken}`;
+      
+      try {
+        await emailService.sendPasswordResetEmail(
+          user.email,
+          `${user.first_name} ${user.last_name}`,
+          resetUrl,
+          60 // 60 minutes expiry
+        );
+        logger.success('Password expiry reset email sent', { userId: user.user_id });
+      } catch (emailError) {
+        logger.error('Failed to send password expiry reset email', emailError);
+        // Clean up token if email fails
+        await executeQuery(
+          'DELETE FROM password_reset_tokens WHERE token = @token',
+          { token: tokenHash }
+        );
+      }
+      
       logger.separator();
       
-      // Return detailed error message to frontend with reset token
+      // Return WITHOUT the reset token — user must check email
       return res.status(401).json(
-        createResponse(false, 'Your password has expired. Please reset your password to continue.', {
+        createResponse(false, 'Your password has expired. A reset link has been sent to your email.', {
           passwordExpired: true,
           daysExpired: daysExpired,
           expiredAt: expiryStatus.passwordExpiresAt,
           requiresReset: true,
-          resetToken: resetToken, // ⭐ Provide token to frontend
-          tokenExpiresAt: tokenExpiresAt,
-          userId: user.user_id,
-          username: user.username,
-          email: user.email
+          email: user.email.replace(/(.{2})(.*)(@.*)/, '$1***$3') // Masked email only
         })
       );
     }
@@ -385,11 +411,22 @@ const login = async (req, res, next) => {
       } catch (otpError) {
         logger.error('Failed to send OTP email', otpError);
         
-        // If OTP sending fails, still allow login without 2FA
-        // (Graceful degradation)
-        logger.warn('2FA email send failed, continuing normal login');
+        // SECURITY FIX: Do NOT fall through to normal login — that would bypass 2FA entirely.
+        // Return an error so the user retries later.
+        await securityService.logSecurityEvent(
+          user.user_id,
+          'LOGIN_2FA_EMAIL_FAILED',
+          'OTP email delivery failed, login blocked to prevent 2FA bypass',
+          ip,
+          userAgent,
+          false
+        );
         
-        // Continue to normal login below...
+        logger.separator();
+        
+        return res.status(503).json(
+          createResponse(false, 'Unable to send verification code. Please try again later.')
+        );
       }
     }
     

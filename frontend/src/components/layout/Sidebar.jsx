@@ -42,6 +42,7 @@ import {
   Bell,
   HelpCircle,
   Shield,
+  ShieldCheck,
   AlertCircle
 } from 'lucide-react';
 
@@ -52,7 +53,7 @@ import {
 const NAVIGATION_CONFIG = {
   mainMenu: {
     title: 'Main Menu',
-    items: ['dashboard', 'tickets', 'notifications']
+    items: ['dashboard', 'tickets', 'notifications', 'security']
   },
   management: {
     title: 'Management',
@@ -156,6 +157,14 @@ const getNavigationItems = (user) => {
       path: '/settings',
       show: hasPermission('can_manage_system'),
       ariaLabel: 'System settings'
+    },
+    {
+      id: 'security',
+      label: 'Security',
+      icon: ShieldCheck,
+      path: '/security',
+      show: true,
+      ariaLabel: 'Two-factor authentication settings'
     },
     {
       id: 'help',

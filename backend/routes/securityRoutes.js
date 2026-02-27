@@ -9,6 +9,7 @@
 
 const express = require('express');
 const router = express.Router();
+const { authenticate } = require('../middleware/auth');
 const {
   getSecuritySettings,
   getPasswordPolicy,
@@ -16,11 +17,8 @@ const {
   getAccountSecuritySettings
 } = require('../controllers/securityController');
 
-// Import auth middleware (if you have one)
-// const { authenticateToken } = require('../middleware/authMiddleware');
-
 // ============================================
-// SECURITY ROUTES
+// SECURITY ROUTES (All require authentication)
 // ============================================
 
 /**
@@ -29,7 +27,7 @@ const {
  * @access  Private (requires authentication)
  * @returns All security settings from database
  */
-router.get('/settings', getSecuritySettings);
+router.get('/settings', authenticate, getSecuritySettings);
 
 /**
  * @route   GET /api/v1/security/password-policy
@@ -37,7 +35,7 @@ router.get('/settings', getSecuritySettings);
  * @access  Private
  * @returns Password policy settings
  */
-router.get('/password-policy', getPasswordPolicy);
+router.get('/password-policy', authenticate, getPasswordPolicy);
 
 /**
  * @route   GET /api/v1/security/session-settings
@@ -45,7 +43,7 @@ router.get('/password-policy', getPasswordPolicy);
  * @access  Private
  * @returns Session management settings
  */
-router.get('/session-settings', getSessionSettings);
+router.get('/session-settings', authenticate, getSessionSettings);
 
 /**
  * @route   GET /api/v1/security/account-settings
@@ -53,7 +51,7 @@ router.get('/session-settings', getSessionSettings);
  * @access  Private
  * @returns Account security settings
  */
-router.get('/account-settings', getAccountSecuritySettings);
+router.get('/account-settings', authenticate, getAccountSecuritySettings);
 
 module.exports = router;
 

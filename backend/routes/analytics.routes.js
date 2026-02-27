@@ -5,7 +5,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { authenticate } = require('../middleware/auth');
+const { authenticate, authorize } = require('../middleware/auth');
 const {
   getOverview,
   getStatusDistribution,
@@ -30,9 +30,10 @@ const {
 
 // ============================================
 // AUTHENTICATION MIDDLEWARE
-// All routes require authentication
+// All routes require authentication + analytics permission
 // ============================================
 router.use(authenticate);
+router.use(authorize('can_view_analytics'));
 
 // ============================================
 // ANALYTICS ROUTES

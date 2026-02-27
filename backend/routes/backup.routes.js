@@ -8,7 +8,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { authenticate } = require('../middleware/auth');
+const { authenticate, authorize } = require('../middleware/auth');
 const {
   createBackup,
   getBackupHistory,
@@ -22,11 +22,10 @@ const {
 
 // ============================================
 // AUTHENTICATION MIDDLEWARE
-// All backup routes require authentication
-// All routes also require can_manage_system permission
-// Permission check is done in controller
+// All backup routes require authentication + admin permission
 // ============================================
 router.use(authenticate);
+router.use(authorize('can_manage_system'));
 
 // ============================================
 // BACKUP ROUTES

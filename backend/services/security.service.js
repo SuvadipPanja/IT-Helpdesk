@@ -594,7 +594,7 @@ class SecurityService {
           SELECT TOP 1 session_id
           FROM user_sessions
           WHERE user_id = @userId AND is_active = 1
-          ORDER BY created_at ASC
+          ORDER BY login_at ASC
         )
       `;
 
@@ -751,7 +751,7 @@ class SecurityService {
           session_id,
           ip_address,
           user_agent,
-          created_at,
+          login_at,
           last_activity,
           expires_at
         FROM user_sessions

@@ -34,7 +34,7 @@ const getOverview = async (req, res, next) => {
     const query = `
       -- Total Tickets
       SELECT 
-        (SELECT COUNT(*) FROM tickets WHERE 1=1 ${dateFilter}) as total_tickets,
+        (SELECT COUNT(*) FROM tickets t WHERE 1=1 ${dateFilter}) as total_tickets,
         
         -- Open Tickets
         (SELECT COUNT(*) FROM tickets t

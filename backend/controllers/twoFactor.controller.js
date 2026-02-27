@@ -9,7 +9,8 @@
 const twoFactorService = require('../services/twoFactor.service');
 const backupCodesUtil = require('../utils/backupCodes.util');
 const logger = require('../utils/logger');
-const { createResponse } = require('../utils/helpers');
+const { createResponse, comparePassword } = require('../utils/helpers');
+const { executeQuery } = require('../config/database');
 
 // ============================================
 // GET USER'S 2FA SETTINGS
@@ -188,8 +189,32 @@ const disable2FA = async (req, res, next) => {
     logger.separator('DISABLE 2FA');
     logger.try('Disabling 2FA for user', { userId });
 
-    // TODO: Verify password before disabling (security measure)
-    // For now, we'll allow it without password verification
+    // SECURITY FIX: Require password verification before disabling 2FA
+    if (!password) {
+      return res.status(400).json(
+        createResponse(false, 'Password is required to disable 2FA')
+      );
+    }
+
+    // Fetch user's password hash from DB
+    const userResult = await executeQuery(
+      'SELECT password_hash FROM users WHERE user_id = @userId',
+      { userId }
+    );
+
+    if (!userResult.recordset.length) {
+      return res.status(404).json(
+        createResponse(false, 'User not found')
+      );
+    }
+
+    const isPasswordValid = await comparePassword(password, userResult.recordset[0].password_hash);
+    if (!isPasswordValid) {
+      logger.warn('2FA disable rejected - invalid password', { userId });
+      return res.status(401).json(
+        createResponse(false, 'Invalid password. 2FA was not disabled.')
+      );
+    }
 
     const result = await twoFactorService.disable2FA(userId);
 

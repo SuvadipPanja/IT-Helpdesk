@@ -9,6 +9,7 @@
 
 const express = require('express');
 const router = express.Router();
+const rateLimit = require('express-rate-limit');
 const {
   login,
   verifyTwoFactorLogin, // ⭐ 2FA verification function
@@ -23,6 +24,37 @@ const passwordResetController = require('../controllers/password-reset.controlle
 const { authenticate } = require('../middleware/auth');
 
 // ============================================
+// RATE LIMITERS for sensitive auth endpoints
+// ============================================
+
+// Strict rate limit for 2FA OTP verification — prevent brute-force
+const twoFactorLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5,                    // 5 attempts per window
+  message: { success: false, message: 'Too many verification attempts. Please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Rate limit for login attempts
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10,                   // 10 attempts per window
+  message: { success: false, message: 'Too many login attempts. Please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Rate limit for password reset requests
+const passwordResetLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5,                    // 5 attempts per window
+  message: { success: false, message: 'Too many password reset requests. Please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// ============================================
 // PUBLIC ROUTES (No authentication required)
 // ============================================
 
@@ -32,7 +64,7 @@ const { authenticate } = require('../middleware/auth');
  * @access  Public
  * @returns JWT token if successful, or 2FA required response
  */
-router.post('/login', login);
+router.post('/login', loginLimiter, login);
 
 /**
  * ⭐ 2FA OTP Verification Endpoint
@@ -43,7 +75,7 @@ router.post('/login', login);
  * @returns JWT token if OTP is valid
  * @created November 11, 2025
  */
-router.post('/verify-2fa-login', verifyTwoFactorLogin);
+router.post('/verify-2fa-login', twoFactorLimiter, verifyTwoFactorLogin);
 
 // ============================================
 // ⭐ NEW: PASSWORD RESET ROUTES (Public)
@@ -58,7 +90,7 @@ router.post('/verify-2fa-login', verifyTwoFactorLogin);
  * @returns Success message (doesn't reveal if email exists)
  * @created January 26, 2026
  */
-router.post('/forgot-password', passwordResetController.forgotPassword);
+router.post('/forgot-password', passwordResetLimiter, passwordResetController.forgotPassword);
 
 /**
  * @route   GET /api/v1/auth/validate-reset-token/:token
@@ -78,7 +110,7 @@ router.get('/validate-reset-token/:token', passwordResetController.validateReset
  * @returns Success message
  * @created January 26, 2026
  */
-router.post('/reset-password', passwordResetController.resetPassword);
+router.post('/reset-password', passwordResetLimiter, passwordResetController.resetPassword);
 
 // ============================================
 // PROTECTED ROUTES (Authentication required)

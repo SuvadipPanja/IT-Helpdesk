@@ -5,7 +5,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { authenticate } = require('../middleware/auth');
+const { authenticate, authorize } = require('../middleware/auth');
 const {
   getDepartments,
   getDepartmentById,
@@ -53,21 +53,21 @@ router.get('/:id', getDepartmentById);
  * @desc    Create new department
  * @access  Private (Admin only)
  */
-router.post('/', createDepartment);
+router.post('/', authorize('can_manage_departments'), createDepartment);
 
 /**
  * @route   PUT /api/v1/departments/:id
  * @desc    Update department by ID
  * @access  Private (Admin only)
  */
-router.put('/:id', updateDepartment);
+router.put('/:id', authorize('can_manage_departments'), updateDepartment);
 
 /**
  * @route   DELETE /api/v1/departments/:id
  * @desc    Delete (soft delete) department by ID
  * @access  Private (Admin only)
  */
-router.delete('/:id', deleteDepartment);
+router.delete('/:id', authorize('can_manage_departments'), deleteDepartment);
 
 // ============================================
 // EXPORT ROUTER

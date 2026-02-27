@@ -8,10 +8,16 @@
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const { executeQuery } = require('../config/database');
-const { createResponse } = require('../utils/helpers');
+const { createResponse, validatePasswordStrength } = require('../utils/helpers');
 const logger = require('../utils/logger');
 const emailService = require('../services/email.service');
 const securityService = require('../services/security.service');
+
+/**
+ * Hash a token using SHA-256 for secure storage
+ * Raw token is sent to user; only hash is stored in DB
+ */
+const hashToken = (token) => crypto.createHash('sha256').update(token).digest('hex');
 
 /**
  * Request password reset - Send email with reset token
@@ -98,7 +104,10 @@ const forgotPassword = async (req, res, next) => {
     await executeQuery(invalidateQuery, { userId: user.user_id });
     logger.info('Previous tokens invalidated');
 
-    // Store new token in database
+    // Hash token before storage — raw token sent to user, only hash in DB
+    const tokenHash = hashToken(resetToken);
+
+    // Store hashed token in database
     const insertTokenQuery = `
       INSERT INTO password_reset_tokens (
         user_id,
@@ -118,7 +127,7 @@ const forgotPassword = async (req, res, next) => {
 
     await executeQuery(insertTokenQuery, {
       userId: user.user_id,
-      token: resetToken,
+      token: tokenHash,
       expiresAt: expiresAt,
       ipAddress: ipAddress,
       userAgent: userAgent
@@ -151,7 +160,7 @@ const forgotPassword = async (req, res, next) => {
       // Delete token if email fails
       await executeQuery(
         'DELETE FROM password_reset_tokens WHERE token = @token',
-        { token: resetToken }
+        { token: tokenHash }
       );
 
       logger.separator();
@@ -203,6 +212,9 @@ const validateResetToken = async (req, res, next) => {
       );
     }
 
+    // Hash the incoming token to match stored hash
+    const tokenHash = hashToken(token);
+
     // Check if token exists and is valid
     const tokenQuery = `
       SELECT 
@@ -219,7 +231,7 @@ const validateResetToken = async (req, res, next) => {
       WHERE t.token = @token
     `;
 
-    const tokenResult = await executeQuery(tokenQuery, { token });
+    const tokenResult = await executeQuery(tokenQuery, { token: tokenHash });
 
     if (tokenResult.recordset.length === 0) {
       logger.warn('Token not found');
@@ -316,14 +328,18 @@ const resetPassword = async (req, res, next) => {
       );
     }
 
-    // Validate password strength
-    if (newPassword.length < 8) {
-      logger.warn('Password too short');
+    // Validate password strength using policy
+    const passwordValidation = validatePasswordStrength(newPassword);
+    if (!passwordValidation.isValid) {
+      logger.warn('Password does not meet policy', { errors: passwordValidation.errors });
       logger.separator();
       return res.status(400).json(
-        createResponse(false, 'Password must be at least 8 characters long')
+        createResponse(false, passwordValidation.errors.join('. '))
       );
     }
+
+    // Hash the incoming token to match stored hash
+    const tokenHash = hashToken(token);
 
     // Check if token is valid
     const tokenQuery = `
@@ -342,7 +358,7 @@ const resetPassword = async (req, res, next) => {
       WHERE t.token = @token
     `;
 
-    const tokenResult = await executeQuery(tokenQuery, { token });
+    const tokenResult = await executeQuery(tokenQuery, { token: tokenHash });
 
     if (tokenResult.recordset.length === 0) {
       logger.warn('Invalid token');

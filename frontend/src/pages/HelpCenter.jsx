@@ -13,6 +13,7 @@ import {
   ChevronLeft, ExternalLink, Star, BookOpen, Headphones,
   ArrowLeft, Hash, Eye
 } from 'lucide-react';
+import DOMPurify from 'dompurify';
 import helpContent from '../data/helpContent';
 import AIAssistant from '../components/helpdesk/AIAssistant';
 import '../styles/HelpCenter.css';
@@ -199,7 +200,7 @@ const HelpCenter = () => {
               </div>
             </header>
 
-            <div className="hc-article-body" dangerouslySetInnerHTML={{ __html: formatContent(selectedArticle.content) }} />
+            <div className="hc-article-body" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(formatContent(selectedArticle.content)) }} />
 
             {/* Feedback */}
             <div className="hc-feedback">
@@ -372,10 +373,10 @@ const HelpCenter = () => {
                 >
                   <span className="hc-sr-type">{r.type === 'article' ? '📄' : '❓'}</span>
                   <div className="hc-sr-body">
-                    <h4 dangerouslySetInnerHTML={{ __html: highlight(r.title || r.question, searchQuery) }} />
-                    <p dangerouslySetInnerHTML={{ __html: highlight(
+                    <h4 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(highlight(r.title || r.question, searchQuery)) }} />
+                    <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(highlight(
                       (r.description || r.answer || '').substring(0, 120), searchQuery
-                    ) }} />
+                    )) }} />
                   </div>
                   <ChevronRight size={16} />
                 </button>
