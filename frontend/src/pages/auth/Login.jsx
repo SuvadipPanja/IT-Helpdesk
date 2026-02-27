@@ -157,7 +157,7 @@ const Login = () => {
   // ============================================
   // HOOKS
   // ============================================
-  const { login } = useAuth();
+  const { login, refreshUser } = useAuth();
   const navigate = useNavigate();
 
   // ============================================
@@ -383,8 +383,8 @@ const Login = () => {
       // Handle successful login (no 2FA)
       if (result.success && result.data?.token) {
         secureStorage.clear();
-        // Use window.location for full page reload to update AuthContext
-        window.location.href = '/dashboard';
+        // P1 #51 FIX: Use SPA navigation instead of full page reload
+        navigate('/dashboard');
         return;
       }
       
@@ -441,14 +441,17 @@ const Login = () => {
       if (response.data.success && response.data.data?.token) {
         // Store authentication data
         localStorage.setItem('token', response.data.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.data.user));
+        // P1 #47 FIX: Only store minimal user info in localStorage
+        const { user_id, username, first_name, last_name } = response.data.data.user;
+        localStorage.setItem('user', JSON.stringify({ user_id, username, first_name, last_name }));
         
         // Clear 2FA session data
         secureStorage.clear();
         
-        // IMPORTANT: Use window.location for full page reload
-        // This ensures AuthContext reads the new token from localStorage
-        window.location.href = '/dashboard';
+        // P1 #51 FIX: Use SPA navigation instead of full page reload
+        // refreshUser() hydrates AuthContext with full user data from /auth/me
+        await refreshUser();
+        navigate('/dashboard');
         return;
       }
       

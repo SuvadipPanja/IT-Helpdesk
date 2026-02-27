@@ -139,18 +139,18 @@ createUploadDirectories();
 
 // ============================================
 // Static Files - Serve with CORS headers
+// Profile pictures: public (used in UI avatars)
+// Ticket/document uploads: require authentication
 // ============================================
 
 const uploadDir = path.join(__dirname, 'uploads');
+const { authenticate: staticAuth } = require('./middleware/auth');
 
-// Static file serving with CORS headers
-app.use('/uploads', express.static(uploadDir, {
+// Profile pictures — public (avatars displayed without auth)
+app.use('/uploads/profiles', express.static(path.join(uploadDir, 'profiles'), {
   setHeaders: (res, filePath) => {
-    // Add CORS headers for cross-origin access
     res.set('Cross-Origin-Resource-Policy', 'cross-origin');
     res.set('Cache-Control', 'public, max-age=31536000');
-    
-    // Set proper content type based on file extension
     if (filePath.endsWith('.jpg') || filePath.endsWith('.jpeg')) {
       res.set('Content-Type', 'image/jpeg');
     } else if (filePath.endsWith('.png')) {
@@ -160,6 +160,21 @@ app.use('/uploads', express.static(uploadDir, {
     } else if (filePath.endsWith('.webp')) {
       res.set('Content-Type', 'image/webp');
     }
+  }
+}));
+
+// Ticket attachments & documents — require authentication
+app.use('/uploads/tickets', staticAuth, express.static(path.join(uploadDir, 'tickets'), {
+  setHeaders: (res) => {
+    res.set('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.set('Cache-Control', 'private, no-cache');
+  }
+}));
+
+app.use('/uploads/documents', staticAuth, express.static(path.join(uploadDir, 'documents'), {
+  setHeaders: (res) => {
+    res.set('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.set('Cache-Control', 'private, no-cache');
   }
 }));
 

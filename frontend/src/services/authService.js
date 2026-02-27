@@ -15,12 +15,15 @@ export const authService = {
     try {
       const response = await api.post('/auth/login', { username, password });
       
-      // ⭐ Successful login - store token and user data
+      // ⭐ Successful login - store token and MINIMAL user data
       if (response.data.success) {
         // Only store token/user if login was fully successful (no 2FA pending)
         if (response.data.data.token) {
           localStorage.setItem('token', response.data.data.token);
-          localStorage.setItem('user', JSON.stringify(response.data.data.user));
+          // P1 #47 FIX: Only store minimal user info in localStorage
+          // Full user data (permissions, role, email) stays in React state only
+          const { user_id, username, first_name, last_name } = response.data.data.user;
+          localStorage.setItem('user', JSON.stringify({ user_id, username, first_name, last_name }));
         }
       }
       

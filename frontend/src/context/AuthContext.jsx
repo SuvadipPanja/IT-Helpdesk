@@ -15,12 +15,32 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // P1 #47 FIX: On mount, fetch fresh user data from server instead of relying on localStorage
+  // localStorage only stores minimal info (user_id, username, first_name, last_name)
+  // Full user data (permissions, role, email) is fetched from /auth/me
   useEffect(() => {
-    const storedUser = authService.getStoredUser();
-    if (storedUser) {
-      setUser(storedUser);
-    }
-    setLoading(false);
+    const initAuth = async () => {
+      const token = authService.getStoredToken();
+      if (token) {
+        try {
+          const response = await api.get('/auth/me');
+          if (response.data.success) {
+            setUser(response.data.data);
+          } else {
+            // Token invalid — clear stored data
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+          }
+        } catch (error) {
+          console.error('Auth init failed:', error);
+          // Token expired or invalid — clear stored data
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+        }
+      }
+      setLoading(false);
+    };
+    initAuth();
   }, []);
 
   // ============================================
@@ -87,8 +107,9 @@ export const AuthProvider = ({ children }) => {
       const response = await api.get('/auth/me');
       if (response.data.success) {
         setUser(response.data.data);
-        // Also update localStorage
-        localStorage.setItem('user', JSON.stringify(response.data.data));
+        // P1 #47 FIX: Only store minimal info in localStorage
+        const { user_id, username, first_name, last_name } = response.data.data;
+        localStorage.setItem('user', JSON.stringify({ user_id, username, first_name, last_name }));
       }
     } catch (error) {
       console.error('Failed to refresh user:', error);

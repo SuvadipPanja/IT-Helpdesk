@@ -437,6 +437,8 @@ const getTicketById = async (req, res, next) => {
     const attachmentsResult = await executeQuery(attachmentsQuery, { ticketId });
 
     // Get ticket comments
+    // Hide internal comments from the ticket requester (unless they have can_view_all_tickets)
+    const isRequester = ticket.requester_id === userId && !canViewAll;
     const commentsQuery = `
       SELECT 
         comment_id,
@@ -452,6 +454,7 @@ const getTicketById = async (req, res, next) => {
       LEFT JOIN user_roles r ON u.role_id = r.role_id
       WHERE tc.ticket_id = @ticketId 
         AND tc.is_deleted = 0
+        ${isRequester ? 'AND tc.is_internal = 0' : ''}
       ORDER BY tc.commented_at ASC
     `;
 

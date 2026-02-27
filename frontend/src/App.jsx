@@ -4,7 +4,7 @@
 // UPDATED: Loads settings on app start + Email Queue + Email Templates routes + Security (2FA) route + Password Reset routes + Help Center
 // ============================================
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { NotificationProvider } from './context/notifications/NotificationContext';
@@ -14,28 +14,33 @@ import Layout from './components/layout/Layout';
 import Login from './pages/auth/Login';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import ResetPassword from './pages/auth/ResetPassword';
-import Dashboard from './pages/dashboard/Dashboard';
-import TicketsList from './pages/tickets/TicketsList';
-import CreateTicket from './pages/tickets/CreateTicket';
-import NotFound from './pages/NotFound';
-import TicketDetail from './pages/tickets/TicketDetail';
-import EditTicket from './pages/tickets/EditTicket';
-import MyTickets from './pages/tickets/MyTickets';
-import UsersList from './pages/users/UsersList';
-import DepartmentsList from './pages/departments/DepartmentsList';
-import RolesList from './pages/roles/RolesList';
-import AnalyticsEnhanced from './pages/analytics/AnalyticsEnhanced';
-import AllNotifications from './pages/notifications/AllNotifications';
-import Profile from './pages/profile/Profile';
-import ChangePassword from './pages/profile/ChangePassword';
-import Settings from './pages/settings/Settings';
-import EmailQueue from './pages/email/EmailQueue';
-import EmailTemplates from './pages/email/EmailTemplates';
-import SecuritySettings from './pages/security/SecuritySettings'; // ⭐ NEW - 2FA Security Page
-import HelpCenter from './pages/HelpCenter'; // ⭐ NEW - Help Center Page
 import ErrorBoundary from './components/layout/ErrorBoundary';
 import settingsLoader from './utils/settingsLoader';
 import { Shield } from 'lucide-react';
+
+// ============================================
+// P1 #48 FIX: LAZY-LOADED ROUTE COMPONENTS
+// Reduces initial bundle size by code-splitting
+// ============================================
+const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'));
+const TicketsList = lazy(() => import('./pages/tickets/TicketsList'));
+const CreateTicket = lazy(() => import('./pages/tickets/CreateTicket'));
+const TicketDetail = lazy(() => import('./pages/tickets/TicketDetail'));
+const EditTicket = lazy(() => import('./pages/tickets/EditTicket'));
+const MyTickets = lazy(() => import('./pages/tickets/MyTickets'));
+const UsersList = lazy(() => import('./pages/users/UsersList'));
+const DepartmentsList = lazy(() => import('./pages/departments/DepartmentsList'));
+const RolesList = lazy(() => import('./pages/roles/RolesList'));
+const AnalyticsEnhanced = lazy(() => import('./pages/analytics/AnalyticsEnhanced'));
+const AllNotifications = lazy(() => import('./pages/notifications/AllNotifications'));
+const Profile = lazy(() => import('./pages/profile/Profile'));
+const ChangePassword = lazy(() => import('./pages/profile/ChangePassword'));
+const Settings = lazy(() => import('./pages/settings/Settings'));
+const EmailQueue = lazy(() => import('./pages/email/EmailQueue'));
+const EmailTemplates = lazy(() => import('./pages/email/EmailTemplates'));
+const SecuritySettings = lazy(() => import('./pages/security/SecuritySettings'));
+const HelpCenter = lazy(() => import('./pages/HelpCenter'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 // ============================================
 // MAIN APP FUNCTION
@@ -138,6 +143,11 @@ function App() {
       <AuthProvider>
         <NotificationProvider>
           <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplitPath: true }}>
+            <Suspense fallback={
+              <div className="loading-container">
+                <div className="spinner"></div>
+              </div>
+            }>
             <Routes>
             {/* ============================================
                 PUBLIC ROUTES
@@ -416,6 +426,7 @@ function App() {
             {/* 404 - Not Found */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+            </Suspense>
         </BrowserRouter>
       </NotificationProvider>
     </AuthProvider>

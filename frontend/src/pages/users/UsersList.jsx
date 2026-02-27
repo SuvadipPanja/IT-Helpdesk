@@ -60,6 +60,7 @@ import {
   Lock
 } from 'lucide-react';
 import api from '../../services/api';
+import { API_BASE_URL } from '../../utils/constants';
 import CreateUserModal from '../../components/users/CreateUserModal';
 import EditUserModal from '../../components/users/EditUserModal';
 import '../../styles/UsersList.css';
@@ -513,10 +514,8 @@ const UsersList = () => {
       return profilePicture;
     }
     
-    const protocol = window.location.protocol;
-    const hostname = window.location.hostname;
-    const port = '5000';
-    const baseURL = `${protocol}//${hostname}:${port}`;
+    // P1 #51 FIX: Use centralized constant instead of window.location
+    const baseURL = API_BASE_URL.replace('/api/v1', '');
     const cleanPath = profilePicture.startsWith('/') ? profilePicture : `/${profilePicture}`;
     
     return `${baseURL}${cleanPath}`;

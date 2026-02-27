@@ -45,6 +45,7 @@ import {
   TrendingUp
 } from 'lucide-react';
 import api from '../../services/api';
+import { API_BASE_URL } from '../../utils/constants';
 import { useToast } from '../../context/ToastContext';
 import '../../styles/TicketsList.css';
 
@@ -140,8 +141,8 @@ const TicketsList = () => {
       return profilePicture;
     }
     
-    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
-    const urlWithoutApi = baseUrl.replace('/api/v1', '');
+    // P1 #49 FIX: Use centralized API_BASE_URL constant instead of inconsistent env var
+    const urlWithoutApi = API_BASE_URL.replace('/api/v1', '');
     const cleanPath = profilePicture.startsWith('/') ? profilePicture : `/${profilePicture}`;
     
     return `${urlWithoutApi}${cleanPath}`;
