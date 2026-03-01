@@ -32,21 +32,7 @@ const getUsers = async (req, res, next) => {
       limit,
       filters: { role_id, department_id, is_active },
       userId: req.user.user_id,
-      hasPermission: req.user.permissions?.can_manage_users
     });
-
-    // Check permission from permissions object
-    if (!req.user.permissions || !req.user.permissions.can_manage_users) {
-      logger.warn('Unauthorized access attempt to users list', {
-        userId: req.user.user_id,
-        username: req.user.username,
-        hasPermissions: !!req.user.permissions,
-        canManageUsers: req.user.permissions?.can_manage_users
-      });
-      return res.status(403).json(
-        createResponse(false, 'You do not have permission to manage users')
-      );
-    }
 
     // Build WHERE clause
     let whereConditions = [];
@@ -255,17 +241,6 @@ const createUser = async (req, res, next) => {
       createdBy: req.user.user_id,
     });
 
-    // Check permission
-    if (!req.user.permissions || !req.user.permissions.can_manage_users) {
-      logger.warn('Unauthorized user creation attempt', {
-        userId: req.user.user_id,
-      });
-      logger.separator();
-      return res.status(403).json(
-        createResponse(false, 'You do not have permission to create users')
-      );
-    }
-
     // Validate required fields
     if (!username || !email || !password || !first_name || !last_name || !role_id) {
       logger.warn('Missing required fields');
@@ -393,17 +368,6 @@ const updateUser = async (req, res, next) => {
       updatedBy: req.user.user_id,
       hasPassword: !!password, // Log if password is being updated
     });
-
-    // Check permission
-    if (!req.user.permissions || !req.user.permissions.can_manage_users) {
-      logger.warn('Unauthorized user update attempt', {
-        userId: req.user.user_id,
-      });
-      logger.separator();
-      return res.status(403).json(
-        createResponse(false, 'You do not have permission to update users')
-      );
-    }
 
     // Check if user exists
     const userCheck = await executeQuery(
@@ -588,17 +552,6 @@ const deleteUser = async (req, res, next) => {
       userId,
       deletedBy: req.user.user_id,
     });
-
-    // Check permission
-    if (!req.user.permissions || !req.user.permissions.can_manage_users) {
-      logger.warn('Unauthorized user deletion attempt', {
-        userId: req.user.user_id,
-      });
-      logger.separator();
-      return res.status(403).json(
-        createResponse(false, 'You do not have permission to delete users')
-      );
-    }
 
     // Prevent self-deletion
     if (req.user.user_id === parseInt(userId)) {

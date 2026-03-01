@@ -16,7 +16,7 @@ const {
   extendPasswordExpiry,    // ⭐ NEW
   forcePasswordReset,      // ⭐ NEW
 } = require('../controllers/users.controller');
-const { authenticate, authorizeRoles } = require('../middleware/auth');
+const { authenticate, authorize, authorizeRoles } = require('../middleware/auth');
 
 // All routes require authentication
 router.use(authenticate);
@@ -26,19 +26,19 @@ router.use(authenticate);
 // ============================================
 
 // Get all users (with pagination and filters)
-router.get('/', getUsers);
+router.get('/', authorize('can_manage_users'), getUsers);
 
-// Get single user by ID
+// Get single user by ID - no permission middleware: allows users to view their own profile
 router.get('/:id', getUserById);
 
 // Create new user (Admin only)
-router.post('/', createUser);
+router.post('/', authorize('can_manage_users'), createUser);
 
 // Update user (Admin only)
-router.put('/:id', updateUser);
+router.put('/:id', authorize('can_manage_users'), updateUser);
 
 // Delete user / soft delete (Admin only)
-router.delete('/:id', deleteUser);
+router.delete('/:id', authorize('can_manage_users'), deleteUser);
 
 // ============================================
 // ⭐ NEW: PASSWORD EXPIRY MANAGEMENT ROUTES
