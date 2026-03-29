@@ -1,0 +1,650 @@
+/* ============================================
+ * OUTAGE WALL STYLES — Enhanced v2
+ * Professional dark theme with rich animations
+ * ============================================ */
+
+/* Container */
+.outage-wall-container {
+  padding: var(--nx-sp-6);
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+.outage-wall-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--nx-sp-6);
+  flex-wrap: wrap;
+  gap: var(--nx-sp-3);
+}
+
+.outage-wall-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.outage-wall-logo {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(139,92,246,0.2));
+  display: flex; align-items: center; justify-content: center;
+  animation: outage-logo-glow 3s ease-in-out infinite;
+}
+.outage-wall-logo-icon {
+  color: #60a5fa;
+}
+
+.outage-wall-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--nx-text);
+  margin: 0;
+}
+
+.outage-wall-subtitle {
+  font-size: 13px;
+  color: var(--nx-muted);
+  margin: 2px 0 0 0;
+}
+
+.outage-wall-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.outage-wall-live-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: outage-live-pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(34,197,94,0.5);
+}
+.outage-wall-live-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: #22c55e;
+  letter-spacing: 0.08em;
+}
+
+.outage-wall-refresh {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+  border: 1px solid var(--nx-border);
+  border-radius: 8px;
+  background: var(--nx-surface);
+  color: var(--nx-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.outage-wall-refresh:hover {
+  border-color: var(--nx-info);
+  color: #60a5fa;
+  background: rgba(59,130,246,0.08);
+}
+
+/* ── Status Summary Banner ── */
+.outage-wall-summary {
+  margin-bottom: var(--nx-sp-6);
+  animation: outage-fade-in 0.5s ease-out;
+}
+
+.outage-wall-all-clear {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(34,197,94,0.04));
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 14px;
+  color: var(--nx-success);
+  position: relative;
+  overflow: hidden;
+}
+.outage-wall-all-clear::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(34,197,94,0.06), transparent);
+  animation: outage-shimmer 3s ease-in-out infinite;
+}
+.outage-wall-all-clear-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: rgba(34,197,94,0.15);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.outage-wall-all-clear-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+.outage-wall-all-clear-sub {
+  font-size: 13px;
+  color: var(--nx-muted);
+  margin-top: 2px;
+}
+.outage-wall-all-clear-wifi {
+  margin-left: auto;
+  color: rgba(34,197,94,0.6);
+  animation: outage-float 3s ease-in-out infinite;
+}
+
+.outage-wall-active-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(239,68,68,0.06));
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 14px;
+  color: var(--nx-danger);
+  font-weight: 600;
+  font-size: 15px;
+  position: relative;
+  overflow: hidden;
+  animation: outage-banner-pulse 2s ease-in-out infinite;
+}
+.outage-wall-banner-pulse-ring {
+  position: absolute;
+  left: -30px; top: 50%;
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: rgba(239,68,68,0.15);
+  transform: translateY(-50%);
+  animation: outage-ripple 2s ease-out infinite;
+}
+.outage-wall-banner-count {
+  margin-left: auto;
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: rgba(239,68,68,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700;
+}
+
+/* ── Loading ── */
+.outage-wall-loading {
+  text-align: center;
+  padding: 60px;
+  color: var(--nx-muted);
+}
+.outage-wall-loading-ring {
+  display: inline-flex;
+  padding: 16px;
+  border-radius: 50%;
+  background: rgba(59,130,246,0.08);
+  margin-bottom: 12px;
+}
+.outage-wall-loading p { margin-top: 8px; }
+
+/* ── Sections ── */
+.outage-wall-section {
+  margin-bottom: 32px;
+}
+
+.outage-wall-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--nx-danger);
+  margin: 0 0 16px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--nx-surface);
+}
+.outage-wall-section-resolved {
+  color: var(--nx-success);
+}
+.outage-wall-section-count {
+  margin-left: auto;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(239,68,68,0.15);
+  color: var(--nx-danger);
+}
+.outage-wall-section-count-resolved {
+  background: rgba(34,197,94,0.15);
+  color: var(--nx-success);
+}
+
+/* ── Card ── */
+.outage-card {
+  background: var(--nx-surface);
+  border: 1px solid var(--nx-border);
+  border-radius: 14px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  animation: outage-slide-in 0.4s ease-out both;
+  animation-delay: var(--card-delay, 0s);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+.outage-card:hover {
+  border-color: color-mix(in srgb, var(--card-color, #64748b) 50%, transparent);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.02);
+  transform: translateY(-1px);
+}
+
+.outage-card-active {
+  border: 1px solid color-mix(in srgb, var(--card-color, #ef4444) 30%, transparent);
+}
+
+.outage-card-resolved {
+  opacity: 0.8;
+}
+.outage-card-resolved:hover {
+  opacity: 1;
+}
+
+.outage-card-pulse {
+  animation: outage-slide-in 0.4s ease-out both, outage-card-glow 2.5s ease-in-out infinite;
+  animation-delay: var(--card-delay, 0s);
+}
+
+/* Card Banner (colored header strip) */
+.outage-card-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.outage-card-banner-text {
+  flex: 1;
+}
+.outage-card-banner-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.outage-card-banner-resolved {
+  background: linear-gradient(135deg, #16a34a, #15803d) !important;
+}
+
+/* Card Header */
+.outage-card-header {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  cursor: pointer;
+  gap: 12px;
+}
+
+.outage-card-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.outage-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--nx-text);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.outage-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.outage-card-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--nx-muted);
+}
+.outage-card-meta-sep {
+  color: var(--nx-border-strong);
+  font-size: 11px;
+}
+
+.outage-card-expand {
+  background: none;
+  border: none;
+  color: var(--nx-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: transform 0.3s, color 0.2s;
+  flex-shrink: 0;
+}
+.outage-card-expand:hover {
+  color: var(--nx-text-secondary);
+}
+.outage-card-expand-open {
+  transform: rotate(180deg);
+}
+
+/* ── Card Body (expanded) ── */
+.outage-card-body {
+  padding: 0 16px 16px;
+  animation: outage-expand 0.35s ease-out;
+}
+
+.outage-card-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--nx-border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--nx-bg);
+}
+
+.outage-field {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--nx-border);
+  border-right: 1px solid var(--nx-border);
+  animation: outage-field-in 0.3s ease-out both;
+}
+.outage-field:nth-child(even) {
+  border-right: none;
+}
+.outage-field:nth-last-child(-n+2) {
+  border-bottom: none;
+}
+.outage-field-full {
+  grid-column: 1 / -1;
+  border-right: none;
+}
+
+.outage-field-label {
+  font-size: 11px;
+  color: var(--nx-muted);
+  font-weight: 600;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.outage-field-value {
+  font-size: 14px;
+  color: var(--nx-text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+/* Boolean field values */
+.outage-field-boolean {
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  font-size: 13px;
+}
+.outage-bool-yes {
+  background: rgba(34,197,94,0.15);
+  color: #4ade80;
+}
+.outage-bool-no {
+  background: rgba(239,68,68,0.12);
+  color: #f87171;
+}
+
+/* IP list tags */
+.outage-ip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.outage-ip-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  color: #93c5fd;
+  animation: outage-tag-pop 0.3s ease-out both;
+}
+.outage-ip-tag:nth-child(1) { animation-delay: 0.05s; }
+.outage-ip-tag:nth-child(2) { animation-delay: 0.1s; }
+.outage-ip-tag:nth-child(3) { animation-delay: 0.15s; }
+.outage-ip-tag:nth-child(4) { animation-delay: 0.2s; }
+.outage-ip-tag:nth-child(5) { animation-delay: 0.25s; }
+.outage-ip-tag:nth-child(n+6) { animation-delay: 0.3s; }
+
+/* Datetime & Duration */
+.outage-field-datetime,
+.outage-field-duration {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #93c5fd;
+}
+
+/* ── Badges ── */
+.outage-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  letter-spacing: 0.05em;
+}
+
+.outage-severity-critical {
+  background: rgba(239,68,68,0.25);
+  color: #fca5a5;
+  animation: outage-badge-blink 1.5s ease-in-out infinite;
+}
+.outage-severity-high {
+  background: rgba(249,115,22,0.2);
+  color: #fdba74;
+}
+.outage-severity-medium {
+  background: rgba(245,158,11,0.2);
+  color: #fcd34d;
+}
+.outage-severity-low {
+  background: rgba(59,130,246,0.2);
+  color: #93c5fd;
+}
+.outage-severity-info {
+  background: rgba(34,197,94,0.2);
+  color: #86efac;
+}
+.outage-badge-resolved {
+  background: rgba(34,197,94,0.2);
+  color: #86efac;
+}
+
+/* ── Empty State ── */
+.outage-wall-empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--nx-muted);
+  animation: outage-fade-in 0.6s ease-out;
+}
+.outage-wall-empty-icon {
+  display: inline-flex;
+  padding: 20px;
+  border-radius: 50%;
+  background: rgba(100,116,139,0.1);
+  margin-bottom: 16px;
+}
+.outage-wall-empty h3 {
+  color: var(--nx-text-secondary);
+  font-size: 18px;
+  margin: 0 0 6px;
+}
+.outage-wall-empty p {
+  font-size: 14px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+/* Spinner */
+.spinning {
+  animation: outage-spin 1s linear infinite;
+}
+
+/* ============================================
+ * ANIMATIONS
+ * ============================================ */
+
+@keyframes outage-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes outage-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes outage-expand {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes outage-card-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(239, 68, 68, 0), 0 2px 8px rgba(0,0,0,0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.15), 0 2px 8px rgba(0,0,0,0.1);
+  }
+}
+
+@keyframes outage-badge-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes outage-banner-pulse {
+  0%, 100% {
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    border-color: rgba(239, 68, 68, 0.5);
+  }
+}
+
+@keyframes outage-live-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 6px rgba(34,197,94,0.5);
+  }
+  50% {
+    opacity: 0.5;
+    box-shadow: 0 0 12px rgba(34,197,94,0.8);
+  }
+}
+
+@keyframes outage-logo-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(59,130,246,0);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(59,130,246,0.15);
+  }
+}
+
+@keyframes outage-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes outage-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes outage-ripple {
+  0% {
+    transform: translateY(-50%) scale(0.5);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-50%) scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes outage-tag-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes outage-field-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes outage-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================
+ * RESPONSIVE
+ * ============================================ */
+
+@media (max-width: 640px) {
+  .outage-wall-container {
+    padding: 16px;
+  }
+  .outage-card-fields {
+    grid-template-columns: 1fr;
+  }
+  .outage-field {
+    border-right: none;
+  }
+  .outage-card-title {
+    font-size: 14px;
+  }
+  .outage-card-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .outage-card-meta-sep {
+    display: none;
+  }
+}

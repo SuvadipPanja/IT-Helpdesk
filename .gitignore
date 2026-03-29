@@ -1,0 +1,89 @@
+# Node modules
+node_modules/
+
+# Log files
+*.log
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Exclude everything except backend and frontend source
+Backup/
+Data_Backup/
+production-release/
+presentation/
+docs/
+docker/
+license-generator/
+-SkipBuild/
+
+# Large binary files
+*.tar
+*.mp4
+*.mp3
+*.wav
+*.pptx
+*.bak
+
+# Runtime/generated app data
+backend/logs/
+backend/uploads/profiles/*
+backend/uploads/tickets/*
+backend/uploads/branding/*
+!backend/uploads/profiles/.gitkeep
+!backend/uploads/tickets/.gitkeep
+!backend/uploads/branding/.gitkeep
+backend/Data_Backup/
+backend/.env
+backend/.venv/
+backend/.tmp.driveupload/
+frontend/dist/
+frontend/playwright-report/
+frontend/test-results/
+
+# Environment files with secrets — NEVER commit these
+.env
+.env.local
+.env.production
+production-release/.env
+backend/.env.local
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+
+# Temp/diagnostic files
+wa4results.txt
+_*.txt
+_*.js
+do-push*.js
+kill-git.js
+push*.txt
+push*.cmd
+check*.txt
+gs.txt
+ps.txt
+ps2.txt
+autogit.js
+*.log
+
+# Build logs
+build-*.log
+up-stderr.log
+up-stdout.log
+up2-stderr.log
+up2-stdout.log
+up3-stderr.log
+up3-stdout.log
+
+# Root package files (not needed)
+/package.json
+/package-lock.json
+/docker-compose.yml
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

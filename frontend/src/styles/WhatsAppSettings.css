@@ -1,0 +1,442 @@
+/* ============================================
+   WHATSAPP SETTINGS TAB STYLES
+   Scoped under .wa-settings-container
+   ============================================ */
+
+.wa-settings-container {
+  padding: 20px;
+}
+
+/* --- Form Grid --- */
+.wa-settings-container .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.wa-settings-container .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wa-settings-container .form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.wa-settings-container .form-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.wa-settings-container .form-input {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 13px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.wa-settings-container .form-input:focus {
+  outline: none;
+  border-color: var(--color-primary, #25D366);
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.12);
+}
+
+.wa-settings-container .form-help {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* --- Section Card --- */
+.wa-section {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.wa-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.wa-section-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.wa-section-content {
+  padding: 18px;
+}
+
+/* --- Toggle Row --- */
+.wa-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.wa-toggle-row:last-child {
+  border-bottom: none;
+}
+
+.wa-toggle-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.wa-toggle-label strong {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.wa-toggle-label span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.wa-toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.wa-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.wa-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: var(--border-color);
+  border-radius: 24px;
+  transition: 0.2s;
+}
+
+.wa-toggle-slider:before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.wa-toggle input:checked + .wa-toggle-slider {
+  background: #25D366;
+}
+
+.wa-toggle input:checked + .wa-toggle-slider:before {
+  transform: translateX(20px);
+}
+
+/* --- Stats Grid --- */
+.wa-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.wa-stat-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+}
+
+.wa-stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #25D366;
+  line-height: 1.2;
+}
+
+.wa-stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* --- Test Bar --- */
+.wa-test-bar {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  margin-top: 16px;
+}
+
+.wa-test-bar .form-group {
+  flex: 1;
+  margin: 0;
+}
+
+/* --- Action Button --- */
+.wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.wa-btn:active { transform: scale(0.97); }
+.wa-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.wa-btn-primary {
+  background: #25D366;
+  color: white;
+}
+
+.wa-btn-primary:hover:not(:disabled) {
+  background: #1da851;
+}
+
+.wa-btn-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.wa-btn-secondary:hover:not(:disabled) {
+  background: var(--bg-tertiary);
+}
+
+.wa-btn-danger {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.wa-btn-danger:hover:not(:disabled) {
+  background: #fecaca;
+}
+
+/* --- Alert --- */
+.wa-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.wa-alert.success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+.wa-alert.error   { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+.wa-alert.info    { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+.wa-alert.warning { background: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
+
+/* --- Token Field --- */
+.wa-token-field {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.wa-token-field .form-input {
+  flex: 1;
+}
+
+/* --- Table --- */
+.wa-logs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.wa-logs-table th,
+.wa-logs-table td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.wa-logs-table th {
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+}
+
+.wa-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.wa-badge-in  { background: #dbeafe; color: #1e40af; }
+.wa-badge-out { background: #dcfce7; color: #166534; }
+.wa-badge-failed  { background: #fee2e2; color: #dc2626; }
+.wa-badge-sent    { background: #dbeafe; color: #1e40af; }
+.wa-badge-delivered { background: #ccfbf1; color: #0f766e; }
+.wa-badge-read    { background: #f3e8ff; color: #7e22ce; }
+.wa-badge-pending { background: #fef9c3; color: #854d0e; }
+.wa-badge-muted   { background: var(--bg-tertiary, #f1f5f9); color: var(--text-muted); }
+
+/* Message type badges */
+.wa-badge-type-text        { background: #f0fdf4; color: #15803d; }
+.wa-badge-type-interactive { background: #eff6ff; color: #1d4ed8; }
+.wa-badge-type-media       { background: #fdf4ff; color: #9333ea; }
+
+/* Spinner */
+.wa-spin {
+  animation: wa-spin 0.7s linear infinite;
+}
+
+@keyframes wa-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Icon colour helpers --- */
+.wa-icon-green  { color: #25D366; }
+.wa-icon-blue   { color: #3b82f6; }
+.wa-icon-amber  { color: #f59e0b; }
+.wa-icon-purple { color: #9333ea; }
+.wa-icon-red    { color: #ef4444; }
+
+/* --- Status pill (section header) --- */
+.wa-status-pill {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.wa-status-pill--on  { background: #dcfce7; color: #166534; }
+.wa-status-pill--off { background: var(--bg-tertiary, #f1f5f9); color: var(--text-muted); }
+
+/* --- Section header hint --- */
+.wa-section-header-hint {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* --- Toggle label title (icon + label) --- */
+.wa-toggle-label-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* --- Stat card accent colours --- */
+.wa-stat-value--messages { color: #25D366; }
+.wa-stat-value--users    { color: #3b82f6; }
+.wa-stat-value--notif    { color: #f59e0b; }
+.wa-stat-value--24h      { color: #9333ea; }
+
+/* --- Danger solid button --- */
+.wa-btn-danger-solid {
+  background: #dc2626;
+  color: white;
+}
+.wa-btn-danger-solid:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+/* --- Copied state button --- */
+.wa-btn-copied {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+/* --- Broadcast confirm text --- */
+.wa-confirm-text {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  padding: 0 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .wa-settings-container .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .wa-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .wa-test-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* --- Provider selector tabs --- */
+.wa-provider-tabs {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.wa-provider-tab {
+  padding: 6px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1;
+}
+
+.wa-provider-tab:not(.active):hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.wa-provider-tab.active {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.wa-icon-purple {
+  color: #7c3aed;
+}

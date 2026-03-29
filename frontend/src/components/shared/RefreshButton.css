@@ -1,0 +1,113 @@
+/* ==========================================================================
+   RefreshButton — Unified refresh/reload control
+   Classes: nx-refresh-btn, nx-refresh-btn--default | --compact | --ghost
+   ========================================================================== */
+
+.nx-refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+  transition: background .18s, box-shadow .18s, color .18s, transform .18s;
+}
+
+/* ── Default variant (most common) ── */
+.nx-refresh-btn--default {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: var(--nx-radius-sm, 8px);
+  background: var(--nx-surface, #fff);
+  color: var(--nx-text-secondary, #475569);
+  border: 1px solid var(--nx-border, #e2e8f0);
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.nx-refresh-btn--default:hover:not(:disabled) {
+  background: var(--nx-surface-hover, #f8fafc);
+  color: var(--nx-primary, #6366f1);
+  border-color: var(--nx-primary, #6366f1);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.10);
+  transform: translateY(-1px);
+}
+.nx-refresh-btn--default:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+}
+
+/* ── Compact variant (icon-only, no padding) ── */
+.nx-refresh-btn--compact {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: var(--nx-radius-sm, 8px);
+  background: transparent;
+  color: var(--nx-text-secondary, #475569);
+  border: 1px solid transparent;
+}
+.nx-refresh-btn--compact:hover:not(:disabled) {
+  background: var(--nx-surface-hover, #f1f5f9);
+  color: var(--nx-primary, #6366f1);
+  border-color: var(--nx-border, #e2e8f0);
+}
+
+/* ── Ghost variant (minimal) ── */
+.nx-refresh-btn--ghost {
+  height: 32px;
+  padding: 0 10px;
+  border-radius: var(--nx-radius-sm, 8px);
+  background: transparent;
+  color: var(--nx-muted, #94a3b8);
+}
+.nx-refresh-btn--ghost:hover:not(:disabled) {
+  background: rgba(99,102,241,.08);
+  color: var(--nx-primary, #6366f1);
+}
+
+/* ── Loading state — spinning icon ── */
+.nx-refresh-btn--loading .nx-refresh-icon {
+  animation: nx-spin .8s linear infinite;
+}
+.nx-refresh-btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ── Label text ── */
+.nx-refresh-label {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ── Spin keyframes ── */
+@keyframes nx-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Dark theme ── */
+[data-theme='dark'] .nx-refresh-btn--default {
+  background: var(--nx-surface, #1e293b);
+  color: var(--nx-text-secondary, #cbd5e1);
+  border-color: var(--nx-border, #334155);
+}
+[data-theme='dark'] .nx-refresh-btn--default:hover:not(:disabled) {
+  background: var(--nx-surface-hover, #263348);
+  color: var(--nx-primary, #818cf8);
+  border-color: var(--nx-primary, #818cf8);
+}
+[data-theme='dark'] .nx-refresh-btn--compact:hover:not(:disabled) {
+  background: rgba(99,102,241,.12);
+  color: var(--nx-primary, #818cf8);
+}
+[data-theme='dark'] .nx-refresh-btn--ghost:hover:not(:disabled) {
+  background: rgba(99,102,241,.10);
+  color: var(--nx-primary, #818cf8);
+}

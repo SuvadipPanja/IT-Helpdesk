@@ -1,0 +1,49 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "IT Helpdesk Backend API",
+  "main": "server.js",
+  "scripts": {
+    "setup:ollama": "node scripts/setup-ollama-chatbot.js",
+    "db:purge-tickets-users": "node scripts/purge-tickets-notifications-trim-users.js",
+    "test": "node --test tests/smoke/auth.smoke.test.js tests/smoke/tickets.smoke.test.js tests/smoke/ai.smoke.test.js tests/smoke/publicEmailApproval.smoke.test.js tests/unit/emailTemplateRender.test.js tests/unit/publicUrl.test.js tests/unit/ticketPermissions.canReview.test.js tests/unit/approvalEmailToken.test.js tests/unit/approvalInboundMail.test.js tests/unit/whatsapp.phase4.test.js",
+    "test:smoke": "node --test tests/smoke/auth.smoke.test.js tests/smoke/tickets.smoke.test.js tests/smoke/ai.smoke.test.js",
+    "test:whatsapp": "node --test tests/unit/whatsapp.phase4.test.js",
+    "test:email-templates": "node --test tests/unit/emailTemplateRender.test.js",
+    "email:templates:patch-branding": "node scripts/patch-email-templates-branding.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "archiver": "^7.0.1",
+    "bcryptjs": "^3.0.2",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "cron-parser": "^5.5.0",
+    "dompurify": "^3.3.1",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "imapflow": "^1.2.16",
+    "jsonwebtoken": "^9.0.2",
+    "mailparser": "^3.9.4",
+    "mssql": "^12.0.0",
+    "multer": "^2.0.2",
+    "node-cache": "^5.1.2",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^8.0.4",
+    "otplib": "^12.0.1",
+    "qrcode": "^1.5.4",
+    "speakeasy": "^2.0.0"
+  },
+  "devDependencies": {
+    "axios": "^1.13.6",
+    "nodemon": "^3.1.10"
+  }
+}

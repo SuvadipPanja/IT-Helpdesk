@@ -1,0 +1,340 @@
+/* ============================================
+ * OUTAGE ADMIN & PUBLISH SHARED STYLES
+ * Uses global --nx-* design system variables
+ * ============================================ */
+
+.outage-admin-page {
+  padding: var(--nx-sp-6);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.outage-admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--nx-sp-6);
+  flex-wrap: wrap;
+  gap: var(--nx-sp-3);
+}
+
+.outage-admin-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--nx-text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Cards ── */
+.outage-admin-card {
+  background: var(--nx-surface);
+  border: 1px solid var(--nx-border);
+  border-radius: var(--nx-radius);
+  padding: var(--nx-sp-4);
+  margin-bottom: var(--nx-sp-3);
+}
+
+.outage-admin-card-dark {
+  background: var(--nx-bg);
+}
+
+/* ── Buttons ── */
+.outage-btn-primary {
+  padding: 8px 16px;
+  background: var(--nx-info);
+  color: #fff;
+  border: none;
+  border-radius: var(--nx-radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.outage-btn-primary:hover {
+  opacity: 0.9;
+}
+
+.outage-btn-secondary {
+  padding: 8px 16px;
+  background: var(--nx-border);
+  color: #fff;
+  border: none;
+  border-radius: var(--nx-radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.outage-btn-danger {
+  padding: 8px 16px;
+  background: var(--nx-danger);
+  color: #fff;
+  border: none;
+  border-radius: var(--nx-radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.outage-btn-success {
+  padding: 8px 16px;
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  border-radius: var(--nx-radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.outage-btn-small {
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid var(--nx-border-strong);
+  border-radius: 6px;
+  color: var(--nx-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+}
+.outage-btn-small:hover {
+  border-color: var(--nx-info);
+  color: var(--nx-text-secondary);
+}
+
+/* ── Form inputs ── */
+.outage-input {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--nx-bg);
+  border: 1px solid var(--nx-border);
+  border-radius: var(--nx-radius-sm);
+  color: var(--nx-text);
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.outage-input:focus {
+  outline: none;
+  border-color: var(--nx-info);
+}
+
+.outage-select {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--nx-bg);
+  border: 1px solid var(--nx-border);
+  border-radius: var(--nx-radius-sm);
+  color: var(--nx-text);
+  font-size: 14px;
+  appearance: auto;
+  box-sizing: border-box;
+}
+
+.outage-textarea {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--nx-bg);
+  border: 1px solid var(--nx-border);
+  border-radius: var(--nx-radius-sm);
+  color: var(--nx-text);
+  font-size: 14px;
+  min-height: 80px;
+  resize: vertical;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.outage-label {
+  display: block;
+  font-size: 13px;
+  color: var(--nx-muted);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+/* ── Modal ── */
+.outage-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.outage-modal-content {
+  background: var(--nx-surface);
+  border-radius: var(--nx-radius-lg);
+  padding: var(--nx-sp-6);
+  width: 100%;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+  border: 1px solid var(--nx-border);
+}
+
+.outage-modal-wide {
+  max-width: 800px;
+}
+
+.outage-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.outage-modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--nx-text);
+}
+
+.outage-modal-close {
+  background: none;
+  border: none;
+  color: var(--nx-muted);
+  cursor: pointer;
+}
+
+/* ── Stats Box ── */
+.outage-stat-box {
+  background: var(--nx-bg);
+  border-radius: 10px;
+  padding: var(--nx-sp-4);
+  text-align: center;
+  border: 1px solid var(--nx-surface);
+}
+
+.outage-stat-value {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.outage-stat-label {
+  font-size: 13px;
+  color: var(--nx-muted);
+}
+
+/* ── Grid layouts ── */
+.outage-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--nx-sp-4);
+}
+
+.outage-grid-4col {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--nx-sp-3);
+}
+
+/* ── Table ── */
+.outage-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.outage-table th {
+  text-align: left;
+  padding: 8px 12px;
+  color: var(--nx-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.outage-table td {
+  padding: 8px 12px;
+  color: var(--nx-text-secondary);
+  font-size: 13px;
+}
+
+.outage-table tr {
+  border-bottom: 1px solid var(--nx-surface);
+}
+
+/* ── Misc ── */
+.outage-text-primary { color: var(--nx-text); }
+.outage-text-secondary { color: var(--nx-text-secondary); }
+.outage-text-muted { color: var(--nx-muted); }
+.outage-text-success { color: var(--nx-success); }
+.outage-text-danger { color: var(--nx-danger); }
+.outage-text-info { color: var(--nx-info); }
+
+.outage-loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--nx-muted);
+}
+
+.outage-empty {
+  text-align: center;
+  padding: 40px;
+  color: var(--nx-muted);
+}
+
+@keyframes outage-admin-spin {
+  to { transform: rotate(360deg); }
+}
+.outage-spinning {
+  animation: outage-admin-spin 1s linear infinite;
+}
+
+/* ── Boolean Toggle (Publish form) ── */
+.outage-boolean-toggle {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--nx-border);
+  border-radius: var(--nx-radius-sm);
+  overflow: hidden;
+  width: fit-content;
+}
+.outage-bool-btn {
+  padding: 8px 20px;
+  border: none;
+  background: var(--nx-bg);
+  color: var(--nx-muted);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.outage-bool-btn:first-child {
+  border-right: 1px solid var(--nx-border);
+}
+.outage-bool-btn-yes {
+  background: rgba(34,197,94,0.15);
+  color: #4ade80;
+}
+.outage-bool-btn-no {
+  background: rgba(239,68,68,0.12);
+  color: #f87171;
+}
+.outage-bool-btn:hover:not(.outage-bool-btn-yes):not(.outage-bool-btn-no) {
+  background: var(--nx-surface);
+  color: var(--nx-text-secondary);
+}
+
+/* ── IP Textarea ── */
+.outage-ip-textarea {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}

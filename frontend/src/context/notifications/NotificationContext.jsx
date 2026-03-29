@@ -1,0 +1,378 @@
+// ============================================
+// NOTIFICATION CONTEXT - FIXED WITH SETTINGS CHECK
+// Global state management for notifications
+// Implements HTTP Polling for real-time updates
+// Developer: Suvadip Panja
+// Updated: November 11, 2025 - Added notification_enabled check
+// PRODUCTION READY: Now respects notification settings
+// ============================================
+
+import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import api from '../../services/api';
+import settingsService from '../../services/settingsService'; // ⭐ NEW
+
+// ============================================
+// CREATE CONTEXT
+// ============================================
+const NotificationContext = createContext();
+
+// ============================================
+// CUSTOM HOOK: useNotification
+// ============================================
+export const useNotification = () => {
+  const context = useContext(NotificationContext);
+  if (!context) {
+    throw new Error('useNotification must be used within NotificationProvider');
+  }
+  return context;
+};
+
+// ============================================
+// NOTIFICATION PROVIDER COMPONENT
+// ============================================
+export const NotificationProvider = ({ children }) => {
+  // ============================================
+  // STATE MANAGEMENT
+  // ============================================
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true); // ⭐ NEW
+
+  // ============================================
+  // POLLING CONFIGURATION
+  // ============================================
+  const POLL_INTERVAL = 20000; // 20 seconds
+  const lastPollTimeRef = useRef(0);
+  const pollingIntervalRef = useRef(null);
+  const isPollingRef = useRef(false);
+
+  // ============================================
+  // ⭐ NEW: CHECK IF NOTIFICATIONS ARE ENABLED
+  // ============================================
+  const checkNotificationSettings = useCallback(async () => {
+    try {
+      // Get notification settings
+      const settings = await settingsService.fetchSettings();
+      
+      if (settings && settings.notification) {
+        const enabled = settings.notification.notification_enabled?.value === 'true' ||
+                       settings.notification.notification_enabled?.value === true;
+        
+        setNotificationsEnabled(enabled);
+        
+        if (process.env.NODE_ENV === 'development') {
+          console.log('🔔 Notification settings loaded:', {
+            enabled,
+            raw: settings.notification.notification_enabled?.value
+          });
+        }
+        
+        return enabled;
+      }
+      
+      // Default to enabled if settings not found
+      setNotificationsEnabled(true);
+      return true;
+      
+    } catch (error) {
+      if (process.env.NODE_ENV === 'development') console.error('❌ Error checking notification settings:', error);
+      // Default to enabled on error
+      setNotificationsEnabled(true);
+      return true;
+    }
+  }, []);
+
+  // ============================================
+  // LOAD SETTINGS ON MOUNT
+  // ============================================
+  useEffect(() => {
+    checkNotificationSettings();
+  }, [checkNotificationSettings]);
+
+  // ============================================
+  // FETCH UNREAD COUNT
+  // ⭐ UPDATED: Check settings before fetching
+  // ============================================
+  const fetchUnreadCount = useCallback(async () => {
+    try {
+      // ⭐ Check if notifications are enabled
+      if (!notificationsEnabled) {
+        if (process.env.NODE_ENV === 'development') console.log('⏭️ Skipping notification fetch - notifications disabled');
+        setUnreadCount(0);
+        return;
+      }
+
+      const now = Date.now();
+      const timeSinceLastPoll = now - lastPollTimeRef.current;
+      
+      // Prevent rapid requests (minimum 5 seconds between calls)
+      if (timeSinceLastPoll < 5000) {
+        if (process.env.NODE_ENV === 'development') console.log('⏳ Skipping poll - too soon since last request');
+        return;
+      }
+
+      lastPollTimeRef.current = now;
+      
+      const response = await api.get('/notifications/unread-count');
+      if (response.data.success) {
+        const count = response.data.data.unread_count;
+        setUnreadCount(count);
+      }
+    } catch (err) {
+      // Error handled silently
+      // Don't show error to user for background polling
+    }
+  }, [notificationsEnabled]); // ⭐ Added dependency
+
+  // ============================================
+  // FETCH NOTIFICATIONS
+  // ⭐ UPDATED: Check settings before fetching
+  // ============================================
+  const fetchNotifications = useCallback(async (page = 1, limit = 20, unreadOnly = false) => {
+    try {
+      // ⭐ Check if notifications are enabled
+      if (!notificationsEnabled) {
+        setNotifications([]);
+        setUnreadCount(0);
+        return { notifications: [], pagination: null };
+      }
+
+      setLoading(true);
+      setError(null);
+
+      const params = {
+        page,
+        limit,
+        unread_only: unreadOnly,
+      };
+
+      const response = await api.get('/notifications', { params });
+
+      if (response.data.success) {
+        setNotifications(response.data.data.notifications);
+        return response.data.data;
+      }
+    } catch (err) {
+      // Error handled silently
+      setError(err.response?.data?.message || 'Failed to fetch notifications');
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  }, [notificationsEnabled]); // ⭐ Added dependency
+
+  // ============================================
+  // MARK SINGLE NOTIFICATION AS READ
+  // ============================================
+  const markAsRead = useCallback(async (notificationId) => {
+    try {
+      const response = await api.patch(`/notifications/${notificationId}/read`);
+
+      if (response.data.success) {
+        // Update local state immediately (optimistic update)
+        setNotifications((prev) =>
+          prev.map((notif) =>
+            notif.notification_id === notificationId
+              ? { ...notif, is_read: true }
+              : notif
+          )
+        );
+
+        // Update unread count
+        setUnreadCount((prev) => Math.max(0, prev - 1));
+        
+        return true;
+      }
+      return false;
+    } catch (err) {
+      // Error handled silently
+      return false;
+    }
+  }, []);
+
+  // ============================================
+  // MARK ALL NOTIFICATIONS AS READ
+  // ============================================
+  const markAllAsRead = useCallback(async () => {
+    try {
+      const response = await api.patch('/notifications/read-all');
+
+      if (response.data.success) {
+        // Update local state
+        setNotifications((prev) =>
+          prev.map((notif) => ({ ...notif, is_read: true }))
+        );
+        setUnreadCount(0);
+        
+        return true;
+      }
+      return false;
+    } catch (err) {
+      // Error handled silently
+      return false;
+    }
+  }, []);
+
+  // ============================================
+  // DELETE NOTIFICATION
+  // ============================================
+  const deleteNotification = useCallback(async (notificationId) => {
+    try {
+      const response = await api.delete(`/notifications/${notificationId}`);
+
+      if (response.data.success) {
+        // Remove from local state
+        setNotifications((prev) =>
+          prev.filter((notif) => notif.notification_id !== notificationId)
+        );
+
+        // Update unread count if it was unread
+        const notif = notifications.find((n) => n.notification_id === notificationId);
+        if (notif && !notif.is_read) {
+          setUnreadCount((prev) => Math.max(0, prev - 1));
+        }
+        
+        return true;
+      }
+      return false;
+    } catch (err) {
+      // Error handled silently
+      return false;
+    }
+  }, [notifications]);
+
+  // ============================================
+  // CLEAR READ NOTIFICATIONS
+  // ============================================
+  const clearReadNotifications = useCallback(async () => {
+    try {
+      const response = await api.delete('/notifications/clear-read');
+
+      if (response.data.success) {
+        // Remove read notifications from local state
+        setNotifications((prev) => prev.filter((notif) => !notif.is_read));
+        
+        return true;
+      }
+      return false;
+    } catch (err) {
+      // Error handled silently
+      return false;
+    }
+  }, []);
+
+  // ============================================
+  // REFRESH NOTIFICATIONS
+  // ⭐ UPDATED: Also refresh settings
+  // ============================================
+  const refreshNotifications = useCallback(async () => {
+    await checkNotificationSettings(); // ⭐ Check settings first
+    await Promise.all([
+      fetchUnreadCount(),
+      fetchNotifications(),
+    ]);
+  }, [checkNotificationSettings, fetchUnreadCount, fetchNotifications]);
+
+  // ============================================
+  // POLLING LOGIC
+  // ⭐ UPDATED: Check settings before starting poll
+  // ============================================
+  useEffect(() => {
+    // Check if user is authenticated
+    const token = localStorage.getItem('token');
+    
+    // Only start polling if token exists, notifications enabled, and not already polling
+    if (token && notificationsEnabled && !isPollingRef.current) {
+      isPollingRef.current = true;
+
+      // Initial fetch after 2 seconds
+      const initialTimeout = setTimeout(() => {
+        fetchUnreadCount();
+      }, 2000);
+
+      // Start polling interval
+      pollingIntervalRef.current = setInterval(() => {
+        fetchUnreadCount();
+      }, POLL_INTERVAL);
+
+      // Cleanup function
+      return () => {
+        clearTimeout(initialTimeout);
+        if (pollingIntervalRef.current) {
+          clearInterval(pollingIntervalRef.current);
+          pollingIntervalRef.current = null;
+        }
+        isPollingRef.current = false;
+      };
+    }
+    
+    // If notifications disabled or no token, ensure polling is stopped
+    if ((!token || !notificationsEnabled) && pollingIntervalRef.current) {
+      clearInterval(pollingIntervalRef.current);
+      pollingIntervalRef.current = null;
+      isPollingRef.current = false;
+    }
+  }, [fetchUnreadCount, notificationsEnabled]); // ⭐ Added notificationsEnabled dependency
+
+  // ============================================
+  // VISIBILITY CHANGE HANDLER
+  // ============================================
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && notificationsEnabled) {
+        const now = Date.now();
+        const timeSinceLastPoll = now - lastPollTimeRef.current;
+        
+        // Only fetch if it's been more than 5 seconds
+        if (timeSinceLastPoll > 5000) {
+          fetchUnreadCount();
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [fetchUnreadCount, notificationsEnabled]); // ⭐ Added notificationsEnabled dependency
+
+  // ============================================
+  // CONTEXT VALUE
+  // ============================================
+  const value = {
+    // State
+    notifications,
+    unreadCount,
+    loading,
+    error,
+    isPolling: isPollingRef.current,
+    notificationsEnabled, // ⭐ NEW: Expose to consumers
+
+    // Functions
+    fetchNotifications,
+    fetchUnreadCount,
+    markAsRead,
+    markAllAsRead,
+    deleteNotification,
+    clearReadNotifications,
+    refreshNotifications,
+    checkNotificationSettings, // ⭐ NEW: Expose for manual refresh
+  };
+
+  // ============================================
+  // RENDER PROVIDER
+  // ============================================
+  return (
+    <NotificationContext.Provider value={value}>
+      {children}
+    </NotificationContext.Provider>
+  );
+};
+
+// ============================================
+// EXPORT
+// ============================================
+export default NotificationContext;

@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Logs
+logs/
+*.log
+
+# Uploads (user-generated content)
+uploads/profiles/*
+uploads/tickets/*
+uploads/branding/*
+uploads/documents/*
+!uploads/profiles/.gitkeep
+!uploads/tickets/.gitkeep
+!uploads/branding/.gitkeep
+!uploads/documents/.gitkeep
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Build
+dist/
+build/
+
+# Database backups
+backups/
+*.bak
+
+# Python virtual environment
+.venv/
+
+# Old git backup
+.git-old-backup/
+
+# Temp/diagnostic files
+_*.txt
+_*.js
+
+# Drive upload temp files
+.tmp.driveupload/
+
+# Test files (not part of production)
+test-*.js
+approvals-migration.log
+baseline-run*.log
+
+# Coverage
+coverage/
+node_modules

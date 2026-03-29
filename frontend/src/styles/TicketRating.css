@@ -1,0 +1,491 @@
+/* ============================================
+   TICKET RATING SYSTEM STYLES
+   Modern star-rating UI with multi-criteria feedback
+   Developer: Suvadip Panja
+   Created: March 2026
+   ============================================ */
+
+/* ============================================
+   RATING MODAL OVERLAY
+   ============================================ */
+.rating-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: ratingFadeIn 0.25s ease;
+  padding: 20px;
+}
+
+@keyframes ratingFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============================================
+   RATING MODAL
+   ============================================ */
+.rating-modal {
+  background: var(--bg-primary, #ffffff);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  animation: ratingSlideUp 0.3s ease;
+}
+
+@keyframes ratingSlideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.rating-modal-header {
+  padding: 28px 28px 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.rating-modal-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 28px;
+}
+
+.rating-modal-header h3 {
+  margin: 0 0 6px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary, #111827);
+}
+
+.rating-modal-header p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary, #6b7280);
+  line-height: 1.5;
+}
+
+.rating-modal-engineer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 6px 14px;
+  background: var(--bg-secondary, #f3f4f6);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--text-primary, #374151);
+}
+
+.rating-modal-engineer-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* ============================================
+   RATING CRITERIA
+   ============================================ */
+.rating-modal-body {
+  padding: 24px 28px;
+}
+
+.rating-criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.rating-criteria-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rating-criteria-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rating-criteria-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary, #374151);
+}
+
+.rating-criteria-desc {
+  font-size: 0.75rem;
+  color: var(--text-tertiary, #9ca3af);
+}
+
+.rating-criteria-value {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #f59e0b;
+  min-width: 30px;
+  text-align: right;
+}
+
+/* ============================================
+   STAR RATING INPUT
+   ============================================ */
+.star-rating-input {
+  display: flex;
+  gap: 4px;
+}
+
+.star-rating-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  transition: all 0.15s ease;
+  color: var(--border-color, #d1d5db);
+  display: flex;
+  align-items: center;
+}
+
+.star-rating-btn:hover {
+  transform: scale(1.15);
+}
+
+.star-rating-btn.active {
+  color: #f59e0b;
+}
+
+.star-rating-btn.hovered {
+  color: #fbbf24;
+}
+
+/* ============================================
+   FEEDBACK TEXT
+   ============================================ */
+.rating-feedback-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color, #e5e7eb);
+}
+
+.rating-feedback-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary, #374151);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.rating-feedback-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border-color, #d1d5db);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 80px;
+  max-height: 160px;
+  background: var(--bg-primary, #ffffff);
+  color: var(--text-primary, #111827);
+  transition: border-color 0.2s ease;
+}
+
+.rating-feedback-textarea:focus {
+  outline: none;
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.rating-feedback-textarea::placeholder {
+  color: var(--text-tertiary, #9ca3af);
+}
+
+/* ============================================
+   OVERALL RATING DISPLAY
+   ============================================ */
+.rating-overall-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 16px;
+  background: var(--bg-secondary, #f9fafb);
+  border-radius: 12px;
+  border: 1px solid var(--border-color, #e5e7eb);
+}
+
+.rating-overall-score {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #f59e0b;
+  line-height: 1;
+}
+
+.rating-overall-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary, #6b7280);
+}
+
+.rating-overall-stars {
+  display: flex;
+  gap: 2px;
+  color: #f59e0b;
+}
+
+/* ============================================
+   MODAL ACTIONS
+   ============================================ */
+.rating-modal-actions {
+  padding: 20px 28px 24px;
+  display: flex;
+  gap: 12px;
+  border-top: 1px solid var(--border-color, #e5e7eb);
+}
+
+.rating-btn-cancel {
+  flex: 1;
+  padding: 12px 20px;
+  border: 1px solid var(--border-color, #d1d5db);
+  border-radius: 10px;
+  background: var(--bg-primary, #ffffff);
+  color: var(--text-primary, #374151);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rating-btn-cancel:hover {
+  background: var(--bg-secondary, #f3f4f6);
+}
+
+.rating-btn-submit {
+  flex: 2;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.rating-btn-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.rating-btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ============================================
+   RATING DISPLAY (Read-only, on ticket detail)
+   ============================================ */
+.td-rating-card {
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-primary, #ffffff);
+}
+
+.td-rating-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+  background: var(--bg-secondary, #f9fafb);
+}
+
+.td-rating-header svg {
+  color: #f59e0b;
+}
+
+.td-rating-header h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary, #111827);
+}
+
+.td-rating-content {
+  padding: 18px;
+}
+
+.td-rating-overall {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.td-rating-score-lg {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #f59e0b;
+  line-height: 1;
+}
+
+.td-rating-stars-lg {
+  display: flex;
+  gap: 3px;
+  color: #f59e0b;
+  font-size: 1.2rem;
+}
+
+.td-rating-stars-lg .star-empty {
+  color: var(--border-color, #d1d5db);
+}
+
+.td-rating-meta {
+  font-size: 0.75rem;
+  color: var(--text-tertiary, #9ca3af);
+}
+
+.td-rating-criteria-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.td-rating-criteria-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: var(--bg-secondary, #f9fafb);
+  border-radius: 8px;
+}
+
+.td-rating-criteria-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.td-rating-criteria-stars {
+  display: flex;
+  gap: 2px;
+  color: #f59e0b;
+}
+
+.td-rating-criteria-stars .star-empty {
+  color: var(--border-color, #d1d5db);
+}
+
+.td-rating-feedback {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: var(--bg-secondary, #f9fafb);
+  border-radius: 8px;
+  border-left: 3px solid #f59e0b;
+}
+
+.td-rating-feedback-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary, #6b7280);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.td-rating-feedback-text {
+  font-size: 0.88rem;
+  color: var(--text-primary, #374151);
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.td-rating-footer {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-tertiary, #9ca3af);
+}
+
+/* ============================================
+   RATE BUTTON (Ticket Detail header area)
+   ============================================ */
+.td-btn-rate {
+  background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+  color: #ffffff !important;
+  border: none !important;
+  animation: ratePulse 2s ease-in-out infinite;
+}
+
+.td-btn-rate:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+@keyframes ratePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 576px) {
+  .rating-modal {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+
+  .rating-modal-header,
+  .rating-modal-body,
+  .rating-modal-actions {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .td-rating-criteria-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rating-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .rating-btn-cancel,
+  .rating-btn-submit {
+    flex: unset;
+    width: 100%;
+  }
+}
