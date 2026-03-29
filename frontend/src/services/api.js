@@ -14,15 +14,13 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
-// Request interceptor - Add token to all requests
+// Request interceptor - no longer adds token from localStorage
+// Auth token is now sent automatically via HttpOnly cookie
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
     return config;
   },
   (error) => {
@@ -40,15 +38,14 @@ api.interceptors.response.use(
     const currentPath = window.location.pathname;
     const isLoginPage = currentPath === '/login' || currentPath === '/';
     const isChangePasswordPage = currentPath === '/profile/change-password';
-    const hasToken = localStorage.getItem('token');
+    const isAuthenticated = !!localStorage.getItem('user');
 
     // ============================================
     // 503 + maintenanceMode = System under maintenance
     // Non-admin users are blocked; redirect to login
     // ============================================
     if (error.response?.status === 503 && error.response?.data?.data?.maintenanceMode) {
-      if (!isLoginPage && hasToken) {
-        localStorage.removeItem('token');
+      if (!isLoginPage && isAuthenticated) {
         localStorage.removeItem('user');
         window.location.href = '/login';
       }
@@ -60,7 +57,7 @@ api.interceptors.response.use(
     // Redirect to change-password page (keep session alive)
     // ============================================
     if (error.response?.status === 403 && error.response?.data?.data?.passwordExpired) {
-      if (!isChangePasswordPage && hasToken) {
+      if (!isChangePasswordPage && isAuthenticated) {
         window.location.href = '/profile/change-password';
       }
       return Promise.reject(error);
@@ -71,8 +68,7 @@ api.interceptors.response.use(
     // Clear active session and return to login page
     // ============================================
     if (error.response?.status === 403 && error.response?.data?.data?.code === 'LICENSE_BLOCKED') {
-      if (!isLoginPage && hasToken) {
-        localStorage.removeItem('token');
+      if (!isLoginPage && isAuthenticated) {
         localStorage.removeItem('user');
         window.location.href = '/login';
       }
@@ -84,18 +80,10 @@ api.interceptors.response.use(
     // Redirect to login page (clear session)
     // ============================================
     if (error.response?.status === 401) {
-      // ⭐ ONLY redirect if:
-      // 1. NOT on login page AND
-      // 2. User has a token (meaning they were authenticated)
-      // This prevents redirect on login failures but handles session expiry
-      if (!isLoginPage && hasToken) {
-        localStorage.removeItem('token');
+      if (!isLoginPage && isAuthenticated) {
         localStorage.removeItem('user');
         window.location.href = '/login';
       }
-      
-      // ⭐ If we're on login page or no token exists, let the error propagate
-      // so the Login component can handle it and display the error message
     }
     
     return Promise.reject(error);

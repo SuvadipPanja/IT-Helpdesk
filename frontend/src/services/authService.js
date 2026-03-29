@@ -15,15 +15,12 @@ export const authService = {
     try {
       const response = await api.post('/auth/login', { username, password });
       
-      // ⭐ Successful login - store token and MINIMAL user data
+      // ⭐ Successful login - store minimal user data only (token is in HttpOnly cookie)
       if (response.data.success) {
-        // Only store token/user if login was fully successful (no 2FA pending)
         if (response.data.data.token) {
-          localStorage.setItem('token', response.data.data.token);
-          // P1 #47 FIX: Only store minimal user info in localStorage
-          // Full user data (permissions, role, email) stays in React state only
-          const { user_id, username, first_name, last_name } = response.data.data.user;
-          localStorage.setItem('user', JSON.stringify({ user_id, username, first_name, last_name }));
+          // Only store minimal user info in localStorage for UI state
+          const { user_id, username: uname, first_name, last_name } = response.data.data.user;
+          localStorage.setItem('user', JSON.stringify({ user_id, username: uname, first_name, last_name }));
         }
       }
       
@@ -52,7 +49,6 @@ export const authService = {
     try {
       await api.post('/auth/logout');
     } finally {
-      localStorage.removeItem('token');
       localStorage.removeItem('user');
     }
   },
@@ -78,13 +74,13 @@ export const authService = {
     return user ? JSON.parse(user) : null;
   },
 
-  // Get stored token
+  // Token is now in HttpOnly cookie - check user presence for auth state
   getStoredToken: () => {
-    return localStorage.getItem('token');
+    return localStorage.getItem('user') ? 'cookie' : null;
   },
 
-  // Check if authenticated
+  // Check if authenticated (user data exists = session was established)
   isAuthenticated: () => {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem('user');
   },
 };

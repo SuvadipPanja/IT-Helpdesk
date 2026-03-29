@@ -281,10 +281,10 @@ export const NotificationProvider = ({ children }) => {
   // ============================================
   useEffect(() => {
     // Check if user is authenticated
-    const token = localStorage.getItem('token');
+    const isAuthenticated = !!localStorage.getItem('user');
     
-    // Only start polling if token exists, notifications enabled, and not already polling
-    if (token && notificationsEnabled && !isPollingRef.current) {
+    // Only start polling if authenticated, notifications enabled, and not already polling
+    if (isAuthenticated && notificationsEnabled && !isPollingRef.current) {
       isPollingRef.current = true;
 
       // Initial fetch after 2 seconds

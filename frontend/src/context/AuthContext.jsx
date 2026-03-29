@@ -48,8 +48,8 @@ export const AuthProvider = ({ children }) => {
   // Full user data (permissions, role, email) is fetched from /auth/me
   useEffect(() => {
     const initAuth = async () => {
-      const token = authService.getStoredToken();
-      if (token) {
+      const hasUser = authService.isAuthenticated();
+      if (hasUser) {
         try {
           const response = await api.get('/auth/me');
           if (response.data.success) {
@@ -68,12 +68,11 @@ export const AuthProvider = ({ children }) => {
               }
             }
           } else {
-            // Token invalid — clear stored data
-            localStorage.removeItem('token');
+            // Session invalid — clear stored data
             localStorage.removeItem('user');
           }
         } catch (error) {
-          // If password expired (403), keep token but mark expired
+          // If password expired (403), keep session but mark expired
           if (error.response?.status === 403 && error.response?.data?.data?.passwordExpired) {
             setPasswordExpired(true);
             // Still try to get basic user info from localStorage
@@ -83,8 +82,7 @@ export const AuthProvider = ({ children }) => {
             }
             await loadLicenseState();
           } else {
-            // Token expired or invalid — clear stored data
-            localStorage.removeItem('token');
+            // Session expired or invalid — clear stored data
             localStorage.removeItem('user');
             setLicenseState({ current_status: 'UNKNOWN', entitlements: {}, usage: {}, loaded: false });
           }
@@ -152,15 +150,13 @@ export const AuthProvider = ({ children }) => {
   // Called after profile updates
   // ============================================
   const refreshUser = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) return;
+    if (!localStorage.getItem('user')) return;
 
     try {
       const response = await api.get('/auth/me');
       if (response.data.success) {
         setUser(response.data.data);
         await loadLicenseState();
-        // P1 #47 FIX: Only store minimal info in localStorage
         const { user_id, username, first_name, last_name } = response.data.data;
         localStorage.setItem('user', JSON.stringify({ user_id, username, first_name, last_name }));
       }

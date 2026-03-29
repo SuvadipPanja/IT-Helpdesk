@@ -10,6 +10,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
+const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 const { apiLimiter, loadConfigFromDB: loadRateLimitConfig } = require('./middleware/rateLimiter');
 const path = require('path');
@@ -200,6 +201,7 @@ logger.info('Initializing body parsers');
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(cookieParser());
 
 // ============================================
 // Request ID Middleware

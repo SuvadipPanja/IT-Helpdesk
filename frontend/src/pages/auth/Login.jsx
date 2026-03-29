@@ -534,9 +534,7 @@ const Login = () => {
       if (!isMounted.current) return;
 
       if (response.data.success && response.data.data?.token) {
-        // Store authentication data
-        localStorage.setItem('token', response.data.data.token);
-        // P1 #47 FIX: Only store minimal user info in localStorage
+        // Store minimal user info (token is in HttpOnly cookie)
         const { user_id, username, first_name, last_name } = response.data.data.user;
         localStorage.setItem('user', JSON.stringify({ user_id, username, first_name, last_name }));
         

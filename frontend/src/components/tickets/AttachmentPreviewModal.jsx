@@ -128,11 +128,10 @@ const AttachmentPreviewModal = ({ file, onClose, onDownload, onFileEdit }) => {
             setError('');
             try {
                 if (fileType === 'image' || fileType === 'pdf' || fileType === 'text') {
-                    // Fetch blob via authenticated API — use token from localStorage
-                    const token = localStorage.getItem('token');
+                    // Fetch blob via authenticated API — cookie sent automatically
                     const url = `${API_BASE_URL}/tickets/${file.ticket_id}/attachments/${file.attachment_id}/download`;
                     const res = await fetch(url, {
-                        headers: token ? { Authorization: `Bearer ${token}` } : {}
+                        credentials: 'include'
                     });
                     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 

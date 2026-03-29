@@ -25,10 +25,18 @@ const authenticate = async (req, res, next) => {
       ip: getClientIp(req),
     });
 
-    // Get token from header
+    // Get token from cookie first, then fall back to Authorization header
+    const cookieToken = req.cookies?.auth_token;
     const authHeader = req.headers.authorization;
+    let token;
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (cookieToken) {
+      token = cookieToken;
+    } else if (authHeader && authHeader.startsWith('Bearer ')) {
+      token = authHeader.substring(7);
+    }
+
+    if (!token) {
       logger.warn('Authentication failed - No token provided', {
         url: req.originalUrl,
         ip: getClientIp(req),
@@ -37,9 +45,6 @@ const authenticate = async (req, res, next) => {
         createResponse(false, 'Access denied. No token provided.')
       );
     }
-
-    // Extract token
-    const token = authHeader.substring(7); // Remove 'Bearer ' prefix
 
     // Verify token
     const decoded = verifyToken(token);

@@ -141,9 +141,10 @@ const forgotPassword = async (req, res, next) => {
 
     logger.success('Reset token stored in database', { userId: user.user_id });
 
-    // Build reset URL
+    // Build reset URL — use fragment (#) instead of query param (?) for security
+    // Fragments are not sent to the server, not logged in access logs, not leaked via Referer
     const frontendURL = getPublicAppUrl();
-    const resetUrl = `${frontendURL}/reset-password?token=${resetToken}`;
+    const resetUrl = `${frontendURL}/reset-password#token=${resetToken}`;
 
     logger.info('Password reset URL generated', { userId: user.user_id });
 

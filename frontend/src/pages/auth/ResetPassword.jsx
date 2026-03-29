@@ -6,7 +6,7 @@
 // ============================================
 
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Lock, Eye, EyeOff, Check, X, AlertCircle, Loader, Shield, ArrowLeft, Clock } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
 import api from '../../services/api';
@@ -36,9 +36,11 @@ const getStrength = (pw) => {
 
 const ResetPassword = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
-  const isExpiredPassword = searchParams.get('expired') === 'true';
+  const location = useLocation();
+  // Extract token from URL fragment (#token=...) for security - fragments aren't sent to server or logged
+  const hashParams = new URLSearchParams(location.hash.substring(1));
+  const token = hashParams.get('token') || new URLSearchParams(location.search).get('token');
+  const isExpiredPassword = hashParams.get('expired') === 'true' || new URLSearchParams(location.search).get('expired') === 'true';
   const honeypotRef = useRef('');
 
   const toast = useToast();

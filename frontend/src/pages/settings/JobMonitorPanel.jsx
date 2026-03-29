@@ -32,10 +32,7 @@ import '../../styles/JobMonitorPanel.css';
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api/v1';
 
 // ─── Helpers ────────────────────────────────────────────
-const getAuthHeader = () => {
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    return token ? { Authorization: `Bearer ${token}` } : {};
-};
+const getFetchOptions = () => ({ withCredentials: true });
 
 const formatDateTime = (iso) => {
     if (!iso) return '—';
@@ -122,7 +119,7 @@ const JobCard = ({ job, onRefresh }) => {
             const res = await axios.post(
                 `${API_BASE}/jobs/${job.name}/run`,
                 {},
-                { headers: getAuthHeader() }
+                getFetchOptions()
             );
             setActionMsg({ type: 'success', text: res.data.message || 'Job triggered — check status in a moment' });
             // Single refresh after 2s to pick up isRunning=true, then one more after 10s
@@ -147,7 +144,7 @@ const JobCard = ({ job, onRefresh }) => {
             const res = await axios.patch(
                 `${API_BASE}/jobs/${job.name}/toggle`,
                 { action },
-                { headers: getAuthHeader() }
+                getFetchOptions()
             );
             setActionMsg({ type: 'success', text: res.data.message || `Job ${action}ed` });
             // Single refresh after 500ms — state is synchronous, should be instant
@@ -346,7 +343,7 @@ export default function JobMonitorPanel() {
         setError(null);
         try {
             const res = await axios.get(`${API_BASE}/jobs`, {
-                headers: getAuthHeader(),
+                ...getFetchOptions(),
             });
             setJobs(res.data.data || []);
             setFetchedAt(res.data.fetchedAt);

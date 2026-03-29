@@ -33,6 +33,36 @@ const { getClientIp } = require('../utils/clientIp');
 const hashToken = (token) => crypto.createHash('sha256').update(token).digest('hex');
 
 /**
+ * Set HttpOnly auth cookie on the response
+ * @param {Object} res - Express response object
+ * @param {string} token - JWT token
+ */
+const setAuthCookie = (res, token) => {
+  const isProduction = process.env.NODE_ENV === 'production';
+  res.cookie('auth_token', token, {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? 'strict' : 'lax',
+    maxAge: 8 * 60 * 60 * 1000, // 8 hours (matches JWT expiry)
+    path: '/',
+  });
+};
+
+/**
+ * Clear auth cookie from the response
+ * @param {Object} res - Express response object
+ */
+const clearAuthCookie = (res) => {
+  const isProduction = process.env.NODE_ENV === 'production';
+  res.clearCookie('auth_token', {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? 'strict' : 'lax',
+    path: '/',
+  });
+};
+
+/**
  * User Login - UPDATED WITH PASSWORD EXPIRY CHECK
  * @route POST /api/v1/auth/login
  * @access Public
@@ -352,7 +382,7 @@ const login = async (req, res, next) => {
       
       // SECURITY FIX: Send reset token via email instead of exposing in response body
       const frontendURL = getPublicAppUrl();
-      const resetUrl = `${frontendURL}/reset-password?token=${resetToken}`;
+      const resetUrl = `${frontendURL}/reset-password#token=${resetToken}`;
       
       try {
         await emailService.sendPasswordResetEmail(
@@ -728,6 +758,7 @@ const login = async (req, res, next) => {
     // ============================================
     // STEP 14: RETURN SUCCESS RESPONSE
     // ============================================
+    setAuthCookie(res, token);
     return res.status(200).json(
       createResponse(true, 'Login successful', {
         token,
@@ -1046,6 +1077,7 @@ const verifyTwoFactorLogin = async (req, res, next) => {
     // ============================================
     // STEP 10: RETURN SUCCESS RESPONSE
     // ============================================
+    setAuthCookie(res, token);
     return res.status(200).json(
       createResponse(true, 'Login successful', {
         token,
@@ -1068,7 +1100,7 @@ const verifyTwoFactorLogin = async (req, res, next) => {
 const logout = async (req, res, next) => {
   try {
     const userId = req.user.user_id;
-    const token = req.headers.authorization?.split(' ')[1];
+    const token = req.headers.authorization?.split(' ')[1] || req.cookies?.auth_token;
 
     logger.separator('USER LOGOUT');
     logger.try('User attempting to logout', { userId });
@@ -1084,6 +1116,9 @@ const logout = async (req, res, next) => {
 
       logger.success('Session invalidated');
     }
+
+    // Clear auth cookie
+    clearAuthCookie(res);
 
     // Log security event
     await securityService.logSecurityEvent(
