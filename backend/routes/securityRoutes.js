@@ -32,10 +32,10 @@ router.get('/settings', authenticate, authorize('can_manage_settings_security'),
 /**
  * @route   GET /api/v1/security/password-policy
  * @desc    Get password policy settings only
- * @access  Private (all authenticated users - needed for password change UI)
+ * @access  Public (needed on login page for password validation UI)
  * @returns Password policy settings
  */
-router.get('/password-policy', authenticate, getPasswordPolicy);
+router.get('/password-policy', getPasswordPolicy);
 
 /**
  * @route   GET /api/v1/security/session-settings
