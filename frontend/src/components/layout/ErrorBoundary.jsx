@@ -36,6 +36,26 @@ class ErrorBoundary extends React.Component {
           <p style={{ color: '#666', marginBottom: '24px', maxWidth: '500px' }}>
             An unexpected error occurred. Please try refreshing the page or contact support if the problem persists.
           </p>
+          {this.state.error && (
+            <pre style={{
+              background: '#1e293b',
+              color: '#f87171',
+              padding: '16px',
+              borderRadius: '8px',
+              fontSize: '12px',
+              textAlign: 'left',
+              maxWidth: '600px',
+              width: '100%',
+              overflow: 'auto',
+              marginBottom: '24px',
+              whiteSpace: 'pre-wrap',
+              wordBreak: 'break-word'
+            }}>
+              {this.state.error.toString()}
+              {'\n'}
+              {this.state.error.stack}
+            </pre>
+          )}
           <div style={{ display: 'flex', gap: '12px' }}>
             <button
               onClick={this.handleReset}
