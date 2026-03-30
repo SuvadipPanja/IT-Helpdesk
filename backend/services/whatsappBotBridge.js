@@ -4,8 +4,11 @@
 // Reuses ALL NLP, intents, AI, and session infrastructure
 // ============================================
 
-const { executeQuery } = require('../config/database');
+const { executeQuery, executeInTransaction, executeInTransactionQuery } = require('../config/database');
 const logger = require('../utils/logger');
+const settingsService = require('./settings.service');
+const slaService = require('./sla.service');
+const autoAssignmentService = require('./autoAssignment.service');
 
 // ── Bot engine services (same as ai.routes.js) ───────────────────────────────
 const { handleChat, processQuery, resolveSecurityPlaceholders } = require('./ai-engine.service');
@@ -27,9 +30,364 @@ const DEFAULT_BOT_NAME = 'IT Support Assistant';
 const DEFAULT_CONFIDENCE_THRESHOLD = 0.45;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// USER LOOKUP — builds a full req.user-compatible object from user_id
-// Same columns the auth middleware selects
+// TICKET CREATION — Multi-step conversation state
+// Steps: subject → priority → description → confirm → create
+// State auto-expires after 10 minutes of inactivity
 // ─────────────────────────────────────────────────────────────────────────────
+const _createFlowState = new Map(); // key: user_id, value: { step, data, updatedAt }
+const CREATE_FLOW_TTL = 10 * 60 * 1000; // 10 minutes
+
+function getCreateFlowState(userId) {
+  const state = _createFlowState.get(userId);
+  if (!state) return null;
+  if (Date.now() - state.updatedAt > CREATE_FLOW_TTL) {
+    _createFlowState.delete(userId);
+    return null;
+  }
+  return state;
+}
+
+function setCreateFlowState(userId, step, data = {}) {
+  _createFlowState.set(userId, { step, data, updatedAt: Date.now() });
+}
+
+function clearCreateFlowState(userId) {
+  _createFlowState.delete(userId);
+}
+
+const CANCEL_RE = /^\s*(cancel|exit|quit|stop|back|abort)\s*$/i;
+
+/**
+ * Handle multi-step ticket creation conversation.
+ * Returns { handled: true, answer, followUp } if the message was consumed,
+ * or { handled: false } to let normal pipeline continue.
+ */
+async function handleCreateTicketFlow(user, phone, rawMessage, buttonId, listId) {
+  const state = getCreateFlowState(user.user_id);
+  if (!state) return { handled: false };
+
+  // Allow cancellation at any step
+  if (CANCEL_RE.test(rawMessage)) {
+    clearCreateFlowState(user.user_id);
+    return {
+      handled: true,
+      answer: '❌ Ticket creation cancelled.',
+      followUp: ['Create a ticket', 'My ticket summary', 'Help'],
+    };
+  }
+
+  try {
+    switch (state.step) {
+      case 'await_subject': {
+        const subject = rawMessage.trim();
+        if (subject.length < 3) {
+          return { handled: true, answer: '⚠️ Subject must be at least 3 characters. Please try again:', followUp: [] };
+        }
+        if (subject.length > 200) {
+          return { handled: true, answer: '⚠️ Subject must be 200 characters or fewer. Please try again:', followUp: [] };
+        }
+        setCreateFlowState(user.user_id, 'await_priority', { ...state.data, subject });
+
+        // Send priority selection via interactive list
+        const priorities = await executeQuery(
+          `SELECT priority_id, priority_name FROM ticket_priorities WHERE is_active = 1 ORDER BY sort_order ASC, priority_id ASC`
+        );
+        const rows = priorities.recordset.map(p => ({
+          id: `tktpri_${p.priority_id}`,
+          title: p.priority_name,
+        }));
+        if (rows.length > 0) {
+          await whatsappService.sendInteractiveList(
+            phone,
+            '📋 *Step 2/4* — Select a priority:',
+            'Choose Priority',
+            rows,
+            { userId: user.user_id }
+          );
+          return { handled: true, answer: null, followUp: [] }; // already sent interactively
+        }
+        // Fallback if no priorities exist — use default
+        setCreateFlowState(user.user_id, 'await_description', { ...state.data, subject, priority_id: null, priority_name: 'Default' });
+        return { handled: true, answer: '📝 *Step 3/4* — Describe your issue in detail:', followUp: [] };
+      }
+
+      case 'await_priority': {
+        // Parse priority from interactive list reply or raw text
+        let priorityId = null;
+        let priorityName = 'Default';
+
+        // Check for interactive list reply (id = tktpri_N)
+        const priIdMatch = (listId || buttonId || '').match(/^tktpri_(\d+)$/);
+        if (priIdMatch) {
+          priorityId = parseInt(priIdMatch[1], 10);
+          priorityName = rawMessage; // list title = priority name
+        } else {
+          // Try to match by name from text
+          const priorities = await executeQuery(
+            `SELECT priority_id, priority_name FROM ticket_priorities WHERE is_active = 1`
+          );
+          const match = priorities.recordset.find(p =>
+            p.priority_name.toLowerCase() === rawMessage.toLowerCase()
+          );
+          if (match) {
+            priorityId = match.priority_id;
+            priorityName = match.priority_name;
+          } else {
+            // Send the list again
+            const rows = priorities.recordset.map(p => ({
+              id: `tktpri_${p.priority_id}`,
+              title: p.priority_name,
+            }));
+            await whatsappService.sendInteractiveList(
+              phone,
+              '⚠️ Please select a valid priority from the list:',
+              'Choose Priority',
+              rows,
+              { userId: user.user_id }
+            );
+            return { handled: true, answer: null, followUp: [] };
+          }
+        }
+
+        setCreateFlowState(user.user_id, 'await_description', {
+          ...state.data, priority_id: priorityId, priority_name: priorityName,
+        });
+        return { handled: true, answer: '📝 *Step 3/4* — Describe your issue in detail:', followUp: [] };
+      }
+
+      case 'await_description': {
+        const description = rawMessage.trim();
+        if (description.length < 5) {
+          return { handled: true, answer: '⚠️ Description must be at least 5 characters. Please try again:', followUp: [] };
+        }
+        if (description.length > 4000) {
+          return { handled: true, answer: '⚠️ Description must be 4000 characters or fewer. Please try again:', followUp: [] };
+        }
+        setCreateFlowState(user.user_id, 'await_confirm', { ...state.data, description });
+
+        const summary =
+          `📋 *Step 4/4* — Please confirm your ticket:\n\n` +
+          `*Subject:* ${state.data.subject}\n` +
+          `*Priority:* ${state.data.priority_name}\n` +
+          `*Description:* ${description.substring(0, 300)}${description.length > 300 ? '...' : ''}\n\n` +
+          `Reply *Yes* to create or *Cancel* to discard.`;
+
+        await whatsappService.sendInteractiveButtons(
+          phone,
+          summary,
+          [
+            { id: 'tkt_confirm_yes', title: 'Yes, Create' },
+            { id: 'tkt_confirm_no', title: 'Cancel' },
+          ],
+          { userId: user.user_id }
+        );
+        return { handled: true, answer: null, followUp: [] };
+      }
+
+      case 'await_confirm': {
+        const reply = (buttonId || rawMessage || '').toLowerCase().trim();
+        const isConfirm = reply === 'tkt_confirm_yes' || /^(yes|confirm|create|ok|sure|y)$/i.test(rawMessage.trim());
+        const isCancel = reply === 'tkt_confirm_no' || CANCEL_RE.test(rawMessage);
+
+        if (isCancel) {
+          clearCreateFlowState(user.user_id);
+          return { handled: true, answer: '❌ Ticket creation cancelled.', followUp: ['Create a ticket', 'My ticket summary'] };
+        }
+        if (!isConfirm) {
+          return { handled: true, answer: '⚠️ Please reply *Yes* to create the ticket or *Cancel* to discard.', followUp: [] };
+        }
+
+        // ── Actually create the ticket ─────────────────────────────
+        clearCreateFlowState(user.user_id);
+        const result = await createTicketFromWhatsApp(user, state.data);
+        return {
+          handled: true,
+          answer: result.answer,
+          followUp: ['Last ticket status', 'My ticket summary', 'Help'],
+        };
+      }
+
+      default:
+        clearCreateFlowState(user.user_id);
+        return { handled: false };
+    }
+  } catch (err) {
+    logger.error('WA bot: create ticket flow error', { error: err.message, userId: user.user_id, step: state.step });
+    clearCreateFlowState(user.user_id);
+    return {
+      handled: true,
+      answer: '❌ Something went wrong creating your ticket. Please try again or use the portal.',
+      followUp: ['Create a ticket', 'Help'],
+    };
+  }
+}
+
+/**
+ * Insert a ticket into the database — mirrors the logic from tickets.controller.js createTicket
+ */
+async function createTicketFromWhatsApp(user, data) {
+  const { subject, description, priority_id } = data;
+
+  // Fetch settings
+  const ticketSettings = await settingsService.getByCategory('ticket');
+  const slaSettings = await settingsService.getByCategory('sla');
+
+  const finalPriorityId = priority_id || ticketSettings.ticket_default_priority || 3;
+  const finalCategoryId = ticketSettings.ticket_default_category || 9;
+
+  // Ticket number prefix + date
+  const prefix = (ticketSettings.ticket_number_prefix || 'TKT').toUpperCase().replace(/[^A-Z]/g, '');
+  const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+
+  // Get default status (Open)
+  const statusResult = await executeQuery(
+    `SELECT status_id FROM ticket_statuses WHERE status_code = 'OPEN' AND is_active = 1`
+  );
+  const statusId = statusResult.recordset[0]?.status_id;
+  if (!statusId) throw new Error('No OPEN status found in database');
+
+  // SLA due date
+  const slaHours = await slaService.getSLAPolicyHours(finalCategoryId, finalPriorityId);
+  const slaEnabled = slaSettings.sla_enabled === 'true' || slaSettings.sla_enabled === true;
+  const createdAt = new Date();
+  const dueDate = slaEnabled ? await slaService.calculateDueDate(createdAt, slaHours) : null;
+
+  // Auto-assignment
+  let assignedToId = null;
+  try {
+    let creatorLocationId = null;
+    const creatorResult = await executeQuery(
+      `SELECT location_id FROM users WHERE user_id = @userId`,
+      { userId: user.user_id }
+    );
+    if (creatorResult.recordset[0]?.location_id) {
+      creatorLocationId = creatorResult.recordset[0].location_id;
+    }
+
+    const engineer = await autoAssignmentService.findEngineer({
+      departmentId: user.department_id || null,
+      priorityId: finalPriorityId,
+      categoryId: finalCategoryId,
+      locationId: creatorLocationId,
+    });
+    if (engineer) assignedToId = engineer.user_id;
+  } catch (autoErr) {
+    logger.warn('WA bot: auto-assignment failed (non-blocking)', { error: autoErr.message });
+  }
+
+  // Insert ticket in transaction (atomic ticket_number generation)
+  const seqQuery = `
+    SELECT ISNULL(MAX(CAST(RIGHT(ticket_number, 4) AS INT)), 0) + 1 AS next_seq
+    FROM tickets WITH (UPDLOCK, HOLDLOCK)
+    WHERE ticket_number LIKE @ticketPrefix
+  `;
+  const insertQuery = `
+    INSERT INTO tickets (
+      ticket_number, subject, description,
+      category_id, priority_id, status_id,
+      requester_id, department_id, due_date,
+      assigned_to, created_by,
+      location_id, process_id
+    )
+    OUTPUT INSERTED.ticket_id
+    VALUES (
+      @ticketNumber, @subject, @description,
+      @categoryId, @priorityId, @statusId,
+      @requesterId, @departmentId, @dueDate,
+      @assignedTo, @createdBy,
+      @locationId, @processId
+    )
+  `;
+
+  const { ticketId, ticketNumber } = await executeInTransaction(async (transaction) => {
+    await executeInTransactionQuery(transaction,
+      `EXEC sp_getapplock @Resource = 'ticket_number_gen', @LockMode = 'Exclusive', @LockOwner = 'Transaction'`, {});
+
+    const seqResult = await executeInTransactionQuery(transaction, seqQuery, {
+      ticketPrefix: `${prefix}-${dateStr}-%`,
+    });
+    const sequence = seqResult.recordset[0].next_seq;
+    const ticketNumber = `${prefix}-${dateStr}-${String(sequence).padStart(4, '0')}`;
+
+    const insertResult = await executeInTransactionQuery(transaction, insertQuery, {
+      ticketNumber,
+      subject,
+      description,
+      categoryId: finalCategoryId,
+      priorityId: finalPriorityId,
+      statusId,
+      requesterId: user.user_id,
+      departmentId: user.department_id || null,
+      dueDate,
+      assignedTo: assignedToId,
+      createdBy: user.user_id,
+      locationId: user.location_id || null,
+      processId: user.process_id || null,
+    });
+
+    return { ticketId: insertResult.recordset[0].ticket_id, ticketNumber };
+  });
+
+  // Log activity
+  await executeQuery(
+    `INSERT INTO ticket_activities (ticket_id, activity_type, description, performed_by)
+     VALUES (@ticketId, 'CREATED', @desc, @userId)`,
+    { ticketId, desc: 'Ticket created via WhatsApp', userId: user.user_id }
+  ).catch(() => {});
+
+  // Team routing (simplified — uses same logic as controller)
+  try {
+    const centralEnabled = await settingsService.get('ticket_central_team_enabled');
+    const centralTeamIdSetting = await settingsService.get('ticket_central_team_id');
+    const isCentralEnabled = centralEnabled === 'true' || centralEnabled === true;
+    const configuredCentralTeamId = parseInt(centralTeamIdSetting) || 0;
+
+    let routedTeamId = null;
+    if (isCentralEnabled && configuredCentralTeamId > 0) {
+      routedTeamId = configuredCentralTeamId;
+    } else {
+      const centralTeamResult = await executeQuery(
+        'SELECT team_id FROM teams WHERE is_central = 1 AND is_active = 1'
+      );
+      if (centralTeamResult.recordset.length) {
+        routedTeamId = centralTeamResult.recordset[0].team_id;
+      }
+    }
+
+    if (routedTeamId) {
+      await executeQuery(
+        `UPDATE tickets SET team_id = @teamId, routed_at = GETDATE(), updated_at = GETDATE() WHERE ticket_id = @ticketId`,
+        { teamId: routedTeamId, ticketId }
+      );
+    }
+  } catch (routeErr) {
+    logger.warn('WA bot: team routing failed (non-blocking)', { error: routeErr.message });
+  }
+
+  // Trigger WhatsApp notification for ticket created (non-blocking)
+  try {
+    const whatsappNotificationService = require('./whatsappNotificationService');
+    whatsappNotificationService.onTicketCreated({
+      ticket_id: ticketId,
+      ticket_number: ticketNumber,
+      subject,
+      requester_id: user.user_id,
+      assigned_to: assignedToId,
+    }).catch(() => {});
+  } catch { /* non-blocking */ }
+
+  logger.success('Ticket created via WhatsApp', { ticketId, ticketNumber, userId: user.user_id });
+
+  const assignedMsg = assignedToId ? '(auto-assigned to an engineer)' : '(pending assignment)';
+  return {
+    answer: `✅ *Ticket Created Successfully!*\n\n` +
+      `🎫 *${ticketNumber}*\n` +
+      `📌 Subject: ${subject}\n` +
+      `⚡ Priority: ${data.priority_name || 'Default'}\n` +
+      `📝 Description: ${description.substring(0, 200)}${description.length > 200 ? '...' : ''}\n\n` +
+      `${assignedMsg}\n\nYou can track it by saying: *${ticketNumber}*`,
+  };
+}
 const buildUserContext = async (basicUser) => {
   const query = `
     SELECT
@@ -517,7 +875,7 @@ async function sendFollowUps(phone, followUps) {
  *   { phone, messageType, text, buttonTitle, listTitle, buttonId, listId, user }
  */
 const handleMessage = async (event) => {
-  const { phone, messageType, text, buttonTitle, listTitle, user: basicUser } = event;
+  const { phone, messageType, text, buttonTitle, listTitle, buttonId, listId, user: basicUser } = event;
 
   // ── 1. Gate: user must have a linked + opted-in WhatsApp account ──────────
   if (!basicUser) {
@@ -583,6 +941,21 @@ const handleMessage = async (event) => {
   if (!user) {
     logger.warn('WhatsApp bot: user not found or inactive', { userId: basicUser.user_id });
     await whatsappService.sendTextMessage(phone, `Your account is not active. Please contact the IT team.`, {});
+    return;
+  }
+
+  // ── 3a. Check for active ticket creation flow ─────────────────────────────
+  const createFlowResult = await handleCreateTicketFlow(user, phone, rawMessage, buttonId || null, listId || null);
+  if (createFlowResult.handled) {
+    if (createFlowResult.answer) {
+      const chunks = whatsappService.splitMessage(whatsappService.formatForWhatsApp(createFlowResult.answer));
+      for (const chunk of chunks) {
+        await whatsappService.sendTextMessage(phone, chunk, { userId: user.user_id });
+      }
+    }
+    if (createFlowResult.followUp && createFlowResult.followUp.length > 0) {
+      sendFollowUps(phone, createFlowResult.followUp).catch(() => {});
+    }
     return;
   }
 
@@ -713,12 +1086,21 @@ const handleMessage = async (event) => {
     }
 
     if (isQuickCreateIntent(msg)) {
-      answer = `🎟️ *Create a Ticket*\n\nTo create a ticket, visit the helpdesk portal:\n*Tickets → Create Ticket*\n\n` +
-        `You'll need:\n• Subject\n• Department\n• Priority\n• Description`;
-      followUp = ['Last ticket status', 'My ticket summary'];
-      intentId = 'quick-create-guide';
+      if (!user?.permissions?.can_create_tickets) {
+        answer = `❌ You don't have permission to create tickets. Please contact your administrator.`;
+        followUp = ['Who am I?', 'Help'];
+        intentId = 'quick-create-denied';
+        category = 'helpdesk';
+        confidence = 1;
+        throw new _ShortCircuit(answer, followUp, intentId, category, confidence);
+      }
+      // Start multi-step ticket creation flow
+      setCreateFlowState(user.user_id, 'await_subject', {});
+      answer = `🎟️ *Create a Ticket*\n\n📋 *Step 1/4* — Enter the subject (brief title of your issue):`;
+      followUp = [];
+      intentId = 'quick-create-start';
       category = 'helpdesk';
-      confidence = 0.95;
+      confidence = 1;
       throw new _ShortCircuit(answer, followUp, intentId, category, confidence);
     }
 
