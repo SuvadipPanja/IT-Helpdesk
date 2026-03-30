@@ -85,10 +85,13 @@ export const NotificationProvider = ({ children }) => {
   }, []);
 
   // ============================================
-  // LOAD SETTINGS ON MOUNT
+  // LOAD SETTINGS ON MOUNT (only if authenticated)
   // ============================================
   useEffect(() => {
-    checkNotificationSettings();
+    const isAuthenticated = !!localStorage.getItem('user');
+    if (isAuthenticated) {
+      checkNotificationSettings();
+    }
   }, [checkNotificationSettings]);
 
   // ============================================
@@ -308,8 +311,8 @@ export const NotificationProvider = ({ children }) => {
       };
     }
     
-    // If notifications disabled or no token, ensure polling is stopped
-    if ((!token || !notificationsEnabled) && pollingIntervalRef.current) {
+    // If notifications disabled or not authenticated, ensure polling is stopped
+    if ((!isAuthenticated || !notificationsEnabled) && pollingIntervalRef.current) {
       clearInterval(pollingIntervalRef.current);
       pollingIntervalRef.current = null;
       isPollingRef.current = false;
