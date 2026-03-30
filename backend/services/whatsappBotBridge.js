@@ -90,7 +90,7 @@ async function handleCreateTicketFlow(user, phone, rawMessage, buttonId, listId)
 
         // Send priority selection via interactive list
         const priorities = await executeQuery(
-          `SELECT priority_id, priority_name FROM ticket_priorities WHERE is_active = 1 ORDER BY sort_order ASC, priority_id ASC`
+          `SELECT priority_id, priority_name FROM ticket_priorities WHERE is_active = 1 ORDER BY priority_level ASC, priority_id ASC`
         );
         const rows = priorities.recordset.map(p => ({
           id: `tktpri_${p.priority_id}`,
@@ -122,16 +122,20 @@ async function handleCreateTicketFlow(user, phone, rawMessage, buttonId, listId)
           priorityId = parseInt(priIdMatch[1], 10);
           priorityName = rawMessage; // list title = priority name
         } else {
-          // Try to match by name from text
+          // Try to match by name or number from text
           const priorities = await executeQuery(
-            `SELECT priority_id, priority_name FROM ticket_priorities WHERE is_active = 1`
+            `SELECT priority_id, priority_name FROM ticket_priorities WHERE is_active = 1 ORDER BY priority_level ASC, priority_id ASC`
           );
           const match = priorities.recordset.find(p =>
             p.priority_name.toLowerCase() === rawMessage.toLowerCase()
           );
-          if (match) {
-            priorityId = match.priority_id;
-            priorityName = match.priority_name;
+          // Also support numeric selection (e.g. "3" for the 3rd item — Twilio fallback)
+          const numericIdx = /^\d+$/.test(rawMessage.trim()) ? parseInt(rawMessage.trim(), 10) - 1 : -1;
+          const numericMatch = numericIdx >= 0 && numericIdx < priorities.recordset.length ? priorities.recordset[numericIdx] : null;
+          const chosen = match || numericMatch;
+          if (chosen) {
+            priorityId = chosen.priority_id;
+            priorityName = chosen.priority_name;
           } else {
             // Send the list again
             const rows = priorities.recordset.map(p => ({
