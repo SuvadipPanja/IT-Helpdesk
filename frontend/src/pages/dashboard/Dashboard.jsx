@@ -48,6 +48,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { showToast } = useToast();
   const refreshTimerRef = useRef(null);
+  const mountedRef = useRef(false);
 
   const systemName = getSetting('system_name', 'Nexus Support');
 
@@ -120,7 +121,7 @@ const Dashboard = () => {
         setActivity(activityRes.data.data);
       }
 
-      if (isRefresh) showToast('Dashboard refreshed', 'success');
+      if (isRefresh && mountedRef.current) showToast('Dashboard refreshed', 'success');
     } catch (err) {
       setError('Failed to load dashboard data');
       if (!isRefresh) showToast('Failed to load dashboard', 'error');
@@ -128,20 +129,15 @@ const Dashboard = () => {
       setLoading(false);
       setRefreshing(false);
     }
-  }, [showToast]);
+  }, [showToast, trendDays]);
 
-  // ── Auto-refresh every 60s ──
+  // ── Initial load + auto-refresh every 60s ──
   useEffect(() => {
     fetchData();
+    mountedRef.current = true;
     refreshTimerRef.current = setInterval(() => fetchData(true), 60000);
     return () => clearInterval(refreshTimerRef.current);
   }, [fetchData]);
-
-  // Re-fetch when trend window changes
-  useEffect(() => {
-    fetchData(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trendDays]);
 
   // ── Helpers ──
 

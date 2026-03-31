@@ -16,6 +16,19 @@ const KBDeflectionWidget = ({ subject = '', onDismiss }) => {
   const [dismissed, setDismissed] = useState(false);
   const timerRef = useRef(null);
   const lastQuery = useRef('');
+  const contentRef = useRef(null);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  const isOpen = visible || loading;
+
+  // Measure content height when it changes
+  useEffect(() => {
+    if (contentRef.current && isOpen) {
+      setContentHeight(contentRef.current.scrollHeight);
+    } else {
+      setContentHeight(0);
+    }
+  }, [isOpen, results, loading]);
 
   useEffect(() => {
     if (dismissed) return;
@@ -58,10 +71,19 @@ const KBDeflectionWidget = ({ subject = '', onDismiss }) => {
     navigate(`/help?article=${slug}`);
   };
 
-  if (!visible && !loading) return null;
+  if (!visible && !loading) return (
+    <div style={{ height: 0, overflow: 'hidden', transition: 'height 0.25s ease', margin: 0 }} />
+  );
 
   return (
-    <div className="kb-deflect">
+    <div
+      style={{
+        height: contentHeight ? contentHeight + 'px' : 'auto',
+        overflow: 'hidden',
+        transition: 'height 0.25s ease',
+      }}
+    >
+      <div ref={contentRef} className="kb-deflect">
       <div className="kb-deflect-header">
         <Lightbulb size={16} className="kb-deflect-bulb" />
         <span>Before you submit — these guides might help:</span>
@@ -100,6 +122,7 @@ const KBDeflectionWidget = ({ subject = '', onDismiss }) => {
         <button className="kb-deflect-browse" onClick={() => navigate('/help')}>
           <BookOpen size={14} /> Browse all guides
         </button>
+      </div>
       </div>
     </div>
   );
