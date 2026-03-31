@@ -751,3 +751,68 @@
     gap: 12px;
   }
 }
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+[data-theme="dark"] .bot-settings-container {
+  background: var(--nx-bg);
+}
+
+[data-theme="dark"] .bot-settings-container h1,
+[data-theme="dark"] .bot-settings-container h2,
+[data-theme="dark"] .bot-settings-container h3 {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .bot-settings-container .form-group label {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .bot-settings-container .form-group input,
+[data-theme="dark"] .bot-settings-container .form-group select,
+[data-theme="dark"] .bot-settings-container .form-group textarea {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .bot-settings-container .form-group input:focus,
+[data-theme="dark"] .bot-settings-container .form-group select:focus,
+[data-theme="dark"] .bot-settings-container .form-group textarea:focus {
+  border-color: var(--nx-primary);
+  box-shadow: var(--nx-focus-ring);
+}
+
+[data-theme="dark"] .bot-settings-container .card,
+[data-theme="dark"] .bot-settings-container .section-card,
+[data-theme="dark"] .bot-settings-container .provider-card {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow);
+}
+
+[data-theme="dark"] .bot-settings-container .feature-item {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .bot-settings-container .stat-card {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .bot-settings-container .logo-upload-area {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .bot-settings-container .modal-overlay .modal-content {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow-lg);
+}
+
+[data-theme="dark"] .bot-settings-container .alert {
+  border-color: var(--nx-border);
+}

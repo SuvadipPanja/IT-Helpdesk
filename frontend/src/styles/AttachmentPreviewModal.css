@@ -351,7 +351,7 @@
     background: #3b82f6;
     color: #ffffff;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -456,4 +456,61 @@
     .apm-pdf-iframe {
         min-height: 360px;
     }
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+[data-theme="dark"] .apm-modal {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .apm-header {
+  background: var(--nx-surface);
+  border-bottom-color: var(--nx-border);
+}
+
+[data-theme="dark"] .apm-header-filename {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .apm-header-meta {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .apm-close-btn {
+  color: var(--nx-muted);
+}
+
+[data-theme="dark"] .apm-close-btn:hover {
+  background: var(--nx-surface-hover);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .apm-tool-btn {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .apm-tool-btn:hover {
+  background: var(--nx-primary-light);
+  color: var(--nx-primary);
+  border-color: var(--nx-primary);
+}
+
+[data-theme="dark"] .apm-text-viewer {
+  background: var(--nx-surface-hover);
+  color: var(--nx-text);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .apm-footer {
+  background: var(--nx-surface);
+  border-top-color: var(--nx-border);
+}
+
+[data-theme="dark"] .apm-footer-info {
+  color: var(--nx-text-secondary);
 }

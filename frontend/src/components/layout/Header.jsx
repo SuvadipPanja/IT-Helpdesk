@@ -9,6 +9,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/notifications/NotificationContext';
+import { useTheme } from '../../context/ThemeContext';
 import { getSetting } from '../../utils/settingsLoader';
 import settingsLoader from '../../utils/settingsLoader';
 import api from '../../services/api';
@@ -27,7 +28,9 @@ import {
   Eye,
   CheckCheck,
   Megaphone,
-  X
+  X,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 // ============================================
@@ -36,6 +39,7 @@ import {
 const Header = ({ toggleSidebar }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { isDark, toggleTheme } = useTheme();
   
   // ============================================
   // LOCAL STATE FOR PROFILE PICTURE
@@ -288,6 +292,16 @@ const Header = ({ toggleSidebar }) => {
 
       {/* RIGHT SECTION */}
       <div className="header-right">
+
+        {/* THEME TOGGLE */}
+        <button
+          className="btn-icon-header theme-toggle-btn"
+          onClick={toggleTheme}
+          aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+          title={isDark ? 'Light mode' : 'Dark mode'}
+        >
+          {isDark ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
         
         {/* NOTIFICATIONS DROPDOWN */}
         <div className="header-dropdown" ref={notificationsRef}>
@@ -445,7 +459,7 @@ const Header = ({ toggleSidebar }) => {
                   width: '36px',
                   height: '36px',
                   borderRadius: '8px',
-                  background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                  background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',

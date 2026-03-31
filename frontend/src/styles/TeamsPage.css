@@ -164,7 +164,7 @@
   font-weight: 600;
   background: var(--background-secondary, #f1f5f9);
   color: var(--text-secondary, #64748b);
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 /* ============================================
@@ -199,7 +199,7 @@
   padding: 10px 14px;
   background: var(--surface-primary, white);
   border: 1px solid var(--border-color, #e2e8f0);
-  border-radius: 10px;
+  border-radius: 8px;
   color: var(--text-secondary, #64748b);
 }
 
@@ -233,7 +233,7 @@
 .teams-card {
   background: var(--surface-primary, white);
   border: 2px solid var(--border-color, #e2e8f0);
-  border-radius: 14px;
+  border-radius: 12px;
   padding: 16px;
   cursor: pointer;
   transition: all 0.25s;
@@ -274,7 +274,7 @@
   justify-content: center;
   width: 38px;
   height: 38px;
-  border-radius: 10px;
+  border-radius: 8px;
   color: white;
   flex-shrink: 0;
 }
@@ -299,7 +299,7 @@
   font-size: 10px;
   font-weight: 600;
   padding: 2px 7px;
-  border-radius: 20px;
+  border-radius: 16px;
   background: #fef3c7;
   color: #92400e;
   border: 1px solid #fde68a;
@@ -379,7 +379,7 @@
 .teams-detail-panel {
   background: var(--surface-primary, white);
   border: 1px solid var(--border-color, #e2e8f0);
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
   position: sticky;
   top: 20px;
@@ -573,7 +573,7 @@
 .teams-routing-table-wrapper {
   background: var(--surface-primary, white);
   border: 1px solid var(--border-color, #e2e8f0);
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -617,7 +617,7 @@
   padding: 4px 10px;
   background: rgba(99, 102, 241, 0.08);
   color: #6366f1;
-  border-radius: 20px;
+  border-radius: 16px;
   font-size: 12px;
   font-weight: 500;
 }
@@ -813,7 +813,7 @@
   align-items: flex-start;
   gap: 8px;
   padding: 10px 14px;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 13px;
   line-height: 1.5;
 }
@@ -860,4 +860,102 @@
 @keyframes spin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+[data-theme="dark"] .teams-page {
+  background: var(--nx-bg);
+}
+
+[data-theme="dark"] .teams-page-title,
+[data-theme="dark"] .teams-detail-title {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .teams-page-subtitle,
+[data-theme="dark"] .teams-detail-subtitle {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .teams-stat-card,
+[data-theme="dark"] .teams-card,
+[data-theme="dark"] .teams-detail-panel {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow);
+}
+
+[data-theme="dark"] .teams-stat-card:hover,
+[data-theme="dark"] .teams-card:hover {
+  background: var(--nx-surface-hover);
+}
+
+[data-theme="dark"] .teams-stat-value,
+[data-theme="dark"] .teams-card-name {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .teams-stat-label,
+[data-theme="dark"] .teams-card-info {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .teams-tab-btn {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .teams-tab-btn.active {
+  color: var(--nx-primary);
+  border-bottom-color: var(--nx-primary);
+}
+
+[data-theme="dark"] .teams-member-item {
+  border-bottom-color: var(--nx-border);
+}
+
+[data-theme="dark"] .teams-member-name {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .teams-member-role {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .teams-routing-card {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .teams-modal-content {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow-lg);
+}
+
+[data-theme="dark"] .teams-modal-title {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .teams-modal-content input,
+[data-theme="dark"] .teams-modal-content select,
+[data-theme="dark"] .teams-modal-content textarea {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .teams-modal-content label {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .teams-empty {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .teams-search-input {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
 }

@@ -60,7 +60,7 @@
 .wa-section {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
-  border-radius: 10px;
+  border-radius: 8px;
   margin-bottom: 20px;
   overflow: hidden;
 }
@@ -144,7 +144,7 @@
   height: 18px;
   left: 3px;
   bottom: 3px;
-  background: white;
+  background: var(--nx-surface);
   border-radius: 50%;
   transition: 0.2s;
 }
@@ -439,4 +439,66 @@
 
 .wa-icon-purple {
   color: #7c3aed;
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+[data-theme="dark"] .wa-settings-container {
+  background: var(--nx-bg);
+}
+
+[data-theme="dark"] .wa-settings-container h1,
+[data-theme="dark"] .wa-settings-container h2,
+[data-theme="dark"] .wa-settings-container h3 {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .wa-settings-container .section-card {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow);
+}
+
+[data-theme="dark"] .wa-settings-container input,
+[data-theme="dark"] .wa-settings-container select,
+[data-theme="dark"] .wa-settings-container textarea {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .wa-settings-container label {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .wa-settings-container .stat-card {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .wa-settings-container table thead th {
+  background: var(--nx-surface-hover);
+  color: var(--nx-text-secondary);
+  border-bottom-color: var(--nx-border);
+}
+
+[data-theme="dark"] .wa-settings-container table tbody td {
+  color: var(--nx-text);
+  border-bottom-color: var(--nx-border);
+}
+
+[data-theme="dark"] .wa-settings-container table tbody tr:hover td {
+  background: var(--nx-surface-hover);
+}
+
+[data-theme="dark"] .wa-provider-tab:not(.active) {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .wa-provider-tab:not(.active):hover {
+  background: var(--nx-surface-hover);
+  color: var(--nx-text);
 }

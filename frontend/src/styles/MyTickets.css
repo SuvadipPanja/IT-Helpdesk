@@ -32,7 +32,7 @@
 }
 
 .page-icon {
-  color: #667eea;
+  color: #6366f1;
 }
 
 .page-title {
@@ -59,7 +59,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 20px;
-  background: #667eea;
+  background: #6366f1;
   color: white;
   border: none;
   border-radius: 8px;
@@ -70,8 +70,8 @@
 }
 
 .btn-primary:hover {
-  background: #5568d3;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  background: #4f46e5;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
   transform: translateY(-1px);
 }
 
@@ -96,7 +96,7 @@
   display: flex;
   gap: 12px;
   margin-bottom: 24px;
-  background: white;
+  background: var(--nx-surface);
   padding: 16px;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
@@ -110,7 +110,7 @@
   justify-content: center;
   gap: 8px;
   padding: 14px 20px;
-  background: white;
+  background: var(--nx-surface);
   border: 2px solid #e2e8f0;
   border-radius: 8px;
   color: #64748b;
@@ -126,8 +126,8 @@
 }
 
 .toggle-btn.active {
-  background: #667eea;
-  border-color: #667eea;
+  background: #6366f1;
+  border-color: #6366f1;
   color: white;
 }
 
@@ -152,7 +152,7 @@
 }
 
 .stat-card {
-  background: white;
+  background: var(--nx-surface);
   border: 2px solid #e2e8f0;
   border-radius: 12px;
   padding: 20px;
@@ -164,21 +164,21 @@
 }
 
 .stat-card:hover {
-  border-color: #667eea;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+  border-color: #6366f1;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
   transform: translateY(-2px);
 }
 
 .stat-card.active {
-  border-color: #667eea;
+  border-color: #6366f1;
   background: #f0f4ff;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
 }
 
 .stat-icon {
   width: 48px;
   height: 48px;
-  border-radius: 10px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -186,7 +186,7 @@
 }
 
 .stat-icon.all {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
 }
 
 .stat-icon.open {
@@ -245,18 +245,18 @@
   width: 100%;
   padding: 14px 50px 14px 48px;
   border: 2px solid #e2e8f0;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 14px;
   font-family: inherit;
   color: #1e293b;
-  background: white;
+  background: var(--nx-surface);
   transition: all 0.2s ease;
 }
 
 .search-input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
 .clear-search {
@@ -286,7 +286,7 @@
 
 /* Tickets Section */
 .tickets-section {
-  background: white;
+  background: var(--nx-surface);
   border-radius: 12px;
   border: 1px solid #e2e8f0;
   padding: 24px;
@@ -324,7 +324,7 @@
 
 /* Ticket Card */
 .ticket-card {
-  background: white;
+  background: var(--nx-surface);
   border: 2px solid #e2e8f0;
   border-radius: 12px;
   padding: 20px;
@@ -336,8 +336,8 @@
 }
 
 .ticket-card:hover {
-  border-color: #667eea;
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+  border-color: #6366f1;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15);
   transform: translateY(-4px);
 }
 
@@ -351,7 +351,7 @@
 .ticket-number {
   font-size: 13px;
   font-weight: 700;
-  color: #667eea;
+  color: #6366f1;
   font-family: 'Courier New', monospace;
 }
 
@@ -512,7 +512,7 @@
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
-  color: #667eea;
+  color: #6366f1;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -520,9 +520,9 @@
 }
 
 .view-details-btn:hover {
-  background: #667eea;
+  background: #6366f1;
   color: white;
-  border-color: #667eea;
+  border-color: #6366f1;
 }
 
 /* Empty State */
@@ -566,7 +566,7 @@
 
 .spinner {
   animation: spin 0.8s linear infinite;
-  color: #667eea;
+  color: #6366f1;
   margin-bottom: 16px;
 }
 
@@ -642,4 +642,132 @@
   .view-mode-toggle {
     gap: 4px;
   }
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+[data-theme="dark"] .my-tickets-page {
+  background: var(--nx-bg);
+}
+
+[data-theme="dark"] .my-tickets-page .page-header h1 {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .my-tickets-page .page-header p {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .stat-card {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow);
+}
+
+[data-theme="dark"] .stat-card:hover {
+  background: var(--nx-surface-hover);
+}
+
+[data-theme="dark"] .stat-value {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .stat-label {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .section-header h2 {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .section-header .ticket-count {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .search-filter-bar {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .search-filter-bar input {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .search-filter-bar input::placeholder {
+  color: var(--nx-muted);
+}
+
+[data-theme="dark"] .search-filter-bar select {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .ticket-card {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow);
+}
+
+[data-theme="dark"] .ticket-card:hover {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-primary);
+}
+
+[data-theme="dark"] .ticket-title-row h3 {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .ticket-id-badge {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .ticket-description {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .ticket-meta span {
+  color: var(--nx-muted);
+}
+
+[data-theme="dark"] .view-mode-toggle button {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .view-mode-toggle button.active,
+[data-theme="dark"] .view-mode-toggle button:hover {
+  background: var(--nx-primary);
+  color: white;
+  border-color: var(--nx-primary);
+}
+
+[data-theme="dark"] .empty-state-container {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .table-container {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .table-container th {
+  background: var(--nx-surface-hover);
+  color: var(--nx-text-secondary);
+  border-bottom-color: var(--nx-border);
+}
+
+[data-theme="dark"] .table-container td {
+  color: var(--nx-text);
+  border-bottom-color: var(--nx-border);
+}
+
+[data-theme="dark"] .table-container tr:hover td {
+  background: var(--nx-surface-hover);
 }

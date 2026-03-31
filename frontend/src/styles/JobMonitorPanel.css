@@ -764,3 +764,28 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+[data-theme="dark"] .jm-page {
+  --jm-bg: var(--nx-bg);
+  --jm-card: var(--nx-surface);
+  --jm-border: var(--nx-border);
+  --jm-border-light: var(--nx-border);
+  --jm-text: var(--nx-text);
+  --jm-text-sec: var(--nx-text-secondary);
+  --jm-text-muted: var(--nx-muted);
+  --jm-primary: var(--nx-primary);
+  --jm-primary-hover: var(--nx-primary-hover);
+  --jm-primary-light: rgba(99, 102, 241, 0.12);
+  --jm-primary-ultra: rgba(99, 102, 241, 0.06);
+  --jm-success-bg: rgba(16, 185, 129, 0.12);
+  --jm-success-border: rgba(16, 185, 129, 0.25);
+  --jm-warning-bg: rgba(245, 158, 11, 0.12);
+  --jm-warning-border: rgba(245, 158, 11, 0.25);
+  --jm-danger-bg: rgba(239, 68, 68, 0.12);
+  --jm-danger-border: rgba(239, 68, 68, 0.25);
+  --jm-info-bg: rgba(59, 130, 246, 0.12);
+  --jm-info-border: rgba(59, 130, 246, 0.25);
+}

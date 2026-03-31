@@ -1,9 +1,9 @@
-﻿/* ============================================
-   NOTIFICATIONS CENTER — Industrial-Grade Redesign
+/* ============================================
+   NOTIFICATIONS CENTER � Industrial-Grade Redesign
    CSS Custom Properties & Design Tokens
    ============================================ */
 
-/* ── Token aliases → global --nx-* design system ── */
+/* -- Token aliases ? global --nx-* design system -- */
 .notif-page {
   --np-primary: var(--nx-primary);
   --np-primary-dark: var(--nx-primary-hover);
@@ -96,7 +96,7 @@
 .np-header-icon {
   width: 52px;
   height: 52px;
-  border-radius: 14px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(10px);
   display: flex;
@@ -577,7 +577,7 @@
   padding: 3px 9px;
   font-size: 10px;
   font-weight: 700;
-  border-radius: 20px;
+  border-radius: 16px;
   text-transform: uppercase;
   letter-spacing: 0.4px;
   white-space: nowrap;
@@ -613,7 +613,7 @@
   color: var(--np-primary);
   font-size: 11px;
   font-weight: 700;
-  border-radius: 20px;
+  border-radius: 16px;
   letter-spacing: 0.2px;
 }
 

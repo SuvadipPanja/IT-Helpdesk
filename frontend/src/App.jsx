@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { NotificationProvider } from './context/notifications/NotificationContext';
 import { ToastProvider } from './context/ToastContext'; // ⭐ NEW - Toast Notifications
+import { ThemeProvider } from './context/ThemeContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import Layout from './components/layout/Layout';
 import Login from './pages/auth/Login';
@@ -175,6 +176,7 @@ function App() {
     // Settings loaded BEFORE providers, available globally
     // ============================================
     <ErrorBoundary>
+      <ThemeProvider>
       <ToastProvider>
         <AuthProvider>
           <NotificationProvider>
@@ -658,6 +660,7 @@ function App() {
           </NotificationProvider>
         </AuthProvider>
       </ToastProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }

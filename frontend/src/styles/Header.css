@@ -10,7 +10,7 @@
 
 .header {
   height: 70px;
-  background: white;
+  background: var(--nx-surface);
   border-bottom: 1px solid #e2e8f0;
   display: flex !important;
   align-items: center !important;
@@ -184,7 +184,7 @@
   height: 40px;
   border-radius: 8px;
   border: 1px solid #e2e8f0;
-  background: white;
+  background: var(--nx-surface);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -201,6 +201,19 @@
 }
 
 /* ============================================
+   THEME TOGGLE BUTTON
+   ============================================ */
+.header .theme-toggle-btn {
+  transition: transform .3s ease, background .2s ease, color .2s ease;
+}
+.header .theme-toggle-btn:hover {
+  transform: rotate(30deg);
+}
+.header .theme-toggle-btn:active {
+  transform: rotate(30deg) scale(.92);
+}
+
+/* ============================================
    NOTIFICATION BADGE
    ============================================ */
 
@@ -213,7 +226,7 @@
   font-size: 10px;
   font-weight: 700;
   padding: 2px 6px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 2px solid white;
   min-width: 18px;
   text-align: center;
@@ -239,8 +252,8 @@
   gap: 10px;
   padding: 6px 12px 6px 6px;
   border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  background: white;
+  border-radius: 8px;
+  background: var(--nx-surface);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -258,7 +271,7 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -324,7 +337,7 @@
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  background: white;
+  background: var(--nx-surface);
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
@@ -376,7 +389,7 @@
 .header .btn-text-small {
   background: none;
   border: none;
-  color: #667eea;
+  color: #6366f1;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -389,7 +402,7 @@
 }
 
 .header .btn-text-small:hover {
-  color: #764ba2;
+  color: #8b5cf6;
   background: #f1f5f9;
 }
 
@@ -493,7 +506,7 @@
 .header .notification-ticket {
   font-size: 11px;
   font-weight: 600;
-  color: #667eea;
+  color: #6366f1;
   background: #f1f5f9;
   padding: 2px 6px;
   border-radius: 4px;
@@ -585,7 +598,7 @@
   width: 100%;
   background: none;
   border: none;
-  color: #667eea;
+  color: #6366f1;
   font-size: 13px;
   font-weight: 600;
   padding: 8px;
@@ -595,7 +608,7 @@
 }
 
 .header .btn-text-dropdown:hover {
-  color: #764ba2;
+  color: #8b5cf6;
   background: #f1f5f9;
 }
 
@@ -609,7 +622,7 @@
 
 .header .dropdown-header-user {
   padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   border-radius: 12px 12px 0 0;
   color: white;
 }
@@ -730,7 +743,7 @@
 }
 
 .header .dropdown-item:hover svg {
-  color: #667eea;
+  color: #6366f1;
 }
 
 .header .dropdown-divider {
@@ -845,3 +858,75 @@
 /* ============================================
    END OF HEADER STYLES
    ============================================ */
+
+/* ============================================
+   DARK MODE — HEADER
+   ============================================ */
+[data-theme="dark"] .header {
+  background: var(--nx-surface);
+  border-bottom-color: var(--nx-border);
+  box-shadow: 0 1px 3px rgba(0,0,0,.3);
+}
+
+[data-theme="dark"] .header .btn-icon-header {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .header .btn-icon-header:hover {
+  background: var(--nx-border);
+  border-color: var(--nx-border-strong);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .header .notification-badge {
+  border-color: var(--nx-surface);
+}
+
+[data-theme="dark"] .header .dropdown-menu {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow-lg);
+}
+
+[data-theme="dark"] .header .dropdown-header {
+  border-bottom-color: var(--nx-border);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .header .notification-item {
+  border-bottom-color: var(--nx-border);
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .header .notification-item:hover {
+  background: var(--nx-surface-hover);
+}
+
+[data-theme="dark"] .header .user-profile-trigger {
+  border-color: var(--nx-border);
+  background: var(--nx-surface-hover);
+}
+
+[data-theme="dark"] .header .user-profile-trigger:hover {
+  background: var(--nx-border);
+  border-color: var(--nx-border-strong);
+}
+
+[data-theme="dark"] .header .user-name {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .header .user-role {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .header .dropdown-item {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .header .dropdown-item:hover {
+  background: var(--nx-surface-hover);
+  color: var(--nx-text);
+}

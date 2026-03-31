@@ -654,3 +654,84 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+[data-theme="dark"] .bot-sessions-page {
+  background: var(--nx-bg);
+}
+
+[data-theme="dark"] .bot-sessions-page h1 {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .bot-sessions-page .stats-card {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .bot-sessions-page .stats-value {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .bot-sessions-page .stats-label {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .bot-sessions-page .filters-bar {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .bot-sessions-page .filters-bar input,
+[data-theme="dark"] .bot-sessions-page .filters-bar select {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .bot-sessions-page table {
+  background: var(--nx-surface);
+}
+
+[data-theme="dark"] .bot-sessions-page thead th {
+  background: var(--nx-surface-hover);
+  color: var(--nx-text-secondary);
+  border-bottom-color: var(--nx-border);
+}
+
+[data-theme="dark"] .bot-sessions-page tbody td {
+  color: var(--nx-text);
+  border-bottom-color: var(--nx-border);
+}
+
+[data-theme="dark"] .bot-sessions-page tbody tr:hover td {
+  background: var(--nx-surface-hover);
+}
+
+[data-theme="dark"] .session-detail-modal {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow-lg);
+}
+
+[data-theme="dark"] .session-detail-modal .session-info-bar {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .session-detail-modal .chat-transcript {
+  background: var(--nx-bg);
+}
+
+[data-theme="dark"] .session-detail-modal .message-bubble.bot {
+  background: var(--nx-surface-hover);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .bot-sessions-page .pagination button {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
+}

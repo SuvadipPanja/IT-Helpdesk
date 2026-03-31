@@ -100,7 +100,7 @@
 .nbot-avatar {
   width: 34px;
   height: 34px;
-  border-radius: 10px;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.2);
   display: grid;
   place-items: center;
@@ -356,7 +356,7 @@
   gap: 8px;
   background: var(--secondary-bg, #eef2ff);
   border: 1px solid var(--border-color, #e2e8f0);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 4px 6px 4px 14px;
 }
 
@@ -549,4 +549,74 @@
   .nbot-source-chip-title {
     max-width: 160px;
   }
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+[data-theme="dark"] .nbot-chat {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow-lg);
+}
+
+[data-theme="dark"] .nbot-header {
+  background: var(--nx-surface);
+  border-bottom-color: var(--nx-border);
+}
+
+[data-theme="dark"] .nbot-title {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .nbot-body {
+  background: var(--nx-bg);
+}
+
+[data-theme="dark"] .nbot-msg.bot .nbot-bubble {
+  background: var(--nx-surface);
+  color: var(--nx-text);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .nbot-msg.user .nbot-bubble {
+  background: var(--nx-primary);
+  color: white;
+}
+
+[data-theme="dark"] .nbot-input-wrap {
+  background: var(--nx-surface);
+  border-top-color: var(--nx-border);
+}
+
+[data-theme="dark"] .nbot-input {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .nbot-input::placeholder {
+  color: var(--nx-muted);
+}
+
+[data-theme="dark"] .nbot-footer {
+  color: var(--nx-muted);
+}
+
+[data-theme="dark"] .nbot-feedback-btn {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .nbot-feedback-btn:hover {
+  background: var(--nx-primary-light);
+  color: var(--nx-primary);
+  border-color: var(--nx-primary);
+}
+
+[data-theme="dark"] .nbot-source-chip {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text-secondary);
 }

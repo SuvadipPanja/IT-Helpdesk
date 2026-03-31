@@ -53,6 +53,27 @@
   --nx-sp-4: 16px; --nx-sp-5: 20px; --nx-sp-6: 24px;
   --nx-sp-8: 32px; --nx-sp-10: 40px;
 
+  /* ── Bridge variables (legacy compatibility) ── */
+  --primary:              var(--nx-primary);
+  --primary-hover:        var(--nx-primary-hover);
+  --primary-color:        var(--nx-primary);
+  --text-primary:         var(--nx-text);
+  --text-secondary:       var(--nx-text-secondary);
+  --text-tertiary:        var(--nx-muted);
+  --text-color:           var(--nx-text);
+  --text-muted:           var(--nx-muted);
+  --border-color:         var(--nx-border);
+  --background-primary:   var(--nx-bg);
+  --background-secondary: var(--nx-surface-hover);
+  --background-hover:     var(--nx-surface-hover);
+  --bg-primary:           var(--nx-surface);
+  --bg-secondary:         var(--nx-surface-hover);
+  --bg-color:             var(--nx-bg);
+  --card-bg:              var(--nx-surface);
+  --surface-primary:      var(--nx-surface);
+  --secondary-bg:         var(--nx-primary-light);
+  --icon-color:           var(--nx-text-secondary);
+
   /* ── Typography ── */
   --nx-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Helvetica Neue', sans-serif;
@@ -61,6 +82,75 @@
   /* ── Transitions ── */
   --nx-ease:  .2s ease;
   --nx-ease-spring: .25s cubic-bezier(.4,0,.2,1);
+
+  /* ── Typography scale ── */
+  --nx-font-xs:    11px;
+  --nx-font-sm:    12px;
+  --nx-font-base:  13px;
+  --nx-font-md:    14px;
+  --nx-font-lg:    16px;
+  --nx-font-xl:    18px;
+  --nx-font-2xl:   22px;
+  --nx-font-3xl:   28px;
+  --nx-weight-normal:   400;
+  --nx-weight-medium:   500;
+  --nx-weight-semibold: 600;
+  --nx-weight-bold:     700;
+  --nx-leading-tight:   1.25;
+  --nx-leading-normal:  1.5;
+  --nx-leading-relaxed: 1.625;
+
+  /* ── Extended primary scale ── */
+  --nx-primary-50:  #eef2ff;
+  --nx-primary-100: #e0e7ff;
+  --nx-primary-200: #c7d2fe;
+  --nx-primary-500: #6366f1;
+  --nx-primary-600: #4f46e5;
+  --nx-primary-700: #4338ca;
+  --nx-primary-900: #312e81;
+
+  /* ── Focus rings ── */
+  --nx-focus-ring:        0 0 0 3px rgba(99,102,241,.15);
+  --nx-focus-ring-danger: 0 0 0 3px rgba(239,68,68,.15);
+
+  /* ── Component tokens ── */
+  --nx-card-bg:       var(--nx-surface);
+  --nx-card-border:   var(--nx-border);
+  --nx-card-radius:   var(--nx-radius);
+  --nx-card-shadow:   var(--nx-shadow);
+  --nx-card-padding:  var(--nx-sp-5);
+  --nx-input-h:       38px;
+  --nx-input-radius:  var(--nx-radius-sm);
+  --nx-input-border:  var(--nx-border);
+  --nx-input-focus:   var(--nx-primary);
+  --nx-btn-h:         36px;
+  --nx-btn-h-sm:      30px;
+  --nx-btn-h-lg:      42px;
+  --nx-btn-radius:    var(--nx-radius-sm);
+  --nx-btn-font:      var(--nx-font-base);
+  --nx-btn-weight:    var(--nx-weight-semibold);
+  --nx-table-header-bg:  var(--nx-surface-hover);
+  --nx-table-row-hover:  var(--nx-surface-hover);
+  --nx-table-border:     var(--nx-border);
+  --nx-page-padding:     var(--nx-sp-6);
+  --nx-page-title-size:  var(--nx-font-2xl);
+  --nx-section-gap:      var(--nx-sp-6);
+
+  /* ── Status colors ── */
+  --nx-status-open:            #f59e0b;
+  --nx-status-open-bg:         #fffbeb;
+  --nx-status-in-progress:     #3b82f6;
+  --nx-status-in-progress-bg:  #eff6ff;
+  --nx-status-resolved:        #10b981;
+  --nx-status-resolved-bg:     #ecfdf5;
+  --nx-status-closed:          #6b7280;
+  --nx-status-closed-bg:       #f3f4f6;
+  --nx-status-pending:         #8b5cf6;
+  --nx-status-pending-bg:      #f5f3ff;
+  --nx-priority-critical:      #dc2626;
+  --nx-priority-high:          #ef4444;
+  --nx-priority-medium:        #f59e0b;
+  --nx-priority-low:           #10b981;
 
   /* ── Layout ── */
   --nx-sidebar-w: 272px;
@@ -93,6 +183,19 @@
   --nx-info-light:     rgba(59,130,246,.12);
   --nx-purple-light:   rgba(139,92,246,.12);
   --nx-orange-light:   rgba(249,115,22,.12);
+
+  /* extended primary scale — dark */
+  --nx-primary-50:  rgba(99,102,241,.08);
+  --nx-primary-100: rgba(99,102,241,.15);
+  --nx-primary-200: rgba(99,102,241,.25);
+  --nx-focus-ring:  0 0 0 3px rgba(129,140,248,.2);
+
+  /* status — dark */
+  --nx-status-open-bg:         rgba(245,158,11,.12);
+  --nx-status-in-progress-bg:  rgba(59,130,246,.12);
+  --nx-status-resolved-bg:     rgba(16,185,129,.12);
+  --nx-status-closed-bg:       rgba(107,114,128,.12);
+  --nx-status-pending-bg:      rgba(139,92,246,.12);
 }
 
 /* ==========================================================================
@@ -119,6 +222,23 @@ body {
   overflow-x: hidden;
   line-height: 1.5;
   letter-spacing: -0.01em;
+  transition: background-color .3s ease, color .3s ease;
+}
+
+/* ── Smooth theme transition for major surfaces ── */
+.header, .sidebar, .nx-card, .modal-overlay,
+[class*="container"], [class*="card"], [class*="panel"] {
+  transition: background-color .3s ease, border-color .3s ease, color .3s ease;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ==========================================================================

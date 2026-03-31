@@ -25,7 +25,7 @@
 
 /* ==================== MODAL CONTENT ==================== */
 .modal-content {
-  background: white;
+  background: var(--nx-surface);
   border-radius: 12px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   max-width: 600px;
@@ -196,7 +196,7 @@
   border-radius: 8px;
   font-size: 14px;
   color: #0f172a;
-  background: white;
+  background: var(--nx-surface);
   transition: all 0.2s;
   font-weight: 500;
 }
@@ -309,7 +309,7 @@
 }
 
 .btn-secondary {
-  background: white;
+  background: var(--nx-surface);
   color: #475569;
   border: 1px solid #e2e8f0;
 }
@@ -385,4 +385,68 @@
   .form-label {
     font-size: 12px;
   }
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+[data-theme="dark"] .modal-content {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow-lg);
+}
+
+[data-theme="dark"] .modal-header {
+  border-bottom-color: var(--nx-border);
+}
+
+[data-theme="dark"] .modal-title {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .modal-close-btn {
+  color: var(--nx-muted);
+}
+
+[data-theme="dark"] .modal-close-btn:hover {
+  background: var(--nx-surface-hover);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .modal-body {
+  background: var(--nx-surface);
+}
+
+[data-theme="dark"] .form-label {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .form-input,
+[data-theme="dark"] .form-select {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .form-input:focus,
+[data-theme="dark"] .form-select:focus {
+  border-color: var(--nx-primary);
+  box-shadow: var(--nx-focus-ring);
+}
+
+[data-theme="dark"] .form-input::placeholder {
+  color: var(--nx-muted);
+}
+
+[data-theme="dark"] .modal-footer {
+  border-top-color: var(--nx-border);
+  background: var(--nx-surface);
+}
+
+[data-theme="dark"] .modal-alert {
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .checkbox-label {
+  color: var(--nx-text);
 }

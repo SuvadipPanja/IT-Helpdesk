@@ -20,7 +20,7 @@
   --td-hover: var(--nx-surface-hover);
   --td-input-bg: var(--nx-surface);
   --td-input-border: var(--nx-border);
-  --td-timeline-line: linear-gradient(180deg, #667eea 0%, #764ba2 40%, #667eea 70%, #94a3b8 100%);
+  --td-timeline-line: linear-gradient(180deg, #6366f1 0%, #8b5cf6 40%, #6366f1 70%, #94a3b8 100%);
   --td-danger: var(--nx-danger);
   --td-success: var(--nx-success);
   --td-warning: var(--nx-warning);
@@ -89,13 +89,13 @@
   align-items: center;
   gap: 4px;
   padding: 7px 14px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   border-radius: 8px;
   color: white;
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 0.3px;
-  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.35);
+  box-shadow: 0 3px 10px rgba(99, 102, 241, 0.35);
 }
 
 /* Status Pill */
@@ -107,7 +107,7 @@
   align-items: center;
   gap: 5px;
   padding: 6px 12px;
-  border-radius: 20px;
+  border-radius: 16px;
   font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
@@ -219,7 +219,7 @@
   align-items: center;
   gap: 5px;
   padding: 6px 12px;
-  border-radius: 20px;
+  border-radius: 16px;
   font-size: 12px;
   font-weight: 600;
   background: #f5f3ff;
@@ -401,7 +401,7 @@
 .td-meta-item:hover {
   border-color: var(--td-accent);
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
 }
 
 .td-meta-icon {
@@ -946,7 +946,7 @@
   background: var(--td-card);
   border: 1px solid var(--td-card-border);
   border-top: 3px solid;
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   animation: td-detail-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -975,7 +975,7 @@
 .td-hj-detail-icon {
   width: 36px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1228,7 +1228,7 @@
   gap: 12px;
   padding: 14px 16px;
   border: 2px solid;
-  border-radius: 10px;
+  border-radius: 8px;
   margin-bottom: 14px;
   transition: all 0.2s;
 }
@@ -1367,7 +1367,7 @@
 .td-select:focus {
   outline: none;
   border-color: var(--td-accent);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 
 /* ============================================
@@ -1390,7 +1390,7 @@
 .td-textarea:focus {
   outline: none;
   border-color: var(--td-accent);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 
 .td-comment-actions {
@@ -1440,7 +1440,7 @@
 .td-att-item:hover {
   background: var(--td-card);
   border-color: var(--td-accent);
-  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 2px 6px rgba(99, 102, 241, 0.1);
 }
 
 .td-att-icon {
@@ -1559,7 +1559,7 @@
 
 .td-btn-primary:hover:not(:disabled) {
   background: var(--td-accent-hover);
-  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 3px 10px rgba(99, 102, 241, 0.3);
 }
 
 .td-btn-secondary {
@@ -1667,7 +1667,7 @@
 
 .td-modal {
   background: var(--td-card);
-  border-radius: 14px;
+  border-radius: 12px;
   padding: 28px;
   max-width: 440px;
   width: 100%;
@@ -1737,7 +1737,7 @@
   min-height: 100px;
   padding: 12px 14px;
   border: 1px solid var(--td-border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--td-bg);
   color: var(--td-text);
   font-size: 14px;
@@ -2456,7 +2456,7 @@
   width: 100%;
   padding: 10px 36px 10px 12px;
   border: 1.5px solid var(--td-border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--td-bg);
   color: var(--td-text);
   font-size: 14px;
@@ -2519,7 +2519,7 @@
   align-items: center;
   gap: 5px;
   padding: 6px 12px;
-  border-radius: 20px;
+  border-radius: 16px;
   font-size: 12px;
   font-weight: 600;
   background: #fffbeb;

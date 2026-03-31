@@ -1047,7 +1047,7 @@
   display: inline-flex;
   align-items: center;
   padding: 4px 10px;
-  border-radius: 20px;
+  border-radius: 16px;
   font-size: 11.5px;
   font-weight: 600;
   letter-spacing: 0.2px;
@@ -1400,7 +1400,7 @@
     box-shadow: none;
     background: var(--s-primary);
     color: #ffffff;
-    border-radius: 20px;
+    border-radius: 16px;
   }
 
   .settings-tab.active svg {
@@ -1537,7 +1537,7 @@
 .logo-preview-box {
   width: 80px;
   height: 80px;
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
   background: var(--s-card, #ffffff);
   border: 2px solid var(--s-border, #e5e7eb);
@@ -1673,7 +1673,7 @@
   }
 
   .settings-page {
-    background: white;
+    background: var(--nx-surface);
   }
 
   .settings-header {
@@ -1712,4 +1712,15 @@
 .btn-icon:focus-visible {
   outline: 2px solid var(--s-primary);
   outline-offset: 2px;
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+[data-theme="dark"] .settings-page {
+  --s-primary-ultra-light: rgba(99, 102, 241, 0.06);
+  --s-success-border: rgba(16, 185, 129, 0.25);
+  --s-warning-border: rgba(245, 158, 11, 0.25);
+  --s-danger-border: rgba(239, 68, 68, 0.25);
+  --s-info-border: rgba(59, 130, 246, 0.25);
 }

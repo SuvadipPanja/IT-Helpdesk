@@ -84,7 +84,7 @@
   margin-top: 12px;
   padding: 6px 14px;
   background: var(--bg-secondary, #f3f4f6);
-  border-radius: 20px;
+  border-radius: 16px;
   font-size: 0.85rem;
   color: var(--text-primary, #374151);
 }
@@ -198,7 +198,7 @@
   width: 100%;
   padding: 12px 14px;
   border: 1px solid var(--border-color, #d1d5db);
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 0.88rem;
   font-family: inherit;
   resize: vertical;
@@ -266,7 +266,7 @@
   flex: 1;
   padding: 12px 20px;
   border: 1px solid var(--border-color, #d1d5db);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--bg-primary, #ffffff);
   color: var(--text-primary, #374151);
   font-size: 0.9rem;
@@ -283,7 +283,7 @@
   flex: 2;
   padding: 12px 24px;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   background: linear-gradient(135deg, #f59e0b, #f97316);
   color: #ffffff;
   font-size: 0.9rem;
@@ -488,4 +488,66 @@
     flex: unset;
     width: 100%;
   }
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+[data-theme="dark"] .rating-modal {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow-lg);
+}
+
+[data-theme="dark"] .rating-modal-header h2,
+[data-theme="dark"] .rating-criteria-label {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .rating-modal-header p {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .rating-criteria-item {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .rating-feedback-textarea {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .rating-feedback-textarea:focus {
+  border-color: var(--nx-primary);
+  box-shadow: var(--nx-focus-ring);
+}
+
+[data-theme="dark"] .rating-feedback-textarea::placeholder {
+  color: var(--nx-muted);
+}
+
+[data-theme="dark"] .rating-overall-display {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .rating-btn-cancel {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .rating-btn-cancel:hover {
+  background: var(--nx-surface-hover);
+}
+
+[data-theme="dark"] .td-rating-card {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .td-rating-label {
+  color: var(--nx-text-secondary);
 }

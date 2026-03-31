@@ -136,7 +136,7 @@
    CARDS
    ============================================ */
 .security-settings-card {
-  background: white;
+  background: var(--nx-surface);
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   overflow: hidden;
@@ -198,7 +198,7 @@
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
-  border-radius: 20px;
+  border-radius: 16px;
   font-size: 13px;
   font-weight: 500;
 }
@@ -374,7 +374,7 @@
 }
 
 .security-settings-btn-outline {
-  background: white;
+  background: var(--nx-surface);
   color: #6366f1;
   border: 1px solid #e2e8f0;
 }
@@ -497,7 +497,7 @@
 }
 
 .security-settings-modal-container {
-  background: white;
+  background: var(--nx-surface);
   border-radius: 16px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   max-width: 560px;
@@ -1254,4 +1254,116 @@
 .security-settings-modal-close:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+[data-theme="dark"] .security-settings-page {
+  background: var(--nx-bg);
+}
+
+[data-theme="dark"] .security-settings-page h1,
+[data-theme="dark"] .security-settings-card-title,
+[data-theme="dark"] .security-settings-section-title {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .security-settings-subtitle,
+[data-theme="dark"] .security-settings-description {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .security-settings-card,
+[data-theme="dark"] .security-settings-section {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow);
+}
+
+[data-theme="dark"] .security-settings-detail-item {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .security-settings-detail-label {
+  color: var(--nx-muted);
+}
+
+[data-theme="dark"] .security-settings-detail-value {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .security-settings-method-option {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .security-settings-method-option:hover {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-primary);
+}
+
+[data-theme="dark"] .security-settings-method-option.selected {
+  border-color: var(--nx-primary);
+  background: var(--nx-primary-light);
+}
+
+[data-theme="dark"] .security-settings-method-name {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .security-settings-method-desc {
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .security-settings-modal-overlay .security-settings-modal {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+  box-shadow: var(--nx-shadow-lg);
+}
+
+[data-theme="dark"] .security-settings-modal-title {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .security-settings-modal-close {
+  color: var(--nx-muted);
+}
+
+[data-theme="dark"] .security-settings-modal-close:hover:not(:disabled) {
+  color: var(--nx-text);
+  background: var(--nx-surface-hover);
+}
+
+[data-theme="dark"] .security-settings-otp-input {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .security-settings-otp-input:focus {
+  border-color: var(--nx-primary);
+  box-shadow: var(--nx-focus-ring);
+}
+
+[data-theme="dark"] .security-settings-activity-item {
+  border-bottom-color: var(--nx-border);
+}
+
+[data-theme="dark"] .security-settings-activity-desc {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .security-settings-activity-time {
+  color: var(--nx-muted);
+}
+
+[data-theme="dark"] .security-settings-info-card {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .security-settings-info-card li {
+  color: var(--nx-text-secondary);
 }
