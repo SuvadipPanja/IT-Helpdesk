@@ -209,6 +209,18 @@ const styles = {
     marginTop: '6px',
     fontStyle: 'italic',
   },
+  showAllBtn: {
+    background: 'none',
+    border: 'none',
+    padding: '4px 0',
+    marginTop: '4px',
+    fontSize: '11px',
+    color: '#6366f1',
+    cursor: 'pointer',
+    fontWeight: 500,
+    textDecoration: 'underline',
+    textUnderlineOffset: '2px',
+  },
 };
 
 // ============================================================
@@ -293,11 +305,50 @@ function useAiSuggestions(subject, categoryName) {
 }
 
 // ============================================================
+// TEMPLATE RELEVANCE SCORING
+// Scores a template against the user's typed subject text.
+// Returns 0 (no match) to 100 (exact match).
+// ============================================================
+function scoreTemplate(template, subjectText) {
+  if (!subjectText || subjectText.length < 2) return 50; // no input → neutral score, show all
+  const input = subjectText.toLowerCase().trim();
+  const label = (template.label || '').toLowerCase();
+  const resolved = (template.resolvedText || '').toLowerCase();
+
+  // Exact match with resolved text → already selected
+  if (input === resolved) return 100;
+  // Starts with same text
+  if (resolved.startsWith(input) || label.startsWith(input)) return 90;
+
+  // Extract meaningful keywords (3+ chars, skip noise words)
+  const noise = new Set(['the', 'for', 'and', 'not', 'can', 'has', 'was', 'are', 'but', 'its', 'with', 'this', 'that', 'from']);
+  const inputWords = input.split(/[\s\-/,.:;]+/).filter(w => w.length >= 2 && !noise.has(w));
+  if (inputWords.length === 0) return 50;
+
+  const target = `${label} ${resolved}`;
+  let matched = 0;
+  for (const word of inputWords) {
+    if (target.includes(word)) matched++;
+  }
+
+  const ratio = matched / inputWords.length;
+  if (ratio >= 0.8) return 85;
+  if (ratio >= 0.5) return 70;
+  if (ratio >= 0.25) return 55;
+  if (matched >= 1) return 40;
+  return 0;
+}
+
+// ============================================================
 // MAIN COMPONENT
 // ============================================================
 export default function DynamicTicketFormSections({ categoryCode, categoryName, subject, onSubjectTemplate, templateContext = {}, value = {}, onChange }) {
   const [open, setOpen] = useState(true);
   const [hoveredTemplate, setHoveredTemplate] = useState(null);
+  const [showAllTemplates, setShowAllTemplates] = useState(false);
+
+  // Reset "show all" when category changes
+  useEffect(() => { setShowAllTemplates(false); }, [categoryCode]);
 
   const { suggestions, aiLoading, aiSource } = useAiSuggestions(subject, categoryName);
 
@@ -319,6 +370,35 @@ export default function DynamicTicketFormSections({ categoryCode, categoryName, 
     [schema.subjectTemplates, templateContext]
   );
 
+  // Score and sort templates by relevance to the typed subject
+  const subjectTrimmed = (subject || '').trim();
+  const hasSubjectInput = subjectTrimmed.length >= 2;
+  const isSubjectFromTemplate = value.subjectAutoFilled === true;
+
+  const scoredTemplates = useMemo(() => {
+    const scored = templates.map(t => ({
+      ...t,
+      score: scoreTemplate(t, subjectTrimmed),
+    }));
+    // Sort: selected first, then by score descending
+    scored.sort((a, b) => {
+      if (a.id === selectedTemplateId) return -1;
+      if (b.id === selectedTemplateId) return 1;
+      return b.score - a.score;
+    });
+    return scored;
+  }, [templates, subjectTrimmed, selectedTemplateId]);
+
+  const relevantTemplates = useMemo(() => {
+    if (!hasSubjectInput || showAllTemplates) return scoredTemplates;
+    // Show templates with score >= 40 (at least one keyword matched)
+    const filtered = scoredTemplates.filter(t => t.score >= 40 || t.id === selectedTemplateId);
+    // If nothing matched, show top 3 as suggestions
+    return filtered.length > 0 ? filtered : scoredTemplates.slice(0, 3);
+  }, [scoredTemplates, hasSubjectInput, showAllTemplates, selectedTemplateId]);
+
+  const hiddenCount = scoredTemplates.length - relevantTemplates.length;
+
   const toggleCheck = (idx) => {
     if (!onChange) return;
     onChange({
@@ -334,6 +414,7 @@ export default function DynamicTicketFormSections({ categoryCode, categoryName, 
     if (onSubjectTemplate) {
       onSubjectTemplate(template);
     }
+    setShowAllTemplates(false);
     onChange?.({
       ...value,
       selectedTemplateId: template.id,
@@ -435,29 +516,59 @@ export default function DynamicTicketFormSections({ categoryCode, categoryName, 
           {onSubjectTemplate && schema.subjectTemplates?.length > 0 && (
             <div style={styles.section}>
               <div style={styles.sectionTitle}>
-                <Zap size={12} /> Quick subject templates — click to use
+                <Zap size={12} />
+                {hasSubjectInput && !showAllTemplates
+                  ? `Matching templates${hiddenCount > 0 ? ` (${relevantTemplates.length} of ${scoredTemplates.length})` : ''}`
+                  : 'Quick subject templates — click to use'}
               </div>
               <div style={styles.templatesGrid}>
-                {templates.map((t, i) => (
-                  <button
-                    key={t.id || i}
-                    type="button"
-                    style={{
-                      ...styles.templateBtn,
-                      background: selectedTemplateId === t.id ? '#dbeafe' : hoveredTemplate === i ? '#f0f9ff' : 'none',
-                      borderColor: selectedTemplateId === t.id ? '#2563eb' : hoveredTemplate === i ? '#3b82f6' : '#d1d5db',
-                      color: selectedTemplateId === t.id ? '#1d4ed8' : hoveredTemplate === i ? '#1d4ed8' : '#374151',
-                    }}
-                    onClick={() => handleTemplateClick(t)}
-                    onMouseEnter={() => setHoveredTemplate(i)}
-                    onMouseLeave={() => setHoveredTemplate(null)}
-                    aria-label={`Use subject template: ${t.resolvedText}`}
-                  >
-                    <Zap size={11} />
-                    {t.resolvedText}
-                  </button>
-                ))}
+                {relevantTemplates.map((t, i) => {
+                  const isSelected = selectedTemplateId === t.id;
+                  const isHovered = hoveredTemplate === (t.id || i);
+                  const isLowRelevance = hasSubjectInput && t.score < 40 && !isSelected;
+                  return (
+                    <button
+                      key={t.id || i}
+                      type="button"
+                      style={{
+                        ...styles.templateBtn,
+                        background: isSelected ? '#dbeafe' : isHovered ? '#f0f9ff' : 'none',
+                        borderColor: isSelected ? '#2563eb' : isHovered ? '#3b82f6' : '#d1d5db',
+                        color: isSelected ? '#1d4ed8' : isHovered ? '#1d4ed8' : isLowRelevance ? '#9ca3af' : '#374151',
+                        opacity: isLowRelevance ? 0.6 : 1,
+                      }}
+                      onClick={() => handleTemplateClick(t)}
+                      onMouseEnter={() => setHoveredTemplate(t.id || i)}
+                      onMouseLeave={() => setHoveredTemplate(null)}
+                      aria-label={`Use subject template: ${t.resolvedText}`}
+                    >
+                      {isSelected ? <CheckSquare size={11} color="#2563eb" /> : <Zap size={11} />}
+                      {t.resolvedText}
+                      {isSelected && (
+                        <span style={{ marginLeft: 'auto', fontSize: '10px', color: '#2563eb', fontWeight: 600 }}>Selected</span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
+              {hasSubjectInput && hiddenCount > 0 && !showAllTemplates && (
+                <button
+                  type="button"
+                  onClick={() => setShowAllTemplates(true)}
+                  style={styles.showAllBtn}
+                >
+                  Show all {scoredTemplates.length} templates
+                </button>
+              )}
+              {showAllTemplates && hasSubjectInput && (
+                <button
+                  type="button"
+                  onClick={() => setShowAllTemplates(false)}
+                  style={styles.showAllBtn}
+                >
+                  Show only matching
+                </button>
+              )}
             </div>
           )}
 
