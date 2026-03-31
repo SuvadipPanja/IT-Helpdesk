@@ -12,23 +12,9 @@ const KBDeflectionWidget = ({ subject = '', onDismiss }) => {
   const navigate = useNavigate();
   const [results, setResults]   = useState([]);
   const [visible, setVisible]   = useState(false);
-  const [loading, setLoading]   = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const timerRef = useRef(null);
   const lastQuery = useRef('');
-  const contentRef = useRef(null);
-  const [contentHeight, setContentHeight] = useState(0);
-
-  const isOpen = visible || loading;
-
-  // Measure content height when it changes
-  useEffect(() => {
-    if (contentRef.current && isOpen) {
-      setContentHeight(contentRef.current.scrollHeight);
-    } else {
-      setContentHeight(0);
-    }
-  }, [isOpen, results, loading]);
 
   useEffect(() => {
     if (dismissed) return;
@@ -36,6 +22,7 @@ const KBDeflectionWidget = ({ subject = '', onDismiss }) => {
 
     if (q.length < 5) {
       setVisible(false);
+      setResults([]);
       return;
     }
 
@@ -44,7 +31,6 @@ const KBDeflectionWidget = ({ subject = '', onDismiss }) => {
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(async () => {
       lastQuery.current = q;
-      setLoading(true);
       try {
         const r = await kbService.search(q);
         const arts = (r.data?.data?.articles || []).slice(0, 3);
@@ -52,10 +38,8 @@ const KBDeflectionWidget = ({ subject = '', onDismiss }) => {
         setVisible(arts.length > 0);
       } catch (_) {
         setVisible(false);
-      } finally {
-        setLoading(false);
       }
-    }, 400);
+    }, 600);
 
     return () => clearTimeout(timerRef.current);
   }, [subject, dismissed]);
@@ -71,19 +55,10 @@ const KBDeflectionWidget = ({ subject = '', onDismiss }) => {
     navigate(`/help?article=${slug}`);
   };
 
-  if (!visible && !loading) return (
-    <div style={{ height: 0, overflow: 'hidden', transition: 'height 0.25s ease', margin: 0 }} />
-  );
+  if (!visible || results.length === 0) return null;
 
   return (
-    <div
-      style={{
-        height: contentHeight ? contentHeight + 'px' : 'auto',
-        overflow: 'hidden',
-        transition: 'height 0.25s ease',
-      }}
-    >
-      <div ref={contentRef} className="kb-deflect">
+    <div className="kb-deflect">
       <div className="kb-deflect-header">
         <Lightbulb size={16} className="kb-deflect-bulb" />
         <span>Before you submit — these guides might help:</span>
@@ -92,28 +67,24 @@ const KBDeflectionWidget = ({ subject = '', onDismiss }) => {
         </button>
       </div>
 
-      {loading ? (
-        <div className="kb-deflect-loading">Searching knowledge base…</div>
-      ) : (
-        <div className="kb-deflect-list">
-          {results.map((art) => (
-            <button
-              key={art.article_id || art.id}
-              className="kb-deflect-item"
-              onClick={() => openArticle(art)}
-            >
-              <span className="kb-deflect-icon">{art.icon || '📄'}</span>
-              <div className="kb-deflect-body">
-                <strong>{art.title}</strong>
-                {art.description && <span>{art.description}</span>}
-              </div>
-              <div className="kb-deflect-actions">
-                <ExternalLink size={14} />
-              </div>
-            </button>
-          ))}
-        </div>
-      )}
+      <div className="kb-deflect-list">
+        {results.map((art) => (
+          <button
+            key={art.article_id || art.id}
+            className="kb-deflect-item"
+            onClick={() => openArticle(art)}
+          >
+            <span className="kb-deflect-icon">{art.icon || '📄'}</span>
+            <div className="kb-deflect-body">
+              <strong>{art.title}</strong>
+              {art.description && <span>{art.description}</span>}
+            </div>
+            <div className="kb-deflect-actions">
+              <ExternalLink size={14} />
+            </div>
+          </button>
+        ))}
+      </div>
 
       <div className="kb-deflect-footer">
         <button className="kb-deflect-none" onClick={handleDismiss}>
@@ -122,7 +93,6 @@ const KBDeflectionWidget = ({ subject = '', onDismiss }) => {
         <button className="kb-deflect-browse" onClick={() => navigate('/help')}>
           <BookOpen size={14} /> Browse all guides
         </button>
-      </div>
       </div>
     </div>
   );
