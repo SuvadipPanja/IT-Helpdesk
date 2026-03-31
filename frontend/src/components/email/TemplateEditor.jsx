@@ -64,12 +64,7 @@ const TemplateEditor = forwardRef(({ value, onChange, placeholder }, ref) => {
   ];
 
   return (
-    <div style={{
-      border: '1px solid #e5e7eb',
-      borderRadius: '0.5rem',
-      overflow: 'hidden',
-      backgroundColor: '#ffffff'
-    }}>
+    <div className="template-editor-shell">
       <ReactQuill
         ref={quillRef}
         theme="snow"
@@ -78,96 +73,112 @@ const TemplateEditor = forwardRef(({ value, onChange, placeholder }, ref) => {
         modules={modules}
         formats={formats}
         placeholder={placeholder || 'Enter email body template...'}
-        style={{
-          minHeight: '300px',
-          backgroundColor: '#ffffff'
-        }}
+        className="template-editor"
+        style={{ minHeight: '300px' }}
       />
       
       {/* Custom CSS for Quill Editor */}
       <style>{`
-        .ql-container {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        .template-editor-shell {
+          border: 1px solid var(--nx-border);
+          border-radius: 16px;
+          overflow: hidden;
+          background: var(--nx-surface);
+          box-shadow: var(--nx-shadow-xs);
+        }
+
+        .template-editor-shell .ql-container {
+          font-family: var(--nx-font);
           font-size: 14px;
+          background: var(--nx-surface);
+          color: var(--nx-text);
         }
         
-        .ql-editor {
-          min-height: 300px;
-          max-height: 500px;
+        .template-editor-shell .ql-editor {
+          min-height: 320px;
+          max-height: 520px;
           overflow-y: auto;
+          color: var(--nx-text);
+          line-height: 1.65;
         }
         
-        .ql-editor.ql-blank::before {
-          color: #9ca3af;
+        .template-editor-shell .ql-editor.ql-blank::before {
+          color: var(--nx-muted);
           font-style: normal;
         }
         
-        .ql-toolbar {
-          background-color: #f9fafb;
-          border-bottom: 1px solid #e5e7eb;
+        .template-editor-shell .ql-toolbar {
+          background: var(--nx-bg);
+          border-bottom: 1px solid var(--nx-border);
           border-top: none;
           border-left: none;
           border-right: none;
+          padding: 10px 12px;
         }
         
-        .ql-container {
+        .template-editor-shell .ql-container {
           border: none;
         }
         
-        .ql-toolbar .ql-stroke {
-          stroke: #4b5563;
+        .template-editor-shell .ql-toolbar .ql-stroke {
+          stroke: var(--nx-text-secondary);
         }
         
-        .ql-toolbar .ql-fill {
-          fill: #4b5563;
+        .template-editor-shell .ql-toolbar .ql-fill {
+          fill: var(--nx-text-secondary);
         }
         
-        .ql-toolbar .ql-picker-label {
-          color: #4b5563;
+        .template-editor-shell .ql-toolbar .ql-picker-label {
+          color: var(--nx-text-secondary);
         }
         
-        .ql-toolbar button:hover,
-        .ql-toolbar button:focus,
-        .ql-toolbar button.ql-active {
-          color: #3b82f6;
+        .template-editor-shell .ql-toolbar button:hover,
+        .template-editor-shell .ql-toolbar button:focus,
+        .template-editor-shell .ql-toolbar button.ql-active {
+          color: var(--nx-primary);
         }
         
-        .ql-toolbar button:hover .ql-stroke,
-        .ql-toolbar button:focus .ql-stroke,
-        .ql-toolbar button.ql-active .ql-stroke {
-          stroke: #3b82f6;
+        .template-editor-shell .ql-toolbar button:hover .ql-stroke,
+        .template-editor-shell .ql-toolbar button:focus .ql-stroke,
+        .template-editor-shell .ql-toolbar button.ql-active .ql-stroke {
+          stroke: var(--nx-primary);
         }
         
-        .ql-toolbar button:hover .ql-fill,
-        .ql-toolbar button:focus .ql-fill,
-        .ql-toolbar button.ql-active .ql-fill {
-          fill: #3b82f6;
+        .template-editor-shell .ql-toolbar button:hover .ql-fill,
+        .template-editor-shell .ql-toolbar button:focus .ql-fill,
+        .template-editor-shell .ql-toolbar button.ql-active .ql-fill {
+          fill: var(--nx-primary);
         }
         
-        .ql-snow .ql-picker.ql-expanded .ql-picker-label {
-          border-color: #3b82f6;
+        .template-editor-shell .ql-snow .ql-picker.ql-expanded .ql-picker-label,
+        .template-editor-shell .ql-snow .ql-picker.ql-expanded .ql-picker-options {
+          border-color: var(--nx-primary);
+          color: var(--nx-text);
+          background: var(--nx-surface);
         }
         
-        .ql-snow .ql-picker.ql-expanded .ql-picker-options {
-          border-color: #3b82f6;
+        .template-editor-shell .ql-snow .ql-picker-options {
+          background: var(--nx-surface);
+          border-color: var(--nx-border);
+          box-shadow: var(--nx-shadow-md);
         }
         
         /* Custom scrollbar for editor */
-        .ql-editor::-webkit-scrollbar {
+        .template-editor-shell .ql-editor::-webkit-scrollbar {
           width: 8px;
         }
         
-        .ql-editor::-webkit-scrollbar-track {
-          background: #f1f1f1;
+        .template-editor-shell .ql-editor::-webkit-scrollbar-track {
+          background: transparent;
         }
         
-        .ql-editor::-webkit-scrollbar-thumb {
-          background: #cbd5e1;
+        .template-editor-shell .ql-editor::-webkit-scrollbar-thumb {
+          background: var(--nx-scrollbar-thumb);
           border-radius: 4px;
         }
         
-        .ql-editor::-webkit-scrollbar-thumb:hover {
-          background: #94a3b8;
+        .template-editor-shell .ql-editor::-webkit-scrollbar-thumb:hover {
+          background: var(--nx-scrollbar-thumb-hover);
         }
       `}</style>
     </div>

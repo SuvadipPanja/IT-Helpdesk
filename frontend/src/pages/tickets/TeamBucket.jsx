@@ -293,7 +293,7 @@ const TeamBucket = () => {
       }
       setPriorities(prioritiesRes.data?.data || []);
     } catch (err) {
-      console.error('Failed to load team bucket supporting data', err);
+      if (process.env.NODE_ENV === 'development') console.error('Failed to load team bucket supporting data', err);
     }
   }, [selectedTeamId, isAdminMgr]);
 

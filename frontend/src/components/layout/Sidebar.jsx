@@ -555,7 +555,7 @@ const Sidebar = ({ isOpen = false, toggleSidebar = () => { } }) => {
       return getNavigationItems(user, hasLicensedFeature);
     } catch (error) {
       // Missing icon import or bad nav config would throw — log so we fix root cause, not silent empty nav
-      console.error('[Sidebar] getNavigationItems failed:', error);
+      if (process.env.NODE_ENV === 'development') console.error('[Sidebar] getNavigationItems failed:', error);
       return [];
     }
   }, [user, hasLicensedFeature]);

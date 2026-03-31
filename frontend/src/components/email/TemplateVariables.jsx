@@ -224,64 +224,45 @@ const TemplateVariables = ({ onInsert }) => {
   }, [categories, search]);
 
   return (
-    <div className="template-variables-panel" style={{
-      backgroundColor: '#f9fafb',
-      border: '1px solid #e5e7eb',
-      borderRadius: '0.5rem',
-      padding: '1rem',
-    }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-        <Sparkles style={{ width: '1rem', height: '1rem', color: '#6366f1' }} />
-        <h4 style={{ fontSize: '0.875rem', fontWeight: '600', color: '#374151', margin: 0 }}>
+    <div className="template-variables-panel">
+      <div className="template-variables-panel__header">
+        <Sparkles className="template-variables-panel__sparkle" style={{ width: '1rem', height: '1rem' }} />
+        <h4 className="template-variables-panel__title">
           Merge tags & snippets
         </h4>
       </div>
-      <p style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '0.75rem', marginTop: 0 }}>
-        Use <code style={{ background: '#eef2ff', padding: '0 4px', borderRadius: 4 }}>{'{{name}}'}</code> for dynamic fields.
+      <p className="template-variables-panel__intro">
+        Use <code className="template-token-code">{'{{name}}'}</code> for dynamic fields.
         Brand fields are filled from <strong>Settings</strong> (system name, company, logo) and <strong>APP_PUBLIC_URL</strong>.
         {catalogNote && (
-          <span style={{ display: 'block', marginTop: 6 }}>{catalogNote}</span>
+          <span className="template-variables-panel__note">{catalogNote}</span>
         )}
       </p>
 
-      <div style={{ position: 'relative', marginBottom: '0.75rem' }}>
-        <Search style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', width: 16, height: 16, color: '#9ca3af' }} />
+      <div className="template-variables-search">
+        <Search className="template-variables-search__icon" style={{ width: 16, height: 16 }} />
         <input
           type="search"
           placeholder="Search variables..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          style={{
-            width: '100%',
-            padding: '8px 12px 8px 36px',
-            border: '1px solid #e5e7eb',
-            borderRadius: 8,
-            fontSize: 13,
-          }}
+          className="template-variables-search__input"
         />
       </div>
 
       {/* Quick layout blocks */}
-      <div style={{ marginBottom: '1rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
-          <LayoutTemplate style={{ width: 14, height: 14, color: '#64748b' }} />
-          <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569' }}>Quick layout blocks</span>
+      <div className="template-quick-blocks">
+        <div className="template-quick-blocks__header">
+          <LayoutTemplate style={{ width: 14, height: 14 }} />
+          <span>Quick layout blocks</span>
         </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        <div className="template-quick-blocks__list">
           {QUICK_BLOCKS.map((b) => (
             <button
               key={b.id}
               type="button"
               onClick={() => handleBlockClick(b.html)}
-              style={{
-                fontSize: '0.75rem',
-                padding: '6px 10px',
-                background: '#fff',
-                border: '1px solid #cbd5e1',
-                borderRadius: 6,
-                cursor: 'pointer',
-                color: '#334155',
-              }}
+              className="template-quick-block"
             >
               {b.label}
             </button>
@@ -290,101 +271,57 @@ const TemplateVariables = ({ onInsert }) => {
       </div>
 
       {Object.entries(filteredEntries).map(([categoryKey, category]) => (
-        <div key={categoryKey} style={{ marginBottom: '0.75rem' }}>
+        <div
+          key={categoryKey}
+          className="template-variable-category"
+          style={{ '--tv-accent': category.color || '#64748b' }}
+        >
           <button
             type="button"
             onClick={() => toggleCategory(categoryKey)}
-            style={{
-              width: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '0.5rem 0.75rem',
-              backgroundColor: '#ffffff',
-              border: '1px solid #e5e7eb',
-              borderRadius: '0.375rem',
-              cursor: 'pointer',
-            }}
+            className="template-variable-category__toggle"
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <div
-                style={{
-                  width: '0.75rem',
-                  height: '0.75rem',
-                  backgroundColor: category.color || '#64748b',
-                  borderRadius: '50%',
-                }}
-              />
-              <span style={{ fontSize: '0.875rem', fontWeight: 500, color: '#111827' }}>
-                {category.label}
-              </span>
-              <span style={{ fontSize: '0.75rem', color: '#6b7280', background: '#f3f4f6', padding: '2px 8px', borderRadius: 999 }}>
+            <div className="template-variable-category__meta">
+              <span className="template-variable-category__dot" />
+              <span className="template-variable-category__label">{category.label}</span>
+              <span className="template-variable-category__count">
                 {category.variables?.length || 0}
               </span>
             </div>
             {expandedCategories.includes(categoryKey) ? (
-              <ChevronUp style={{ width: '1rem', height: '1rem', color: '#6b7280' }} />
+              <ChevronUp className="template-variable-category__chevron" style={{ width: '1rem', height: '1rem' }} />
             ) : (
-              <ChevronDown style={{ width: '1rem', height: '1rem', color: '#6b7280' }} />
+              <ChevronDown className="template-variable-category__chevron" style={{ width: '1rem', height: '1rem' }} />
             )}
           </button>
 
           {category.hint && expandedCategories.includes(categoryKey) && (
-            <p style={{ fontSize: '0.65rem', color: '#94a3b8', margin: '6px 0 0 8px' }}>{category.hint}</p>
+            <p className="template-variable-category__hint">{category.hint}</p>
           )}
 
           {expandedCategories.includes(categoryKey) && category.variables && (
-            <div
-              style={{
-                marginTop: '0.5rem',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                gap: '0.5rem',
-              }}
-            >
+            <div className="template-variable-category__grid">
               {category.variables.map((variable) => {
                 const raw = variable.isRaw;
-                const displayKey = raw ? variable.key : variable.key;
+                const displayKey = raw ? variable.key : `{{${variable.key}}}`;
                 const copyKey = raw ? variable.key : variable.key;
+                const copiedValue = raw ? variable.key : `{{${variable.key}}}`;
                 return (
                   <button
-                    key={`${categoryKey}-${displayKey}`}
+                    key={`${categoryKey}-${copiedValue}`}
                     type="button"
                     onClick={() => handleVariableClick(copyKey, raw)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '0.5rem',
-                      backgroundColor: '#ffffff',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '0.375rem',
-                      cursor: 'pointer',
-                      textAlign: 'left',
-                    }}
+                    className="template-variable-item"
                     title={variable.example ? `e.g. ${variable.example}` : undefined}
                   >
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: '0.75rem', fontWeight: 500, color: '#111827', marginBottom: '0.125rem' }}>
-                        {variable.label}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: '0.625rem',
-                          color: '#6b7280',
-                          fontFamily: 'monospace',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        {raw ? displayKey : `{{${variable.key}}}`}
-                      </div>
+                    <div className="template-variable-item__copy">
+                      <div className="template-variable-item__label">{variable.label}</div>
+                      <div className="template-variable-item__key">{displayKey}</div>
                     </div>
-                    {copiedVariable === (raw ? variable.key : `{{${variable.key}}}`) ? (
-                      <Check style={{ width: '1rem', height: '1rem', color: '#10b981', flexShrink: 0 }} />
+                    {copiedVariable === copiedValue ? (
+                      <Check className="template-variable-item__icon is-success" style={{ width: '1rem', height: '1rem' }} />
                     ) : (
-                      <Copy style={{ width: '1rem', height: '1rem', color: '#9ca3af', flexShrink: 0 }} />
+                      <Copy className="template-variable-item__icon" style={{ width: '1rem', height: '1rem' }} />
                     )}
                   </button>
                 );
@@ -395,7 +332,7 @@ const TemplateVariables = ({ onInsert }) => {
       ))}
 
       {Object.keys(filteredEntries).length === 0 && (
-        <p style={{ fontSize: '0.8rem', color: '#94a3b8' }}>No variables match “{search}”.</p>
+        <p className="template-variables-panel__empty">No variables match “{search}”.</p>
       )}
     </div>
   );

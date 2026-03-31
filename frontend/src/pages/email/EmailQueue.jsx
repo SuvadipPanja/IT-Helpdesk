@@ -5,7 +5,7 @@
 // ============================================
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, Trash2, RotateCw } from 'lucide-react';
+import { Search, Trash2, RotateCw, Mail } from 'lucide-react';
 import RefreshButton from '../../components/shared/RefreshButton';
 import EmailQueueStats from '../../components/email/EmailQueueStats';
 import EmailQueueTable from '../../components/email/EmailQueueTable';
@@ -241,9 +241,18 @@ const EmailQueue = () => {
     <div className="email-queue-page">
       <div className="page-container">
         {/* Header */}
-        <div className="page-header">
-          <h1 className="page-title">Email Queue Management</h1>
-          <p className="page-description">Monitor and manage email notifications</p>
+        <div className="page-header nx-page-header">
+          <div className="page-title-group">
+            <div className="page-title-badge">
+              <Mail />
+            </div>
+            <div className="page-title-copy">
+              <h1 className="page-title">Email Queue Management</h1>
+              <p className="page-description">
+                Monitor, retry, and clean up delivery activity from one professional control surface.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Statistics */}
@@ -298,7 +307,7 @@ const EmailQueue = () => {
             <button
               onClick={handleRetryAllFailed}
               disabled={processing || stats?.failed_count === 0}
-              className="bulk-action-btn retry-all"
+              className="bulk-action-btn retry-all nx-btn nx-btn--success"
             >
               <RotateCw className={processing ? 'icon-spin' : ''} />
               Retry All Failed ({stats?.failed_count || 0})
@@ -307,7 +316,7 @@ const EmailQueue = () => {
             <button
               onClick={handleClearOldEmails}
               disabled={processing}
-              className="bulk-action-btn clear-old"
+              className="bulk-action-btn clear-old nx-btn nx-btn--danger"
             >
               <Trash2 />
               Clear Old Emails

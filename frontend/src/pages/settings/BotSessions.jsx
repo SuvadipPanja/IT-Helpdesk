@@ -82,7 +82,7 @@ const BotSessions = ({ embedded = false }) => {
         }));
       }
     } catch (error) {
-      console.error('Failed to fetch sessions:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Failed to fetch sessions:', error);
     } finally {
       setLoading(false);
     }
@@ -99,7 +99,7 @@ const BotSessions = ({ embedded = false }) => {
         setStats(response.data.data);
       }
     } catch (error) {
-      console.error('Failed to fetch stats:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Failed to fetch stats:', error);
     } finally {
       setStatsLoading(false);
     }
@@ -117,7 +117,7 @@ const BotSessions = ({ embedded = false }) => {
         setSessionDetail(response.data.data);
       }
     } catch (error) {
-      console.error('Failed to fetch session detail:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Failed to fetch session detail:', error);
     } finally {
       setDetailLoading(false);
     }
@@ -151,7 +151,7 @@ const BotSessions = ({ embedded = false }) => {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     } catch (error) {
-      console.error('Failed to download session:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Failed to download session:', error);
     }
   };
 
@@ -165,7 +165,7 @@ const BotSessions = ({ embedded = false }) => {
       fetchSessions();
       fetchStats();
     } catch (error) {
-      console.error('Cleanup failed:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Cleanup failed:', error);
     }
   };
 

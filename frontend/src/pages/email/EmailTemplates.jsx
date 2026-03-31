@@ -16,12 +16,11 @@ import {
   AlertCircle,
   CheckCircle,
   RefreshCw,
-  Mail,
-  Filter
+  Mail
 } from 'lucide-react';
 import RefreshButton from '../../components/shared/RefreshButton';
 import emailTemplatesService from '../../services/emailTemplates.service';
-import TemplateEditor, { TemplateEditorWithRef } from '../../components/email/TemplateEditor';
+import { TemplateEditorWithRef } from '../../components/email/TemplateEditor';
 import TemplateVariables from '../../components/email/TemplateVariables';
 import TemplatePreview from '../../components/email/TemplatePreview';
 import '../../styles/EmailTemplates.css';
@@ -279,19 +278,23 @@ const EmailTemplates = () => {
     <div className="email-templates-page">
       <div className="page-container">
         {/* HEADER */}
-        <div className="page-header">
-          <div>
-            <h1 className="page-title">
-              <Mail style={{ width: '2rem', height: '2rem', marginRight: '0.75rem' }} />
-              Email Templates Management
-            </h1>
-            <p className="page-description">
-              Merge tags like {'{{system_name}}'} are filled at send time from Settings and the server URL.
-              Use <strong>Quick layout blocks</strong> for headers, buttons, and callouts—they insert as <strong>visible formatting</strong> in the editor (not raw code). Plain tags like {'{{ticket_number}}'} insert as text.
-            </p>
+        <div className="page-header nx-page-header">
+          <div className="page-title-group">
+            <div className="page-title-badge">
+              <Mail style={{ width: '1.4rem', height: '1.4rem' }} />
+            </div>
+            <div className="page-title-copy">
+              <h1 className="page-title">Email Templates Management</h1>
+              <p className="page-description">
+                Merge tags like {'{{system_name}}'} are filled at send time from Settings and the server URL.
+                Use <strong>Quick layout blocks</strong> for headers, buttons, and callouts so content stays clean,
+                consistent, and production-ready.
+              </p>
+            </div>
           </div>
           <button 
-            className="btn-create"
+            type="button"
+            className="btn-create nx-btn nx-btn--primary"
             onClick={handleCreateNew}
           >
             <Plus style={{ width: '1.25rem', height: '1.25rem' }} />
@@ -365,7 +368,7 @@ const EmailTemplates = () => {
             <Mail style={{ width: '4rem', height: '4rem', color: '#cbd5e1' }} />
             <h3>No Templates Found</h3>
             <p>Create your first email template to get started</p>
-            <button className="btn-create" onClick={handleCreateNew}>
+            <button type="button" className="btn-create nx-btn nx-btn--primary" onClick={handleCreateNew}>
               <Plus style={{ width: '1.25rem', height: '1.25rem' }} />
               Create Template
             </button>
@@ -551,7 +554,7 @@ const EmailTemplates = () => {
                   <label className="form-label">
                     Email Body Template <span className="required">*</span>
                   </label>
-                  <p className="form-hint" style={{ marginBottom: '0.5rem' }}>
+                  <p className="form-hint form-hint-spaced">
                     The rich editor shows headings, colors, and layout. <strong>Quick layout blocks</strong> below paste as HTML so you see the real layout—not a code string.
                   </p>
                   <TemplateEditorWithRef
@@ -563,9 +566,9 @@ const EmailTemplates = () => {
                 </div>
 
                 {/* Insert target + Template Variables */}
-                <div style={{ marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569' }}>Insert merge tags into:</span>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer', fontSize: '0.85rem' }}>
+                <div className="insert-target-bar">
+                  <span className="insert-target-title">Insert merge tags into:</span>
+                  <label className={`insert-target-option ${variableTarget === 'subject' ? 'is-active' : ''}`}>
                     <input
                       type="radio"
                       name="varTarget"
@@ -574,7 +577,7 @@ const EmailTemplates = () => {
                     />
                     Subject line
                   </label>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer', fontSize: '0.85rem' }}>
+                  <label className={`insert-target-option ${variableTarget === 'body' ? 'is-active' : ''}`}>
                     <input
                       type="radio"
                       name="varTarget"
@@ -590,15 +593,17 @@ const EmailTemplates = () => {
               {/* Modal Footer */}
               <div className="modal-footer">
                 <button
+                  type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="btn-cancel"
+                  className="btn-cancel nx-btn nx-btn--secondary"
                   disabled={saving}
                 >
                   Cancel
                 </button>
                 <button
+                  type="button"
                   onClick={handleSave}
-                  className="btn-save"
+                  className="btn-save nx-btn nx-btn--primary"
                   disabled={saving}
                 >
                   {saving ? (

@@ -232,7 +232,7 @@ const AIAssistant = () => {
       };
 
       recognition.onerror = (event) => {
-        console.warn('Speech recognition error:', event.error);
+        if (process.env.NODE_ENV === 'development') console.warn('Speech recognition error:', event.error);
         setIsListening(false);
         voiceFinalTextRef.current = ''; // Clear on error
         if (event.error === 'not-allowed') {
@@ -269,7 +269,7 @@ const AIAssistant = () => {
         recognitionRef.current.start();
         setIsListening(true);
       } catch (err) {
-        console.error('[Voice] Start error:', err);
+        if (process.env.NODE_ENV === 'development') console.error('[Voice] Start error:', err);
         setIsListening(false);
       }
     }

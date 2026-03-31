@@ -20,8 +20,8 @@ const EmailQueueStats = ({ stats, loading }) => {
       <div className="stats-grid">
         {[...Array(4)].map((_, i) => (
           <div key={i} className="stat-card skeleton">
-            <div style={{ height: '1rem', background: '#e5e7eb', borderRadius: '0.25rem', width: '50%', marginBottom: '0.75rem' }}></div>
-            <div style={{ height: '2rem', background: '#e5e7eb', borderRadius: '0.25rem', width: '75%' }}></div>
+            <div className="skeleton-line skeleton-line--label"></div>
+            <div className="skeleton-line skeleton-line--value"></div>
           </div>
         ))}
       </div>
@@ -33,29 +33,25 @@ const EmailQueueStats = ({ stats, loading }) => {
       title: 'Total Emails',
       value: stats?.total_emails || 0,
       icon: Mail,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-100',
+      tone: 'info',
     },
     {
       title: 'Sent',
       value: stats?.sent_count || 0,
       icon: CheckCircle,
-      color: 'text-green-600',
-      bgColor: 'bg-green-100',
+      tone: 'success',
     },
     {
       title: 'Failed',
       value: stats?.failed_count || 0,
       icon: XCircle,
-      color: 'text-red-600',
-      bgColor: 'bg-red-100',
+      tone: 'danger',
     },
     {
       title: 'Pending',
       value: stats?.pending_count || 0,
       icon: Clock,
-      color: 'text-yellow-600',
-      bgColor: 'bg-yellow-100',
+      tone: 'warning',
     },
   ];
 
@@ -68,7 +64,7 @@ const EmailQueueStats = ({ stats, loading }) => {
               <p className="stat-label">{card.title}</p>
               <p className="stat-value">{card.value.toLocaleString()}</p>
             </div>
-            <div className={`stat-icon ${card.bgColor} ${card.color}`}>
+            <div className={`stat-icon tone-${card.tone}`}>
               <card.icon style={{ width: '2rem', height: '2rem' }} />
             </div>
           </div>

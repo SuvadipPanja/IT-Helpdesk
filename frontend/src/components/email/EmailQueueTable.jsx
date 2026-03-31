@@ -75,25 +75,25 @@ const EmailQueueTable = ({
               {[...Array(5)].map((_, i) => (
                 <tr key={i}>
                   <td>
-                    <div style={{ height: '1rem', background: '#e5e7eb', borderRadius: '0.25rem', width: '75%' }}></div>
+                    <div className="skeleton-line skeleton-line--table"></div>
                   </td>
                   <td>
-                    <div style={{ height: '1rem', background: '#e5e7eb', borderRadius: '0.25rem', width: '100%' }}></div>
+                    <div className="skeleton-line skeleton-line--table skeleton-line--wide"></div>
                   </td>
                   <td>
-                    <div style={{ height: '1rem', background: '#e5e7eb', borderRadius: '0.25rem', width: '80%' }}></div>
+                    <div className="skeleton-line skeleton-line--table"></div>
                   </td>
                   <td>
-                    <div style={{ height: '1.5rem', background: '#e5e7eb', borderRadius: '9999px', width: '5rem' }}></div>
+                    <div className="skeleton-chip"></div>
                   </td>
                   <td>
-                    <div style={{ height: '1rem', background: '#e5e7eb', borderRadius: '0.25rem', width: '50%' }}></div>
+                    <div className="skeleton-line skeleton-line--table skeleton-line--short"></div>
                   </td>
                   <td>
                     <div className="actions-cell">
-                      <div style={{ height: '2rem', width: '2rem', background: '#e5e7eb', borderRadius: '0.25rem' }}></div>
-                      <div style={{ height: '2rem', width: '2rem', background: '#e5e7eb', borderRadius: '0.25rem' }}></div>
-                      <div style={{ height: '2rem', width: '2rem', background: '#e5e7eb', borderRadius: '0.25rem' }}></div>
+                      <div className="skeleton-action"></div>
+                      <div className="skeleton-action"></div>
+                      <div className="skeleton-action"></div>
                     </div>
                   </td>
                 </tr>
@@ -208,18 +208,18 @@ const EmailQueueTable = ({
 
       {/* Pagination */}
       {pagination && pagination.totalPages > 1 && (
-        <div className="pagination-wrapper" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="pagination-wrapper">
           <div className="pagination-info">
             Showing{' '}
-            <span style={{ fontWeight: '500' }}>
+            <span className="pagination-info__value">
               {(pagination.currentPage - 1) * pagination.limit + 1}
             </span>{' '}
             to{' '}
-            <span style={{ fontWeight: '500' }}>
+            <span className="pagination-info__value">
               {Math.min(pagination.currentPage * pagination.limit, pagination.totalRecords)}
             </span>{' '}
             of{' '}
-            <span style={{ fontWeight: '500' }}>{pagination.totalRecords}</span>{' '}
+            <span className="pagination-info__value">{pagination.totalRecords}</span>{' '}
             results
           </div>
           <div className="pagination-controls">
@@ -249,7 +249,7 @@ const EmailQueueTable = ({
                 );
               } else if (pageNum === pagination.currentPage - 2 || pageNum === pagination.currentPage + 2) {
                 return (
-                  <span key={pageNum} className="pagination-btn" style={{ cursor: 'default' }}>
+                  <span key={pageNum} className="pagination-ellipsis">
                     ...
                   </span>
                 );

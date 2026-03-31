@@ -94,7 +94,7 @@ export default settingsLoader;
 export const getSetting = (key, defaultValue = null) => {
   const value = settingsLoader.getSetting(key, defaultValue);
   if (process.env.NODE_ENV === 'development' && !value) {
-    console.warn(`⚠️ Setting '${key}' not found, using default: ${defaultValue}`);
+    if (process.env.NODE_ENV === 'development') console.warn(`⚠️ Setting '${key}' not found, using default: ${defaultValue}`);
   }
   return value;
 };

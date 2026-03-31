@@ -5,7 +5,7 @@
 // ============================================
 
 import React from 'react';
-import { X, Mail, User, Calendar, AlertCircle, Package } from 'lucide-react';
+import { X, Mail, User, Calendar, AlertCircle, Package, RotateCw } from 'lucide-react';
 import { formatDateTime } from '../../utils/dateUtils';
 
 const EmailDetailModal = ({ email, isOpen, onClose }) => {
@@ -20,341 +20,76 @@ const EmailDetailModal = ({ email, isOpen, onClose }) => {
     return classes[status] || 'status-badge';
   };
 
+  const infoItems = [
+    { icon: Mail, label: 'Recipient Email', value: email.recipient_email },
+    { icon: User, label: 'Recipient Name', value: email.recipient_name || 'N/A' },
+    { icon: Package, label: 'Email Type', value: email.email_type },
+    { icon: Package, label: 'Template Used', value: email.template_used || 'N/A' },
+    { icon: Calendar, label: 'Created At', value: formatDateTime(email.created_at) },
+    { icon: Calendar, label: 'Sent At', value: email.sent_at ? formatDateTime(email.sent_at) : 'Not sent yet' },
+    { icon: RotateCw, label: 'Retry Count', value: `${email.retry_count} / ${email.max_retries}` },
+    { icon: AlertCircle, label: 'Priority', value: `Level ${email.priority}` },
+  ];
+
   return (
-    <div 
-      style={{
-        position: 'fixed',
-        inset: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 9999,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '1rem'
-      }}
-      onClick={onClose}
-    >
-      <div 
-        style={{
-          backgroundColor: '#ffffff',
-          borderRadius: '0.5rem',
-          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
-          maxWidth: '56rem',
-          width: '100%',
-          maxHeight: '90vh',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '1.5rem',
-          borderBottom: '1px solid #e5e7eb'
-        }}>
-          <h2 style={{
-            fontSize: '1.5rem',
-            fontWeight: '700',
-            color: '#111827',
-            margin: 0
-          }}>
-            Email Details
-          </h2>
-          <button
-            onClick={onClose}
-            style={{
-              color: '#6b7280',
-              background: 'transparent',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '0.25rem',
-              display: 'flex',
-              alignItems: 'center',
-              transition: 'color 0.2s'
-            }}
-            onMouseOver={(e) => e.currentTarget.style.color = '#374151'}
-            onMouseOut={(e) => e.currentTarget.style.color = '#6b7280'}
-          >
-            <X style={{ width: '1.5rem', height: '1.5rem' }} />
+    <div className="email-detail-modal-overlay" onClick={onClose}>
+      <div className="email-detail-modal" onClick={(event) => event.stopPropagation()}>
+        <div className="email-detail-modal__header">
+          <div className="email-detail-modal__title-group">
+            <div className="email-detail-modal__title-icon">
+              <Mail style={{ width: '1.25rem', height: '1.25rem' }} />
+            </div>
+            <div className="email-detail-modal__title-copy">
+              <h2>Email details</h2>
+              <p>Review recipient metadata, delivery status, and the rendered email body.</p>
+            </div>
+          </div>
+
+          <button type="button" className="email-detail-modal__close" onClick={onClose}>
+            <X style={{ width: '1.25rem', height: '1.25rem' }} />
           </button>
         </div>
 
-        {/* Content */}
-        <div style={{
-          padding: '1.5rem',
-          overflowY: 'auto',
-          flex: 1
-        }}>
-          {/* Status Badge */}
-          <div style={{ marginBottom: '1.5rem' }}>
-            <span style={{
-              display: 'inline-block',
-              padding: '0.5rem 1rem',
-              borderRadius: '9999px',
-              fontSize: '0.875rem',
-              fontWeight: '600',
-              backgroundColor: email.status === 'SENT' ? '#d1fae5' : 
-                              email.status === 'PENDING' ? '#fef3c7' : '#fee2e2',
-              color: email.status === 'SENT' ? '#065f46' : 
-                     email.status === 'PENDING' ? '#92400e' : '#991b1b'
-            }}>
-              {email.status}
-            </span>
+        <div className="email-detail-modal__body">
+          <div className="email-detail-modal__status">
+            <span className={getStatusBadgeClass(email.status)}>{email.status}</span>
           </div>
 
-          {/* Email Info Grid */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '1.5rem',
-            marginBottom: '1.5rem'
-          }}>
-            <div>
-              <label style={{
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#374151',
-                marginBottom: '0.5rem'
-              }}>
-                <Mail style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} />
-                Recipient Email
-              </label>
-              <p style={{
-                color: '#111827',
-                fontWeight: '500',
-                margin: 0
-              }}>
-                {email.recipient_email}
-              </p>
-            </div>
-
-            <div>
-              <label style={{
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#374151',
-                marginBottom: '0.5rem'
-              }}>
-                <User style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} />
-                Recipient Name
-              </label>
-              <p style={{
-                color: '#111827',
-                fontWeight: '500',
-                margin: 0
-              }}>
-                {email.recipient_name || 'N/A'}
-              </p>
-            </div>
-
-            <div>
-              <label style={{
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#374151',
-                marginBottom: '0.5rem'
-              }}>
-                <Package style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} />
-                Email Type
-              </label>
-              <p style={{
-                color: '#111827',
-                fontWeight: '500',
-                margin: 0
-              }}>
-                {email.email_type}
-              </p>
-            </div>
-
-            <div>
-              <label style={{
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#374151',
-                marginBottom: '0.5rem'
-              }}>
-                <Package style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} />
-                Template Used
-              </label>
-              <p style={{
-                color: '#111827',
-                fontWeight: '500',
-                margin: 0
-              }}>
-                {email.template_used || 'N/A'}
-              </p>
-            </div>
-
-            <div>
-              <label style={{
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#374151',
-                marginBottom: '0.5rem'
-              }}>
-                <Calendar style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} />
-                Created At
-              </label>
-              <p style={{
-                color: '#111827',
-                fontWeight: '500',
-                margin: 0
-              }}>
-                {formatDateTime(email.created_at)}
-              </p>
-            </div>
-
-            <div>
-              <label style={{
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#374151',
-                marginBottom: '0.5rem'
-              }}>
-                <Calendar style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} />
-                Sent At
-              </label>
-              <p style={{
-                color: '#111827',
-                fontWeight: '500',
-                margin: 0
-              }}>
-                {email.sent_at ? formatDateTime(email.sent_at) : 'Not sent yet'}
-              </p>
-            </div>
-
-            <div>
-              <label style={{
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#374151',
-                marginBottom: '0.5rem',
-                display: 'block'
-              }}>
-                Retry Count
-              </label>
-              <p style={{
-                color: '#111827',
-                fontWeight: '500',
-                margin: 0
-              }}>
-                {email.retry_count} / {email.max_retries}
-              </p>
-            </div>
-
-            <div>
-              <label style={{
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#374151',
-                marginBottom: '0.5rem',
-                display: 'block'
-              }}>
-                Priority
-              </label>
-              <p style={{
-                color: '#111827',
-                fontWeight: '500',
-                margin: 0
-              }}>
-                Level {email.priority}
-              </p>
-            </div>
+          <div className="email-detail-modal__grid">
+            {infoItems.map((item) => (
+              <div key={item.label} className="email-detail-modal__field">
+                <label className="email-detail-modal__field-label">
+                  <item.icon style={{ width: '0.95rem', height: '0.95rem' }} />
+                  {item.label}
+                </label>
+                <p className="email-detail-modal__field-value">{item.value}</p>
+              </div>
+            ))}
           </div>
 
-          {/* Subject */}
-          <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{
-              fontSize: '0.875rem',
-              fontWeight: '500',
-              color: '#374151',
-              marginBottom: '0.5rem',
-              display: 'block'
-            }}>
-              Subject
-            </label>
-            <p style={{
-              color: '#111827',
-              fontWeight: '500',
-              backgroundColor: '#f9fafb',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              border: '1px solid #e5e7eb',
-              margin: 0
-            }}>
-              {email.subject}
-            </p>
+          <div className="email-detail-modal__section">
+            <label className="email-detail-modal__section-label">Subject</label>
+            <div className="email-detail-modal__panel">{email.subject}</div>
           </div>
 
-          {/* Error Message */}
           {email.error_message && (
-            <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#b91c1c',
-                marginBottom: '0.5rem'
-              }}>
-                <AlertCircle style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} />
+            <div className="email-detail-modal__section">
+              <label className="email-detail-modal__section-label email-detail-modal__section-label--danger">
+                <AlertCircle style={{ width: '0.95rem', height: '0.95rem' }} />
                 Error Message
               </label>
-              <p style={{
-                color: '#7f1d1d',
-                backgroundColor: '#fee2e2',
-                padding: '1rem',
-                borderRadius: '0.5rem',
-                border: '1px solid #fecaca',
-                margin: 0
-              }}>
+              <div className="email-detail-modal__panel email-detail-modal__panel--danger">
                 {email.error_message}
-              </p>
+              </div>
             </div>
           )}
 
-          {/* Email Body Preview */}
-          <div>
-            <label style={{
-              fontSize: '0.875rem',
-              fontWeight: '500',
-              color: '#374151',
-              marginBottom: '0.5rem',
-              display: 'block'
-            }}>
-              Email Body Preview
-            </label>
-            <div style={{
-              backgroundColor: '#f9fafb',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              border: '1px solid #e5e7eb'
-            }}>
+          <div className="email-detail-modal__section">
+            <label className="email-detail-modal__section-label">Email Body Preview</label>
+            <div className="email-detail-modal__panel email-detail-modal__iframe-wrap">
               <iframe
                 srcDoc={email.body}
-                style={{
-                  width: '100%',
-                  height: '24rem',
-                  border: 'none',
-                  borderRadius: '0.25rem',
-                  backgroundColor: '#ffffff'
-                }}
+                className="email-detail-modal__iframe"
                 title="Email Preview"
                 sandbox="allow-same-origin"
               />
@@ -362,29 +97,8 @@ const EmailDetailModal = ({ email, isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Footer */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          gap: '0.75rem',
-          padding: '1.5rem',
-          borderTop: '1px solid #e5e7eb'
-        }}>
-          <button
-            onClick={onClose}
-            style={{
-              padding: '0.5rem 1.5rem',
-              color: '#374151',
-              backgroundColor: '#f3f4f6',
-              border: 'none',
-              borderRadius: '0.5rem',
-              fontWeight: '500',
-              cursor: 'pointer',
-              transition: 'background-color 0.2s'
-            }}
-            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#e5e7eb'}
-            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#f3f4f6'}
-          >
+        <div className="email-detail-modal__footer">
+          <button type="button" onClick={onClose} className="nx-btn nx-btn--secondary">
             Close
           </button>
         </div>
