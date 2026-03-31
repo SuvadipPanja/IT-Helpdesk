@@ -8,37 +8,37 @@
 
 /* ── Design Tokens ─────────────────────────── */
 .jm-page {
-  --jm-primary: #6366f1;
-  --jm-primary-hover: #4f46e5;
-  --jm-primary-light: #eef2ff;
-  --jm-primary-ultra: #f5f3ff;
-  --jm-primary-grad: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
-  --jm-bg: #f0f2f5;
-  --jm-card: #ffffff;
-  --jm-border: #e5e7eb;
-  --jm-border-light: #f3f4f6;
-  --jm-text: #111827;
-  --jm-text-sec: #4b5563;
-  --jm-text-muted: #9ca3af;
-  --jm-success: #10b981;
-  --jm-success-bg: #ecfdf5;
-  --jm-success-border: #a7f3d0;
-  --jm-warning: #f59e0b;
-  --jm-warning-bg: #fffbeb;
-  --jm-warning-border: #fde68a;
-  --jm-danger: #ef4444;
-  --jm-danger-bg: #fef2f2;
-  --jm-danger-border: #fecaca;
-  --jm-info: #3b82f6;
-  --jm-info-bg: #eff6ff;
-  --jm-info-border: #bfdbfe;
-  --jm-radius: 14px;
-  --jm-radius-sm: 10px;
-  --jm-radius-xs: 8px;
-  --jm-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --jm-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
-  --jm-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03);
-  --jm-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --jm-primary: var(--nx-primary);
+  --jm-primary-hover: var(--nx-primary-hover);
+  --jm-primary-light: var(--nx-primary-light);
+  --jm-primary-ultra: rgba(99, 102, 241, 0.08);
+  --jm-primary-grad: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%);
+  --jm-bg: var(--nx-bg);
+  --jm-card: var(--nx-surface);
+  --jm-border: var(--nx-border);
+  --jm-border-light: var(--nx-divider);
+  --jm-text: var(--nx-text);
+  --jm-text-sec: var(--nx-text-secondary);
+  --jm-text-muted: var(--nx-muted);
+  --jm-success: var(--nx-success);
+  --jm-success-bg: var(--nx-success-light);
+  --jm-success-border: rgba(16, 185, 129, 0.24);
+  --jm-warning: var(--nx-warning);
+  --jm-warning-bg: var(--nx-warning-light);
+  --jm-warning-border: rgba(245, 158, 11, 0.24);
+  --jm-danger: var(--nx-danger);
+  --jm-danger-bg: var(--nx-danger-light);
+  --jm-danger-border: rgba(239, 68, 68, 0.24);
+  --jm-info: var(--nx-info);
+  --jm-info-bg: var(--nx-info-light);
+  --jm-info-border: rgba(59, 130, 246, 0.24);
+  --jm-radius: 18px;
+  --jm-radius-sm: 14px;
+  --jm-radius-xs: 12px;
+  --jm-shadow-sm: var(--nx-shadow-xs);
+  --jm-shadow: var(--nx-shadow);
+  --jm-shadow-md: var(--nx-shadow-md);
+  --jm-shadow-lg: var(--nx-shadow-lg);
   --jm-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -51,7 +51,7 @@
 
 /* ── Hero Header ────────────────────────────── */
 .jm-header {
-  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%);
+  background: var(--jm-primary-grad);
   padding: 28px 36px;
   display: flex;
   align-items: center;
@@ -311,7 +311,7 @@
   justify-content: space-between;
   gap: 12px;
   padding: 18px 20px 14px;
-  background: linear-gradient(135deg, #fafafe 0%, #f8f9fc 100%);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--jm-card) 92%, white) 0%, var(--jm-primary-ultra) 100%);
   border-bottom: 1px solid var(--jm-border-light);
 }
 
@@ -406,7 +406,7 @@
   flex-wrap: wrap;
   gap: 10px;
   padding: 10px 14px;
-  background: linear-gradient(135deg, #fafafe 0%, #f1f5ff 100%);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--jm-card) 92%, white) 0%, var(--jm-primary-ultra) 100%);
   border: 1px solid var(--jm-border-light);
   border-radius: var(--jm-radius-xs);
 }
@@ -426,7 +426,7 @@
 
 /* Last Execution block */
 .jm-last-exec {
-  background: linear-gradient(135deg, #fafafe 0%, #f8f9fc 100%);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--jm-card) 92%, white) 0%, var(--jm-primary-ultra) 100%);
   border: 1px solid var(--jm-border-light);
   border-radius: var(--jm-radius-xs);
   padding: 11px 14px;
@@ -585,7 +585,7 @@
 .jm-card-footer {
   padding: 14px 20px;
   border-top: 1px solid var(--jm-border-light);
-  background: linear-gradient(135deg, #fafafe 0%, #f8f9fc 100%);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--jm-card) 92%, white) 0%, var(--jm-primary-ultra) 100%);
 }
 
 .jm-card-footer--actions {
@@ -671,8 +671,8 @@
 }
 
 .jm-btn-run:disabled {
-  background: #e5e7eb;
-  color: #9ca3af;
+  background: var(--jm-border);
+  color: var(--jm-text-muted);
   box-shadow: none;
   cursor: not-allowed;
   transform: none;
@@ -788,4 +788,25 @@
   --jm-danger-border: rgba(239, 68, 68, 0.25);
   --jm-info-bg: rgba(59, 130, 246, 0.12);
   --jm-info-border: rgba(59, 130, 246, 0.25);
+}
+
+[data-theme="dark"] .jm-header {
+  background: linear-gradient(135deg, #020617 0%, #172554 40%, #312e81 100%);
+}
+
+[data-theme="dark"] .jm-card-header,
+[data-theme="dark"] .jm-schedule-row,
+[data-theme="dark"] .jm-last-exec,
+[data-theme="dark"] .jm-card-footer {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="dark"] .jm-badge--inactive {
+  background: linear-gradient(135deg, rgba(71, 85, 105, 0.72), rgba(51, 65, 85, 0.92));
+  color: #cbd5e1;
+  border-color: rgba(148, 163, 184, 0.22);
+}
+
+[data-theme="dark"] .jm-btn-run:disabled {
+  background: rgba(51, 65, 85, 0.86);
 }

@@ -6,6 +6,7 @@
 import { useState, useEffect } from 'react';
 import { Plus, Edit2, Trash2, Search, Copy, Check, X, BookOpen } from 'lucide-react';
 import api from '../../services/api';
+import '../../styles/SnippetsSettings.css';
 
 const CATEGORIES = ['General', 'Hardware', 'Software', 'Network', 'Access', 'Email', 'Security', 'Performance', 'Training', 'Other'];
 
@@ -103,20 +104,20 @@ export default function SnippetsSettings() {
   }, {});
 
   return (
-    <div style={{ padding: '24px', maxWidth: '960px', margin: '0 auto' }}>
+    <div className="snippets-page">
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-        <div>
-          <h1 style={{ margin: 0, fontSize: '22px', fontWeight: 700, color: '#111827', display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <div className="snippets-header">
+        <div className="snippets-header-copy">
+          <h1 className="snippets-title">
             <BookOpen size={22} /> Response Snippets
           </h1>
-          <p style={{ margin: '4px 0 0', color: '#6b7280', fontSize: '14px' }}>
+          <p className="snippets-subtitle">
             Save and reuse common IT support responses. Shared snippets are visible to the whole team.
           </p>
         </div>
         <button
           onClick={openCreate}
-          style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: '8px', padding: '9px 16px', fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}
+          className="snippets-btn snippets-btn--primary"
         >
           <Plus size={16} /> New Snippet
         </button>
@@ -124,27 +125,27 @@ export default function SnippetsSettings() {
 
       {/* Success banner */}
       {success && (
-        <div style={{ background: '#dcfce7', border: '1px solid #86efac', borderRadius: '8px', padding: '10px 16px', marginBottom: '16px', color: '#166534', fontSize: '14px' }}>
+        <div className="snippets-banner snippets-banner--success">
           {success}
         </div>
       )}
 
       {/* Search / filter bar */}
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
-        <div style={{ position: 'relative', flex: '1', minWidth: '200px' }}>
-          <Search size={15} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} />
+      <div className="snippets-toolbar">
+        <div className="snippets-search-wrap">
+          <Search size={15} className="snippets-search-icon" />
           <input
             type="text"
             placeholder="Search snippets..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            style={{ width: '100%', paddingLeft: '34px', paddingRight: '12px', paddingTop: '8px', paddingBottom: '8px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px', boxSizing: 'border-box' }}
+            className="snippets-input snippets-search-input"
           />
         </div>
         <select
           value={filterCategory}
           onChange={(e) => setFilterCategory(e.target.value)}
-          style={{ padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px', background: '#fff' }}
+          className="snippets-input snippets-select"
         >
           <option value="">All categories</option>
           {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -153,62 +154,62 @@ export default function SnippetsSettings() {
 
       {/* Snippet list */}
       {loading ? (
-        <div style={{ textAlign: 'center', color: '#6b7280', padding: '48px' }}>Loading snippets...</div>
+        <div className="snippets-empty-state snippets-empty-state--loading">Loading snippets...</div>
       ) : filtered.length === 0 ? (
-        <div style={{ textAlign: 'center', color: '#6b7280', padding: '48px' }}>
+        <div className="snippets-empty-state">
           {snippets.length === 0 ? 'No snippets yet. Create your first one!' : 'No snippets match your search.'}
         </div>
       ) : (
         Object.entries(grouped).map(([cat, items]) => (
-          <div key={cat} style={{ marginBottom: '24px' }}>
-            <h3 style={{ fontSize: '13px', fontWeight: 700, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>{cat}</h3>
+          <div key={cat} className="snippets-group">
+            <h3 className="snippets-group-title">{cat}</h3>
             {items.map((s) => (
-              <div key={s.snippet_id} style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px', padding: '14px', marginBottom: '8px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                      <span style={{ fontWeight: 600, color: '#111827', fontSize: '14px' }}>{s.title}</span>
+              <div key={s.snippet_id} className="snippet-card">
+                <div className="snippet-card-head">
+                  <div className="snippet-card-copy">
+                    <div className="snippet-card-meta-row">
+                      <span className="snippet-card-title">{s.title}</span>
                       {s.shortcut && (
-                        <span style={{ background: '#f3f4f6', border: '1px solid #d1d5db', borderRadius: '4px', padding: '1px 6px', fontSize: '11px', color: '#374151', fontFamily: 'monospace' }}>
+                        <span className="snippet-pill snippet-pill--shortcut">
                           {s.shortcut}
                         </span>
                       )}
                       {s.is_shared ? (
-                        <span style={{ background: '#dbeafe', color: '#1d4ed8', fontSize: '11px', padding: '1px 6px', borderRadius: '4px' }}>Shared</span>
+                        <span className="snippet-pill snippet-pill--shared">Shared</span>
                       ) : (
-                        <span style={{ background: '#f3f4f6', color: '#6b7280', fontSize: '11px', padding: '1px 6px', borderRadius: '4px' }}>Private</span>
+                        <span className="snippet-pill snippet-pill--private">Private</span>
                       )}
                     </div>
-                    <p style={{ margin: 0, color: '#4b5563', fontSize: '13px', lineHeight: 1.6, whiteSpace: 'pre-wrap', maxHeight: '80px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <p className="snippet-card-body">
                       {s.body}
                     </p>
                   </div>
-                  <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
+                  <div className="snippet-card-actions">
                     <button
                       onClick={() => handleCopy(s.body, s.snippet_id)}
                       title="Copy to clipboard"
-                      style={{ background: 'none', border: '1px solid #d1d5db', borderRadius: '6px', padding: '5px 8px', cursor: 'pointer', color: copied === s.snippet_id ? '#059669' : '#6b7280' }}
+                      className={`snippet-icon-btn ${copied === s.snippet_id ? 'snippet-icon-btn--copied' : ''}`}
                     >
                       {copied === s.snippet_id ? <Check size={14} /> : <Copy size={14} />}
                     </button>
                     <button
                       onClick={() => openEdit(s)}
                       title="Edit snippet"
-                      style={{ background: 'none', border: '1px solid #d1d5db', borderRadius: '6px', padding: '5px 8px', cursor: 'pointer', color: '#6b7280' }}
+                      className="snippet-icon-btn"
                     >
                       <Edit2 size={14} />
                     </button>
                     <button
                       onClick={() => handleDelete(s.snippet_id)}
                       title="Delete snippet"
-                      style={{ background: 'none', border: '1px solid #d1d5db', borderRadius: '6px', padding: '5px 8px', cursor: 'pointer', color: '#dc2626' }}
+                      className="snippet-icon-btn snippet-icon-btn--danger"
                     >
                       <Trash2 size={14} />
                     </button>
                   </div>
                 </div>
                 {s.created_by_name && (
-                  <p style={{ margin: '8px 0 0', fontSize: '11px', color: '#9ca3af' }}>By {s.created_by_name}</p>
+                  <p className="snippet-card-author">By {s.created_by_name}</p>
                 )}
               </div>
             ))}
@@ -218,52 +219,52 @@ export default function SnippetsSettings() {
 
       {/* Modal */}
       {showModal && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '16px' }}>
-          <div style={{ background: '#fff', borderRadius: '12px', padding: '24px', width: '100%', maxWidth: '600px', maxHeight: '90vh', overflowY: 'auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 700 }}>{editingId ? 'Edit Snippet' : 'New Snippet'}</h3>
-              <button onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280' }}>
+        <div className="snippets-modal-backdrop">
+          <div className="snippets-modal">
+            <div className="snippets-modal-header">
+              <h3 className="snippets-modal-title">{editingId ? 'Edit Snippet' : 'New Snippet'}</h3>
+              <button onClick={() => setShowModal(false)} className="snippets-modal-close">
                 <X size={20} />
               </button>
             </div>
 
-            {error && <div style={{ background: '#fee2e2', border: '1px solid #fca5a5', borderRadius: '6px', padding: '8px 12px', marginBottom: '16px', color: '#991b1b', fontSize: '13px' }}>{error}</div>}
+            {error && <div className="snippets-banner snippets-banner--error">{error}</div>}
 
-            <form onSubmit={handleSave}>
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Title *</label>
-                <input type="text" value={form.title} onChange={(e) => setForm((p) => ({ ...p, title: e.target.value }))} maxLength={200} style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px', boxSizing: 'border-box' }} required />
+            <form onSubmit={handleSave} className="snippets-form">
+              <div className="snippets-form-group">
+                <label className="snippets-label">Title *</label>
+                <input type="text" value={form.title} onChange={(e) => setForm((p) => ({ ...p, title: e.target.value }))} maxLength={200} className="snippets-input" required />
               </div>
 
-              <div style={{ marginBottom: '16px', display: 'flex', gap: '12px' }}>
-                <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Category</label>
-                  <select value={form.category} onChange={(e) => setForm((p) => ({ ...p, category: e.target.value }))} style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '13px', background: '#fff' }}>
+              <div className="snippets-form-grid">
+                <div className="snippets-form-group">
+                  <label className="snippets-label">Category</label>
+                  <select value={form.category} onChange={(e) => setForm((p) => ({ ...p, category: e.target.value }))} className="snippets-input snippets-select">
                     {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
-                <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Shortcut (optional)</label>
-                  <input type="text" value={form.shortcut} onChange={(e) => setForm((p) => ({ ...p, shortcut: e.target.value }))} placeholder="/greet" maxLength={50} style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px', boxSizing: 'border-box' }} />
+                <div className="snippets-form-group">
+                  <label className="snippets-label">Shortcut (optional)</label>
+                  <input type="text" value={form.shortcut} onChange={(e) => setForm((p) => ({ ...p, shortcut: e.target.value }))} placeholder="/greet" maxLength={50} className="snippets-input" />
                 </div>
               </div>
 
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Response Body *</label>
-                <textarea value={form.body} onChange={(e) => setForm((p) => ({ ...p, body: e.target.value }))} rows={8} style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px', boxSizing: 'border-box', resize: 'vertical', minHeight: '120px' }} required />
-                <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#9ca3af' }}>{form.body.length} characters</p>
+              <div className="snippets-form-group">
+                <label className="snippets-label">Response Body *</label>
+                <textarea value={form.body} onChange={(e) => setForm((p) => ({ ...p, body: e.target.value }))} rows={8} className="snippets-input snippets-textarea" required />
+                <p className="snippets-character-count">{form.body.length} characters</p>
               </div>
 
-              <div style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '14px', color: '#374151' }}>
-                  <input type="checkbox" checked={form.is_shared} onChange={(e) => setForm((p) => ({ ...p, is_shared: e.target.checked }))} style={{ accentColor: '#3b82f6' }} />
+              <div className="snippets-form-group snippets-form-group--compact">
+                <label className="snippets-checkbox-row">
+                  <input type="checkbox" checked={form.is_shared} onChange={(e) => setForm((p) => ({ ...p, is_shared: e.target.checked }))} className="snippets-checkbox" />
                   Share with the whole IT team
                 </label>
               </div>
 
-              <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
-                <button type="button" onClick={() => setShowModal(false)} style={{ padding: '9px 18px', border: '1px solid #d1d5db', borderRadius: '8px', background: '#fff', cursor: 'pointer', fontSize: '14px' }}>Cancel</button>
-                <button type="submit" disabled={saving} style={{ padding: '9px 18px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}>
+              <div className="snippets-modal-actions">
+                <button type="button" onClick={() => setShowModal(false)} className="snippets-btn snippets-btn--secondary">Cancel</button>
+                <button type="submit" disabled={saving} className="snippets-btn snippets-btn--primary">
                   {saving ? 'Saving...' : (editingId ? 'Update' : 'Create')}
                 </button>
               </div>

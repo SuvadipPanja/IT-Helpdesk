@@ -191,7 +191,16 @@ export default function LicenseSettingsTab({ onNotify }) {
 
               <div className="license-summary-grid">
                 {summaryItems.map((item) => (
-                  <div key={item.label} className="license-summary-card">
+                  <div
+                    key={item.label}
+                    className={`license-summary-card${
+                      item.label === 'Status' ? ' license-summary-card--status' : ''
+                    }${
+                      item.label === 'Current Fingerprint' || item.label === 'License ID'
+                        ? ' license-summary-card--mono'
+                        : ''
+                    }${item.label === 'Licensed Features' ? ' license-summary-card--wide' : ''}`}
+                  >
                     <span className="license-summary-label">{item.label}</span>
                     <span className="license-summary-value">{item.value || '—'}</span>
                   </div>

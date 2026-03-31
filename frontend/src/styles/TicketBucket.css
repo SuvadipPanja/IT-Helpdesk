@@ -122,6 +122,17 @@
   -webkit-overflow-scrolling: touch;
 }
 
+.tb-stats-row::-webkit-scrollbar,
+.tb-table-container::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+
+.tb-stats-row::-webkit-scrollbar-thumb,
+.tb-table-container::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.5);
+}
+
 .tb-stat-card {
   display: flex;
   align-items: center;
@@ -1067,10 +1078,39 @@
   color: var(--nx-text);
 }
 
-[data-theme="dark"] .tb-table-wrapper {
+[data-theme="dark"] .tb-filter-location,
+[data-theme="dark"] .tb-result-count {
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border);
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .tb-location-select,
+[data-theme="dark"] .tb-search-clear {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .tb-table-container {
   background: var(--nx-surface);
   border-color: var(--nx-border);
   box-shadow: var(--nx-shadow);
+}
+
+[data-theme="dark"] .tb-ticket-number {
+  background: rgba(129, 140, 248, 0.16);
+  color: #c7d2fe;
+}
+
+[data-theme="dark"] .tb-info-banner {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.14) 0%, rgba(37, 99, 235, 0.08) 100%);
+  border-color: rgba(96, 165, 250, 0.28);
+  color: #bfdbfe;
+}
+
+[data-theme="dark"] .tb-info-banner.tb-info-warning {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.14) 0%, rgba(217, 119, 6, 0.08) 100%);
+  border-color: rgba(245, 158, 11, 0.26);
+  color: #fcd34d;
 }
 
 [data-theme="dark"] .tb-table thead th {
@@ -1101,6 +1141,11 @@
 [data-theme="dark"] .tb-pagination button:hover:not(:disabled) {
   background: var(--nx-surface-hover);
   border-color: var(--nx-primary);
+}
+
+[data-theme="dark"] .tb-stats-row::-webkit-scrollbar-thumb,
+[data-theme="dark"] .tb-table-container::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.82);
 }
 
 [data-theme="dark"] .tb-tab-btn {

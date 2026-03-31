@@ -14,6 +14,7 @@ import { SubCategoriesTab, LocationsTab, ProcessesTab } from '../../components/s
 import BotSettingsTab from '../../components/settings/BotSettingsTab';
 import LicenseSettingsTab from '../../components/settings/LicenseSettingsTab';
 import WhatsAppSettingsTab from '../../components/settings/WhatsAppSettingsTab';
+import RefreshButton from '../../components/shared/RefreshButton';
 import { 
   Settings as SettingsIcon, 
   Mail, 
@@ -3226,9 +3227,20 @@ const Settings = () => {
 
               {/* Backup History */}
               <div className="settings-section">
-                <div className="settings-section-header">
-                  <FileText />
-                  <h3>Backup History</h3>
+                <div className="settings-section-header settings-section-header--split">
+                  <div className="settings-section-header-group">
+                    <FileText />
+                    <div>
+                      <h3>Backup History</h3>
+                      <p>Track backup health, storage usage, and recovery readiness.</p>
+                    </div>
+                  </div>
+                  <RefreshButton
+                    onClick={() => fetchBackupHistory(backupPage)}
+                    loading={loadingBackups}
+                    label={loadingBackups ? 'Refreshing…' : 'Refresh List'}
+                    title="Refresh backup history"
+                  />
                 </div>
                 <div className="settings-section-content">
                   {loadingBackups ? (
@@ -3246,8 +3258,8 @@ const Settings = () => {
                     </div>
                   ) : (
                     <>
-                      <div className="table-container">
-                        <table className="data-table">
+                      <div className="table-container backup-history-table-wrap">
+                        <table className="data-table backup-history-table">
                           <thead>
                             <tr>
                               <th>Backup Name</th>
@@ -3257,16 +3269,23 @@ const Settings = () => {
                               <th>Duration</th>
                               <th>Created By</th>
                               <th>Created At</th>
-                              <th>Actions</th>
+                              <th className="backup-col-actions">Actions</th>
                             </tr>
                           </thead>
                           <tbody>
                             {backupHistory.map((backup) => (
                               <tr key={backup.backup_id}>
                                 <td>
-                                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                    <Database size={16} style={{ color: 'var(--s-primary)', flexShrink: 0 }} />
-                                    <span style={{ fontWeight: '600' }}>{backup.backup_name || 'N/A'}</span>
+                                  <div className="backup-name-cell">
+                                    <div className="backup-name-icon">
+                                      <Database size={16} />
+                                    </div>
+                                    <div className="backup-name-content">
+                                      <span className="backup-name-title">{backup.backup_name || 'N/A'}</span>
+                                      <span className="backup-name-subtitle">
+                                        {backup.backup_id ? `ID ${backup.backup_id}` : 'Server snapshot'}
+                                      </span>
+                                    </div>
                                   </div>
                                 </td>
                                 <td>
@@ -3287,34 +3306,39 @@ const Settings = () => {
                                 <td>{backup.duration_seconds ? `${backup.duration_seconds}s` : 'N/A'}</td>
                                 <td>{backup.created_by_name || 'System'}</td>
                                 <td>{backup.created_at ? formatDateTime(backup.created_at) : 'N/A'}</td>
-                                <td>
-                                  <div style={{ display: 'flex', gap: '8px' }}>
+                                <td className="backup-col-actions">
+                                  <div className="backup-actions">
                                     {backup.status === 'COMPLETED' && (
                                       <button
-                                        className="btn-icon"
+                                        className="btn-icon backup-action-btn"
                                         onClick={() => handleDownloadBackup(backup.backup_id, backup.backup_name)}
                                         title="Download Backup"
+                                        aria-label="Download backup"
                                       >
                                         <Download size={16} />
+                                        <span>Download</span>
                                       </button>
                                     )}
                                     {backup.status === 'COMPLETED' && (
                                       <button
-                                        className="btn-icon"
+                                        className="btn-icon backup-action-btn backup-action-btn--warning"
                                         onClick={() => handlePrepareRestore(backup.backup_id, backup.backup_name)}
                                         disabled={preparingRestore}
                                         title="Restore from this Backup"
-                                        style={{ color: '#f59e0b' }}
+                                        aria-label="Restore backup"
                                       >
                                         <RotateCcw size={16} />
+                                        <span>Restore</span>
                                       </button>
                                     )}
                                     <button
-                                      className="btn-icon btn-icon-danger"
+                                      className="btn-icon btn-icon-danger backup-action-btn"
                                       onClick={() => handleDeleteBackup(backup.backup_id, backup.backup_name)}
                                       title="Delete Backup"
+                                      aria-label="Delete backup"
                                     >
                                       <Trash2 size={16} />
+                                      <span>Delete</span>
                                     </button>
                                   </div>
                                 </td>
@@ -3365,7 +3389,7 @@ const Settings = () => {
                   <p>Upload a previously downloaded backup ZIP to restore</p>
                 </div>
                 <div className="settings-section-content">
-                  <div className="settings-info-box warning" style={{ marginBottom: '16px' }}>
+                  <div className="settings-info-box warning restore-warning-box">
                     <AlertTriangle size={18} />
                     <p>
                       <strong>Warning:</strong> Restoring will <strong>completely replace</strong> the current
@@ -3373,8 +3397,8 @@ const Settings = () => {
                       This action cannot be undone. A confirmation code is required.
                     </p>
                   </div>
-                  <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
-                    <div className="form-group" style={{ flex: '1', minWidth: '260px', marginBottom: 0 }}>
+                  <div className="restore-upload-row">
+                    <div className="form-group restore-upload-field">
                       <label className="form-label">
                         <Upload size={16} />
                         Select Backup ZIP File
@@ -3389,10 +3413,9 @@ const Settings = () => {
                       <small className="form-help">Select a .zip file downloaded from Backup History</small>
                     </div>
                     <button
-                      className="btn-primary"
+                      className="btn-primary btn-primary-warning restore-upload-action"
                       onClick={handlePrepareRestoreFromZip}
                       disabled={!restoreUploadFile || preparingRestore}
-                      style={{ marginBottom: '20px', whiteSpace: 'nowrap', background: '#f59e0b', borderColor: '#f59e0b' }}
                     >
                       {preparingRestore ? (
                         <>

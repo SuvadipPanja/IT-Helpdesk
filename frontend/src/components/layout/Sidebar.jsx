@@ -359,9 +359,12 @@ const NavItem = memo(({ item, onClick, isActive }) => {
       aria-current={isActive ? 'page' : undefined}
       role="menuitem"
       tabIndex={0}
+      data-nav-id={item.id}
     >
-      <Icon size={20} aria-hidden="true" />
-      <span>{item.label}</span>
+      <span className="nav-link-icon" aria-hidden="true">
+        <Icon size={20} aria-hidden="true" />
+      </span>
+      <span className="nav-link-label">{item.label}</span>
     </NavLink>
   );
 });
@@ -504,7 +507,7 @@ const Sidebar = ({ isOpen = false, toggleSidebar = () => { } }) => {
   const location = useLocation();
 
   // Track settings version to re-compute memoized values on settings change
-  const [settingsVersion, setSettingsVersion] = useState(0);
+  const [, setSettingsVersion] = useState(0);
 
   useEffect(() => {
     const handler = () => setSettingsVersion(v => v + 1);
@@ -513,25 +516,25 @@ const Sidebar = ({ isOpen = false, toggleSidebar = () => { } }) => {
   }, []);
 
   // ----------------------------------------
-  // SYSTEM SETTINGS (Memoized with fallbacks)
+  // SYSTEM SETTINGS (Fallbacks)
   // ----------------------------------------
-  const systemName = useMemo(() => {
+  const systemName = (() => {
     try {
       return getSetting('system_name', DEFAULT_SETTINGS.systemName) || DEFAULT_SETTINGS.systemName;
-    } catch (error) {
+    } catch {
       return DEFAULT_SETTINGS.systemName;
     }
-  }, [settingsVersion]);
+  })();
 
-  const systemTitle = useMemo(() => {
+  const systemTitle = (() => {
     try {
       return getSetting('system_title', DEFAULT_SETTINGS.systemTitle) || DEFAULT_SETTINGS.systemTitle;
-    } catch (error) {
+    } catch {
       return DEFAULT_SETTINGS.systemTitle;
     }
-  }, [settingsVersion]);
+  })();
 
-  const logoUrl = useMemo(() => {
+  const logoUrl = (() => {
     try {
       const raw = getSetting('logo_url', '/logo.svg');
       if (raw && raw.startsWith('/uploads')) {
@@ -542,7 +545,7 @@ const Sidebar = ({ isOpen = false, toggleSidebar = () => { } }) => {
     } catch {
       return '/logo.svg';
     }
-  }, [settingsVersion]);
+  })();
 
   // ----------------------------------------
   // NAVIGATION ITEMS (Memoized)
@@ -589,10 +592,10 @@ const Sidebar = ({ isOpen = false, toggleSidebar = () => { } }) => {
   // HANDLERS (Memoized)
   // ----------------------------------------
   const handleClose = useCallback(() => {
-    if (typeof toggleSidebar === 'function') {
+    if (isOpen && typeof toggleSidebar === 'function') {
       toggleSidebar();
     }
-  }, [toggleSidebar]);
+  }, [isOpen, toggleSidebar]);
 
   const handleKeyDown = useCallback((event) => {
     // Close sidebar on Escape key
@@ -622,18 +625,21 @@ const Sidebar = ({ isOpen = false, toggleSidebar = () => { } }) => {
   // ----------------------------------------
   if (!navigationItems || navigationItems.length === 0) {
     return (
-      <aside
-        className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}
-        role="navigation"
-        aria-label="Main navigation"
-      >
-        <SidebarHeader
-          systemName={systemName}
-          systemTitle={systemTitle}
-          logoUrl={logoUrl}
-        />
-        <SidebarError onRetry={handleRetry} />
-      </aside>
+      <div className={`sidebar-shell ${isOpen ? 'sidebar-shell-open' : ''}`}>
+        <aside
+          id="app-sidebar"
+          className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}
+          role="navigation"
+          aria-label="Main navigation"
+        >
+          <SidebarHeader
+            systemName={systemName}
+            systemTitle={systemTitle}
+            logoUrl={logoUrl}
+          />
+          <SidebarError onRetry={handleRetry} />
+        </aside>
+      </div>
     );
   }
 
@@ -655,83 +661,86 @@ const Sidebar = ({ isOpen = false, toggleSidebar = () => { } }) => {
       )}
 
       {/* Sidebar Container */}
-      <aside
-        className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}
-        role="navigation"
-        aria-label="Main navigation"
-        aria-expanded={isOpen}
-        data-testid="sidebar"
-      >
-        {/* Header with Branding */}
-        <SidebarHeader
-          systemName={systemName}
-          systemTitle={systemTitle}
-          logoUrl={logoUrl}
-        />
-
-        {/* Navigation Menu */}
-        <nav
-          className="sidebar-nav"
-          role="menubar"
-          aria-label="Primary navigation"
+      <div className={`sidebar-shell ${isOpen ? 'sidebar-shell-open' : ''}`}>
+        <aside
+          id="app-sidebar"
+          className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}
+          role="navigation"
+          aria-label="Main navigation"
+          data-testid="sidebar"
+          onKeyDown={handleKeyDown}
         >
-          {/* Main Menu: Dashboard, Tickets, Notifications */}
-          <NavSection
-            title={NAVIGATION_CONFIG.mainMenu.title}
-            items={sectionItems.mainMenu}
-            onItemClick={handleClose}
-            currentPath={currentPath}
+          {/* Header with Branding */}
+          <SidebarHeader
+            systemName={systemName}
+            systemTitle={systemTitle}
+            logoUrl={logoUrl}
           />
 
-          {/* Management: Users, Departments, Roles */}
-          {sectionItems.management.length > 0 && (
+          {/* Navigation Menu */}
+          <nav
+            className="sidebar-nav"
+            role="menubar"
+            aria-label="Primary navigation"
+          >
+            {/* Main Menu: Dashboard, Tickets, Notifications */}
             <NavSection
-              title={NAVIGATION_CONFIG.management.title}
-              items={sectionItems.management}
+              title={NAVIGATION_CONFIG.mainMenu.title}
+              items={sectionItems.mainMenu}
               onItemClick={handleClose}
               currentPath={currentPath}
             />
-          )}
 
-          {/* System: Analytics */}
-          {sectionItems.system.length > 0 && (
+            {/* Management: Users, Departments, Roles */}
+            {sectionItems.management.length > 0 && (
+              <NavSection
+                title={NAVIGATION_CONFIG.management.title}
+                items={sectionItems.management}
+                onItemClick={handleClose}
+                currentPath={currentPath}
+              />
+            )}
+
+            {/* System: Analytics */}
+            {sectionItems.system.length > 0 && (
+              <NavSection
+                title={NAVIGATION_CONFIG.system.title}
+                items={sectionItems.system}
+                onItemClick={handleClose}
+                currentPath={currentPath}
+              />
+            )}
+
+            {/* Settings: Settings, Job Monitor, Incidents, Snippets */}
+            {sectionItems.settings.length > 0 && (
+              <NavSection
+                title={NAVIGATION_CONFIG.settings.title}
+                items={sectionItems.settings}
+                onItemClick={handleClose}
+                currentPath={currentPath}
+              />
+            )}
+
+            {/* Outage: Service Status, Publisher, Templates */}
+            {sectionItems.outage.length > 0 && (
+              <NavSection
+                title={NAVIGATION_CONFIG.outage.title}
+                items={sectionItems.outage}
+                onItemClick={handleClose}
+                currentPath={currentPath}
+              />
+            )}
+
+            {/* Support: Help Center */}
             <NavSection
-              title={NAVIGATION_CONFIG.system.title}
-              items={sectionItems.system}
+              title={NAVIGATION_CONFIG.support.title}
+              items={sectionItems.support}
               onItemClick={handleClose}
               currentPath={currentPath}
             />
-          )}
-
-          {/* Settings: Settings, Job Monitor, Incidents, Snippets */}
-          {sectionItems.settings.length > 0 && (
-            <NavSection
-              title={NAVIGATION_CONFIG.settings.title}
-              items={sectionItems.settings}
-              onItemClick={handleClose}
-              currentPath={currentPath}
-            />
-          )}
-
-          {/* Outage: Service Status, Publisher, Templates */}
-          {sectionItems.outage.length > 0 && (
-            <NavSection
-              title={NAVIGATION_CONFIG.outage.title}
-              items={sectionItems.outage}
-              onItemClick={handleClose}
-              currentPath={currentPath}
-            />
-          )}
-
-          {/* Support: Help Center */}
-          <NavSection
-            title={NAVIGATION_CONFIG.support.title}
-            items={sectionItems.support}
-            onItemClick={handleClose}
-            currentPath={currentPath}
-          />
-        </nav>
-      </aside>
+          </nav>
+        </aside>
+      </div>
     </>
   );
 };

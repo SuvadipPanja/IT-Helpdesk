@@ -11,6 +11,7 @@ import {
   RefreshCw, X, AlertCircle, Info, Clock
 } from 'lucide-react';
 import api from '../../services/api';
+import '../../styles/IncidentManagement.css';
 
 const SEVERITY_OPTIONS = ['info', 'low', 'medium', 'high', 'critical'];
 const STATUS_OPTIONS = ['active', 'monitoring', 'resolved'];
@@ -21,6 +22,20 @@ const SEVERITY_COLORS = {
 };
 
 const STATUS_LABELS = { active: 'Active', monitoring: 'Monitoring', resolved: 'Resolved' };
+
+const SEVERITY_CLASSNAMES = {
+  critical: 'incident-pill--critical',
+  high: 'incident-pill--high',
+  medium: 'incident-pill--medium',
+  low: 'incident-pill--low',
+  info: 'incident-pill--info',
+};
+
+const STATUS_CLASSNAMES = {
+  active: 'incident-pill--active',
+  monitoring: 'incident-pill--monitoring',
+  resolved: 'incident-pill--resolved',
+};
 
 const emptyForm = {
   title: '', description: '', severity: 'medium',
@@ -113,28 +128,30 @@ export default function IncidentManagement() {
   };
 
   return (
-    <div style={{ padding: '24px', maxWidth: '900px' }}>
+    <div className="incident-page">
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
-        <div>
-          <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, color: '#111827', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <AlertTriangle size={24} color="#f97316" />
+      <div className="incident-header">
+        <div className="incident-header-copy">
+          <h1 className="incident-title">
+            <span className="incident-title-icon">
+              <AlertTriangle size={24} />
+            </span>
             Incident Management
           </h1>
-          <p style={{ margin: '4px 0 0', color: '#6b7280', fontSize: '14px' }}>
+          <p className="incident-subtitle">
             Create and manage service incident banners visible to all users
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div className="incident-header-actions">
           <button
             onClick={fetchIncidents}
-            style={{ padding: '8px 12px', border: '1px solid #e5e7eb', borderRadius: '8px', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#374151' }}
+            className="incident-btn incident-btn--secondary"
           >
             <RefreshCw size={14} /> Refresh
           </button>
           <button
             onClick={openCreate}
-            style={{ padding: '8px 16px', background: '#ef4444', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 600, fontSize: '14px' }}
+            className="incident-btn incident-btn--primary"
           >
             <Plus size={16} /> New Incident
           </button>
@@ -143,28 +160,28 @@ export default function IncidentManagement() {
 
       {/* Form Modal */}
       {showForm && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-          <div style={{ background: 'white', borderRadius: '12px', width: '100%', maxWidth: '560px', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
-            <div style={{ padding: '20px 24px', borderBottom: '1px solid #f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 700 }}>
+        <div className="incident-modal-backdrop">
+          <div className="incident-modal">
+            <div className="incident-modal-header">
+              <h2 className="incident-modal-title">
                 {editingId ? 'Update Incident' : 'Create Incident Banner'}
               </h2>
-              <button onClick={closeForm} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280' }}><X size={20} /></button>
+              <button onClick={closeForm} className="incident-modal-close"><X size={20} /></button>
             </div>
-            <form onSubmit={handleSubmit} style={{ padding: '24px' }}>
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Title *</label>
+            <form onSubmit={handleSubmit} className="incident-form">
+              <div className="incident-form-group">
+                <label className="incident-label">Title *</label>
                 <input
                   value={form.title}
                   onChange={(e) => setForm((p) => ({ ...p, title: e.target.value }))}
                   placeholder="e.g., Email service experiencing delays"
                   maxLength={255}
                   required
-                  style={{ width: '100%', padding: '10px 12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px', boxSizing: 'border-box' }}
+                  className="incident-input"
                 />
               </div>
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Description *</label>
+              <div className="incident-form-group">
+                <label className="incident-label">Description *</label>
                 <textarea
                   value={form.description}
                   onChange={(e) => setForm((p) => ({ ...p, description: e.target.value }))}
@@ -172,16 +189,16 @@ export default function IncidentManagement() {
                   maxLength={2000}
                   required
                   rows={4}
-                  style={{ width: '100%', padding: '10px 12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px', resize: 'vertical', boxSizing: 'border-box' }}
+                  className="incident-input incident-textarea"
                 />
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+              <div className="incident-form-grid">
                 <div>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Severity</label>
+                  <label className="incident-label">Severity</label>
                   <select
                     value={form.severity}
                     onChange={(e) => setForm((p) => ({ ...p, severity: e.target.value }))}
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px' }}
+                    className="incident-input"
                   >
                     {SEVERITY_OPTIONS.map((s) => (
                       <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>
@@ -190,11 +207,11 @@ export default function IncidentManagement() {
                 </div>
                 {editingId && (
                   <div>
-                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Status</label>
+                    <label className="incident-label">Status</label>
                     <select
                       value={form.status}
                       onChange={(e) => setForm((p) => ({ ...p, status: e.target.value }))}
-                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px' }}
+                      className="incident-input"
                     >
                       {STATUS_OPTIONS.map((s) => (
                         <option key={s} value={s}>{STATUS_LABELS[s]}</option>
@@ -203,24 +220,24 @@ export default function IncidentManagement() {
                   </div>
                 )}
               </div>
-              <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Affected Services (optional)</label>
+              <div className="incident-form-group incident-form-group--compact">
+                <label className="incident-label">Affected Services (optional)</label>
                 <input
                   value={form.affected_services}
                   onChange={(e) => setForm((p) => ({ ...p, affected_services: e.target.value }))}
                   placeholder="e.g., Email, Ticketing, VPN"
                   maxLength={500}
-                  style={{ width: '100%', padding: '10px 12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px', boxSizing: 'border-box' }}
+                  className="incident-input"
                 />
               </div>
-              <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
-                <button type="button" onClick={closeForm} style={{ padding: '10px 20px', border: '1px solid #e5e7eb', borderRadius: '8px', background: 'white', cursor: 'pointer', fontSize: '14px' }}>
+              <div className="incident-modal-actions">
+                <button type="button" onClick={closeForm} className="incident-btn incident-btn--secondary">
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  style={{ padding: '10px 24px', background: editingId ? '#3b82f6' : '#ef4444', color: 'white', border: 'none', borderRadius: '8px', cursor: submitting ? 'not-allowed' : 'pointer', fontWeight: 600, fontSize: '14px', opacity: submitting ? 0.7 : 1 }}
+                  className={`incident-btn ${editingId ? 'incident-btn--accent' : 'incident-btn--primary'}`}
                 >
                   {submitting ? 'Saving...' : editingId ? 'Update' : 'Create'}
                 </button>
@@ -232,46 +249,46 @@ export default function IncidentManagement() {
 
       {/* Incidents Table */}
       {loading ? (
-        <div style={{ padding: '60px', textAlign: 'center', color: '#9ca3af' }}>Loading incidents...</div>
+        <div className="incident-empty-state incident-empty-state--loading">Loading incidents...</div>
       ) : incidents.length === 0 ? (
-        <div style={{ padding: '60px', textAlign: 'center', background: '#f9fafb', borderRadius: '12px', color: '#6b7280' }}>
-          <CheckCircle size={40} color="#22c55e" style={{ marginBottom: '12px' }} />
-          <p style={{ margin: 0, fontWeight: 600 }}>No incidents</p>
-          <p style={{ margin: '4px 0 0', fontSize: '13px' }}>All systems are operating normally.</p>
+        <div className="incident-empty-state incident-empty-state--success">
+          <CheckCircle size={40} className="incident-empty-icon" />
+          <p className="incident-empty-title">No incidents</p>
+          <p className="incident-empty-copy">All systems are operating normally.</p>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div className="incident-list">
           {incidents.map((inc) => (
-            <div key={inc.id} style={{ background: 'white', border: '1px solid #e5e7eb', borderRadius: '10px', padding: '16px', display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-              <div style={{ width: 10, height: 10, borderRadius: '50%', background: SEVERITY_COLORS[inc.severity], marginTop: 5, flexShrink: 0 }} />
-              <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                  <span style={{ fontWeight: 600, fontSize: '15px' }}>{inc.title}</span>
-                  <span style={{ fontSize: '11px', fontWeight: 600, color: SEVERITY_COLORS[inc.severity], background: `${SEVERITY_COLORS[inc.severity]}15`, padding: '2px 8px', borderRadius: '20px' }}>
+            <div key={inc.id} className="incident-card">
+              <div className={`incident-accent ${SEVERITY_CLASSNAMES[inc.severity] || ''}`} />
+              <div className="incident-card-main">
+                <div className="incident-card-header-row">
+                  <span className="incident-card-title">{inc.title}</span>
+                  <span className={`incident-pill ${SEVERITY_CLASSNAMES[inc.severity] || ''}`}>
                     {inc.severity?.toUpperCase()}
                   </span>
-                  <span style={{ fontSize: '11px', color: inc.status === 'resolved' ? '#059669' : '#f97316', background: inc.status === 'resolved' ? '#f0fdf4' : '#fff7ed', padding: '2px 8px', borderRadius: '20px', fontWeight: 600 }}>
+                  <span className={`incident-pill ${STATUS_CLASSNAMES[inc.status] || ''}`}>
                     {STATUS_LABELS[inc.status]}
                   </span>
                 </div>
-                <p style={{ margin: '0 0 4px', fontSize: '13px', color: '#4b5563' }}>{inc.description}</p>
+                <p className="incident-card-description">{inc.description}</p>
                 {inc.affected_services && (
-                  <p style={{ margin: '0 0 4px', fontSize: '12px', color: '#9ca3af' }}>
+                  <p className="incident-card-services">
                     <strong>Affected:</strong> {inc.affected_services}
                   </p>
                 )}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: '#9ca3af' }}>
+                <div className="incident-card-meta">
                   <Clock size={12} />
                   {new Date(inc.created_at).toLocaleString()}
                   {inc.created_by_name && ` · by ${inc.created_by_name}`}
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+              <div className="incident-card-actions">
                 {inc.status !== 'resolved' && (
                   <button
                     onClick={() => handleResolve(inc.id)}
                     title="Mark resolved"
-                    style={{ padding: '6px 12px', background: '#f0fdf4', border: '1px solid #86efac', borderRadius: '6px', cursor: 'pointer', fontSize: '12px', color: '#059669', fontWeight: 600 }}
+                    className="incident-btn incident-btn--resolve"
                   >
                     Resolve
                   </button>
@@ -279,14 +296,14 @@ export default function IncidentManagement() {
                 <button
                   onClick={() => openEdit(inc)}
                   title="Edit"
-                  style={{ padding: '6px', background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '6px', cursor: 'pointer', color: '#3b82f6' }}
+                  className="incident-icon-btn incident-icon-btn--edit"
                 >
                   <Edit size={14} />
                 </button>
                 <button
                   onClick={() => handleDelete(inc.id)}
                   title="Delete"
-                  style={{ padding: '6px', background: '#fef2f2', border: '1px solid #fca5a5', borderRadius: '6px', cursor: 'pointer', color: '#ef4444' }}
+                  className="incident-icon-btn incident-icon-btn--delete"
                 >
                   <Trash2 size={14} />
                 </button>

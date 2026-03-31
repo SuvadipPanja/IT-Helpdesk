@@ -36,7 +36,7 @@ import {
 // ============================================
 // HEADER COMPONENT
 // ============================================
-const Header = ({ toggleSidebar }) => {
+const Header = ({ toggleSidebar, sidebarOpen = false }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const { isDark, toggleTheme } = useTheme();
@@ -56,7 +56,7 @@ const Header = ({ toggleSidebar }) => {
         if (response.data.success && response.data.data.profile_picture) {
           setProfilePicture(response.data.data.profile_picture);
         }
-      } catch (error) {
+      } catch {
         // Error handled silently
       }
     };
@@ -103,7 +103,7 @@ const Header = ({ toggleSidebar }) => {
         if (prev !== text && text) setAnnouncementDismissed(false);
         return text;
       });
-    } catch (err) {
+    } catch {
       // Silent fail — keep existing state
     }
   }, []);
@@ -124,6 +124,10 @@ const Header = ({ toggleSidebar }) => {
   const getUserInitial = () => {
     return user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'U';
   };
+
+  const displayName = user?.first_name && user?.last_name
+    ? `${user.first_name} ${user.last_name}`
+    : user?.username;
   
   // ============================================
   // NOTIFICATION CONTEXT
@@ -172,7 +176,7 @@ const Header = ({ toggleSidebar }) => {
     try {
       await logout();
       navigate('/login');
-    } catch (error) {
+    } catch {
       // Error handled silently
     }
   };
@@ -197,7 +201,7 @@ const Header = ({ toggleSidebar }) => {
       setLoadingNotifications(true);
       try {
         await fetchNotifications(1, 20);
-      } catch (error) {
+      } catch {
         // Error handled silently
       } finally {
         setLoadingNotifications(false);
@@ -259,9 +263,11 @@ const Header = ({ toggleSidebar }) => {
       {/* LEFT SECTION */}
       <div className="header-left">
         <button 
-          className="btn-icon-header hamburger-btn"
+          className={`btn-icon-header hamburger-btn ${sidebarOpen ? 'is-active' : ''}`}
           onClick={toggleSidebar}
           aria-label="Toggle Sidebar"
+          aria-expanded={sidebarOpen}
+          aria-controls="app-sidebar"
         >
           <Menu size={20} />
         </button>
@@ -307,11 +313,12 @@ const Header = ({ toggleSidebar }) => {
         <div className="header-dropdown" ref={notificationsRef}>
           {/* ⭐ UPDATED: Added style and conditional badge */}
           <button 
-            className="btn-icon-header"
+            className={`btn-icon-header ${showNotifications ? 'is-active' : ''} ${!notificationsEnabled ? 'is-disabled' : ''}`}
             onClick={toggleNotifications}
             aria-label="Notifications"
-            style={{ opacity: notificationsEnabled ? 1 : 0.5 }}
             title={notificationsEnabled ? 'Notifications' : 'Notifications disabled'}
+            aria-haspopup="menu"
+            aria-expanded={showNotifications}
           >
             <Bell size={20} />
             {notificationsEnabled && unreadCount > 0 && (
@@ -338,10 +345,10 @@ const Header = ({ toggleSidebar }) => {
               {/* ⭐ UPDATED: Added notifications disabled message */}
               <div className="dropdown-body">
                 {!notificationsEnabled ? (
-                  <div className="empty-notifications">
-                    <Bell size={32} className="empty-icon" style={{ opacity: 0.4 }} />
-                    <p style={{ fontWeight: 600, color: '#64748b' }}>Notifications Disabled</p>
-                    <small style={{ color: '#94a3b8', textAlign: 'center', display: 'block', padding: '0 20px' }}>
+                  <div className="empty-notifications disabled-state">
+                    <Bell size={32} className="empty-icon disabled-icon" />
+                    <p className="disabled-title">Notifications Disabled</p>
+                    <small className="disabled-copy">
                       Notifications are currently disabled by system administrator.
                       <br />
                       Check Settings → Notifications to enable.
@@ -364,7 +371,6 @@ const Header = ({ toggleSidebar }) => {
                       key={notification.notification_id} 
                       className={`notification-item ${!notification.is_read ? 'unread' : ''}`}
                       onClick={() => handleNotificationClick(notification)}
-                      style={{ cursor: 'pointer' }}
                     >
                       <div className="notification-icon">
                         {getNotificationIcon(notification.notification_type)}
@@ -436,8 +442,10 @@ const Header = ({ toggleSidebar }) => {
         {/* USER MENU DROPDOWN */}
         <div className="header-dropdown" ref={userMenuRef}>
           <button 
-            className="user-menu-trigger"
+            className={`user-menu-trigger ${showUserMenu ? 'is-active' : ''}`}
             onClick={toggleUserMenu}
+            aria-haspopup="menu"
+            aria-expanded={showUserMenu}
           >
             {/* SMALL AVATAR */}
             <div className="user-avatar-header">
@@ -445,39 +453,17 @@ const Header = ({ toggleSidebar }) => {
                 <img
                   src={profilePicture}
                   alt="Profile"
-                  style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '8px',
-                    objectFit: 'cover',
-                    display: 'block',
-                    background: 'white'
-                  }}
+                  className="header-avatar-image"
                 />
               ) : (
-                <div style={{
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '8px',
-                  background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                  fontSize: '14px',
-                  fontWeight: '700'
-                }}>
+                <div className="header-avatar-fallback">
                   {getUserInitial()}
                 </div>
               )}
             </div>
 
             <div className="user-info-header">
-              <span className="user-name">
-                {user?.first_name && user?.last_name 
-                  ? `${user.first_name} ${user.last_name}` 
-                  : user?.username}
-              </span>
+              <span className="user-name">{displayName}</span>
               <span className="user-role">{user?.role_name}</span>
             </div>
             <ChevronDown size={16} className={`chevron-icon ${showUserMenu ? 'rotated' : ''}`} />
@@ -492,42 +478,17 @@ const Header = ({ toggleSidebar }) => {
                     <img
                       src={profilePicture}
                       alt="Profile"
-                      style={{
-                        width: '56px',
-                        height: '56px',
-                        borderRadius: '12px',
-                        objectFit: 'cover',
-                        display: 'block',
-                        background: 'white',
-                        border: '2px solid rgba(255, 255, 255, 0.3)'
-                      }}
+                      className="header-avatar-image-large"
                     />
                   ) : (
-                    <div style={{
-                      width: '56px',
-                      height: '56px',
-                      borderRadius: '12px',
-                      background: 'rgba(255, 255, 255, 0.2)',
-                      backdropFilter: 'blur(10px)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'white',
-                      fontSize: '24px',
-                      fontWeight: '700',
-                      border: '2px solid rgba(255, 255, 255, 0.3)'
-                    }}>
+                    <div className="header-avatar-fallback-large">
                       {getUserInitial()}
                     </div>
                   )}
                 </div>
 
                 <div className="user-info-dropdown">
-                  <h4>
-                    {user?.first_name && user?.last_name 
-                      ? `${user.first_name} ${user.last_name}` 
-                      : user?.username}
-                  </h4>
+                  <h4>{displayName}</h4>
                   <p>{user?.email}</p>
                   <span className={`role-badge-small role-${user?.role_code?.toLowerCase()}`}>
                     {user?.role_name}
