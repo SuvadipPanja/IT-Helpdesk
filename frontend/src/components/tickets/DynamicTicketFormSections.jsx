@@ -1,12 +1,13 @@
 // ============================================================
 // DYNAMIC TICKET FORM SECTIONS
-// Shows category-specific guidance, hints, and subject templates
-// when a category is selected in the ticket creation form.
+// Shows category-specific guidance, hints, subject templates,
+// and AI-powered quick solutions when subject + category exist.
 // ============================================================
 
-import { useMemo, useState } from 'react';
-import { Lightbulb, ChevronDown, ChevronUp, Zap, CheckSquare } from 'lucide-react';
+import { useMemo, useState, useEffect, useRef, useCallback } from 'react';
+import { Lightbulb, ChevronDown, ChevronUp, Zap, CheckSquare, Sparkles, Loader, AlertCircle } from 'lucide-react';
 import { getCategorySchema, resolveGuidanceTemplate } from '../../data/ticketFormSchemas';
+import api from '../../services/api';
 
 // ============================================================
 // STYLES (inline — no extra CSS file needed)
@@ -139,14 +140,166 @@ const styles = {
     textTransform: 'uppercase',
     letterSpacing: '0.05em',
   },
+  // AI Suggestions
+  aiSection: {
+    marginBottom: '14px',
+    padding: '12px',
+    background: 'linear-gradient(135deg, #f0f9ff 0%, #ede9fe 100%)',
+    borderRadius: '8px',
+    border: '1px solid #c7d2fe',
+  },
+  aiHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    fontSize: '12px',
+    fontWeight: 600,
+    color: '#4338ca',
+    marginBottom: '10px',
+  },
+  aiBadge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '3px',
+    background: '#6366f1',
+    color: '#fff',
+    fontSize: '10px',
+    fontWeight: 700,
+    padding: '1px 6px',
+    borderRadius: '10px',
+    letterSpacing: '0.03em',
+  },
+  aiCard: {
+    background: '#fff',
+    border: '1px solid #e0e7ff',
+    borderRadius: '6px',
+    padding: '10px 12px',
+    marginBottom: '6px',
+    transition: 'border-color 0.15s',
+  },
+  aiCardTitle: {
+    fontSize: '13px',
+    fontWeight: 600,
+    color: '#1e1b4b',
+    marginBottom: '4px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+  },
+  aiCardSteps: {
+    fontSize: '12px',
+    color: '#4b5563',
+    lineHeight: 1.5,
+    margin: 0,
+  },
+  aiLoading: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    fontSize: '12px',
+    color: '#6366f1',
+    padding: '4px 0',
+  },
+  aiSpinner: {
+    animation: 'spin 1s linear infinite',
+  },
+  aiFallbackNote: {
+    fontSize: '11px',
+    color: '#6b7280',
+    marginTop: '6px',
+    fontStyle: 'italic',
+  },
 };
+
+// ============================================================
+// AI SUGGESTIONS HOOK
+// ============================================================
+const AI_DEBOUNCE_MS = 800;
+const FALLBACK_TIMEOUT_MS = 10000;
+
+function useAiSuggestions(subject, categoryName) {
+  const [suggestions, setSuggestions] = useState([]);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiSource, setAiSource] = useState(null); // 'ai' | 'fallback' | null
+  const timerRef = useRef(null);
+  const abortRef = useRef(null);
+  const lastKeyRef = useRef('');
+
+  const fetchSuggestions = useCallback(() => {
+    const subj = (subject || '').trim();
+    const cat = (categoryName || '').trim();
+    const key = `${subj}||${cat}`;
+
+    if (subj.length < 5 || !cat) {
+      setSuggestions([]);
+      setAiSource(null);
+      setAiLoading(false);
+      return;
+    }
+
+    if (key === lastKeyRef.current) return;
+
+    // Cancel any in-flight request
+    if (abortRef.current) abortRef.current.abort();
+
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(async () => {
+      lastKeyRef.current = key;
+      setAiLoading(true);
+      setAiSource(null);
+
+      const controller = new AbortController();
+      abortRef.current = controller;
+
+      // Client-side timeout as safety net
+      const clientTimeout = setTimeout(() => controller.abort(), FALLBACK_TIMEOUT_MS);
+
+      try {
+        const res = await api.post('/ai/ticket-suggestions', {
+          subject: subj,
+          category: cat,
+        }, { signal: controller.signal });
+
+        clearTimeout(clientTimeout);
+
+        if (res.data?.success && res.data.data?.suggestions?.length > 0) {
+          setSuggestions(res.data.data.suggestions);
+          setAiSource(res.data.source || 'ai');
+        } else {
+          setSuggestions([]);
+          setAiSource('fallback');
+        }
+      } catch (err) {
+        clearTimeout(clientTimeout);
+        if (err.name !== 'AbortError' && err.code !== 'ERR_CANCELED') {
+          setSuggestions([]);
+          setAiSource('fallback');
+        }
+      } finally {
+        setAiLoading(false);
+      }
+    }, AI_DEBOUNCE_MS);
+  }, [subject, categoryName]);
+
+  useEffect(() => {
+    fetchSuggestions();
+    return () => {
+      clearTimeout(timerRef.current);
+      if (abortRef.current) abortRef.current.abort();
+    };
+  }, [fetchSuggestions]);
+
+  return { suggestions, aiLoading, aiSource };
+}
 
 // ============================================================
 // MAIN COMPONENT
 // ============================================================
-export default function DynamicTicketFormSections({ categoryCode, onSubjectTemplate, templateContext = {}, value = {}, onChange }) {
+export default function DynamicTicketFormSections({ categoryCode, categoryName, subject, onSubjectTemplate, templateContext = {}, value = {}, onChange }) {
   const [open, setOpen] = useState(true);
   const [hoveredTemplate, setHoveredTemplate] = useState(null);
+
+  const { suggestions, aiLoading, aiSource } = useAiSuggestions(subject, categoryName);
 
   if (!categoryCode) return null;
 
@@ -216,6 +369,54 @@ export default function DynamicTicketFormSections({ categoryCode, onSubjectTempl
       {/* Body */}
       {open && (
         <div style={styles.body}>
+          {/* AI-Powered Quick Solutions */}
+          {subject && subject.trim().length >= 5 && (
+            <div style={styles.aiSection}>
+              <div style={styles.aiHeader}>
+                <Sparkles size={14} />
+                <span>Quick solutions — try these before submitting</span>
+                <span style={styles.aiBadge}>
+                  <Sparkles size={9} /> AI
+                </span>
+              </div>
+
+              {aiLoading && (
+                <div style={styles.aiLoading}>
+                  <Loader size={14} style={styles.aiSpinner} />
+                  <span>Analyzing your issue…</span>
+                </div>
+              )}
+
+              {!aiLoading && suggestions.length > 0 && suggestions.map((s, i) => (
+                <div key={i} style={styles.aiCard}>
+                  <div style={styles.aiCardTitle}>
+                    <span>{['💡', '🔧', '⚡', '🛠️'][i] || '💡'}</span>
+                    {s.title}
+                  </div>
+                  <p style={styles.aiCardSteps}>{s.steps}</p>
+                </div>
+              ))}
+
+              {!aiLoading && aiSource === 'fallback' && (
+                <div style={{ ...styles.aiCard, background: '#fefce8', borderColor: '#fde68a' }}>
+                  <div style={styles.aiCardTitle}>
+                    <AlertCircle size={14} color="#d97706" />
+                    <span style={{ color: '#92400e' }}>General tips for this category</span>
+                  </div>
+                  <p style={styles.aiCardSteps}>
+                    {schema.hints?.[0] || 'Please provide as much detail as possible in the description to help our team resolve your issue quickly.'}
+                  </p>
+                </div>
+              )}
+
+              {!aiLoading && suggestions.length > 0 && (
+                <div style={styles.aiFallbackNote}>
+                  If none of these help, go ahead and submit the ticket below.
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Hints */}
           {schema.hints?.length > 0 && (
             <div style={styles.section}>

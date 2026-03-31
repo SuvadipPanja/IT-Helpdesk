@@ -1486,4 +1486,99 @@ router.post('/engineer/next_best_action', authenticate, authorizeEngineerAiAssis
   }
 });
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// TICKET CREATION — AI-POWERED QUICK SOLUTIONS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * POST /api/v1/ai/ticket-suggestions
+ * Given a subject + category, return 3-4 concise self-help solutions.
+ * Uses configured AI provider with fallback. Timeout-guarded.
+ */
+router.post('/ticket-suggestions', authenticate, async (req, res) => {
+  const AI_TIMEOUT_MS = 8000;
+  try {
+    const { subject, category } = req.body;
+    if (!subject || subject.trim().length < 3) {
+      return res.status(400).json({ success: false, message: 'Subject is required (min 3 chars)' });
+    }
+
+    const categoryName = (category || 'General').trim();
+    const subjectText = subject.trim().substring(0, 200);
+
+    const systemPrompt = `You are an IT helpdesk self-service assistant. The user is about to create a support ticket. Based on their issue subject and category, provide quick troubleshooting steps they can try BEFORE submitting the ticket.
+
+Rules:
+- Return EXACTLY a JSON array of 3 to 4 solution objects
+- Each object: { "title": "short title (max 8 words)", "steps": "1-2 sentence action the user can take right now" }
+- Solutions must be practical, actionable, and specific to the issue
+- Use simple language, no jargon
+- Do NOT suggest "contact IT" or "submit a ticket" — the user is already doing that
+- If the issue clearly requires IT intervention (e.g. hardware failure, account locked by admin), still provide diagnostic/workaround steps
+- Return ONLY the JSON array, no markdown, no explanation`;
+
+    const userPrompt = `Issue Subject: "${subjectText}"
+Category: ${categoryName}
+
+Provide 3-4 quick self-help solutions.`;
+
+    const messages = [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt },
+    ];
+
+    // Race the AI call against a timeout
+    const aiPromise = botApiIntegrationService.callWithFallback(messages, null, req.user?.user_id, {
+      max_tokens: 400,
+      temperature: 0.4,
+    });
+    const timeoutPromise = new Promise((resolve) =>
+      setTimeout(() => resolve({ success: false, error: 'timeout' }), AI_TIMEOUT_MS)
+    );
+
+    const result = await Promise.race([aiPromise, timeoutPromise]);
+
+    if (result.success && result.content) {
+      // Parse JSON from AI response
+      let suggestions = null;
+      try {
+        let raw = result.content.trim();
+        // Strip markdown code fences if any
+        if (raw.startsWith('```')) {
+          raw = raw.replace(/^```[a-z]*\s*\n?/i, '').replace(/\n?```\s*$/i, '');
+        }
+        suggestions = JSON.parse(raw);
+      } catch {
+        // Try to extract JSON array from response
+        const match = result.content.match(/\[[\s\S]*\]/);
+        if (match) {
+          try { suggestions = JSON.parse(match[0]); } catch { /* ignore */ }
+        }
+      }
+
+      if (Array.isArray(suggestions) && suggestions.length > 0) {
+        const cleaned = suggestions.slice(0, 4).map(s => ({
+          title: String(s.title || '').substring(0, 80),
+          steps: String(s.steps || s.description || '').substring(0, 300),
+        })).filter(s => s.title && s.steps);
+
+        if (cleaned.length > 0) {
+          return res.json({
+            success: true,
+            source: 'ai',
+            data: { suggestions: cleaned },
+          });
+        }
+      }
+    }
+
+    // Fallback: return empty (frontend handles static fallback)
+    return res.json({ success: true, source: 'fallback', data: { suggestions: [] } });
+
+  } catch (error) {
+    logger.error('AI ticket-suggestions error', { error: error.message });
+    return res.json({ success: true, source: 'fallback', data: { suggestions: [] } });
+  }
+});
+
 module.exports = router;

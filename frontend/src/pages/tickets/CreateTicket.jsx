@@ -734,6 +734,8 @@ const CreateTicket = () => {
                 return cat ? (
                   <DynamicTicketFormSections
                     categoryCode={cat.category_code}
+                    categoryName={cat.category_name}
+                    subject={formData.subject}
                     templateContext={buildTemplateContext()}
                     value={guidanceState}
                     onChange={setGuidanceState}
