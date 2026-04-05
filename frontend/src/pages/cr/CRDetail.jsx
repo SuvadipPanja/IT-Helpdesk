@@ -235,6 +235,7 @@ const CRDetail = () => {
         case 'rollback': res = await crService.rollback(id, data); break;
         case 'cancel': res = await crService.cancel(id, data); break;
         case 'resubmit': res = await crService.resubmit(id); break;
+        case 'notBelongsToMe': res = await crService.notBelongsToMe(id, data); break;
         case 'close': res = await crService.close(id, data); break;
         default: return;
       }
@@ -310,7 +311,7 @@ const CRDetail = () => {
       });
       case 'startDirect': return handleAction('startDirect');
       case 'raiseIssue': return handleAction('raiseIssue');
-      case 'notBelongsToMe': return handleAction('notBelongsToMe');
+      case 'notBelongsToMe': return handleAction('notBelongsToMe', { message: modalNote });
       case 'reschedule': return handleAction('reschedule', {
         scheduled_start: scheduleStart,
         scheduled_end: scheduleEnd,
