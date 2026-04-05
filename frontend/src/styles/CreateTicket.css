@@ -135,7 +135,7 @@
   font-size: 14px;
   font-family: inherit;
   color: #1a202c;
-  background: var(--nx-surface);
+  background-color: var(--nx-surface);
   transition: all 0.2s ease;
 }
 
@@ -164,7 +164,7 @@
 .form-select.error,
 .form-textarea.error {
   border-color: #dc2626;
-  background: #fef2f2;
+  background-color: #fef2f2;
 }
 
 .form-textarea {
@@ -889,7 +889,7 @@
 [data-theme='dark'] .create-ticket-page .form-input,
 [data-theme='dark'] .create-ticket-page .form-select,
 [data-theme='dark'] .create-ticket-page .form-textarea {
-  background: #0f172a;
+  background-color: #0f172a;
   border-color: #334155;
   color: #f1f5f9;
 }
@@ -1172,7 +1172,7 @@
 [data-theme="dark"] .form-group textarea,
 [data-theme="dark"] .form-control,
 [data-theme="dark"] .form-input {
-  background: var(--nx-surface-hover);
+  background-color: var(--nx-surface-hover);
   border-color: var(--nx-border);
   color: var(--nx-text);
 }

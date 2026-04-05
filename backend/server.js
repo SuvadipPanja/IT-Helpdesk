@@ -50,6 +50,11 @@ const waDigestJob = require('./jobs/whatsappDigest.job');
 const logTruncationJob = require('./jobs/logTruncation.job');
 const approvalInboundMailJob = require('./jobs/approvalInboundMail.job');
 
+// 🔄 Change Request Background Jobs
+const crApprovalReminderJob = require('./jobs/crApprovalReminder.job');
+const crReviewSLAJob = require('./jobs/crReviewSLA.job');
+const crScheduleNotifyJob = require('./jobs/crScheduleNotify.job');
+
 let backgroundJobsRunning = false;
 let licenseMonitorTimer = null;
 
@@ -94,6 +99,15 @@ const startBackgroundJobs = async () => {
   logger.info('📱 Starting WhatsApp Digest Job...');
   waDigestJob.start();
 
+  logger.info('🔄 Starting CR Approval Reminder Job...');
+  crApprovalReminderJob.start();
+
+  logger.info('🔄 Starting CR Review SLA Job...');
+  crReviewSLAJob.start();
+
+  logger.info('🔄 Starting CR Schedule Notify Job...');
+  crScheduleNotifyJob.start();
+
   backgroundJobsRunning = true;
   logger.separator();
 };
@@ -111,6 +125,9 @@ const stopBackgroundJobs = async () => {
   logTruncationJob.stopLogTruncationJob();
   approvalInboundMailJob.stop();
   waDigestJob.stop();
+  crApprovalReminderJob.stop();
+  crReviewSLAJob.stop();
+  crScheduleNotifyJob.stop();
   backgroundJobsRunning = false;
 };
 
@@ -409,6 +426,8 @@ const botSessionsRoutes = require('./routes/bot-sessions.routes'); // 🤖 BOT S
 const ratingsRoutes = require('./routes/ratings.routes'); // ⭐ NEW: Ratings routes
 const ticketConfigRoutes = require('./routes/ticketConfig.routes'); // ⭐ NEW: Ticket Config routes
 const ticketBucketRoutes = require('./routes/ticketBucket.routes'); // 🪣 NEW: Open Ticket Bucket for Engineers
+const crBucketRoutes = require('./routes/crBucket.routes'); // 🪣 CR Bucket for Engineers
+const crTeamBucketRoutes = require('./routes/crTeamBucket.routes'); // 🗂️ CR Team Bucket
 const jobsRoutes = require('./routes/jobs.routes'); // 🖥️ NEW: Job Monitor routes
 const licenseRoutes = require('./routes/license.routes'); // 🔐 NEW: Offline license routes
 const statusRoutes = require('./routes/status.routes'); // 🚨 NEW: Incident Banner / Service Status
@@ -421,6 +440,7 @@ const teamBucketRoutes = require('./routes/teamBucket.routes'); // 🗂️ NEW: 
 const publicEmailApprovalRoutes = require('./routes/publicEmailApproval.routes'); // Email Approve/Reject (public token)
 const whatsappRoutes = require('./routes/whatsapp.routes'); // 📱 Phase 9: WhatsApp Integration
 const outageRoutes = require('./routes/outageNotification.routes'); // 📢 Phase 10: Outage Notifications
+const crRoutes = require('./routes/cr.routes'); // 🔄 CR: Change Request routes
 
 // Register routes
 app.use(`${config.apiPrefix}/public/email-approval`, publicEmailApprovalRoutes);
@@ -453,6 +473,8 @@ app.use(`${config.apiPrefix}/bot/sessions`, botSessionsRoutes); // 🤖 BOT SESS
 app.use(`${config.apiPrefix}/ratings`, ratingsRoutes); // ⭐ NEW: Ratings route registration
 app.use(`${config.apiPrefix}/ticket-config`, ticketConfigRoutes); // ⭐ NEW: Ticket Config route registration
 app.use(`${config.apiPrefix}/ticket-bucket`, ticketBucketRoutes); // 🪣 NEW: Open Ticket Bucket route registration
+app.use(`${config.apiPrefix}/cr-bucket`, crBucketRoutes); // 🪣 CR Bucket route registration
+app.use(`${config.apiPrefix}/cr-team-bucket`, crTeamBucketRoutes); // 🗂️ CR Team Bucket
 app.use(`${config.apiPrefix}/jobs`, jobsRoutes); // 🖥️ NEW: Job Monitor route registration
 app.use(`${config.apiPrefix}/license`, licenseRoutes); // 🔐 NEW: License route registration
 app.use(`${config.apiPrefix}/status`, statusRoutes); // 🚨 NEW: Incident Banner route registration
@@ -464,6 +486,7 @@ app.use(`${config.apiPrefix}/teams`, teamsRoutes); // 👥 NEW: Team Management 
 app.use(`${config.apiPrefix}/team-bucket`, teamBucketRoutes); // 🗂️ NEW: Team Bucket route registration
 app.use(`${config.apiPrefix}/whatsapp`, whatsappRoutes); // 📱 Phase 9: WhatsApp Integration
 app.use(`${config.apiPrefix}/outage`, outageRoutes); // 📢 Phase 10: Outage Notifications
+app.use(`${config.apiPrefix}/cr`, crRoutes); // 🔄 CR: Change Request route registration
 
 logger.success('API routes initialized', {
   prefix: config.apiPrefix,
@@ -496,7 +519,8 @@ logger.success('API routes initialized', {
     'ratings', // ⭐ NEW: Added ratings to routes list
     'ticket-config', // ⭐ NEW: Added ticket-config to routes list
     'ticket-bucket', // 🪣 NEW: Open Ticket Bucket for Engineers
-    'license' // 🔐 NEW: Offline license
+    'license', // 🔐 NEW: Offline license
+    'cr' // 🔄 CR: Change Request
   ]
 });
 

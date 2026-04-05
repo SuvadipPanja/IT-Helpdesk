@@ -21,7 +21,8 @@ import {
   Shield, Award, Layers, ChevronRight,
   BarChart3, Calendar, UserCheck, Tag, Star,
   MapPin, Briefcase, Inbox, Flag, ClipboardList, Archive,
-  FileSpreadsheet,
+  FileSpreadsheet, GitPullRequest, Send, Search,
+  CalendarClock, Play, RotateCcw, FileCheck,
 } from 'lucide-react';
 import api from '../../services/api';
 import { formatShortDateTime, timeAgo, getGreeting } from '../../utils/dateUtils';
@@ -81,6 +82,15 @@ const Dashboard = () => {
     can_review_closure_requests: false,
   });
 
+  // ── CR (Change Request) state ──
+  const [crStats, setCRStats] = useState(null);
+  const [crTrend, setCRTrend] = useState([]);
+  const [crStatusChart, setCRStatusChart] = useState([]);
+  const [crTypeChart, setCRTypeChart] = useState([]);
+  const [crRiskChart, setCRRiskChart] = useState([]);
+  const [crCategoryChart, setCRCategoryChart] = useState([]);
+  const [trendMode, setTrendMode] = useState('tickets'); // 'tickets' | 'crs' | 'both'
+
   // ── Fetch all dashboard data ──
   const fetchData = useCallback(async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true);
@@ -97,6 +107,19 @@ const Dashboard = () => {
       api.get('/ticket-approvals/stats').then((r) => {
         const d = r.data?.data || r.data || {};
         setApprovalStats((prev) => ({ ...prev, ...d }));
+      }).catch(() => {});
+
+      // Fetch CR stats (non-critical — soft fail)
+      api.get(`/cr/stats?days=${trendDays}`).then((r) => {
+        if (r.data?.success) {
+          const cd = r.data.data;
+          setCRStats(cd.summary || null);
+          setCRTrend(cd.trend || []);
+          setCRStatusChart((cd.by_status || []).filter(s => s.count > 0));
+          setCRTypeChart((cd.by_type || []).filter(t => t.count > 0));
+          setCRRiskChart((cd.by_risk || []).filter(r => r.count > 0));
+          setCRCategoryChart((cd.by_category || []).filter(c => c.value > 0));
+        }
       }).catch(() => {});
 
       if (statsRes.data.success) {
@@ -240,6 +263,10 @@ const Dashboard = () => {
               <Plus size={18} />
               <span>New Ticket</span>
             </button>
+            <button className="db-create-btn db-create-cr-btn" onClick={() => navigate('/cr/create')}>
+              <GitPullRequest size={18} />
+              <span>New CR</span>
+            </button>
           </div>
         </div>
 
@@ -352,7 +379,7 @@ const Dashboard = () => {
               compact
             />
           )}
-          {s.totalUsers !== null && (
+          {s.totalUsers !== null && ['ADMIN', 'SUB_ADMIN'].includes(roleCode) && (
             <StatCard
               icon={<Users size={20} />} label="Users" value={s.totalUsers}
               className="db-stat-users" onClick={() => navigate('/users')}
@@ -367,6 +394,74 @@ const Dashboard = () => {
             />
           )}
         </div>
+
+        {/* ═══ CR STATS ROW ═══ */}
+        {crStats && crStats.total > 0 && (
+          <div className="db-cr-section">
+            <div className="db-cr-section-header">
+              <div className="db-cr-section-title">
+                <GitPullRequest size={18} />
+                <h3>Change Requests</h3>
+              </div>
+              <button className="db-card-link" onClick={() => navigate('/change-requests')}>
+                View All <ChevronRight size={14} />
+              </button>
+            </div>
+            <div className="db-stats-row db-stats-cr">
+              <StatCard
+                icon={<GitPullRequest size={20} />} label="Total CRs" value={crStats.total}
+                className="db-stat-cr-total" onClick={() => navigate('/change-requests')}
+                compact
+              />
+              <StatCard
+                icon={<Send size={20} />} label="Submitted" value={crStats.submitted}
+                className="db-stat-cr-submitted" onClick={() => navigate('/change-requests?status=SUBMITTED')}
+                compact
+              />
+              <StatCard
+                icon={<Search size={20} />} label="Under Review" value={crStats.under_review}
+                className="db-stat-cr-review" onClick={() => navigate('/change-requests?status=UNDER_REVIEW')}
+                compact
+              />
+              <StatCard
+                icon={<CalendarClock size={20} />} label="Scheduled" value={crStats.scheduled}
+                className="db-stat-cr-scheduled" onClick={() => navigate('/change-requests?status=SCHEDULED')}
+                compact
+              />
+              <StatCard
+                icon={<Play size={20} />} label="In Progress" value={crStats.in_progress}
+                className="db-stat-cr-progress" onClick={() => navigate('/change-requests?status=IN_PROGRESS')}
+                compact
+              />
+              <StatCard
+                icon={<CheckCircle size={20} />} label="Completed" value={crStats.completed}
+                className="db-stat-cr-completed" onClick={() => navigate('/change-requests?status=IMPLEMENTED')}
+                compact
+              />
+              {(crStats.rolled_back || 0) > 0 && (
+                <StatCard
+                  icon={<RotateCcw size={20} />} label="Rolled Back" value={crStats.rolled_back}
+                  className="db-stat-cr-rollback" onClick={() => navigate('/change-requests?status=ROLLED_BACK')}
+                  compact
+                />
+              )}
+              {(crStats.pending_my_approval || 0) > 0 && (
+                <StatCard
+                  icon={<FileCheck size={20} />} label="CR Approvals" value={crStats.pending_my_approval}
+                  className="db-stat-cr-approval" onClick={() => navigate('/cr-queue?tab=approval')}
+                  compact
+                />
+              )}
+              {(crStats.my_assigned || 0) > 0 && (
+                <StatCard
+                  icon={<UserCheck size={20} />} label="My Assigned CRs" value={crStats.my_assigned}
+                  className="db-stat-cr-assigned" onClick={() => navigate('/cr-queue')}
+                  compact
+                />
+              )}
+            </div>
+          </div>
+        )}
 
         {/* ═══ SLA & TREND ROW ═══ */}
         <div className="db-row-2col">
@@ -434,14 +529,29 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* 7-Day Trend Chart */}
+          {/* Trend Chart (Tickets / CRs / Both) */}
           <div className="db-card">
             <div className="db-card-header">
               <div className="db-card-title">
                 <BarChart3 size={18} />
-                <h3>{trendDays}-Day Ticket Trend</h3>
+                <h3>{trendDays}-Day {trendMode === 'crs' ? 'CR' : trendMode === 'both' ? 'Combined' : 'Ticket'} Trend</h3>
               </div>
               <div className="db-trend-header-right">
+                {crStats && crStats.total > 0 && (
+                  <div className="db-trend-toggle">
+                    {[
+                      { key: 'tickets', label: 'Tickets' },
+                      { key: 'crs', label: 'CRs' },
+                      { key: 'both', label: 'Both' },
+                    ].map(m => (
+                      <button
+                        key={m.key}
+                        className={`db-trend-toggle-btn ${trendMode === m.key ? 'active' : ''}`}
+                        onClick={() => setTrendMode(m.key)}
+                      >{m.label}</button>
+                    ))}
+                  </div>
+                )}
                 <div className="db-trend-toggle">
                   {[7, 14, 30].map(d => (
                     <button
@@ -460,34 +570,70 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="db-card-body db-chart-body">
-              {trend.length > 0 ? (
-                <ResponsiveContainer width="100%" height={200}>
-                  <AreaChart data={trend} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                    <defs>
-                      <linearGradient id="gradCreated" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor={COLORS.primary} stopOpacity={0.3} />
-                        <stop offset="95%" stopColor={COLORS.primary} stopOpacity={0} />
-                      </linearGradient>
-                      <linearGradient id="gradClosed" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor={COLORS.success} stopOpacity={0.3} />
-                        <stop offset="95%" stopColor={COLORS.success} stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="var(--db-grid, #e2e8f0)" />
-                    <XAxis dataKey="day" tick={{ fontSize: 11, fill: 'var(--db-muted, #94a3b8)' }} />
-                    <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: 'var(--db-muted, #94a3b8)' }} />
-                    <Tooltip content={<ChartTooltip />} />
-                    <Area type="monotone" dataKey="created" name="Created" stroke={COLORS.primary} fill="url(#gradCreated)" strokeWidth={2} dot={{ r: 3 }} />
-                    <Area type="monotone" dataKey="closed" name="Closed" stroke={COLORS.success} fill="url(#gradClosed)" strokeWidth={2} dot={{ r: 3 }} />
-                    <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11 }} />
-                  </AreaChart>
-                </ResponsiveContainer>
-              ) : (
-                <div className="db-chart-empty">
-                  <Calendar size={32} />
-                  <p>No trend data available</p>
-                </div>
-              )}
+              {(() => {
+                // Merge ticket + CR trend data by date
+                const mergedTrend = trend.map((t, i) => ({
+                  ...t,
+                  crCreated: crTrend[i]?.created || 0,
+                  crCompleted: crTrend[i]?.completed || 0,
+                }));
+                const chartData = trendMode === 'crs' ? crTrend : mergedTrend;
+                const hasData = chartData.length > 0 && chartData.some(d =>
+                  (d.created || 0) + (d.closed || 0) + (d.crCreated || 0) + (d.crCompleted || 0) + (d.completed || 0) > 0
+                );
+                return hasData ? (
+                  <ResponsiveContainer width="100%" height={200}>
+                    <AreaChart data={chartData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                      <defs>
+                        <linearGradient id="gradCreated" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor={COLORS.primary} stopOpacity={0.3} />
+                          <stop offset="95%" stopColor={COLORS.primary} stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="gradClosed" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor={COLORS.success} stopOpacity={0.3} />
+                          <stop offset="95%" stopColor={COLORS.success} stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="gradCRCreated" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor={COLORS.orange} stopOpacity={0.3} />
+                          <stop offset="95%" stopColor={COLORS.orange} stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="gradCRCompleted" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor={COLORS.teal} stopOpacity={0.3} />
+                          <stop offset="95%" stopColor={COLORS.teal} stopOpacity={0} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="var(--db-grid, #e2e8f0)" />
+                      <XAxis dataKey="day" tick={{ fontSize: 11, fill: 'var(--db-muted, #94a3b8)' }} />
+                      <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: 'var(--db-muted, #94a3b8)' }} />
+                      <Tooltip content={<ChartTooltip />} />
+                      {(trendMode === 'tickets' || trendMode === 'both') && (
+                        <>
+                          <Area type="monotone" dataKey="created" name="Tickets Created" stroke={COLORS.primary} fill="url(#gradCreated)" strokeWidth={2} dot={{ r: 3 }} />
+                          <Area type="monotone" dataKey="closed" name="Tickets Closed" stroke={COLORS.success} fill="url(#gradClosed)" strokeWidth={2} dot={{ r: 3 }} />
+                        </>
+                      )}
+                      {trendMode === 'crs' && (
+                        <>
+                          <Area type="monotone" dataKey="created" name="CRs Created" stroke={COLORS.orange} fill="url(#gradCRCreated)" strokeWidth={2} dot={{ r: 3 }} />
+                          <Area type="monotone" dataKey="completed" name="CRs Completed" stroke={COLORS.teal} fill="url(#gradCRCompleted)" strokeWidth={2} dot={{ r: 3 }} />
+                        </>
+                      )}
+                      {trendMode === 'both' && (
+                        <>
+                          <Area type="monotone" dataKey="crCreated" name="CRs Created" stroke={COLORS.orange} fill="url(#gradCRCreated)" strokeWidth={2} dot={{ r: 3 }} />
+                          <Area type="monotone" dataKey="crCompleted" name="CRs Completed" stroke={COLORS.teal} fill="url(#gradCRCompleted)" strokeWidth={2} dot={{ r: 3 }} />
+                        </>
+                      )}
+                      <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11 }} />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="db-chart-empty">
+                    <Calendar size={32} />
+                    <p>No trend data available</p>
+                  </div>
+                );
+              })()}
             </div>
           </div>
         </div>
@@ -646,6 +792,143 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+
+        {/* ═══ CR CHARTS ROW ═══ */}
+        {crStats && crStats.total > 0 && (
+          <div className="db-row-4col">
+            {/* CR Status Distribution */}
+            <div className="db-card">
+              <div className="db-card-header">
+                <div className="db-card-title">
+                  <GitPullRequest size={18} />
+                  <h3>CR by Status</h3>
+                </div>
+              </div>
+              <div className="db-card-body db-chart-body db-chart-center">
+                {crStatusChart.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={220}>
+                    <PieChart>
+                      <Pie
+                        data={crStatusChart.map(s => ({ label: s.status_name, value: s.count }))}
+                        dataKey="value" nameKey="label"
+                        cx="50%" cy="50%" innerRadius={45} outerRadius={80}
+                        paddingAngle={3} strokeWidth={0}
+                      >
+                        {crStatusChart.map((entry, i) => (
+                          <Cell key={i} fill={entry.color_code || PIE_COLORS[i % PIE_COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip formatter={(v, n) => [`${v} CRs`, n]} />
+                      <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11 }} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="db-chart-empty"><GitPullRequest size={32} /><p>No data</p></div>
+                )}
+              </div>
+            </div>
+
+            {/* CR Type Distribution */}
+            <div className="db-card">
+              <div className="db-card-header">
+                <div className="db-card-title">
+                  <Layers size={18} />
+                  <h3>CR by Type</h3>
+                </div>
+              </div>
+              <div className="db-card-body db-chart-body db-chart-center">
+                {crTypeChart.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={220}>
+                    <PieChart>
+                      <Pie
+                        data={crTypeChart.map(t => ({ label: t.type_name, value: t.count }))}
+                        dataKey="value" nameKey="label"
+                        cx="50%" cy="50%" innerRadius={45} outerRadius={80}
+                        paddingAngle={3} strokeWidth={0}
+                      >
+                        {crTypeChart.map((entry, i) => {
+                          const typeColors = { STANDARD: COLORS.info, NORMAL: COLORS.warning, EMERGENCY: COLORS.danger };
+                          return <Cell key={i} fill={typeColors[entry.type_code] || PIE_COLORS[i % PIE_COLORS.length]} />;
+                        })}
+                      </Pie>
+                      <Tooltip formatter={(v, n) => [`${v} CRs`, n]} />
+                      <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11 }} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="db-chart-empty"><Layers size={32} /><p>No data</p></div>
+                )}
+              </div>
+            </div>
+
+            {/* CR Risk Distribution */}
+            <div className="db-card">
+              <div className="db-card-header">
+                <div className="db-card-title">
+                  <AlertTriangle size={18} />
+                  <h3>CR by Risk</h3>
+                </div>
+              </div>
+              <div className="db-card-body db-chart-body">
+                {crRiskChart.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={crRiskChart.map(r => ({ label: r.risk_level, value: r.count }))} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="var(--db-grid, #e2e8f0)" />
+                      <XAxis dataKey="label" tick={{ fontSize: 10, fill: 'var(--db-muted, #94a3b8)' }} />
+                      <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: 'var(--db-muted, #94a3b8)' }} />
+                      <Tooltip content={<ChartTooltip />} />
+                      <Bar dataKey="value" name="CRs" radius={[6, 6, 0, 0]} maxBarSize={40}>
+                        {crRiskChart.map((entry, i) => {
+                          const riskColors = { LOW: COLORS.success, MEDIUM: COLORS.warning, HIGH: COLORS.orange, CRITICAL: COLORS.danger };
+                          return <Cell key={i} fill={riskColors[entry.risk_level] || COLORS.slate} />;
+                        })}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="db-chart-empty"><AlertTriangle size={32} /><p>No data</p></div>
+                )}
+              </div>
+            </div>
+
+            {/* CR Success Rate */}
+            <div className="db-card">
+              <div className="db-card-header">
+                <div className="db-card-title">
+                  <CheckCircle size={18} />
+                  <h3>CR Success Rate</h3>
+                </div>
+                <span className="db-card-badge db-badge-compliance">
+                  {crStats.success_rate || 0}%
+                </span>
+              </div>
+              <div className="db-card-body db-chart-body">
+                {(crStats.completed + crStats.rolled_back) > 0 ? (
+                  <ResponsiveContainer width="100%" height={220}>
+                    <PieChart>
+                      <Pie
+                        data={[
+                          { label: 'Completed', value: crStats.completed },
+                          { label: 'Rolled Back', value: crStats.rolled_back },
+                        ]}
+                        dataKey="value" nameKey="label"
+                        cx="50%" cy="50%" innerRadius={45} outerRadius={80}
+                        paddingAngle={3} strokeWidth={0}
+                      >
+                        <Cell fill={COLORS.success} />
+                        <Cell fill={COLORS.danger} />
+                      </Pie>
+                      <Tooltip formatter={(v, n) => [`${v} CRs`, n]} />
+                      <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11 }} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="db-chart-empty"><CheckCircle size={32} /><p>No completed CRs yet</p></div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* ═══ LOCATION & PROCESS ROW ═══ */}
         {/* Admin/Manager: ALL location + ALL process charts */}
@@ -959,6 +1242,14 @@ const Dashboard = () => {
                   <button className="db-qa-btn db-qa-mine" onClick={() => navigate('/my-tickets')}>
                     <Eye size={18} />
                     <span>My Tickets</span>
+                  </button>
+                  <button className="db-qa-btn db-qa-cr" onClick={() => navigate('/cr/create')}>
+                    <GitPullRequest size={18} />
+                    <span>New CR</span>
+                  </button>
+                  <button className="db-qa-btn db-qa-mycr" onClick={() => navigate('/my-crs')}>
+                    <FileCheck size={18} />
+                    <span>My CRs</span>
                   </button>
                   {user?.permissions?.can_manage_users && (
                     <button className="db-qa-btn db-qa-users" onClick={() => navigate('/users')}>

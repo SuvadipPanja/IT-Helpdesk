@@ -121,6 +121,7 @@ const Settings = () => {
     { id: 'general',       label: 'General',        icon: Globe,      desc: 'System info & branding',   show: hasSettingsPerm('can_manage_settings_general') },
     { id: 'email',         label: 'Email & SMTP',   icon: Mail,       desc: 'Mail server config',       show: hasSettingsPerm('can_manage_settings_email') },
     { id: 'ticket',        label: 'Tickets',        icon: Ticket,     desc: 'Ticket workflow rules',    show: hasSettingsPerm('can_manage_settings_tickets') },
+    { id: 'cr',            label: 'Change Requests', icon: GitBranch, desc: 'CR routing & workflow',    show: hasSettingsPerm('can_manage_settings_tickets') || user?.permissions?.can_manage_cr_settings },
     { id: 'subcategories', label: 'Sub-Categories', icon: Layers,     desc: 'Category breakdown',       show: hasSettingsPerm('can_manage_settings_tickets') },
     { id: 'locations',     label: 'Locations',      icon: MapPin,     desc: 'Office locations',         show: hasSettingsPerm('can_manage_settings_general') },
     { id: 'processes',     label: 'Processes',      icon: Briefcase,  desc: 'Clients & projects',       show: hasSettingsPerm('can_manage_settings_tickets') },
@@ -880,6 +881,13 @@ const Settings = () => {
 
         {/* Tab Content */}
         <div className="settings-content">
+          {loading ? (
+            <div className="settings-loading">
+              <Loader size={32} className="spinner" />
+              <p>Loading settings...</p>
+            </div>
+          ) : (
+          <>
           {/* GENERAL TAB */}
           {activeTab === 'general' && (
             <div className="settings-form">
@@ -1981,6 +1989,456 @@ const Settings = () => {
           {activeTab === 'subcategories' && (
             <div className="settings-form">
               <SubCategoriesTab />
+            </div>
+          )}
+
+          {/* CR (CHANGE REQUESTS) TAB */}
+          {activeTab === 'cr' && (
+            <div className="settings-form">
+              {/* CR Numbering Section */}
+              <div className="settings-section">
+                <div className="settings-section-header">
+                  <Tag />
+                  <h3>CR Numbering</h3>
+                </div>
+                <div className="settings-section-content">
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Tag size={16} />
+                        CR Number Prefix
+                      </label>
+                      <input
+                        type="text"
+                        className="form-input"
+                        value={settings.cr?.cr_number_prefix?.value || ''}
+                        onChange={(e) => handleSettingChange('cr', 'cr_number_prefix', e.target.value)}
+                        placeholder="CR"
+                        maxLength="10"
+                      />
+                      <small className="form-help">Prefix for CR numbers (e.g., CR-001)</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Default Values Section */}
+              <div className="settings-section">
+                <div className="settings-section-header">
+                  <GitBranch />
+                  <h3>Default Values</h3>
+                </div>
+                <div className="settings-section-content">
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label className="form-label">
+                        <AlertTriangle size={16} />
+                        Default Priority
+                      </label>
+                      <select
+                        className="form-select"
+                        value={settings.cr?.cr_default_priority?.value || '3'}
+                        onChange={(e) => handleSettingChange('cr', 'cr_default_priority', e.target.value)}
+                        disabled={loadingLookups}
+                      >
+                        {priorities.map(priority => (
+                          <option key={priority.priority_id} value={priority.priority_id}>
+                            {priority.priority_name}
+                          </option>
+                        ))}
+                      </select>
+                      <small className="form-help">Default priority for new CRs</small>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Shield size={16} />
+                        Default Risk Level
+                      </label>
+                      <select
+                        className="form-select"
+                        value={settings.cr?.cr_default_risk_level?.value || 'MEDIUM'}
+                        onChange={(e) => handleSettingChange('cr', 'cr_default_risk_level', e.target.value)}
+                      >
+                        <option value="LOW">Low</option>
+                        <option value="MEDIUM">Medium</option>
+                        <option value="HIGH">High</option>
+                        <option value="CRITICAL">Critical</option>
+                      </select>
+                      <small className="form-help">Default risk level for new CRs</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Auto-Assignment Section */}
+              <div className="settings-section">
+                <div className="settings-section-header">
+                  <User />
+                  <h3>Auto-Assignment</h3>
+                </div>
+                <div className="settings-section-content">
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Power size={16} />
+                        Enable Auto-Assignment
+                      </label>
+                      <select
+                        className="form-select"
+                        value={String(settings.cr?.cr_auto_assignment?.value || 'false')}
+                        onChange={(e) => handleSettingChange('cr', 'cr_auto_assignment', e.target.value)}
+                      >
+                        <option value="true">Enabled</option>
+                        <option value="false">Disabled</option>
+                      </select>
+                      <small className="form-help">Automatically assign submitted CRs to engineers</small>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Zap size={16} />
+                        Assignment Method
+                      </label>
+                      <select
+                        className="form-select"
+                        value={settings.cr?.cr_assignment_method?.value || 'round_robin'}
+                        onChange={(e) => handleSettingChange('cr', 'cr_assignment_method', e.target.value)}
+                        disabled={String(settings.cr?.cr_auto_assignment?.value) !== 'true'}
+                      >
+                        <option value="round_robin">Round Robin</option>
+                        <option value="load_balanced">Load Balanced</option>
+                        <option value="department">Department Based</option>
+                        <option value="location_wise">Location Wise</option>
+                      </select>
+                      <small className="form-help">
+                        {(() => {
+                          const method = settings.cr?.cr_assignment_method?.value || 'round_robin';
+                          if (method === 'round_robin') return 'Assigns to engineers in rotation based on who was last assigned';
+                          if (method === 'load_balanced') return 'Assigns to the engineer with the fewest open CRs';
+                          if (method === 'department') return 'Assigns only to engineers within the same department';
+                          if (method === 'location_wise') return 'Assigns to the engineer at the same location with fewest open CRs';
+                          return 'How CRs are distributed to engineers';
+                        })()}
+                      </small>
+                    </div>
+
+                    {/* Assignment Scope — only relevant when central team routing is enabled */}
+                    {String(settings.cr?.cr_central_team_enabled?.value) === 'true' && (
+                      <div className="form-group">
+                        <label className="form-label">
+                          <GitBranch size={16} />
+                          Assignment Scope
+                        </label>
+                        <select
+                          className="form-select"
+                          value={settings.cr?.cr_auto_assignment_scope?.value || 'direct'}
+                          onChange={(e) => handleSettingChange('cr', 'cr_auto_assignment_scope', e.target.value)}
+                          disabled={String(settings.cr?.cr_auto_assignment?.value) !== 'true'}
+                        >
+                          <option value="direct">Assign directly to engineer</option>
+                          <option value="team_first">Route to team bucket first (engineer self-assigns)</option>
+                        </select>
+                        <small className="form-help">
+                          <strong>Direct:</strong> auto-assignment picks an engineer immediately. &nbsp;
+                          <strong>Team first:</strong> CR goes to team bucket; engineers pick CRs from their team queue.
+                        </small>
+                      </div>
+                    )}
+                  </div>
+
+                  {String(settings.cr?.cr_auto_assignment?.value) === 'true' && (
+                    <div className="settings-info-box" style={{ 
+                      marginTop: '12px', padding: '12px 16px', 
+                      background: 'var(--bg-secondary)', borderRadius: '8px',
+                      border: '1px solid var(--border-color)',
+                      fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.6'
+                    }}>
+                      <strong style={{ color: 'var(--text-primary)' }}>Assignment Rules:</strong>
+                      <ul style={{ margin: '6px 0 0 16px', padding: 0 }}>
+                        <li>Only <strong>Engineer</strong> role users are eligible for auto-assignment</li>
+                        <li>Only <strong>active</strong> users are considered</li>
+                        <li>For Round Robin &amp; Load Balanced: tries same department first, then falls back to any department</li>
+                        <li>For Department Based: strictly assigns within the CR&apos;s department only</li>
+                        <li>For Location Wise: assigns to the engineer at the same location with fewest open CRs</li>
+                        <li>Manual assignment supports Engineer, Manager, and Admin roles</li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Approver Selection Section */}
+              <div className="settings-section">
+                <div className="settings-section-header">
+                  <Shield />
+                  <h3>Approver Selection</h3>
+                </div>
+                <div className="settings-section-content">
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Power size={16} />
+                        Allow User to Select Approver
+                      </label>
+                      <select
+                        className="form-select"
+                        value={String(settings.cr?.cr_allow_requester_approver_select?.value || 'true')}
+                        onChange={(e) => handleSettingChange('cr', 'cr_allow_requester_approver_select', e.target.value)}
+                      >
+                        <option value="true">Enabled</option>
+                        <option value="false">Disabled</option>
+                      </select>
+                      <small className="form-help">When enabled, users see a dropdown to select a preferred approver when creating a CR</small>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">
+                        <GitBranch size={16} />
+                        After Approver Approves
+                      </label>
+                      <select
+                        className="form-select"
+                        value={settings.cr?.cr_post_approval_routing?.value || 'tcc_team'}
+                        onChange={(e) => handleSettingChange('cr', 'cr_post_approval_routing', e.target.value)}
+                        disabled={String(settings.cr?.cr_allow_requester_approver_select?.value) === 'false'}
+                      >
+                        <option value="tcc_team">Route to TCC team for implementation</option>
+                        <option value="direct">Stay with approver (approver handles implementation)</option>
+                      </select>
+                      <small className="form-help">What happens after the user-selected approver approves the CR</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Auto-Escalation Section */}
+              <div className="settings-section">
+                <div className="settings-section-header">
+                  <AlertTriangle />
+                  <h3>Auto-Escalation</h3>
+                </div>
+                <div className="settings-section-content">
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Power size={16} />
+                        Enable Auto-Escalation
+                      </label>
+                      <select
+                        className="form-select"
+                        value={String(settings.cr?.cr_auto_escalate?.value || 'false')}
+                        onChange={(e) => handleSettingChange('cr', 'cr_auto_escalate', e.target.value)}
+                      >
+                        <option value="true">Enabled</option>
+                        <option value="false">Disabled</option>
+                      </select>
+                      <small className="form-help">Automatically escalate unresolved CRs</small>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Clock size={16} />
+                        Escalation Threshold (Hours)
+                      </label>
+                      <input
+                        type="number"
+                        className="form-input"
+                        value={settings.cr?.cr_escalate_hours?.value || '48'}
+                        onChange={(e) => handleSettingChange('cr', 'cr_escalate_hours', e.target.value)}
+                        min="1"
+                        max="336"
+                        disabled={String(settings.cr?.cr_auto_escalate?.value) !== 'true'}
+                      />
+                      <small className="form-help">Hours before escalating unresolved CRs</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Central Team Routing Section */}
+              <div className="settings-section">
+                <div className="settings-section-header">
+                  <Users />
+                  <h3>Central Team Routing</h3>
+                </div>
+                <div className="settings-section-content">
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Power size={16} />
+                        Enable Central Team Routing
+                      </label>
+                      <select
+                        className="form-select"
+                        value={String(settings.cr?.cr_central_team_enabled?.value || 'false')}
+                        onChange={(e) => handleSettingChange('cr', 'cr_central_team_enabled', e.target.value)}
+                      >
+                        <option value="true">Enabled</option>
+                        <option value="false">Disabled</option>
+                      </select>
+                      <small className="form-help">Route all submitted CRs to a central team inbox before specialist assignment</small>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Users size={16} />
+                        Central Team
+                      </label>
+                      <select
+                        className="form-select"
+                        value={String(settings.cr?.cr_central_team_id?.value || '0')}
+                        onChange={(e) => handleSettingChange('cr', 'cr_central_team_id', e.target.value)}
+                        disabled={String(settings.cr?.cr_central_team_enabled?.value) !== 'true'}
+                      >
+                        <option value="0">— Select a team —</option>
+                        {teams.map((t) => (
+                          <option key={t.team_id} value={String(t.team_id)}>
+                            {t.team_name}{t.is_central ? ' ★' : ''}
+                          </option>
+                        ))}
+                      </select>
+                      <small className="form-help">Team that receives all submitted CRs as the first inbox (★ = current central team)</small>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">
+                        <GitBranch size={16} />
+                        Routing Mode
+                      </label>
+                      <select
+                        className="form-select"
+                        value={settings.cr?.cr_central_team_mode?.value || 'always'}
+                        onChange={(e) => handleSettingChange('cr', 'cr_central_team_mode', e.target.value)}
+                        disabled={String(settings.cr?.cr_central_team_enabled?.value) !== 'true'}
+                      >
+                        <option value="always">Always route to central team first</option>
+                        <option value="category_fallback">Only if no direct category rule applies</option>
+                      </select>
+                      <small className="form-help">
+                        <strong>Always:</strong> every submitted CR lands in the central inbox first. &nbsp;
+                        <strong>Category fallback:</strong> direct category→team rules take priority; central team used only when no rule matches.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* CR Lifecycle & Permissions Section */}
+              <div className="settings-section">
+                <div className="settings-section-header">
+                  <Lock />
+                  <h3>CR Lifecycle & Permissions</h3>
+                </div>
+                <div className="settings-section-content">
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Power size={16} />
+                        Enable Auto-Close
+                      </label>
+                      <select
+                        className="form-select"
+                        value={String(settings.cr?.cr_auto_close_enabled?.value || 'false')}
+                        onChange={(e) => handleSettingChange('cr', 'cr_auto_close_enabled', e.target.value)}
+                      >
+                        <option value="true">Enabled</option>
+                        <option value="false">Disabled</option>
+                      </select>
+                      <small className="form-help">Automatically close completed CRs after specified days</small>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Calendar size={16} />
+                        Auto-Close After (Days)
+                      </label>
+                      <input
+                        type="number"
+                        className="form-input"
+                        value={settings.cr?.cr_auto_close_days?.value || '30'}
+                        onChange={(e) => handleSettingChange('cr', 'cr_auto_close_days', e.target.value)}
+                        min="1"
+                        max="365"
+                        disabled={String(settings.cr?.cr_auto_close_enabled?.value) !== 'true'}
+                      />
+                      <small className="form-help">Days to wait before auto-closing completed CRs</small>
+                    </div>
+                  </div>
+
+                  <div className="settings-info-box info" style={{ marginTop: '20px' }}>
+                    <HelpCircle size={18} />
+                    <p>
+                      <strong>Quick Tip:</strong> Enable auto-close above to activate the background job. 
+                      The auto-close job runs daily at midnight and closes completed CRs that have exceeded 
+                      the specified threshold days.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Background Jobs Status */}
+              <div className="settings-section">
+                <div className="settings-section-header">
+                  <Zap />
+                  <h3>Background Jobs Status</h3>
+                </div>
+                <div className="settings-section-content">
+                  <div className="jobs-status-grid">
+                    <div className="job-status-card">
+                      <div className={`job-status-dot ${String(settings.cr?.cr_auto_escalate?.value) === 'true' ? 'active' : 'inactive'}`} />
+                      <div className="job-status-info">
+                        <div className="job-status-name">CR Auto-Escalation Job</div>
+                        <div className="job-status-state">
+                          {String(settings.cr?.cr_auto_escalate?.value) === 'true' ? 'Active • Running hourly' : 'Inactive'}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="job-status-card">
+                      <div className={`job-status-dot ${String(settings.cr?.cr_auto_close_enabled?.value) === 'true' ? 'active' : 'inactive'}`} />
+                      <div className="job-status-info">
+                        <div className="job-status-name">CR Auto-Close Job</div>
+                        <div className="job-status-state">
+                          {String(settings.cr?.cr_auto_close_enabled?.value) === 'true' ? 'Active • Running daily' : 'Inactive'}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="settings-info-box info" style={{ marginTop: '20px' }}>
+                    <HelpCircle size={18} />
+                    <p>
+                      <strong>Quick Tip:</strong> Changes to background job settings apply immediately without requiring a server restart. Jobs check settings before each execution.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* CR Routing Flow Info */}
+              <div className="settings-section">
+                <div className="settings-section-header">
+                  <HelpCircle />
+                  <h3>CR Routing Flow</h3>
+                </div>
+                <div className="settings-section-content">
+                  <div className="settings-info-box" style={{ 
+                    padding: '12px 16px', 
+                    background: 'var(--bg-secondary)', borderRadius: '8px',
+                    border: '1px solid var(--border-color)',
+                    fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.6'
+                  }}>
+                    <strong style={{ color: 'var(--text-primary)' }}>CR Routing Flow:</strong>
+                    <ul style={{ margin: '6px 0 0 16px', padding: 0 }}>
+                      <li><strong>Auto-Assignment:</strong> On submit, CR is auto-assigned to an engineer based on the selected method (round robin, load balanced, department, location)</li>
+                      <li><strong>Central Team:</strong> When enabled, submitted CRs route to the central team inbox before specialist assignment</li>
+                      <li><strong>Team Bucket:</strong> When scope is &quot;team first&quot;, CRs go to the team bucket where engineers can self-assign</li>
+                      <li><strong>Approver Select:</strong> If enabled, users can pick a preferred approver during CR creation</li>
+                      <li>Every step of the CR journey is tracked and visible in the CR detail view</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 
@@ -3569,6 +4027,8 @@ const Settings = () => {
                 )}
               </div>
             </div>
+          )}
+          </>
           )}
         </div>
       </div>

@@ -7,6 +7,7 @@
 import React from 'react';
 import { X, Mail, User, Calendar, AlertCircle, Package, RotateCw } from 'lucide-react';
 import { formatDateTime } from '../../utils/dateUtils';
+import '../../styles/EmailDetailModal.css';
 
 const EmailDetailModal = ({ email, isOpen, onClose }) => {
   if (!isOpen || !email) return null;

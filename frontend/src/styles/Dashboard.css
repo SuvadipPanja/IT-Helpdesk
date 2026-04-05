@@ -1489,3 +1489,84 @@
     height: 36px;
   }
 }
+
+/* ============================================
+   CR (CHANGE REQUEST) DASHBOARD SECTION
+   ============================================ */
+
+/* CR Section Wrapper */
+.db-cr-section {
+  background: var(--db-surface);
+  border-radius: var(--db-radius);
+  box-shadow: var(--db-shadow);
+  padding: 16px 20px;
+  border-left: 3px solid var(--db-orange);
+}
+
+.db-cr-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.db-cr-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--db-text);
+}
+
+.db-cr-section-title h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.db-cr-section-title svg {
+  color: var(--db-orange);
+}
+
+/* CR stat cards inherit existing .db-stats-row */
+.db-stats-cr .db-stat-card {
+  border-left: 2px solid var(--db-orange);
+}
+
+/* CR-specific stat card colors */
+.db-stat-cr-total .db-stat-icon { color: var(--db-orange); }
+.db-stat-cr-submitted .db-stat-icon { color: var(--db-info); }
+.db-stat-cr-review .db-stat-icon { color: var(--db-purple); }
+.db-stat-cr-scheduled .db-stat-icon { color: var(--db-warning); }
+.db-stat-cr-progress .db-stat-icon { color: var(--db-primary); }
+.db-stat-cr-completed .db-stat-icon { color: var(--db-success); }
+.db-stat-cr-rollback .db-stat-icon { color: var(--db-danger); }
+.db-stat-cr-approval .db-stat-icon { color: var(--db-warning); }
+.db-stat-cr-assigned .db-stat-icon { color: var(--db-info); }
+
+/* Create CR button in header */
+.db-create-cr-btn {
+  background: var(--db-orange);
+}
+
+.db-create-cr-btn:hover {
+  background: #ea580c;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+/* Quick Actions CR buttons */
+.db-qa-cr { border-left: 3px solid var(--db-orange); }
+.db-qa-cr svg { color: var(--db-orange); }
+.db-qa-mycr { border-left: 3px solid var(--db-purple); }
+.db-qa-mycr svg { color: var(--db-purple); }
+
+/* Responsive: CR section */
+@media (max-width: 768px) {
+  .db-cr-section {
+    padding: 12px 14px;
+  }
+  .db-cr-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

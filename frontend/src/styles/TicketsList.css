@@ -306,7 +306,7 @@
   border: 1px solid var(--border-color, #e2e8f0);
   border-radius: 8px;
   font-size: 13px;
-  background: var(--nx-surface);
+  background-color: var(--nx-surface);
   color: var(--text-primary, #1a202c);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -471,6 +471,9 @@
 .th-status { width: 100px; }
 .th-requester { width: 140px; }
 .th-assigned { width: 140px; }
+.th-location { width: 120px; }
+.th-department { width: 120px; }
+.th-process { width: 120px; }
 .th-created { width: 120px; }
 .th-actions { width: 110px; }
 
@@ -1002,7 +1005,7 @@
   border: 1px solid var(--border-color, #e2e8f0);
   border-radius: 6px;
   font-size: 13px;
-  background: var(--nx-surface);
+  background-color: var(--nx-surface);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -1058,11 +1061,26 @@
   font-size: 12px;
 }
 
+.location-cell .cell-text,
+.department-cell .cell-text,
+.process-cell .cell-text {
+  display: block;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--text-secondary, #64748b);
+}
+
 /* Responsive Design */
 @media (max-width: 1400px) {
   .th-title { min-width: 180px; }
   .th-requester { width: 120px; }
   .th-assigned { width: 120px; }
+  .th-location { width: 100px; }
+  .th-department { width: 100px; }
+  .th-process { width: 100px; }
 }
 
 @media (max-width: 1200px) {
@@ -1110,7 +1128,7 @@
   }
   
   .tickets-table {
-    min-width: 800px;
+    min-width: 1100px;
   }
   
   .pagination-container {
@@ -1922,7 +1940,7 @@ a,
 [data-theme="dark"] .btn-filter,
 [data-theme="dark"] .btn-clear-filters,
 [data-theme="dark"] .filter-select {
-  background: var(--nx-surface);
+  background-color: var(--nx-surface);
   border-color: var(--nx-border);
   color: var(--nx-text);
 }
@@ -1960,43 +1978,151 @@ a,
 }
 
 [data-theme="dark"] .filter-item select {
-  background: var(--nx-surface-hover);
+  background-color: var(--nx-surface-hover);
   border-color: var(--nx-border);
   color: var(--nx-text);
 }
 
+/* Table structure dark mode */
+[data-theme="dark"] .table-container {
+  background: var(--nx-surface);
+  border-color: var(--nx-border);
+}
+
+[data-theme="dark"] .tickets-table thead,
 [data-theme="dark"] .table-header {
   background: var(--nx-surface-hover);
   border-bottom-color: var(--nx-border);
 }
 
+[data-theme="dark"] .tickets-table th,
 [data-theme="dark"] .table-header .th {
   color: var(--nx-text-secondary);
 }
 
+[data-theme="dark"] .tickets-table tbody tr,
 [data-theme="dark"] .ticket-row {
   border-bottom-color: var(--nx-border);
 }
 
+[data-theme="dark"] .tickets-table tbody tr:hover,
 [data-theme="dark"] .ticket-row:hover {
   background: var(--nx-surface-hover);
 }
 
+[data-theme="dark"] .tickets-table tbody tr.escalated {
+  background: rgba(234, 88, 12, 0.1);
+}
+
+[data-theme="dark"] .tickets-table tbody tr.escalated:hover {
+  background: rgba(234, 88, 12, 0.18);
+}
+
+/* Badge dark mode — lower opacity, readable on dark bg */
+[data-theme="dark"] .priority-critical { background: rgba(239, 68, 68, 0.18); color: #fca5a5; }
+[data-theme="dark"] .priority-high     { background: rgba(249, 115, 22, 0.18); color: #fdba74; }
+[data-theme="dark"] .priority-medium   { background: rgba(245, 158, 11, 0.18); color: #fcd34d; }
+[data-theme="dark"] .priority-low      { background: rgba(59, 130, 246, 0.18); color: #93c5fd; }
+[data-theme="dark"] .priority-planning { background: rgba(99, 102, 241, 0.18); color: #a5b4fc; }
+
+[data-theme="dark"] .status-open      { background: rgba(59, 130, 246, 0.18); color: #93c5fd; }
+[data-theme="dark"] .status-progress  { background: rgba(245, 158, 11, 0.18); color: #fcd34d; }
+[data-theme="dark"] .status-pending   { background: rgba(249, 115, 22, 0.18); color: #fdba74; }
+[data-theme="dark"] .status-hold      { background: rgba(99, 102, 241, 0.18); color: #a5b4fc; }
+[data-theme="dark"] .status-resolved  { background: rgba(16, 185, 129, 0.18); color: #6ee7b7; }
+[data-theme="dark"] .status-closed    { background: rgba(148, 163, 184, 0.15); color: #94a3b8; }
+[data-theme="dark"] .status-cancelled { background: rgba(239, 68, 68, 0.18); color: #fca5a5; }
+[data-theme="dark"] .status-reopened  { background: rgba(234, 88, 12, 0.18); color: #fb923c; }
+
+[data-theme="dark"] .category-badge {
+  background: var(--nx-surface-hover);
+  color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .escalated-badge {
+  background: rgba(234, 88, 12, 0.2);
+  color: #fb923c;
+}
+
+/* Dropdown menu dark mode */
+[data-theme="dark"] .dropdown-menu {
+  background: var(--nx-surface-raised);
+  border-color: var(--nx-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .dropdown-item {
+  color: var(--nx-text);
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+  background: var(--nx-surface-hover);
+}
+
+[data-theme="dark"] .dropdown-item.danger {
+  color: #f87171;
+}
+
+[data-theme="dark"] .dropdown-item.danger:hover {
+  background: rgba(239, 68, 68, 0.12);
+}
+
+[data-theme="dark"] .dropdown-divider {
+  background: var(--nx-border);
+}
+
+/* Text elements */
+[data-theme="dark"] .ticket-title-link,
 [data-theme="dark"] .ticket-title,
 [data-theme="dark"] .tl-title-text {
   color: var(--nx-text);
 }
 
+[data-theme="dark"] .user-name,
+[data-theme="dark"] .date-relative {
+  color: var(--nx-text);
+}
+
 [data-theme="dark"] .ticket-meta,
 [data-theme="dark"] .tl-description,
-[data-theme="dark"] .tl-meta-text {
+[data-theme="dark"] .tl-meta-text,
+[data-theme="dark"] .date-full,
+[data-theme="dark"] .meta-item {
   color: var(--nx-text-secondary);
+}
+
+[data-theme="dark"] .user-avatar {
+  background: var(--nx-surface-hover);
+  color: var(--nx-muted);
+}
+
+[data-theme="dark"] .user-avatar.assigned {
+  background: rgba(99, 102, 241, 0.18);
+  color: #818cf8;
+}
+
+/* Alert dark mode */
+[data-theme="dark"] .alert-error {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
 }
 
 [data-theme="dark"] .empty-state {
   background: var(--nx-surface);
   border-color: var(--nx-border);
   color: var(--nx-text-secondary);
+}
+
+/* Btn-clear-filters dark mode */
+[data-theme="dark"] .btn-clear-filters {
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+[data-theme="dark"] .btn-clear-filters:hover {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.4);
 }
 
 [data-theme="dark"] .tl-hover-card {

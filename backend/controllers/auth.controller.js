@@ -146,6 +146,11 @@ const login = async (req, res, next) => {
         r.can_manage_settings_bot,
         r.can_manage_settings_license,
         r.can_manage_settings_backup,
+        r.can_create_cr,
+        r.can_approve_cr,
+        r.can_implement_cr,
+        r.can_view_all_cr,
+        r.can_manage_cr_settings,
         d.department_name
       FROM users u
       LEFT JOIN user_roles r ON u.role_id = r.role_id
@@ -735,6 +740,11 @@ const login = async (req, res, next) => {
         can_manage_settings_bot: user.can_manage_settings_bot,
         can_manage_settings_license: user.can_manage_settings_license,
         can_manage_settings_backup: user.can_manage_settings_backup,
+        can_create_cr: user.can_create_cr,
+        can_approve_cr: user.can_approve_cr,
+        can_implement_cr: user.can_implement_cr,
+        can_view_all_cr: user.can_view_all_cr,
+        can_manage_cr_settings: user.can_manage_cr_settings,
       },
       // ⭐ Include password expiry warning if applicable
       passwordExpiryWarning: expiryStatus.isWarning ? {
@@ -892,6 +902,11 @@ const verifyTwoFactorLogin = async (req, res, next) => {
         r.can_manage_settings_bot,
         r.can_manage_settings_license,
         r.can_manage_settings_backup,
+        r.can_create_cr,
+        r.can_approve_cr,
+        r.can_implement_cr,
+        r.can_view_all_cr,
+        r.can_manage_cr_settings,
         d.department_name
       FROM users u
       LEFT JOIN user_roles r ON u.role_id = r.role_id
@@ -1063,6 +1078,11 @@ const verifyTwoFactorLogin = async (req, res, next) => {
         can_manage_settings_bot: user.can_manage_settings_bot,
         can_manage_settings_license: user.can_manage_settings_license,
         can_manage_settings_backup: user.can_manage_settings_backup,
+        can_create_cr: user.can_create_cr,
+        can_approve_cr: user.can_approve_cr,
+        can_implement_cr: user.can_implement_cr,
+        can_view_all_cr: user.can_view_all_cr,
+        can_manage_cr_settings: user.can_manage_cr_settings,
       },
     };
 
@@ -1194,12 +1214,22 @@ const getMe = async (req, res, next) => {
           r.can_manage_settings_bot,
           r.can_manage_settings_license,
           r.can_manage_settings_backup,
+          r.can_create_cr,
+          r.can_approve_cr,
+          r.can_implement_cr,
+          r.can_view_all_cr,
+          r.can_manage_cr_settings,
           d.department_id,
           d.department_name,
-          d.department_code
+          d.department_code,
+          u.process_id,
+          p.process_name,
+          loc.location_name
         FROM users u
         LEFT JOIN user_roles r ON u.role_id = r.role_id
         LEFT JOIN departments d ON u.department_id = d.department_id
+        LEFT JOIN processes p ON u.process_id = p.process_id
+        LEFT JOIN locations loc ON u.location_id = loc.location_id
         WHERE u.user_id = @userId
       `;
 
@@ -1231,6 +1261,9 @@ const getMe = async (req, res, next) => {
       last_login: user.last_login,
       created_at: user.created_at,
       location_id: user.location_id || null,
+      location_name: user.location_name || null,
+      process_id: user.process_id || null,
+      process_name: user.process_name || null,
       role: {
         role_id: user.role_id,
         role_name: user.role_name,
@@ -1266,6 +1299,11 @@ const getMe = async (req, res, next) => {
         can_manage_settings_bot: user.can_manage_settings_bot,
         can_manage_settings_license: user.can_manage_settings_license,
         can_manage_settings_backup: user.can_manage_settings_backup,
+        can_create_cr: user.can_create_cr,
+        can_approve_cr: user.can_approve_cr,
+        can_implement_cr: user.can_implement_cr,
+        can_view_all_cr: user.can_view_all_cr,
+        can_manage_cr_settings: user.can_manage_cr_settings,
       },
     };
 

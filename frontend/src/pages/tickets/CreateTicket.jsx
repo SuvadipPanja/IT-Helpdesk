@@ -35,7 +35,7 @@ const CreateTicket = () => {
     sub_category_id: '',
     other_category_text: '',
     location_id: user?.location_id ? String(user.location_id) : '',
-    process_id: '',
+    process_id: user?.process_id ? String(user.process_id) : '',
     team_id: '',
   }));
 
@@ -70,6 +70,18 @@ const CreateTicket = () => {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
+
+  // Auto-fill form when user data becomes available (handles async auth load)
+  useEffect(() => {
+    if (user) {
+      setFormData(prev => ({
+        ...prev,
+        location_id: prev.location_id || (user.location_id ? String(user.location_id) : ''),
+        department_id: prev.department_id || (user.department?.department_id ? String(user.department.department_id) : ''),
+        process_id: prev.process_id || (user.process_id ? String(user.process_id) : ''),
+      }));
+    }
+  }, [user]);
 
   // Fetch dropdown data
   useEffect(() => {

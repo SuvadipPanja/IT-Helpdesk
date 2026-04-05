@@ -276,7 +276,7 @@
   text-transform: none;
   letter-spacing: normal;
   color: var(--text-primary);
-  background: var(--input-bg, #fff);
+  background-color: var(--input-bg, #fff);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
@@ -554,7 +554,7 @@
 [data-theme='dark'] .rep-field select,
 [data-theme='dark'] .rep-search,
 [data-theme='dark'] .rep-ms-trigger {
-  background: var(--input-bg, rgba(15, 23, 42, 0.32));
+  background-color: var(--input-bg, rgba(15, 23, 42, 0.32));
   border-color: #334155;
   color: var(--text-primary, #f1f5f9);
 }

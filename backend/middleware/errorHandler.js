@@ -68,12 +68,10 @@ const errorHandler = (err, req, res, next) => {
     }
   }
 
-  // Send error response (include SQL detail in development for faster debugging)
+  // Send error response (include stack trace in development for faster debugging)
   res.status(statusCode).json(
     createResponse(false, message, null, {
       error: process.env.NODE_ENV === 'development' ? err.stack : undefined,
-      sqlMessage: process.env.NODE_ENV === 'development' && err.message ? err.message : undefined,
-      sqlNumber: process.env.NODE_ENV === 'development' ? err.number : undefined,
     })
   );
 };
@@ -89,10 +87,7 @@ const notFoundHandler = (req, res) => {
   });
 
   res.status(404).json(
-    createResponse(false, 'Route not found', null, {
-      requestedUrl: req.originalUrl,
-      method: req.method,
-    })
+    createResponse(false, 'Route not found')
   );
 };
 

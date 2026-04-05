@@ -428,6 +428,9 @@ const TicketsList = () => {
         'Status',
         'Requester',
         'Assigned To',
+        'Location',
+        'Department',
+        'Process / Client',
         'Created At',
         'Is Escalated'
       ];
@@ -441,6 +444,9 @@ const TicketsList = () => {
         ticket.status_name || '',
         ticket.requester_name || '',
         ticket.assigned_to_name || 'Unassigned',
+        ticket.location_name || '',
+        ticket.department_name || '',
+        ticket.process_name || '',
         formatDate(ticket.created_at),
         ticket.is_escalated ? 'Yes' : 'No'
       ]);
@@ -822,7 +828,7 @@ const TicketsList = () => {
       {/* Tickets Table */}
       <div className="table-container">
         {loading ? (
-          <SkeletonTable rows={limit} columns={isITStaff ? 9 : 8} />
+          <SkeletonTable rows={limit} columns={isITStaff ? 12 : 11} />
         ) : tickets.length === 0 ? (
           <div className="empty-state">
             <div className="empty-icon-wrapper">
@@ -889,6 +895,9 @@ const TicketsList = () => {
                     </th>
                     <th className="th-requester">Requester</th>
                     <th className="th-assigned">Assigned To</th>
+                    <th className="th-location">Location</th>
+                    <th className="th-department">Department</th>
+                    <th className="th-process">Process / Client</th>
                     <th onClick={() => handleSort('created_at')} className="sortable th-created">
                       <div className="th-content">
                         <span>Created</span>
@@ -1013,6 +1022,16 @@ const TicketsList = () => {
                         )}
                       </td>
                       
+                      <td className="location-cell">
+                        <span className="cell-text" title={ticket.location_name || ''}>{ticket.location_name || '-'}</span>
+                      </td>
+                      <td className="department-cell">
+                        <span className="cell-text" title={ticket.department_name || ''}>{ticket.department_name || '-'}</span>
+                      </td>
+                      <td className="process-cell">
+                        <span className="cell-text" title={ticket.process_name || ''}>{ticket.process_name || '-'}</span>
+                      </td>
+
                       <td className="date-cell">
                         <div className="date-info">
                           <span className="date-relative">{formatRelativeTime(ticket.created_at)}</span>

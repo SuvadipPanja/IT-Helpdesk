@@ -1607,7 +1607,7 @@
 .kbm-select {
   padding: 7px 10px; font-size: 13px;
   border: 1px solid #e2e8f0; border-radius: 8px;
-  background: #f8fafc; color: #1e293b; cursor: pointer;
+  background-color: #f8fafc; color: #1e293b; cursor: pointer;
 }
 .kbm-count { font-size: 12px; color: #64748b; flex-shrink: 0; }
 .kbm-btn-primary {
@@ -2015,10 +2015,6 @@
 [data-theme='dark'] .kbm-ann-item,
 [data-theme='dark'] .kbm-stat-card,
 [data-theme='dark'] .kbm-search-wrap,
-[data-theme='dark'] .kbm-select,
-[data-theme='dark'] .kbm-form-group input,
-[data-theme='dark'] .kbm-form-group select,
-[data-theme='dark'] .kbm-form-group textarea,
 [data-theme='dark'] .kbm-emoji-trigger,
 [data-theme='dark'] .kbm-help-note,
 [data-theme='dark'] .kbm-search-tag,
@@ -2028,6 +2024,13 @@
 [data-theme='dark'] .kbm-cat-meta button,
 [data-theme='dark'] .kbm-ann-footer button {
   background: rgba(30, 41, 59, 0.88);
+}
+
+[data-theme='dark'] .kbm-select,
+[data-theme='dark'] .kbm-form-group input,
+[data-theme='dark'] .kbm-form-group select,
+[data-theme='dark'] .kbm-form-group textarea {
+  background-color: rgba(30, 41, 59, 0.88);
 }
 
 [data-theme='dark'] .kbm-table tr:hover td {

@@ -215,6 +215,11 @@ const authenticate = async (req, res, next) => {
         r.can_manage_settings_bot,
         r.can_manage_settings_license,
         r.can_manage_settings_backup,
+        r.can_create_cr,
+        r.can_approve_cr,
+        r.can_implement_cr,
+        r.can_view_all_cr,
+        r.can_manage_cr_settings,
         r.is_active as role_is_active,
         r.is_system_role
       FROM users u

@@ -29,6 +29,9 @@ import {
   TrendingUp,
   AlertTriangle,
   Megaphone,
+  GitPullRequest,
+  ClipboardCheck,
+  ShieldAlert,
 } from 'lucide-react';
 import {
   BarChart,
@@ -52,6 +55,7 @@ const GROUPS = [
   { id: 'bot', label: 'Bot & AI', blurb: 'Assistant sessions and messages' },
   { id: 'knowledge', label: 'Knowledge base', blurb: 'Article views, search activity' },
   { id: 'outage', label: 'Outage notifications', blurb: 'Service outages, audit, overview' },
+  { id: 'change_requests', label: 'Change requests', blurb: 'CR master, journey, approvals, risk' },
 ];
 
 const REPORT_TYPES = [
@@ -190,6 +194,54 @@ const REPORT_TYPES = [
     desc: 'Summary by template, status, and severity with averages.',
     icon: Megaphone,
     color: '#f59e0b',
+  },
+  {
+    id: 'cr_master',
+    group: 'change_requests',
+    title: 'CR master list',
+    desc: 'All change requests with status, type, risk, scheduling, and assignment details.',
+    icon: GitPullRequest,
+    color: '#7c3aed',
+  },
+  {
+    id: 'cr_journey',
+    group: 'change_requests',
+    title: 'CR journey / audit',
+    desc: 'Full activity trail for change requests — every status change, comment, and action.',
+    icon: Route,
+    color: '#059669',
+  },
+  {
+    id: 'cr_summary_type',
+    group: 'change_requests',
+    title: 'CR volume by type',
+    desc: 'Change requests grouped by type (Standard, Normal, Emergency) with completion stats.',
+    icon: Layers,
+    color: '#d97706',
+  },
+  {
+    id: 'cr_summary_category',
+    group: 'change_requests',
+    title: 'CR volume by category',
+    desc: 'Change requests grouped by category with risk and downtime metrics.',
+    icon: Tag,
+    color: '#0891b2',
+  },
+  {
+    id: 'cr_approval_report',
+    group: 'change_requests',
+    title: 'CR approval report',
+    desc: 'Approval chain details: approver, role, decision time, reminders sent.',
+    icon: ClipboardCheck,
+    color: '#4f46e5',
+  },
+  {
+    id: 'cr_risk_report',
+    group: 'change_requests',
+    title: 'CR risk report',
+    desc: 'Change requests sorted by risk level with affected systems and approval status.',
+    icon: ShieldAlert,
+    color: '#dc2626',
   },
 ];
 
@@ -508,6 +560,8 @@ export default function ReportsHub() {
   };
 
   const activeReport = REPORT_TYPES.find((r) => r.id === reportType);
+  const crReportTypes = ['cr_master', 'cr_journey', 'cr_summary_type', 'cr_summary_category', 'cr_approval_report', 'cr_risk_report'];
+  const isCRReport = crReportTypes.includes(reportType);
   const ticketFiltersVisible = [
     'ticket_master',
     'ticket_journey',
@@ -518,11 +572,12 @@ export default function ReportsHub() {
     'summary_category',
     'sla_breach_detail',
   ].includes(reportType);
-  const priorityFilterVisible = ticketFiltersVisible;
-  const statusVisible = ticketFiltersVisible;
+  const priorityFilterVisible = ticketFiltersVisible || isCRReport;
+  const statusVisible = ticketFiltersVisible || reportType === 'cr_master';
   const journeyExtras = reportType === 'ticket_journey';
   const accessExtras = ['user_sessions', 'login_attempts', 'security_audit'].includes(reportType);
   const botUserFilter = ['bot_sessions', 'bot_messages'].includes(reportType);
+  const crDeptFilterVisible = isCRReport;
   const pagedReports = [
     'ticket_master',
     'ticket_journey',
@@ -533,6 +588,10 @@ export default function ReportsHub() {
     'security_audit',
     'bot_sessions',
     'bot_messages',
+    'cr_master',
+    'cr_journey',
+    'cr_approval_report',
+    'cr_risk_report',
   ].includes(reportType);
 
   // Chart colors for summary visualizations
@@ -540,6 +599,7 @@ export default function ReportsHub() {
 
   // Whether the current report type renders a summary bar chart visualization
   const isSummaryChart = ['summary_department', 'summary_location', 'summary_team', 'summary_priority', 'summary_category'].includes(reportType);
+  const isCRSummaryChart = ['cr_summary_type', 'cr_summary_category'].includes(reportType);
 
   return (
     <div className="rep-page">
@@ -774,6 +834,31 @@ export default function ReportsHub() {
             </div>
           )}
 
+          {!ticketFiltersVisible && crDeptFilterVisible && (
+            <div className="rep-row rep-row--filters">
+              {loadingFilters ? (
+                <span className="rep-muted">Loading filter lists…</span>
+              ) : (
+                <>
+                  <MultiSelect
+                    label="Departments"
+                    options={filters.departments}
+                    selected={departmentIds}
+                    onChange={setDepartmentIds}
+                    placeholder="All departments"
+                  />
+                  <MultiSelect
+                    label="Priorities"
+                    options={filters.priorities}
+                    selected={priorityIds}
+                    onChange={setPriorityIds}
+                    placeholder="All priorities"
+                  />
+                </>
+              )}
+            </div>
+          )}
+
           <div className="rep-actions">
             <button type="button" className="rep-btn rep-btn--primary" onClick={runReport} disabled={loading}>
               {loading ? <Loader className="rep-spin" size={18} /> : <Play size={18} />}
@@ -910,6 +995,81 @@ export default function ReportsHub() {
                       <YAxis type="category" dataKey="name" width={160} tick={{ fontSize: 12 }} />
                       <Tooltip
                         formatter={(v) => [v.toLocaleString(), 'Tickets']}
+                        contentStyle={{ fontSize: 13, borderRadius: 8 }}
+                      />
+                      <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                        {rows.slice(0, 20).map((_, i) => (
+                          <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                  {rows.length > 20 && (
+                    <p className="rep-chart-footnote">Showing top 20 of {rows.length} groups. See table below for full data.</p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* CR Summary chart — shown for cr_summary_type and cr_summary_category */}
+            {isCRSummaryChart && rows.length > 0 && (
+              <div className="rep-summary-chart">
+                <div className="rep-summary-stats">
+                  <div className="rep-summary-stat">
+                    <span className="rep-summary-stat-value">
+                      {rows.reduce((s, r) => s + (Number(r.cr_count) || 0), 0).toLocaleString()}
+                    </span>
+                    <span className="rep-summary-stat-label">Total CRs</span>
+                  </div>
+                  {'completed_count' in (rows[0] || {}) && (
+                    <div className="rep-summary-stat rep-summary-stat--green">
+                      <span className="rep-summary-stat-value">
+                        {rows.reduce((s, r) => s + (Number(r.completed_count) || 0), 0).toLocaleString()}
+                      </span>
+                      <span className="rep-summary-stat-label">Completed</span>
+                    </div>
+                  )}
+                  {'open_count' in (rows[0] || {}) && (
+                    <div className="rep-summary-stat rep-summary-stat--amber">
+                      <span className="rep-summary-stat-value">
+                        {rows.reduce((s, r) => s + (Number(r.open_count) || 0), 0).toLocaleString()}
+                      </span>
+                      <span className="rep-summary-stat-label">Open</span>
+                    </div>
+                  )}
+                  {'high_risk_count' in (rows[0] || {}) && (
+                    <div className="rep-summary-stat rep-summary-stat--red">
+                      <span className="rep-summary-stat-value">
+                        {rows.reduce((s, r) => s + (Number(r.high_risk_count) || 0), 0).toLocaleString()}
+                      </span>
+                      <span className="rep-summary-stat-label">High Risk</span>
+                    </div>
+                  )}
+                  <div className="rep-summary-stat">
+                    <span className="rep-summary-stat-value">{rows.length}</span>
+                    <span className="rep-summary-stat-label">Groups</span>
+                  </div>
+                </div>
+
+                <div className="rep-chart-area">
+                  <div className="rep-chart-title">
+                    <TrendingUp size={16} />
+                    CR volume breakdown
+                  </div>
+                  <ResponsiveContainer width="100%" height={Math.max(200, rows.length * 36)}>
+                    <BarChart
+                      data={rows.slice(0, 20).map((r) => ({
+                        name: r.type_name || r.category_name || '(None)',
+                        value: r.cr_count || 0,
+                      }))}
+                      layout="vertical"
+                      margin={{ top: 4, right: 40, left: 8, bottom: 4 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+                      <XAxis type="number" tick={{ fontSize: 12 }} />
+                      <YAxis type="category" dataKey="name" width={160} tick={{ fontSize: 12 }} />
+                      <Tooltip
+                        formatter={(v) => [v.toLocaleString(), 'CRs']}
                         contentStyle={{ fontSize: 13, borderRadius: 8 }}
                       />
                       <Bar dataKey="value" radius={[0, 4, 4, 0]}>

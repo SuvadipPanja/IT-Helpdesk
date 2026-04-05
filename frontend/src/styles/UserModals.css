@@ -57,8 +57,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 24px 28px;
-  border-bottom: 1px solid #e2e8f0;
-  background: #f8fafc;
+  border-bottom: 1px solid var(--nx-border);
+  background: var(--nx-surface-hover);
   border-radius: 12px 12px 0 0;
 }
 
@@ -76,7 +76,7 @@
   margin: 0;
   font-size: 20px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--nx-text);
 }
 
 .modal-close {
@@ -88,7 +88,7 @@
   background: transparent;
   border: none;
   border-radius: 4px;
-  color: #64748b;
+  color: var(--nx-muted);
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -110,11 +110,11 @@
 }
 
 .modal-body::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: var(--nx-bg);
 }
 
 .modal-body::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: var(--nx-border-strong);
   border-radius: 4px;
 }
 
@@ -158,9 +158,9 @@
   margin: 0 0 12px 0;
   font-size: 16px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--nx-text);
   padding-bottom: 8px;
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 2px solid var(--nx-border);
 }
 
 .form-group {
@@ -175,7 +175,7 @@
   gap: 6px;
   font-size: 13px;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--nx-text);
 }
 
 .form-label svg {
@@ -192,17 +192,17 @@
 .form-select {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--nx-border);
   border-radius: 8px;
   font-size: 14px;
-  color: #0f172a;
-  background: var(--nx-surface);
+  color: var(--nx-text);
+  background-color: var(--nx-surface);
   transition: all 0.2s;
   font-weight: 500;
 }
 
 .form-input::placeholder {
-  color: #94a3b8;
+  color: var(--nx-muted);
 }
 
 .form-input:focus,
@@ -215,7 +215,7 @@
 .form-input.error,
 .form-select.error {
   border-color: #dc2626;
-  background: #fef2f2;
+  background-color: var(--nx-danger-light);
 }
 
 .form-input.error:focus,
@@ -239,7 +239,7 @@
 
 .form-help {
   font-size: 12px;
-  color: #64748b;
+  color: var(--nx-muted);
 }
 
 /* ==================== CHECKBOX ==================== */
@@ -249,18 +249,18 @@
   gap: 10px;
   cursor: pointer;
   font-size: 14px;
-  color: #0f172a;
+  color: var(--nx-text);
   font-weight: 600;
   padding: 12px;
-  background: #f8fafc;
+  background: var(--nx-surface-hover);
   border-radius: 8px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--nx-border);
   transition: all 0.2s;
 }
 
 .checkbox-label:hover {
-  background: #ede9fe;
-  border-color: #6366f1;
+  background: var(--nx-primary-light);
+  border-color: var(--nx-primary);
 }
 
 .checkbox-label input[type="checkbox"] {
@@ -276,8 +276,8 @@
   justify-content: flex-end;
   gap: 12px;
   padding: 20px 28px;
-  border-top: 1px solid #e2e8f0;
-  background: #f8fafc;
+  border-top: 1px solid var(--nx-border);
+  background: var(--nx-surface-hover);
 }
 
 .btn-primary,
@@ -310,13 +310,13 @@
 
 .btn-secondary {
   background: var(--nx-surface);
-  color: #475569;
-  border: 1px solid #e2e8f0;
+  color: var(--nx-text-secondary);
+  border: 1px solid var(--nx-border);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: #f8fafc;
-  border-color: #cbd5e1;
+  background: var(--nx-surface-hover);
+  border-color: var(--nx-border-strong);
 }
 
 .btn-secondary:disabled {
@@ -423,7 +423,7 @@
 
 [data-theme="dark"] .form-input,
 [data-theme="dark"] .form-select {
-  background: var(--nx-surface-hover);
+  background-color: var(--nx-surface-hover);
   border-color: var(--nx-border);
   color: var(--nx-text);
 }

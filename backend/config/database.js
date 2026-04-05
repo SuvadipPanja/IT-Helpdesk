@@ -181,11 +181,21 @@ const executeInTransaction = async (callback) => {
  */
 const executeInTransactionQuery = async (transaction, query, params = {}) => {
   const request = new sql.Request(transaction);
+  // Parameter names that map to datetime2 columns
+  const dateTimeParams = new Set([
+    'proposedStart', 'proposedEnd', 'scheduledStart', 'scheduledEnd',
+    'submittedAt', 'reviewDueDate', 'implementedAt', 'completedAt',
+    'startDate', 'endDate',
+  ]);
   Object.keys(params).forEach((key) => {
     const v = params[key];
     if (key === 'off' || key === 'ps' || key === 'rowEnd') {
       const n = parseInt(v, 10);
       request.input(key, sql.Int, Number.isNaN(n) ? 0 : n);
+      return;
+    }
+    if (dateTimeParams.has(key)) {
+      request.input(key, sql.DateTime2, v instanceof Date ? v : (v ? new Date(v) : null));
       return;
     }
     if (

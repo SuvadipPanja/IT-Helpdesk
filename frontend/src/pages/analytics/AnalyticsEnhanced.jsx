@@ -3,7 +3,7 @@ import {
   TrendingUp, Clock, CheckCircle, AlertTriangle, Users,
   BarChart3, Activity, Calendar, Download, RefreshCw,
   Loader, ThumbsUp, ArrowUpCircle, Target, GitCompare, MessageSquare,
-  Sparkles, Zap
+  Sparkles, Zap, GitPullRequest,
 } from 'lucide-react';
 import RefreshButton from '../../components/shared/RefreshButton';
 import { useAuth } from '../../context/AuthContext';
@@ -19,6 +19,7 @@ import EscalationMetrics from '../../components/analytics/EscalationMetrics';
 import AgingAnalysis from '../../components/analytics/AgingAnalysis';
 import TimePatterns from '../../components/analytics/TimePatterns';
 import AgentPerformance from '../../components/analytics/AgentPerformance';
+import CRAnalytics from '../../components/analytics/CRAnalytics';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 function BotAnalyticsSummary({ data }) {
@@ -85,6 +86,7 @@ const TABS = [
   { id: 'patterns', label: 'Time Patterns', icon: Activity },
   { id: 'agents', label: 'Agents', icon: Users },
   { id: 'bot-sessions', label: 'Bot Sessions', icon: MessageSquare },
+  { id: 'change-requests', label: 'Change Requests', icon: GitPullRequest },
 ];
 
 const RANGE_OPTIONS = [
@@ -216,6 +218,7 @@ const AnalyticsEnhanced = () => {
   const [patternsData, setPatternsData] = useState(null);
   const [agentData, setAgentData] = useState(null);
   const [botData, setBotData] = useState(null);
+  const [crAnalyticsData, setCRAnalyticsData] = useState(null);
 
   const [categoryData, setCategoryData] = useState(null);
   const [departmentData, setDepartmentData] = useState(null);
@@ -259,6 +262,8 @@ const AnalyticsEnhanced = () => {
         return agentData != null;
       case 'bot-sessions':
         return true;
+      case 'change-requests':
+        return crAnalyticsData != null;
       default:
         return false;
     }
@@ -271,6 +276,7 @@ const AnalyticsEnhanced = () => {
     agingData,
     patternsData,
     agentData,
+    crAnalyticsData,
   ]);
 
   const showSkeleton = loading && !hasLoadedCurrentTab && activeTab !== 'bot-sessions';
@@ -377,6 +383,11 @@ const AnalyticsEnhanced = () => {
         case 'bot-sessions': {
           const r = await api.get(`/analytics/bot${dq}`);
           if (r.data.success) setBotData(r.data.data);
+          break;
+        }
+        case 'change-requests': {
+          const r = await api.get(`/analytics/cr-dashboard${dq}`);
+          if (r.data.success) setCRAnalyticsData(r.data.data);
           break;
         }
         default:
@@ -519,6 +530,23 @@ const AnalyticsEnhanced = () => {
         rows = agentData || [];
         name = 'agents.csv';
         break;
+      case 'change-requests':
+        if (crAnalyticsData) {
+          const crK = crAnalyticsData.kpis || {};
+          rows = [
+            ...Object.entries(crK).map(([m, v]) => ({ section: 'kpi', metric: m, value: v })),
+            ...(crAnalyticsData.by_status || []).map(i => ({ section: 'by_status', status: i.label, count: i.value })),
+            ...(crAnalyticsData.by_type || []).map(i => ({ section: 'by_type', type: i.label, count: i.value })),
+            ...(crAnalyticsData.by_risk || []).map(i => ({ section: 'by_risk', risk: i.label, count: i.value })),
+            ...(crAnalyticsData.by_category || []).map(i => ({ section: 'by_category', category: i.label, count: i.value })),
+            ...(crAnalyticsData.top_implementers || []).map(i => ({
+              section: 'implementers', name: i.name, total: i.total, completed: i.completed,
+              rolled_back: i.rolled_back, avg_hours: i.avg_impl_hours,
+            })),
+          ];
+          name = 'change-requests.csv';
+        }
+        break;
       default:
         break;
     }
@@ -570,6 +598,8 @@ const AnalyticsEnhanced = () => {
         return <AgentPerformance data={agentData} compareData={compareData.agents} />;
       case 'bot-sessions':
         return <BotAnalyticsSummary data={botData} />;
+      case 'change-requests':
+        return <CRAnalytics data={crAnalyticsData} />;
       default:
         return null;
     }

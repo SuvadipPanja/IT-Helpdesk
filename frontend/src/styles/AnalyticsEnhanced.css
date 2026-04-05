@@ -241,7 +241,7 @@
   border-radius: 6px;
   font-size: 12px;
   color: var(--text-primary);
-  background: var(--input-bg, #fff);
+  background-color: var(--input-bg, #fff);
   cursor: pointer;
 }
 .ae-mini-select:focus {
@@ -1897,5 +1897,103 @@
   }
   .ae-hero {
     box-shadow: none;
+  }
+}
+
+/* ============================================
+   CR ANALYTICS STYLES
+   ============================================ */
+
+.cr-analytics {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ae-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.ae-chart-grid--2col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.ae-chart-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: var(--text-muted, #94a3b8);
+  font-size: 13px;
+}
+
+/* CR Analytics Tables */
+.cr-table-wrap {
+  overflow-x: auto;
+}
+
+.cr-analytics-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.cr-analytics-table th {
+  text-align: left;
+  padding: 8px 12px;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted, #64748b);
+  border-bottom: 2px solid var(--border-color, #e2e8f0);
+  white-space: nowrap;
+}
+
+.cr-analytics-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-color, #f1f5f9);
+  color: var(--text-primary, #334155);
+}
+
+.cr-analytics-table tbody tr:hover {
+  background: var(--bg-hover, rgba(99, 102, 241, 0.04));
+}
+
+.cr-table-name {
+  font-weight: 500;
+}
+
+.cr-table-success {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.cr-table-danger {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+[data-theme='dark'] .cr-analytics-table th {
+  border-color: #334155;
+}
+
+[data-theme='dark'] .cr-analytics-table td {
+  border-color: #1e293b;
+  color: var(--text-primary, #e2e8f0);
+}
+
+[data-theme='dark'] .cr-analytics-table tbody tr:hover {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+@media (max-width: 768px) {
+  .ae-chart-grid {
+    grid-template-columns: 1fr;
+  }
+  .ae-chart-grid--2col {
+    grid-template-columns: 1fr;
   }
 }

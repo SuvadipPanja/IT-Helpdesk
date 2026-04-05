@@ -8,6 +8,7 @@ const { createResponse } = require('../utils/helpers');
 const logger = require('../utils/logger');
 const rs = require('../services/reports.service');
 const outageRs = require('../services/outageReportService');
+const crRs = require('../services/crReportService');
 
 const VALID_TYPES = new Set([
   'ticket_master',
@@ -27,6 +28,12 @@ const VALID_TYPES = new Set([
   'outage_master',
   'outage_audit',
   'outage_overview',
+  'cr_master',
+  'cr_journey',
+  'cr_summary_type',
+  'cr_summary_category',
+  'cr_approval_report',
+  'cr_risk_report',
 ]);
 
 /** Normalize to YYYY-MM-DD (accepts date inputs or ISO datetime strings). */
@@ -381,6 +388,46 @@ const runReport = async (req, res, next) => {
         const { query, params } = outageRs.buildOutageOverviewQuery({ startDate, endDate });
         const dataRes = await executeQuery(query, params);
         rows = dataRes.recordset || [];
+      } else if (reportType === 'cr_master') {
+        const r = await runPaged(crRs.buildCRMasterQuery, {
+          startDate, endDate, statusScope, departmentIds, priorityIds, page, pageSize,
+        });
+        rows = r.rows;
+        total = r.total;
+        meta = { ...meta, page, pageSize, total };
+      } else if (reportType === 'cr_journey') {
+        const r = await runPaged(crRs.buildCRJourneyQuery, {
+          startDate, endDate, departmentIds, priorityIds, page, pageSize,
+        });
+        rows = r.rows;
+        total = r.total;
+        meta = { ...meta, page, pageSize, total };
+      } else if (reportType === 'cr_summary_type') {
+        const { query, params } = crRs.buildCRSummaryByType({
+          startDate, endDate, departmentIds, priorityIds,
+        });
+        const dataRes = await executeQuery(query, params);
+        rows = dataRes.recordset || [];
+      } else if (reportType === 'cr_summary_category') {
+        const { query, params } = crRs.buildCRSummaryByCategory({
+          startDate, endDate, departmentIds, priorityIds,
+        });
+        const dataRes = await executeQuery(query, params);
+        rows = dataRes.recordset || [];
+      } else if (reportType === 'cr_approval_report') {
+        const r = await runPaged(crRs.buildCRApprovalQuery, {
+          startDate, endDate, departmentIds, priorityIds, page, pageSize,
+        });
+        rows = r.rows;
+        total = r.total;
+        meta = { ...meta, page, pageSize, total };
+      } else if (reportType === 'cr_risk_report') {
+        const r = await runPaged(crRs.buildCRRiskQuery, {
+          startDate, endDate, departmentIds, priorityIds, page, pageSize,
+        });
+        rows = r.rows;
+        total = r.total;
+        meta = { ...meta, page, pageSize, total };
       }
     } catch (e) {
       if (isMissingTableError(e)) {

@@ -424,7 +424,7 @@
   border-radius: var(--s-radius-xs);
   font-size: 13.5px;
   color: var(--s-text);
-  background: var(--s-card);
+  background-color: var(--s-card);
   transition: var(--s-transition);
   font-family: inherit;
   box-sizing: border-box;
@@ -439,7 +439,7 @@
 .form-input:hover,
 .form-select:hover,
 .form-textarea:hover {
-  border-color: #c7d2e0;
+  border-color: var(--s-border);
 }
 
 .form-input:focus,
@@ -452,19 +452,14 @@
 .form-input:disabled,
 .form-select:disabled,
 .form-textarea:disabled {
-  background: var(--s-border-light);
+  background-color: var(--s-border-light);
   color: var(--s-text-muted);
   cursor: not-allowed;
   opacity: 0.7;
 }
 
 .form-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px;
-  padding-right: 36px;
+  /* Arrow handled by global dropdown system in index.css */
   cursor: pointer;
 }
 
@@ -619,6 +614,17 @@
   cursor: not-allowed;
 }
 
+[data-theme="dark"] .btn-test-smtp {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.2) 100%);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+[data-theme="dark"] .btn-test-smtp:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.3) 100%);
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
 /* -- Send Test Email Button -- */
 .btn-send-test {
   display: inline-flex;
@@ -646,6 +652,17 @@
 .btn-send-test:disabled {
   opacity: 0.55;
   cursor: not-allowed;
+}
+
+[data-theme="dark"] .btn-send-test {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0.2) 100%);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+[data-theme="dark"] .btn-send-test:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.3) 100%);
+  border-color: rgba(59, 130, 246, 0.5);
 }
 
 /* -- SMTP Test Result -- */
@@ -698,6 +715,10 @@
   border-top: 1px solid var(--s-border-light);
 }
 
+[data-theme="dark"] .test-email-section {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.96) 0%, rgba(99, 102, 241, 0.07) 100%);
+}
+
 .test-email-section .form-group {
   flex: 1;
   margin: 0;
@@ -725,12 +746,20 @@
   color: #1e40af;
 }
 
+[data-theme="dark"] .settings-info-box.info {
+  color: #93c5fd;
+}
+
 .settings-info-box.info svg { color: var(--s-info); }
 
 .settings-info-box.warning {
   background: linear-gradient(135deg, var(--s-warning-bg) 0%, #fef3c7 100%);
   border: 1px solid var(--s-warning-border);
   color: #92400e;
+}
+
+[data-theme="dark"] .settings-info-box.warning {
+  color: #fcd34d;
 }
 
 .settings-info-box.warning svg { color: var(--s-warning); }
@@ -1023,6 +1052,16 @@
 
 .data-table thead {
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+[data-theme="dark"] .smtp-test-result.success {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.06) 100%);
+  color: #6ee7b7;
+}
+
+[data-theme="dark"] .smtp-test-result.error {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(239, 68, 68, 0.06) 100%);
+  color: #fca5a5;
 }
 
 .data-table th {

@@ -45,6 +45,7 @@ const SecuritySettings = lazy(() => import('./pages/security/SecuritySettings'))
 const HelpCenter = lazy(() => import('./pages/HelpCenter'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const TicketBucket = lazy(() => import('./pages/tickets/TicketBucket'));
+const CRBucket = lazy(() => import('./pages/cr/CRBucket'));
 const MyQueue = lazy(() => import('./pages/tickets/MyQueue'));
 const JobMonitorPanel = lazy(() => import('./pages/settings/JobMonitorPanel'));
 const IncidentManagement = lazy(() => import('./pages/settings/IncidentManagement'));
@@ -57,6 +58,15 @@ const PendingClosures = lazy(() => import('./pages/approvals/PendingClosures'));
 const OutageWall = lazy(() => import('./pages/outage/OutageWall'));
 const OutagePublish = lazy(() => import('./pages/outage/OutagePublish'));
 const OutageAdminTemplates = lazy(() => import('./pages/outage/OutageAdminTemplates'));
+const CRList = lazy(() => import('./pages/cr/CRList'));
+const MyCRs = lazy(() => import('./pages/cr/MyCRs'));
+const ChangeRequests = lazy(() => import('./pages/cr/ChangeRequests'));
+const CRTeamBucket = lazy(() => import('./pages/cr/CRTeamBucket'));
+const CRQueue = lazy(() => import('./pages/cr/CRQueue'));
+const MyCRApprovals = lazy(() => import('./pages/cr/MyCRApprovals'));
+const CreateCR = lazy(() => import('./pages/cr/CreateCR'));
+const CRDetail = lazy(() => import('./pages/cr/CRDetail'));
+const CRCalendar = lazy(() => import('./pages/cr/CRCalendar'));
 
 // ============================================
 // MAIN APP FUNCTION
@@ -289,6 +299,18 @@ function App() {
                       <ProtectedRoute>
                         <Layout>
                           <TicketBucket />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  {/* CR BUCKET - Open CR Pool for Engineers */}
+                  <Route
+                    path="/cr-bucket"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <CRBucket />
                         </Layout>
                       </ProtectedRoute>
                     }
@@ -640,6 +662,108 @@ function App() {
                       <ProtectedRoute>
                         <Layout>
                           <OutageAdminTemplates />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  {/* ============================================
+                PROTECTED ROUTES - CHANGE REQUESTS
+                ============================================ */}
+                  <Route
+                    path="/change-requests"
+                    element={
+                      <ProtectedRoute requiredPermission="can_create_cr">
+                        <Layout>
+                          <ChangeRequests />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/my-crs"
+                    element={
+                      <ProtectedRoute requiredPermission="can_create_cr">
+                        <Layout>
+                          <MyCRs />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/cr-team-bucket"
+                    element={
+                      <ProtectedRoute requiredAnyPermission={['can_implement_cr','can_approve_cr','can_view_all_cr']}>
+                        <Layout>
+                          <CRTeamBucket />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/cr-queue"
+                    element={
+                      <ProtectedRoute requiredAnyPermission={['can_approve_cr','can_implement_cr','can_view_all_cr']}>
+                        <Layout>
+                          <CRQueue />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/my-cr-approvals"
+                    element={
+                      <ProtectedRoute requiredPermission="can_approve_cr">
+                        <Layout>
+                          <MyCRApprovals />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/cr/create"
+                    element={
+                      <ProtectedRoute requiredPermission="can_create_cr">
+                        <Layout>
+                          <CreateCR />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/cr/:id"
+                    element={
+                      <ProtectedRoute requiredPermission="can_create_cr">
+                        <Layout>
+                          <CRDetail />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/cr/:id/edit"
+                    element={
+                      <ProtectedRoute requiredPermission="can_create_cr">
+                        <Layout>
+                          <CreateCR />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/cr-calendar"
+                    element={
+                      <ProtectedRoute requiredPermission="can_create_cr">
+                        <Layout>
+                          <CRCalendar />
                         </Layout>
                       </ProtectedRoute>
                     }

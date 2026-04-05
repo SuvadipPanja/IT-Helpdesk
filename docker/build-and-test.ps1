@@ -398,7 +398,7 @@ if ($SkipTest) {
 
     # Quick frontend reachability check
     try {
-        $fResp = Invoke-WebRequest "http://localhost:8081" -Method Get -TimeoutSec 10 -ErrorAction Stop
+        $fResp = Invoke-WebRequest "http://localhost:8081" -Method Get -TimeoutSec 10 -UseBasicParsing -ErrorAction Stop
         if ($fResp.StatusCode -eq 200) { Write-OK "Frontend is serving HTTP 200" }
         else { Write-Warn "Frontend returned HTTP $($fResp.StatusCode)" }
     } catch {

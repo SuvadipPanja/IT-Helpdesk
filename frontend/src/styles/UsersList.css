@@ -386,18 +386,15 @@
    ============================================ */
 .users-filter-select {
   height: 42px;
-  padding: 0 32px 0 14px;
+  padding: 0 40px 0 14px;
   border: 1px solid var(--users-border);
   border-radius: var(--users-radius-sm);
-  background: var(--users-bg-secondary);
+  background-color: var(--users-bg-secondary);
   font-size: 14px;
   color: var(--users-text-primary);
   cursor: pointer;
   transition: var(--users-transition);
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
+  /* Arrow handled by global dropdown system in index.css */
   min-width: 140px;
 }
 
@@ -468,7 +465,7 @@
 }
 
 .users-table thead {
-  background: linear-gradient(135deg, var(--users-bg-secondary) 0%, #f1f5f9 100%);
+  background: linear-gradient(135deg, var(--users-bg-secondary) 0%, var(--nx-surface-hover) 100%);
   border-bottom: 2px solid var(--users-border);
 }
 
@@ -627,15 +624,15 @@
 }
 
 .role-badge-small {
-  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-  color: #1e40af;
-  border: 1px solid #93c5fd;
+  background: linear-gradient(135deg, var(--nx-info-light) 0%, rgba(59, 130, 246, 0.15) 100%);
+  color: var(--nx-info);
+  border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
 .dept-badge-small {
-  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
-  color: #4338ca;
-  border: 1px solid #a5b4fc;
+  background: linear-gradient(135deg, var(--nx-purple-light) 0%, rgba(139, 92, 246, 0.15) 100%);
+  color: var(--nx-purple);
+  border: 1px solid rgba(139, 92, 246, 0.3);
 }
 
 /* ============================================
@@ -670,21 +667,21 @@
 }
 
 .pwd-danger {
-  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-  color: #991b1b;
-  border-color: #f87171;
+  background: linear-gradient(135deg, var(--nx-danger-light) 0%, rgba(239, 68, 68, 0.15) 100%);
+  color: var(--nx-danger);
+  border-color: rgba(239, 68, 68, 0.35);
 }
 
 .pwd-warning {
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  color: #92400e;
-  border-color: #fbbf24;
+  background: linear-gradient(135deg, var(--nx-warning-light) 0%, rgba(245, 158, 11, 0.15) 100%);
+  color: var(--nx-warning);
+  border-color: rgba(245, 158, 11, 0.35);
 }
 
 .pwd-success {
-  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-  color: #065f46;
-  border-color: #34d399;
+  background: linear-gradient(135deg, var(--nx-success-light) 0%, rgba(16, 185, 129, 0.15) 100%);
+  color: var(--nx-success);
+  border-color: rgba(16, 185, 129, 0.35);
 }
 
 /* Password Action Buttons */
@@ -764,15 +761,15 @@
 }
 
 .status-active {
-  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-  color: #065f46;
-  border: 1px solid #34d399;
+  background: linear-gradient(135deg, var(--nx-success-light) 0%, rgba(16, 185, 129, 0.15) 100%);
+  color: var(--nx-success);
+  border: 1px solid rgba(16, 185, 129, 0.35);
 }
 
 .status-inactive {
-  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-  color: #991b1b;
-  border: 1px solid #f87171;
+  background: linear-gradient(135deg, var(--nx-danger-light) 0%, rgba(239, 68, 68, 0.15) 100%);
+  color: var(--nx-danger);
+  border: 1px solid rgba(239, 68, 68, 0.35);
 }
 
 .status-locked {

@@ -32,6 +32,9 @@ const {
   getBotAnalytics,
 } = require('../controllers/analytics-enhanced.controller');
 
+// CR (Change Request) Analytics
+const { getCRDashboard } = require('../controllers/cr-analytics.controller');
+
 // ============================================
 // AUTHENTICATION MIDDLEWARE
 // All routes require authentication + analytics permission
@@ -190,6 +193,14 @@ router.get('/by-process', getByProcess);
  * @query   start_date, end_date (optional)
  */
 router.get('/bot', getBotAnalytics);
+
+/**
+ * @route   GET /api/v1/analytics/cr-dashboard
+ * @desc    Get CR analytics dashboard (KPIs, charts, trends)
+ * @access  Private (Admin/Manager)
+ * @query   start_date, end_date (optional)
+ */
+router.get('/cr-dashboard', getCRDashboard);
 
 // ============================================
 // EXPORT ROUTER

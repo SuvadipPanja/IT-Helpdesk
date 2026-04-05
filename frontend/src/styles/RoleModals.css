@@ -246,7 +246,7 @@
   border-radius: var(--rm-radius-sm);
   font-size: 14px;
   color: var(--rm-text-primary);
-  background: var(--rm-bg-input);
+  background-color: var(--rm-bg-input);
   transition: var(--rm-transition);
   font-weight: 500;
   font-family: inherit;
@@ -269,7 +269,7 @@
 .form-select.error,
 .form-textarea.error {
   border-color: var(--rm-danger);
-  background: var(--rm-danger-light);
+  background-color: var(--rm-danger-light);
 }
 
 .form-input.error:focus,

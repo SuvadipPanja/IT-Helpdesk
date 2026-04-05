@@ -715,7 +715,7 @@
   border-radius: 8px;
   font-size: 14px;
   color: var(--text-primary, #1e293b);
-  background: var(--surface-primary, white);
+  background-color: var(--surface-primary, white);
   transition: border-color 0.2s;
   outline: none;
   width: 100%;
@@ -941,7 +941,7 @@
 [data-theme="dark"] .teams-modal-content input,
 [data-theme="dark"] .teams-modal-content select,
 [data-theme="dark"] .teams-modal-content textarea {
-  background: var(--nx-surface-hover);
+  background-color: var(--nx-surface-hover);
   border-color: var(--nx-border);
   color: var(--nx-text);
 }

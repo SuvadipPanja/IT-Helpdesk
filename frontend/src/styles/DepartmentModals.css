@@ -239,7 +239,7 @@
   border-radius: var(--dm-radius-sm);
   font-size: 14px;
   color: var(--dm-text-primary);
-  background: var(--dm-bg-input);
+  background-color: var(--dm-bg-input);
   transition: var(--dm-transition);
   font-weight: 500;
   font-family: inherit;
@@ -262,7 +262,7 @@
 .form-select.error,
 .form-textarea.error {
   border-color: var(--dm-danger);
-  background: var(--dm-danger-light);
+  background-color: var(--dm-danger-light);
 }
 
 .form-input.error:focus,

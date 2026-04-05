@@ -100,11 +100,11 @@ router.post('/create', createBackup);
  *   message: "Backup configuration test passed successfully",
  *   data: {
  *     backupEnabled: true,
- *     backupDirectory: "D:/Project/it-helpdesk/Data_Backup",
+ *     backupDirectory: "/app/Data_Backup",
  *     backupDirectoryExists: true,
  *     backupDirectoryWritable: true,
  *     databaseConnection: true,
- *     uploadsDirectory: "D:/Project/it-helpdesk/backend/uploads",
+ *     uploadsDirectory: "/app/uploads",
  *     uploadsDirectoryExists: true,
  *     settings: { ... }
  *   }

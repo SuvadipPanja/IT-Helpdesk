@@ -69,6 +69,11 @@ const getRoles = async (req, res, next) => {
         r.can_manage_settings_bot,
         r.can_manage_settings_license,
         r.can_manage_settings_backup,
+        r.can_create_cr,
+        r.can_view_all_cr,
+        r.can_approve_cr,
+        r.can_implement_cr,
+        r.can_manage_cr_settings,
         r.is_active,
         r.is_system_role,
         r.created_at,
@@ -118,7 +123,12 @@ const getRoles = async (req, res, next) => {
         can_manage_settings_security: role.can_manage_settings_security || false,
         can_manage_settings_bot: role.can_manage_settings_bot || false,
         can_manage_settings_license: role.can_manage_settings_license || false,
-        can_manage_settings_backup: role.can_manage_settings_backup || false
+        can_manage_settings_backup: role.can_manage_settings_backup || false,
+        can_create_cr: role.can_create_cr || false,
+        can_view_all_cr: role.can_view_all_cr || false,
+        can_approve_cr: role.can_approve_cr || false,
+        can_implement_cr: role.can_implement_cr || false,
+        can_manage_cr_settings: role.can_manage_cr_settings || false
       },
       is_active: role.is_active,
       is_system_role: role.is_system_role,
@@ -201,6 +211,11 @@ const getRoleById = async (req, res, next) => {
         r.can_manage_settings_bot,
         r.can_manage_settings_license,
         r.can_manage_settings_backup,
+        r.can_create_cr,
+        r.can_view_all_cr,
+        r.can_approve_cr,
+        r.can_implement_cr,
+        r.can_manage_cr_settings,
         r.is_active,
         r.is_system_role,
         r.created_at,
@@ -248,7 +263,12 @@ const getRoleById = async (req, res, next) => {
         can_manage_settings_security: roleData.can_manage_settings_security || false,
         can_manage_settings_bot: roleData.can_manage_settings_bot || false,
         can_manage_settings_license: roleData.can_manage_settings_license || false,
-        can_manage_settings_backup: roleData.can_manage_settings_backup || false
+        can_manage_settings_backup: roleData.can_manage_settings_backup || false,
+        can_create_cr: roleData.can_create_cr || false,
+        can_view_all_cr: roleData.can_view_all_cr || false,
+        can_approve_cr: roleData.can_approve_cr || false,
+        can_implement_cr: roleData.can_implement_cr || false,
+        can_manage_cr_settings: roleData.can_manage_cr_settings || false
       },
       is_active: roleData.is_active,
       is_system_role: roleData.is_system_role,
@@ -355,7 +375,12 @@ const createRole = async (req, res, next) => {
       can_manage_settings_security: false,
       can_manage_settings_bot: false,
       can_manage_settings_license: false,
-      can_manage_settings_backup: false
+      can_manage_settings_backup: false,
+      can_create_cr: false,
+      can_view_all_cr: false,
+      can_approve_cr: false,
+      can_implement_cr: false,
+      can_manage_cr_settings: false
     };
 
     const rolePermissions = permissions ? { ...defaultPermissions, ...permissions } : defaultPermissions;
@@ -389,6 +414,11 @@ const createRole = async (req, res, next) => {
         can_manage_settings_bot,
         can_manage_settings_license,
         can_manage_settings_backup,
+        can_create_cr,
+        can_view_all_cr,
+        can_approve_cr,
+        can_implement_cr,
+        can_manage_cr_settings,
         is_active,
         is_system_role,
         created_at,
@@ -422,6 +452,11 @@ const createRole = async (req, res, next) => {
         @canManageSettingsBot,
         @canManageSettingsLicense,
         @canManageSettingsBackup,
+        @canCreateCr,
+        @canViewAllCr,
+        @canApproveCr,
+        @canImplementCr,
+        @canManageCrSettings,
         1,
         0,
         GETDATE(),
@@ -460,6 +495,11 @@ const createRole = async (req, res, next) => {
       canManageSettingsBot: rolePermissions.can_manage_settings_bot ? 1 : 0,
       canManageSettingsLicense: rolePermissions.can_manage_settings_license ? 1 : 0,
       canManageSettingsBackup: rolePermissions.can_manage_settings_backup ? 1 : 0,
+      canCreateCr: rolePermissions.can_create_cr ? 1 : 0,
+      canViewAllCr: rolePermissions.can_view_all_cr ? 1 : 0,
+      canApproveCr: rolePermissions.can_approve_cr ? 1 : 0,
+      canImplementCr: rolePermissions.can_implement_cr ? 1 : 0,
+      canManageCrSettings: rolePermissions.can_manage_cr_settings ? 1 : 0,
     });
     const newRoleId = result.recordset[0].role_id;
 
@@ -610,6 +650,11 @@ const updateRole = async (req, res, next) => {
         can_manage_settings_bot = @canManageSettingsBot,
         can_manage_settings_license = @canManageSettingsLicense,
         can_manage_settings_backup = @canManageSettingsBackup,
+        can_create_cr = @canCreateCr,
+        can_view_all_cr = @canViewAllCr,
+        can_approve_cr = @canApproveCr,
+        can_implement_cr = @canImplementCr,
+        can_manage_cr_settings = @canManageCrSettings,
         is_active = @activeStatus,
         updated_at = GETDATE()
       WHERE role_id = @roleId
@@ -645,6 +690,11 @@ const updateRole = async (req, res, next) => {
       canManageSettingsBot: permissions.can_manage_settings_bot ? 1 : 0,
       canManageSettingsLicense: permissions.can_manage_settings_license ? 1 : 0,
       canManageSettingsBackup: permissions.can_manage_settings_backup ? 1 : 0,
+      canCreateCr: permissions.can_create_cr ? 1 : 0,
+      canViewAllCr: permissions.can_view_all_cr ? 1 : 0,
+      canApproveCr: permissions.can_approve_cr ? 1 : 0,
+      canImplementCr: permissions.can_implement_cr ? 1 : 0,
+      canManageCrSettings: permissions.can_manage_cr_settings ? 1 : 0,
       activeStatus,
       roleId,
     });
@@ -929,6 +979,36 @@ const getAvailablePermissions = async (req, res, next) => {
         label: 'Backup Settings',
         description: 'Manage database backups and restoration',
         category: 'Settings'
+      },
+      {
+        key: 'can_create_cr',
+        label: 'Create Change Requests',
+        description: 'Allow creating new change requests',
+        category: 'Change Requests'
+      },
+      {
+        key: 'can_view_all_cr',
+        label: 'View All Change Requests',
+        description: 'View change requests from all users and departments',
+        category: 'Change Requests'
+      },
+      {
+        key: 'can_approve_cr',
+        label: 'Approve Change Requests',
+        description: 'Approve or reject submitted change requests',
+        category: 'Change Requests'
+      },
+      {
+        key: 'can_implement_cr',
+        label: 'Implement Change Requests',
+        description: 'Execute and complete approved change requests',
+        category: 'Change Requests'
+      },
+      {
+        key: 'can_manage_cr_settings',
+        label: 'Manage CR Settings',
+        description: 'Manage change request system settings and configuration',
+        category: 'Change Requests'
       }
     ];
 

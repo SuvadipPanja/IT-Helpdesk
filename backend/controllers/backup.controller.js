@@ -97,6 +97,11 @@ const getBackupHistory = async (req, res, next) => {
 
     const result = await backupService.getBackupHistory(page, limit);
 
+    // Strip internal server paths before sending to client
+    if (result.backups) {
+      result.backups = result.backups.map(({ backup_path, database_backup_path, files_backup_path, ...safe }) => safe);
+    }
+
     logger.success('Backup history retrieved', {
       totalCount: result.pagination.totalCount,
       currentPage: result.pagination.currentPage
@@ -194,8 +199,11 @@ const getBackupById = async (req, res, next) => {
       status: backup.status
     });
 
+    // Strip internal server paths before sending to client
+    const { backup_path, database_backup_path, files_backup_path, ...safeBackup } = backup;
+
     return res.status(200).json(
-      createResponse(true, 'Backup retrieved successfully', backup)
+      createResponse(true, 'Backup retrieved successfully', safeBackup)
     );
 
   } catch (error) {

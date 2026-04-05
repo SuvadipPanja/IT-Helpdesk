@@ -225,7 +225,7 @@
   border-radius: 9px;
   font-size: 13px;
   color: var(--text-primary, #1e293b);
-  background: var(--surface-primary, white);
+  background-color: var(--surface-primary, white);
   cursor: pointer;
   outline: none;
 }
@@ -824,7 +824,7 @@
 [data-theme="dark"] .tbk-filter-bar input,
 [data-theme="dark"] .tbk-filter-bar select,
 [data-theme="dark"] .tbk-team-selector select {
-  background: var(--nx-surface-hover);
+  background-color: var(--nx-surface-hover);
   border-color: var(--nx-border);
   color: var(--nx-text);
 }

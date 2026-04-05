@@ -377,10 +377,10 @@ const getQueueStats = async () => {
   try {
     const query = `
       SELECT 
-        COUNT(*) as total,
-        SUM(CASE WHEN status = 'PENDING' THEN 1 ELSE 0 END) as pending,
-        SUM(CASE WHEN status = 'SENT' THEN 1 ELSE 0 END) as sent,
-        SUM(CASE WHEN status = 'FAILED' THEN 1 ELSE 0 END) as failed
+        COUNT(*) as total_emails,
+        SUM(CASE WHEN status = 'PENDING' THEN 1 ELSE 0 END) as pending_count,
+        SUM(CASE WHEN status = 'SENT' THEN 1 ELSE 0 END) as sent_count,
+        SUM(CASE WHEN status = 'FAILED' THEN 1 ELSE 0 END) as failed_count
       FROM email_queue
     `;
 

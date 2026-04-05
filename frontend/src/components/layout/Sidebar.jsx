@@ -56,7 +56,10 @@ import {
   Archive,
   FileSpreadsheet,
   Megaphone,
-  Send
+  Send,
+  GitPullRequest,
+  Calendar,
+  BadgeCheck
 } from 'lucide-react';
 
 // ============================================
@@ -66,7 +69,11 @@ import {
 const NAVIGATION_CONFIG = {
   mainMenu: {
     title: 'Main Menu',
-    items: ['dashboard', 'tickets', 'ticket-bucket', 'team-bucket', 'my-queue', 'my-approvals', 'pending-closures', 'notifications', 'security']
+    items: ['dashboard', 'notifications', 'security']
+  },
+  tickets: {
+    title: 'Tickets',
+    items: ['tickets', 'ticket-bucket', 'my-queue', 'my-approvals', 'pending-closures', 'team-bucket']
   },
   management: {
     title: 'Management',
@@ -79,6 +86,10 @@ const NAVIGATION_CONFIG = {
   outage: {
     title: 'Outage',
     items: ['outage-wall', 'outage-publish', 'outage-templates']
+  },
+  changeRequests: {
+    title: 'Change Requests',
+    items: ['change-requests', 'cr-team-bucket', 'cr-queue', 'my-cr-approvals', 'cr-calendar']
   },
   settings: {
     title: 'Settings',
@@ -321,6 +332,46 @@ const getNavigationItems = (user, hasLicensedFeature) => {
       path: '/outage-templates',
       show: hasPermission('can_manage_system') || isAdmin,
       ariaLabel: 'Manage outage notification templates'
+    },
+    {
+      id: 'change-requests',
+      label: 'Change Requests',
+      icon: GitPullRequest,
+      path: '/change-requests',
+      show: hasPermission('can_create_cr'),
+      ariaLabel: 'View all change requests'
+    },
+    {
+      id: 'cr-team-bucket',
+      label: 'CR Team Bucket',
+      icon: FolderKanban,
+      path: '/cr-team-bucket',
+      show: hasPermission('can_implement_cr') || hasPermission('can_approve_cr') || hasPermission('can_view_all_cr'),
+      ariaLabel: 'CR team queue — pick up or route change requests'
+    },
+    {
+      id: 'cr-queue',
+      label: 'CR Queue',
+      icon: ClipboardList,
+      path: '/cr-queue',
+      show: hasPermission('can_approve_cr') || hasPermission('can_implement_cr') || hasPermission('can_view_all_cr'),
+      ariaLabel: 'Change request approval and implementation queue'
+    },
+    {
+      id: 'my-cr-approvals',
+      label: 'My CR Approvals',
+      icon: BadgeCheck,
+      path: '/my-cr-approvals',
+      show: hasPermission('can_approve_cr'),
+      ariaLabel: 'Change requests assigned to me for approval'
+    },
+    {
+      id: 'cr-calendar',
+      label: 'CR Calendar',
+      icon: Calendar,
+      path: '/cr-calendar',
+      show: hasPermission('can_create_cr'),
+      ariaLabel: 'Change request calendar view'
     }
   ];
 };
@@ -570,6 +621,9 @@ const Sidebar = ({ isOpen = false, toggleSidebar = () => { } }) => {
       mainMenu: visibleItems.filter(item =>
         NAVIGATION_CONFIG.mainMenu.items.includes(item.id)
       ),
+      tickets: visibleItems.filter(item =>
+        NAVIGATION_CONFIG.tickets.items.includes(item.id)
+      ),
       management: visibleItems.filter(item =>
         NAVIGATION_CONFIG.management.items.includes(item.id)
       ),
@@ -581,6 +635,9 @@ const Sidebar = ({ isOpen = false, toggleSidebar = () => { } }) => {
       ),
       outage: visibleItems.filter(item =>
         NAVIGATION_CONFIG.outage.items.includes(item.id)
+      ),
+      changeRequests: visibleItems.filter(item =>
+        NAVIGATION_CONFIG.changeRequests.items.includes(item.id)
       ),
       support: visibleItems.filter(item =>
         NAVIGATION_CONFIG.support.items.includes(item.id)
@@ -683,13 +740,33 @@ const Sidebar = ({ isOpen = false, toggleSidebar = () => { } }) => {
             role="menubar"
             aria-label="Primary navigation"
           >
-            {/* Main Menu: Dashboard, Tickets, Notifications */}
+            {/* Main Menu: Dashboard, Notifications, Security */}
             <NavSection
               title={NAVIGATION_CONFIG.mainMenu.title}
               items={sectionItems.mainMenu}
               onItemClick={handleClose}
               currentPath={currentPath}
             />
+
+            {/* Tickets: Tickets, Open Bucket, My Approvals, Pending Closures, Team Bucket */}
+            {sectionItems.tickets.length > 0 && (
+              <NavSection
+                title={NAVIGATION_CONFIG.tickets.title}
+                items={sectionItems.tickets}
+                onItemClick={handleClose}
+                currentPath={currentPath}
+              />
+            )}
+
+            {/* Change Requests: My CRs, All CRs, CR Queue */}
+            {sectionItems.changeRequests.length > 0 && (
+              <NavSection
+                title={NAVIGATION_CONFIG.changeRequests.title}
+                items={sectionItems.changeRequests}
+                onItemClick={handleClose}
+                currentPath={currentPath}
+              />
+            )}
 
             {/* Management: Users, Departments, Roles */}
             {sectionItems.management.length > 0 && (
