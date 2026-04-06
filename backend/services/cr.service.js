@@ -89,7 +89,7 @@ class CRService {
    */
   isValidTransition(fromCode, toCode) {
     const validTransitions = {
-      'DRAFT': ['SUBMITTED', 'CANCELLED'],
+      'DRAFT': ['SUBMITTED', 'PENDING_APPROVAL', 'CANCELLED'],
       'SUBMITTED': ['UNDER_REVIEW', 'PENDING_APPROVAL', 'CANCELLED'],
       'UNDER_REVIEW': ['PENDING_APPROVAL', 'APPROVED', 'REJECTED', 'PENDING_INFO'],
       'PENDING_INFO': ['UNDER_REVIEW', 'PENDING_APPROVAL'],

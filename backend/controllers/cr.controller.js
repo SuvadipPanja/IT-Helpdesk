@@ -883,19 +883,22 @@ const transitionCR = async (req, res, crId, toStatusCode, {
   );
 
   if (!current.recordset.length) {
-    return res.status(404).json(createResponse(false, 'Change request not found'));
+    res.status(404).json(createResponse(false, 'Change request not found'));
+    return false;
   }
 
   const cr = current.recordset[0];
 
   // Check valid transition
   if (!crService.isValidTransition(cr.status_code, toStatusCode)) {
-    return res.status(400).json(createResponse(false, `Cannot transition from '${cr.status_code}' to '${toStatusCode}'`));
+    res.status(400).json(createResponse(false, `Cannot transition from '${cr.status_code}' to '${toStatusCode}'`));
+    return false;
   }
 
   // Check permission
   if (requesterOnly && cr.requester_id !== req.user.user_id) {
-    return res.status(403).json(createResponse(false, 'Only the requester can perform this action'));
+    res.status(403).json(createResponse(false, 'Only the requester can perform this action'));
+    return false;
   }
 
   if (allowedRoles && !allowedRoles.includes(req.user.role?.role_code)) {
@@ -908,7 +911,8 @@ const transitionCR = async (req, res, crId, toStatusCode, {
       req.user.user_id === cr.assigned_to
     );
     if (!hasPermission) {
-      return res.status(403).json(createResponse(false, 'Insufficient permissions'));
+      res.status(403).json(createResponse(false, 'Insufficient permissions'));
+      return false;
     }
   }
 
@@ -916,7 +920,8 @@ const transitionCR = async (req, res, crId, toStatusCode, {
   if (validate) {
     const validationError = await validate(cr, req);
     if (validationError) {
-      return res.status(400).json(createResponse(false, validationError));
+      res.status(400).json(createResponse(false, validationError));
+      return false;
     }
   }
 
@@ -953,7 +958,8 @@ const transitionCR = async (req, res, crId, toStatusCode, {
     summary: activityDescription || `Status changed from ${cr.status_code} to ${toStatusCode}`,
   }).catch(err => logger.error('Journey log error', err));
 
-  return res.status(200).json(createResponse(true, `Change request ${toStatusCode.toLowerCase().replace(/_/g, ' ')}`));
+  res.status(200).json(createResponse(true, `Change request ${toStatusCode.toLowerCase().replace(/_/g, ' ')}`));
+  return true;
 };
 
 // PATCH /api/v1/cr/:id/submit
@@ -961,8 +967,6 @@ const submitCR = async (req, res, next) => {
   try {
     const crId = parseInt(req.params.id, 10);
     if (isNaN(crId)) return res.status(400).json(createResponse(false, 'Invalid CR ID'));
-
-    const directToApproval = req.body.direct_to_approval === true || req.body.direct_to_approval === 'true';
 
     // Get CR with routing info
     const cr = await executeQuery(
@@ -975,24 +979,57 @@ const submitCR = async (req, res, next) => {
     const crData = cr.recordset[0];
     const reviewDueDate = await crService.calculateReviewDueDate(crData.cr_type_id);
 
-    // Load ALL CR settings
+    // Load CR settings
     const crSettings = await settingsService.getByCategory('cr');
     const centralTeamEnabled = crSettings.cr_central_team_enabled === 'true' || crSettings.cr_central_team_enabled === true;
     const centralTeamId = crSettings.cr_central_team_id ? parseInt(crSettings.cr_central_team_id) : null;
     const centralTeamMode = crSettings.cr_central_team_mode || 'always';
     const allowApproverSelect = crSettings.cr_allow_requester_approver_select === 'true' || crSettings.cr_allow_requester_approver_select === true;
 
+    // Determine which path: approver selected → PENDING_APPROVAL; otherwise → SUBMITTED + CTT
+    const hasApprover = !!(crData.requested_approver_id && allowApproverSelect);
+
     const extraUpdates = { 
       submitted_at: new Date(),
       review_due_date: reviewDueDate,
     };
 
-    // ---- STEP 1: Auto-assignment (mirrors ticket creation) ----
-    // If user selected an approver and setting allows it, assign to them
-    if (crData.requested_approver_id && allowApproverSelect) {
+    if (hasApprover) {
+      // ---- APPROVER PATH ----
+      // Assign directly to the selected approver, skip CTT routing entirely
       extraUpdates.assigned_to = crData.requested_approver_id;
+
+      // Create approval chain before transitioning
+      await crApprovalService.createApprovalChain(crId, crData.cr_type_id);
+
+      // Go directly DRAFT → PENDING_APPROVAL (no SUBMITTED step, no CTT)
+      await transitionCR(req, res, crId, 'PENDING_APPROVAL', {
+        requesterOnly: true,
+        extraUpdates,
+        activityType: 'CR_SUBMITTED_TO_APPROVAL',
+        activityDescription: 'Submitted and sent directly to approval queue',
+      });
+
+      // Notify the approver (fire-and-forget)
+      ;(async () => {
+        try {
+          const crNum = await executeQuery(`SELECT cr_number, title FROM change_requests WHERE cr_id = @crId`, { crId });
+          const crInfo = crNum.recordset[0];
+          await executeQuery(`
+            INSERT INTO notifications (user_id, notification_type, title, message, related_ticket_id)
+            VALUES (@userId, 'CR_APPROVAL_REQUESTED', 'CR Awaiting Your Approval', @msg, NULL)
+          `, {
+            userId: crData.requested_approver_id,
+            msg: `CR #${crInfo?.cr_number} - "${crInfo?.title}" has been submitted and requires your approval`,
+          });
+        } catch (err) {
+          logger.warn('Approver notification error (non-blocking)', { error: err.message });
+        }
+      })();
+
     } else {
-      // Try auto-assignment (same as ticket auto-assign)
+      // ---- CTT REVIEW PATH ----
+      // Try auto-assignment to an engineer
       const engineer = await crAutoAssignment.findEngineer({
         departmentId: crData.department_id,
         locationId: crData.location_id,
@@ -1000,89 +1037,36 @@ const submitCR = async (req, res, next) => {
       if (engineer) {
         extraUpdates.assigned_to = engineer.user_id;
       }
-    }
 
-    // ---- STEP 2: Team routing (mirrors ticket central team routing) ----
-    if (centralTeamEnabled && centralTeamId) {
-      if (centralTeamMode === 'always') {
-        // Always route to central team
-        extraUpdates.team_id = centralTeamId;
-        extraUpdates.routed_at = new Date();
-      }
-      // category_fallback mode: could check CR category→team rules in future
-      // For now fallback to central team if no specific rule
-      if (centralTeamMode === 'category_fallback') {
-        extraUpdates.team_id = centralTeamId;
-        extraUpdates.routed_at = new Date();
-      }
-    }
-
-    await transitionCR(req, res, crId, 'SUBMITTED', {
-      requesterOnly: true,
-      extraUpdates,
-      activityType: 'CR_SUBMITTED',
-      activityDescription: 'Change request submitted for review',
-    });
-
-    // ---- STEP 3: Log team routing journey ----
-    if (extraUpdates.team_id) {
-      const teamResult = await executeQuery(
-        `SELECT team_name FROM teams WHERE team_id = @teamId`, { teamId: extraUpdates.team_id }
-      );
-      const teamName = teamResult.recordset[0]?.team_name || 'Team';
-      crService.logJourney(crId, 'TEAM_ROUTED', req.user.user_id, {
-        toStatus: 'SUBMITTED',
-        summary: `Routed to ${teamName}`,
-      }).catch(err => logger.error('Journey log error', err));
-    }
-
-    // ---- STEP 4: Direct-to-approval routing (fire-and-forget) ----
-    if (directToApproval && crData.requested_approver_id && allowApproverSelect) {
-      (async () => {
-        try {
-          // Create the approval chain for this CR type
-          await crApprovalService.createApprovalChain(crId, crData.cr_type_id);
-
-          // Transition directly to PENDING_APPROVAL
-          const pendingStatusId = await crService.getStatusId('PENDING_APPROVAL');
-          await executeQuery(
-            `UPDATE change_requests SET cr_status_id = @statusId, updated_at = GETDATE() WHERE cr_id = @crId`,
-            { crId, statusId: pendingStatusId }
-          );
-
-          await crService.logActivity(crId, 'CR_AUTO_APPROVAL_QUEUED', req.user.user_id, {
-            description: 'Moved directly to approval queue as requested by submitter',
-          });
-
-          crService.logJourney(crId, 'PENDING_APPROVAL', req.user.user_id, {
-            fromStatus: 'SUBMITTED',
-            toStatus: 'PENDING_APPROVAL',
-            toUserId: crData.requested_approver_id,
-            summary: 'Moved directly to approval queue by submitter request',
-          }).catch(() => {});
-
-          // Notify the assigned approver
-          if (extraUpdates.assigned_to) {
-            const crNum = await executeQuery(
-              `SELECT cr_number, title FROM change_requests WHERE cr_id = @crId`, { crId }
-            );
-            const crInfo = crNum.recordset[0];
-            await executeQuery(`
-              INSERT INTO notifications (user_id, notification_type, title, message, related_ticket_id)
-              VALUES (@userId, 'CR_APPROVAL_REQUESTED', 'CR Awaiting Your Approval', @msg, NULL)
-            `, {
-              userId: extraUpdates.assigned_to,
-              msg: `CR #${crInfo?.cr_number} - ${crInfo?.title} has been sent directly to your approval queue`,
-            });
-          }
-        } catch (err) {
-          logger.error('Direct-to-approval routing error (non-blocking)', { error: err.message });
+      // Route to central team
+      if (centralTeamEnabled && centralTeamId) {
+        if (centralTeamMode === 'always' || centralTeamMode === 'category_fallback') {
+          extraUpdates.team_id = centralTeamId;
+          extraUpdates.routed_at = new Date();
         }
-      })();
+      }
+
+      await transitionCR(req, res, crId, 'SUBMITTED', {
+        requesterOnly: true,
+        extraUpdates,
+        activityType: 'CR_SUBMITTED',
+        activityDescription: 'Change request submitted for review',
+      });
+
+      // Log team routing journey step
+      if (extraUpdates.team_id) {
+        const teamResult = await executeQuery(
+          `SELECT team_name FROM teams WHERE team_id = @teamId`, { teamId: extraUpdates.team_id }
+        );
+        const teamName = teamResult.recordset[0]?.team_name || 'Team';
+        crService.logJourney(crId, 'TEAM_ROUTED', req.user.user_id, {
+          toStatus: 'SUBMITTED',
+          summary: `Routed to ${teamName}`,
+        }).catch(err => logger.error('Journey log error', err));
+      }
     }
 
-    // ---- STEP 5: Notifications ----
-    // In-app notification to admins/managers
+    // ---- Notifications to admins/managers (both paths) ----
     try {
       const admins = await executeQuery(
         `SELECT u.user_id FROM users u 
@@ -1096,8 +1080,7 @@ const submitCR = async (req, res, next) => {
         if (admin.user_id !== req.user.user_id) {
           await executeQuery(`
             INSERT INTO notifications (user_id, notification_type, title, message, related_ticket_id)
-            VALUES (@userId, 'CR_SUBMITTED', 'New Change Request Submitted', 
-                    @msg, NULL)
+            VALUES (@userId, 'CR_SUBMITTED', 'New Change Request Submitted', @msg, NULL)
           `, {
             userId: admin.user_id,
             msg: `CR #${crInfo?.cr_number} - ${crInfo?.title} submitted by ${req.user.full_name}`,
@@ -1105,8 +1088,8 @@ const submitCR = async (req, res, next) => {
         }
       }
 
-      // Notify assigned engineer
-      if (extraUpdates.assigned_to && extraUpdates.assigned_to !== req.user.user_id) {
+      // Notify assigned engineer (CTT path only — approver gets their own notification above)
+      if (!hasApprover && extraUpdates.assigned_to && extraUpdates.assigned_to !== req.user.user_id) {
         await executeQuery(`
           INSERT INTO notifications (user_id, notification_type, title, message, related_ticket_id)
           VALUES (@userId, 'CR_ASSIGNED', 'CR Assigned to You', @msg, NULL)
@@ -1242,7 +1225,7 @@ const approveCR = async (req, res, next) => {
     const crId = parseInt(req.params.id, 10);
     if (isNaN(crId)) return res.status(400).json(createResponse(false, 'Invalid CR ID'));
 
-    await transitionCR(req, res, crId, 'APPROVED', {
+    const approved = await transitionCR(req, res, crId, 'APPROVED', {
       extraUpdates: { 
         approved_at: new Date(),
         reviewed_at: new Date(),
@@ -1261,6 +1244,7 @@ const approveCR = async (req, res, next) => {
         return null;
       },
     });
+    if (!approved) return;
 
     // Post-approval routing: check cr_post_approval_routing setting
     (async () => {
@@ -1271,9 +1255,10 @@ const approveCR = async (req, res, next) => {
         const centralTeamId = crSettings.cr_central_team_id ? parseInt(crSettings.cr_central_team_id) : null;
 
         if (postApprovalRouting === 'tcc_team' && centralTeamEnabled && centralTeamId) {
-          // Route approved CR to TCC/central team for implementation
+          // Route approved CR to TCC/central team for assignment to an implementer
+          // Clear assigned_to so it appears in CTT team bucket as unassigned
           await executeQuery(
-            `UPDATE change_requests SET team_id = @teamId, routed_at = GETDATE(), updated_at = GETDATE() WHERE cr_id = @crId`,
+            `UPDATE change_requests SET team_id = @teamId, assigned_to = NULL, routed_at = GETDATE(), updated_at = GETDATE() WHERE cr_id = @crId`,
             { crId, teamId: centralTeamId }
           );
 
@@ -1284,11 +1269,11 @@ const approveCR = async (req, res, next) => {
 
           crService.logJourney(crId, 'TEAM_ROUTED', req.user.user_id, {
             toStatus: 'APPROVED',
-            summary: `Routed to ${teamName} for implementation after approval`,
+            summary: `Routed to ${teamName} for assignment after approval`,
           }).catch(() => {});
 
           await crService.logActivity(crId, 'CR_ROUTED_POST_APPROVAL', req.user.user_id, {
-            description: `Routed to ${teamName} for implementation`,
+            description: `Routed to ${teamName} — awaiting assignment to implementer`,
           });
         }
       } catch (err) {
