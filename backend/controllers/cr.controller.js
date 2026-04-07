@@ -464,7 +464,9 @@ const getCRs = async (req, res, next) => {
         cc.category_name, cc.category_code,
         tp.priority_name,
         req.first_name + ' ' + req.last_name AS requester_name,
+        req.profile_picture AS requester_profile_picture,
         asgn.first_name + ' ' + asgn.last_name AS assigned_to_name,
+        asgn.profile_picture AS assigned_profile_picture,
         d.department_name,
         l.location_name
       FROM change_requests cr

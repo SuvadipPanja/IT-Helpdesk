@@ -36,6 +36,7 @@ import {
 import crService from '../../services/crService';
 import { formatDate as formatDateUtil, timeAgo } from '../../utils/dateUtils';
 import { useToast } from '../../context/ToastContext';
+import { API_BASE_URL } from '../../utils/constants';
 import '../../styles/TicketsList.css';
 import '../../styles/CRList.css';
 
@@ -279,6 +280,14 @@ const ChangeRequests = () => {
   const getRiskClass = (level) => ({
     LOW: 'cr-risk-low', MEDIUM: 'cr-risk-medium', HIGH: 'cr-risk-high', CRITICAL: 'cr-risk-critical',
   }[level] || 'cr-risk-medium');
+
+  const getProfilePictureUrl = (profilePicture) => {
+    if (!profilePicture) return null;
+    if (profilePicture.startsWith('http://') || profilePicture.startsWith('https://')) return profilePicture;
+    const base = API_BASE_URL.replace('/api/v1', '');
+    const clean = profilePicture.startsWith('/') ? profilePicture : `/${profilePicture}`;
+    return `${base}${clean}`;
+  };
 
   const getPageTitle = () => {
     if (activeBucket === 'created') return 'My Created CRs';
@@ -601,8 +610,18 @@ const ChangeRequests = () => {
 
                       {/* Requester */}
                       <td>
-                        <div className="user-info">
-                          <div className="user-avatar"><User size={14} /></div>
+                        <div className="user-info" title={cr.requester_name}>
+                          <div className="user-avatar">
+                            {cr.requester_profile_picture ? (
+                              <img
+                                src={getProfilePictureUrl(cr.requester_profile_picture)}
+                                alt={cr.requester_name}
+                                className="avatar-image"
+                                onError={(e) => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'flex'; }}
+                              />
+                            ) : null}
+                            <User size={14} style={{ display: cr.requester_profile_picture ? 'none' : 'flex' }} />
+                          </div>
                           <span className="user-name">{cr.requester_name || '—'}</span>
                         </div>
                       </td>
@@ -611,8 +630,18 @@ const ChangeRequests = () => {
                       {isITStaff && (
                         <td>
                           {cr.assigned_to_name ? (
-                            <div className="user-info">
-                              <div className="user-avatar assigned"><User size={14} /></div>
+                            <div className="user-info" title={cr.assigned_to_name}>
+                              <div className="user-avatar assigned">
+                                {cr.assigned_profile_picture ? (
+                                  <img
+                                    src={getProfilePictureUrl(cr.assigned_profile_picture)}
+                                    alt={cr.assigned_to_name}
+                                    className="avatar-image"
+                                    onError={(e) => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'flex'; }}
+                                  />
+                                ) : null}
+                                <User size={14} style={{ display: cr.assigned_profile_picture ? 'none' : 'flex' }} />
+                              </div>
                               <span className="user-name">{cr.assigned_to_name}</span>
                             </div>
                           ) : (
