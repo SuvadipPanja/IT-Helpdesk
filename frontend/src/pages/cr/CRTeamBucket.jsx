@@ -1,8 +1,8 @@
-/**
+﻿/**
  * ============================================
  * CR TEAM BUCKET PAGE
  * ============================================
- * Team-scoped CR queue — mirrors TeamBucket.jsx.
+ * Team-scoped CR queue â€” mirrors TeamBucket.jsx.
  *
  * CENTRAL TEAM (TCC) view:
  *   - Sees CRs routed to central team
@@ -41,10 +41,14 @@ import {
   GitPullRequest,
   AlertTriangle,
   Calendar,
+  User,
 } from 'lucide-react';
 import api from '../../services/api';
 import { formatDate as formatDateUtil, timeAgo } from '../../utils/dateUtils';
-import '../../styles/TeamBucket.css';
+import { API_BASE_URL } from '../../utils/constants';
+import '../../styles/TicketsList.css';
+import '../../styles/CRList.css';
+import '../../styles/CRTeamBucket.css';
 
 // =============================================
 // ROUTE CR MODAL
@@ -79,7 +83,7 @@ const RouteCRModal = ({ cr, teams, onClose, onRoute }) => {
         </div>
         <div className="tbk-modal__body">
           <div className="tbk-modal__ticket-info">
-            <strong>{cr?.cr_number}</strong> — {cr?.title}
+            <strong>{cr?.cr_number}</strong> â€” {cr?.title}
           </div>
           {error && (
             <div className="tbk-alert tbk-alert--error"><AlertCircle size={14} /> {error}</div>
@@ -90,7 +94,7 @@ const RouteCRModal = ({ cr, teams, onClose, onRoute }) => {
               <option value="">-- Select destination team --</option>
               {otherTeams.map(t => (
                 <option key={t.team_id} value={t.team_id}>
-                  {t.team_name} {t.is_central ? '(Central)' : ''} — {t.unassigned_count || 0} in queue
+                  {t.team_name} {t.is_central ? '(Central)' : ''} â€” {t.unassigned_count || 0} in queue
                 </option>
               ))}
             </select>
@@ -112,17 +116,9 @@ const RouteCRModal = ({ cr, teams, onClose, onRoute }) => {
 // RISK BADGE
 // =============================================
 const RiskBadge = ({ level }) => {
-  const map = {
-    LOW: { bg: '#d1fae5', text: '#059669' },
-    MEDIUM: { bg: '#fef3c7', text: '#d97706' },
-    HIGH: { bg: '#fee2e2', text: '#dc2626' },
-    CRITICAL: { bg: '#fecdd3', text: '#991b1b' },
-  };
-  const s = map[level] || map.MEDIUM;
+  const cls = { LOW: 'cr-risk-low', MEDIUM: 'cr-risk-medium', HIGH: 'cr-risk-high', CRITICAL: 'cr-risk-critical' };
   return level ? (
-    <span style={{ background: s.bg, color: s.text, padding: '2px 8px', borderRadius: 12, fontSize: 11, fontWeight: 600 }}>
-      {level}
-    </span>
+    <span className={`cr-risk-badge ${cls[level] || 'cr-risk-medium'}`}>{level}</span>
   ) : null;
 };
 
@@ -273,7 +269,15 @@ const CRTeamBucket = () => {
     setCurrentPage(1);
   };
 
-  const formatDate = (d) => formatDateUtil ? formatDateUtil(d) : (d ? new Date(d).toLocaleDateString() : '—');
+  const formatDate = (d) => formatDateUtil ? formatDateUtil(d) : (d ? new Date(d).toLocaleDateString() : 'â€”');
+
+  const getProfilePictureUrl = (pic) => {
+    if (!pic) return null;
+    if (pic.startsWith('http://') || pic.startsWith('https://')) return pic;
+    const base = API_BASE_URL.replace('/api/v1', '');
+    const clean = pic.startsWith('/') ? pic : `/${pic}`;
+    return `${base}${clean}`;
+  };
 
   const getStatusStyle = (code) => {
     const map = {
@@ -294,273 +298,348 @@ const CRTeamBucket = () => {
   // RENDER
   // ==========================================
   return (
-    <div className="tbk-page">
-      {/* Header */}
-      <div className="tbk-header">
-        <div className="tbk-header-left">
-          <div className="tbk-title-wrapper">
-            <div className="tbk-icon-wrapper" style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>
-              <FolderKanban size={22} color="#fff" />
+    <div className="tickets-page">
+
+      {/* â”€â”€ PAGE HEADER â”€â”€ */}
+      <div className="page-header">
+        <div className="header-left">
+          <div className="page-title-wrapper">
+            <div className="page-icon-wrapper" style={{ background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)' }}>
+              <FolderKanban size={28} />
             </div>
             <div>
-              <h1 className="tbk-title">
+              <h1 className="page-title">
                 CR Team Bucket
                 {currentTeam && (
-                  <span className="tbk-current-team">
+                  <span className="ctb-current-team">
                     {currentTeam.is_central && <Crown size={13} />}
                     {currentTeam.team_name}
                   </span>
                 )}
               </h1>
-              <p className="tbk-subtitle">
+              <p className="page-subtitle">
                 {isEngineer ? 'Pick up CRs assigned to your team' : ''}
                 {canRoute && !isEngineer ? 'Route CRs to specialist teams' : ''}
-                {isAdmin ? ' — View any team bucket' : ''}
+                {isAdmin ? ' â€” View any team bucket' : ''}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="tbk-header-right">
+        <div className="header-right">
           <button
-            className="tbk-btn tbk-btn--icon"
-            onClick={() => { fetchCRs(); fetchStats(true); toast.info('Refreshing…'); }}
+            className="btn-icon-action"
+            onClick={() => { fetchCRs(); fetchStats(true); toast.info('Refreshingâ€¦'); }}
             disabled={loading}
             title="Refresh"
           >
-            <RefreshCw size={18} className={loading ? 'tbk-spin' : ''} />
+            <RefreshCw size={18} className={loading ? 'spinning' : ''} />
           </button>
         </div>
       </div>
 
-      {/* Team Stats Row */}
-      <div className="tbk-stats-row">
+      {/* â”€â”€ TEAM STAT CARDS â”€â”€ */}
+      <div className="ctb-stats-row">
         {statsLoading ? (
-          <div className="tbk-stat-card"><Loader size={18} className="spin" /> Loading stats…</div>
+          <div className="ctb-stat-card">
+            <Loader size={16} className="spinning" />
+            <span>Loadingâ€¦</span>
+          </div>
         ) : (
           (isAdmin ? bucketStats.all_teams : bucketStats.my_teams).map(team => (
             <div
               key={team.team_id}
-              className={`tbk-stat-card${selectedTeamId === team.team_id ? ' tbk-stat-card--active' : ''}${team.is_central ? ' tbk-stat-card--central' : ''}`}
-              style={{ cursor: 'pointer' }}
-              onClick={() => {
-                setSelectedTeamId(team.team_id);
-                setCurrentPage(1);
-              }}
+              className={`ctb-stat-card${selectedTeamId === team.team_id ? ' ctb-stat-card--active' : ''}${team.is_central ? ' ctb-stat-card--central' : ''}`}
+              onClick={() => { setSelectedTeamId(team.team_id); setCurrentPage(1); }}
             >
-              <div className="tbk-stat-card__icon" style={{ background: team.is_central ? '#fef3c7' : '#eff6ff' }}>
-                {team.is_central ? <Crown size={18} color="#d97706" /> : <Building2 size={18} color="#3b82f6" />}
+              <div className="ctb-stat-icon" style={{ background: team.is_central ? '#fef3c7' : '#eff6ff' }}>
+                {team.is_central
+                  ? <Crown size={18} color="#d97706" />
+                  : <Building2 size={18} color="#3b82f6" />}
               </div>
-              <div className="tbk-stat-card__info">
-                <span className="tbk-stat-card__count">{team.unassigned_count || 0}</span>
-                <span className="tbk-stat-card__label">{team.team_name}</span>
+              <div className="ctb-stat-info">
+                <span className="ctb-stat-count">{team.unassigned_count || 0}</span>
+                <span className="ctb-stat-label">{team.team_name}</span>
               </div>
-              {selectedTeamId === team.team_id && <CheckCircle size={14} style={{ color: '#3b82f6', marginLeft: 'auto', flexShrink: 0 }} />}
+              {selectedTeamId === team.team_id && (
+                <CheckCircle size={14} className="ctb-stat-check" />
+              )}
             </div>
           ))
         )}
         {isAdmin && (
           <div
-            className={`tbk-stat-card${!selectedTeamId ? ' tbk-stat-card--active' : ''}`}
-            style={{ cursor: 'pointer' }}
+            className={`ctb-stat-card ctb-stat-card--all${!selectedTeamId ? ' ctb-stat-card--active' : ''}`}
             onClick={() => { setSelectedTeamId(null); setCurrentPage(1); }}
           >
-            <div className="tbk-stat-card__icon" style={{ background: '#f0fdf4' }}>
+            <div className="ctb-stat-icon" style={{ background: '#f0fdf4' }}>
               <FolderKanban size={18} color="#16a34a" />
             </div>
-            <div className="tbk-stat-card__info">
-              <span className="tbk-stat-card__count">
+            <div className="ctb-stat-info">
+              <span className="ctb-stat-count">
                 {(bucketStats.all_teams || []).reduce((s, t) => s + (t.unassigned_count || 0), 0)}
               </span>
-              <span className="tbk-stat-card__label">All Teams</span>
+              <span className="ctb-stat-label">All Teams</span>
             </div>
-            {!selectedTeamId && <CheckCircle size={14} style={{ color: '#3b82f6', marginLeft: 'auto', flexShrink: 0 }} />}
+            {!selectedTeamId && <CheckCircle size={14} className="ctb-stat-check" />}
           </div>
         )}
       </div>
 
-      {/* Info Banners */}
+      {/* â”€â”€ INFO BANNERS â”€â”€ */}
       {isEngineer && (
-        <div className="tbk-info-banner">
+        <div className="ctb-info-banner">
           <Info size={15} />
           <span>You can pick up CRs from this bucket to assign them to yourself.</span>
         </div>
       )}
       {canRoute && (
-        <div className="tbk-info-banner tbk-info-route">
+        <div className="ctb-info-banner ctb-info-route">
           <ArrowRight size={15} />
           <span>You can route CRs to specialist teams using the Route button.</span>
         </div>
       )}
 
-      {/* Search */}
-      <div className="tbk-toolbar">
-        <div className="tbk-search-wrapper">
-          <Search size={16} className="tbk-search-icon" />
+      {/* â”€â”€ SEARCH BAR â”€â”€ */}
+      <div className="filter-section">
+        <div className="search-wrapper">
+          <Search size={18} className="search-icon" />
           <input
             type="text"
-            className="tbk-search-input"
-            placeholder="Search by CR #, title…"
+            className="search-input-large"
+            placeholder="Search by CR #, titleâ€¦"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
           />
           {searchQuery && (
-            <button className="tbk-search-clear" onClick={() => setSearchQuery('')}><X size={14} /></button>
+            <button className="search-clear-btn" onClick={() => setSearchQuery('')}>
+              <X size={16} />
+            </button>
           )}
         </div>
-        <span className="tbk-result-count">{totalRecords} CR{totalRecords !== 1 ? 's' : ''}</span>
+        <span className="ctb-result-count">
+          {totalRecords} CR{totalRecords !== 1 ? 's' : ''}
+        </span>
       </div>
 
-      {/* Error */}
+      {/* â”€â”€ ERROR â”€â”€ */}
       {error && (
-        <div className="tbk-error">
-          <AlertCircle size={18} /> {error}
-          <button onClick={fetchCRs}>Retry</button>
+        <div className="alert alert-error">
+          <AlertCircle size={20} />
+          <span>{error}</span>
+          <button className="alert-close" onClick={fetchCRs}>Retry</button>
         </div>
       )}
 
-      {/* Table */}
-      <div className="tbk-table-wrapper">
-        <table className="tbk-table">
-          <thead>
-            <tr>
-              <th onClick={() => handleSort('cr_number')} className="tbk-th-sort">
-                CR # {sortBy === 'cr_number' && <span>{sortOrder === 'ASC' ? '↑' : '↓'}</span>}
-              </th>
-              <th onClick={() => handleSort('title')} className="tbk-th-sort">
-                Title {sortBy === 'title' && <span>{sortOrder === 'ASC' ? '↑' : '↓'}</span>}
-              </th>
-              <th>Status</th>
-              <th>Risk</th>
-              <th>Requester</th>
-              <th>Team</th>
-              <th onClick={() => handleSort('created_at')} className="tbk-th-sort">
-                <Calendar size={12} /> Created
-              </th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              Array.from({ length: 6 }).map((_, i) => (
-                <tr key={i} className="tbk-skeleton-row">
-                  {Array.from({ length: 8 }).map((_, j) => (
-                    <td key={j}><div style={{ height: 16, background: '#f1f5f9', borderRadius: 4 }} /></td>
-                  ))}
-                </tr>
-              ))
-            ) : crs.length === 0 ? (
-              <tr>
-                <td colSpan={8}>
-                  <div className="tbk-empty">
-                    <GitPullRequest size={40} />
-                    <h3>No CRs in this team bucket</h3>
-                    <p>All CRs have been assigned or there are no pending CRs for this team.</p>
-                  </div>
-                </td>
-              </tr>
-            ) : (
-              crs.map(cr => {
-                const statusStyle = getStatusStyle(cr.status_code);
-                const isAssigning = assigningId === cr.cr_id;
-                return (
-                  <tr key={cr.cr_id} className="tbk-ticket-row" onClick={() => navigate(`/cr/${cr.cr_id}`)}>
-                    <td>
-                      <span style={{ fontFamily: 'monospace', fontSize: 12, fontWeight: 700, color: '#6366f1' }}>
-                        {cr.cr_number}
-                      </span>
-                    </td>
-                    <td className="tbk-subject-cell">
-                      <span className="tbk-subject">{cr.title}</span>
-                    </td>
-                    <td>
-                      <span
-                        style={{
-                          background: statusStyle.bg,
-                          color: statusStyle.text,
-                          padding: '2px 8px',
-                          borderRadius: 12,
-                          fontSize: 11,
-                          fontWeight: 600,
-                        }}
-                      >
-                        {cr.status_name || cr.status_code}
-                      </span>
-                    </td>
-                    <td><RiskBadge level={cr.risk_level} /></td>
-                    <td className="tbk-requester-cell">{cr.requester_name || '—'}</td>
-                    <td>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: '#64748b' }}>
-                        {cr.is_central && <Crown size={11} style={{ color: '#f59e0b' }} />}
-                        {cr.team_name || '—'}
-                      </span>
-                    </td>
-                    <td className="tbk-date-cell">
-                      <span title={formatDate(cr.created_at)}>{timeAgo(cr.created_at)}</span>
-                    </td>
-                    <td onClick={e => e.stopPropagation()}>
-                      <div style={{ display: 'flex', gap: 6 }}>
-                        {isEngineer && (
-                          <button
-                            className="tbk-btn tbk-btn--assign"
-                            onClick={() => handleSelfAssign(cr.cr_id)}
-                            disabled={isAssigning}
-                            title="Pick up this CR"
-                          >
-                            {isAssigning ? <Loader size={13} className="spin" /> : <UserPlus size={13} />}
-                            Pick Up
-                          </button>
-                        )}
-                        {canRoute && (
-                          <button
-                            className="tbk-btn tbk-btn--route"
-                            onClick={() => setRouteTarget(cr)}
-                            title="Route to another team"
-                          >
-                            <ArrowRight size={13} /> Route
-                          </button>
-                        )}
-                        <button
-                          className="tbk-btn tbk-btn--view"
-                          onClick={() => navigate(`/cr/${cr.cr_id}`)}
-                          title="View CR"
-                        >
-                          <Eye size={13} />
-                        </button>
-                      </div>
-                    </td>
+      {/* â”€â”€ TABLE â”€â”€ */}
+      <div className="table-container">
+        {loading ? (
+          <div className="table-wrapper">
+            <table className="tickets-table">
+              <tbody>
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <tr key={i}>
+                    {Array.from({ length: 8 }).map((_, j) => (
+                      <td key={j}><div className="cr-skeleton-cell" /></td>
+                    ))}
                   </tr>
-                );
-              })
-            )}
-          </tbody>
-        </table>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : crs.length === 0 ? (
+          <div className="empty-state">
+            <div className="empty-icon-wrapper">
+              <GitPullRequest size={64} className="empty-icon" />
+            </div>
+            <h3>No CRs in this team bucket</h3>
+            <p className="empty-description">All CRs have been assigned or there are no pending CRs for this team.</p>
+          </div>
+        ) : (
+          <div className="table-wrapper">
+            <table className="tickets-table">
+              <thead>
+                <tr>
+                  <th className="sortable cr-th-number" onClick={() => handleSort('cr_number')}>
+                    <div className="th-content">
+                      <span>CR #</span>
+                      {sortBy === 'cr_number' && <span className="sort-indicator">{sortOrder === 'ASC' ? 'â†‘' : 'â†“'}</span>}
+                    </div>
+                  </th>
+                  <th className="sortable cr-th-title" onClick={() => handleSort('title')}>
+                    <div className="th-content">
+                      <span>Title</span>
+                      {sortBy === 'title' && <span className="sort-indicator">{sortOrder === 'ASC' ? 'â†‘' : 'â†“'}</span>}
+                    </div>
+                  </th>
+                  <th className="cr-th-status">Status</th>
+                  <th className="cr-th-risk">Risk</th>
+                  <th className="th-requester">
+                    <div className="th-content"><User size={12} /><span>Requester</span></div>
+                  </th>
+                  <th className="ctb-th-team">Team</th>
+                  <th className="sortable th-created" onClick={() => handleSort('created_at')}>
+                    <div className="th-content">
+                      <span>Created</span>
+                      {sortBy === 'created_at' && <span className="sort-indicator">{sortOrder === 'ASC' ? 'â†‘' : 'â†“'}</span>}
+                    </div>
+                  </th>
+                  <th className="th-actions" />
+                </tr>
+              </thead>
+              <tbody>
+                {crs.map(cr => {
+                  const statusStyle = getStatusStyle(cr.status_code);
+                  const isAssigning = assigningId === cr.cr_id;
+                  return (
+                    <tr
+                      key={cr.cr_id}
+                      className="ticket-row"
+                      onClick={() => navigate(`/cr/${cr.cr_id}`)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {/* CR Number */}
+                      <td>
+                        <span className="ticket-number">{cr.cr_number}</span>
+                      </td>
+
+                      {/* Title */}
+                      <td>
+                        <div className="ticket-title-content">
+                          <span className="ticket-title-link">{cr.title}</span>
+                        </div>
+                      </td>
+
+                      {/* Status */}
+                      <td>
+                        <span
+                          className="status-badge"
+                          style={{ background: statusStyle.bg, color: statusStyle.text }}
+                        >
+                          {cr.status_name || cr.status_code}
+                        </span>
+                      </td>
+
+                      {/* Risk */}
+                      <td><RiskBadge level={cr.risk_level} /></td>
+
+                      {/* Requester with avatar */}
+                      <td>
+                        <div className="user-info" title={cr.requester_name}>
+                          <div className="user-avatar">
+                            {cr.requester_profile_picture ? (
+                              <img
+                                src={getProfilePictureUrl(cr.requester_profile_picture)}
+                                alt={cr.requester_name}
+                                className="avatar-image"
+                                onError={(e) => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'flex'; }}
+                              />
+                            ) : null}
+                            <User size={14} style={{ display: cr.requester_profile_picture ? 'none' : 'flex' }} />
+                          </div>
+                          <span className="user-name">{cr.requester_name || 'â€”'}</span>
+                        </div>
+                      </td>
+
+                      {/* Team */}
+                      <td>
+                        <div className="ctb-team-cell">
+                          {cr.is_central && <Crown size={11} className="ctb-crown" />}
+                          <span>{cr.team_name || 'â€”'}</span>
+                        </div>
+                      </td>
+
+                      {/* Created */}
+                      <td>
+                        <div className="date-info">
+                          <span className="date-relative">{timeAgo(cr.created_at)}</span>
+                          <span className="date-full">{formatDate(cr.created_at)}</span>
+                        </div>
+                      </td>
+
+                      {/* Actions */}
+                      <td onClick={e => e.stopPropagation()}>
+                        <div className="action-buttons">
+                          {isEngineer && (
+                            <button
+                              className="btn-action-table pickup"
+                              onClick={() => handleSelfAssign(cr.cr_id)}
+                              disabled={isAssigning}
+                              title="Pick up this CR"
+                            >
+                              {isAssigning ? <Loader size={13} className="spinning" /> : <UserPlus size={13} />}
+                              Pick Up
+                            </button>
+                          )}
+                          {canRoute && (
+                            <button
+                              className="btn-action-table route"
+                              onClick={() => setRouteTarget(cr)}
+                              title="Route to another team"
+                            >
+                              <ArrowRight size={13} /> Route
+                            </button>
+                          )}
+                          <button
+                            className="btn-action-table view"
+                            onClick={() => navigate(`/cr/${cr.cr_id}`)}
+                            title="View CR"
+                          >
+                            <Eye size={13} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
-      {/* Pagination */}
+      {/* â”€â”€ PAGINATION â”€â”€ */}
       {!loading && totalPages > 1 && (
-        <div className="tbk-pagination">
-          <button
-            className="tbk-page-btn"
-            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-            disabled={currentPage === 1}
-          >
-            <ChevronLeft size={16} />
-          </button>
-          <span className="tbk-page-info">
-            Page {currentPage} of {totalPages} — {totalRecords} total
-          </span>
-          <button
-            className="tbk-page-btn"
-            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-            disabled={currentPage === totalPages}
-          >
-            <ChevronRight size={16} />
-          </button>
+        <div className="pagination-container">
+          <div className="pagination-info">
+            Showing {((currentPage - 1) * limit) + 1}â€“{Math.min(currentPage * limit, totalRecords)} of {totalRecords}
+          </div>
+          <div className="pagination-buttons">
+            <button
+              className="btn-pagination"
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+            >
+              <ChevronLeft size={16} />
+            </button>
+            {Array.from({ length: Math.min(7, totalPages) }, (_, i) => {
+              let page;
+              if (totalPages <= 7) page = i + 1;
+              else if (currentPage <= 4) page = i + 1;
+              else if (currentPage >= totalPages - 3) page = totalPages - 6 + i;
+              else page = currentPage - 3 + i;
+              return (
+                <button
+                  key={page}
+                  className={`btn-pagination${currentPage === page ? ' active' : ''}`}
+                  onClick={() => setCurrentPage(page)}
+                >
+                  {page}
+                </button>
+              );
+            })}
+            <button
+              className="btn-pagination"
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+            >
+              <ChevronRight size={16} />
+            </button>
+          </div>
         </div>
       )}
 
-      {/* Route Modal */}
+      {/* â”€â”€ ROUTE MODAL â”€â”€ */}
       {routeTarget && (
         <RouteCRModal
           cr={routeTarget}

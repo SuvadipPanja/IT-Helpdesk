@@ -1,0 +1,552 @@
+/* ============================================
+   CR TEAM BUCKET — PAGE-SPECIFIC STYLES
+   All shared layout / table / pagination classes
+   come from TicketsList.css (imported first).
+   CRList.css provides risk badges + column widths.
+   ============================================ */
+
+/* --------------------------------------------------
+   Team stat card row
+   -------------------------------------------------- */
+.ctb-stats-row {
+  display: flex;
+  gap: 12px;
+  padding: 0 24px 20px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ctb-stats-row::-webkit-scrollbar {
+  height: 4px;
+}
+
+.ctb-stats-row::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 2px;
+}
+
+.ctb-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--nx-surface, #fff);
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 160px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.ctb-stat-card:hover {
+  border-color: #6366f1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.ctb-stat-card--active {
+  border-color: #6366f1;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.07) 0%, rgba(139, 92, 246, 0.05) 100%);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.18);
+}
+
+.ctb-stat-card--central {
+  border-color: #fde68a;
+}
+
+.ctb-stat-card--central:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+}
+
+.ctb-stat-card--central.ctb-stat-card--active {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.07) 0%, rgba(217, 119, 6, 0.05) 100%);
+}
+
+.ctb-stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.ctb-stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ctb-stat-count {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--nx-text, #1e293b);
+  line-height: 1;
+}
+
+.ctb-stat-label {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.ctb-stat-check {
+  color: #6366f1;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------
+   Info banners
+   -------------------------------------------------- */
+.ctb-info-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 24px 12px;
+  padding: 11px 16px;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  color: #1e40af;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ctb-info-route {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-color: #86efac;
+  color: #166534;
+}
+
+/* --------------------------------------------------
+   Result count badge (beside search bar)
+   -------------------------------------------------- */
+.ctb-result-count {
+  font-size: 13px;
+  color: #64748b;
+  white-space: nowrap;
+  padding: 9px 16px;
+  background: var(--nx-bg-secondary, #f1f5f9);
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-weight: 500;
+}
+
+/* --------------------------------------------------
+   Table column widths (team-specific)
+   -------------------------------------------------- */
+.ctb-th-team {
+  width: 160px;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------
+   Team cell inside table rows
+   -------------------------------------------------- */
+.ctb-team-cell {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.ctb-crown {
+  color: #f59e0b;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------
+   Current team chip in page title
+   -------------------------------------------------- */
+.ctb-current-team {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 20px;
+  padding: 2px 10px;
+  vertical-align: middle;
+}
+
+/* --------------------------------------------------
+   Action buttons for Pick Up / Route / View
+   -------------------------------------------------- */
+.btn-action-table.pickup {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #d1fae5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.btn-action-table.pickup:hover:not(:disabled) {
+  background: #059669;
+  color: #fff;
+  border-color: #059669;
+}
+
+.btn-action-table.pickup:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-action-table.route {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #e0e7ff;
+  color: #4f46e5;
+  border: 1px solid #c7d2fe;
+}
+
+.btn-action-table.route:hover {
+  background: #4f46e5;
+  color: #fff;
+  border-color: #4f46e5;
+}
+
+/* --------------------------------------------------
+   Route CR Modal (reuses tbk-modal classes from TeamBucket.css)
+   Below ensures modal works without TeamBucket.css
+   -------------------------------------------------- */
+.tbk-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.tbk-modal {
+  background: var(--nx-surface, #fff);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.tbk-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tbk-modal__header h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--nx-text, #1e293b);
+}
+
+.tbk-modal__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tbk-modal__close:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.tbk-modal__body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tbk-modal__ticket-info {
+  padding: 12px 14px;
+  background: var(--nx-bg-secondary, #f8fafc);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--nx-text, #1e293b);
+}
+
+.tbk-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.tbk-alert--error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+}
+
+.tbk-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tbk-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.tbk-field select {
+  padding: 9px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  background: var(--nx-surface, #fff);
+  color: var(--nx-text, #1e293b);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.tbk-field select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.tbk-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 24px 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.tbk-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.tbk-btn--ghost {
+  background: transparent;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.tbk-btn--ghost:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #1e293b;
+}
+
+.tbk-btn--primary {
+  background: #6366f1;
+  color: #fff;
+}
+
+.tbk-btn--primary:hover:not(:disabled) {
+  background: #4f46e5;
+}
+
+.tbk-btn--primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------
+   DARK MODE
+   -------------------------------------------------- */
+[data-theme='dark'] .ctb-stat-card {
+  background: var(--nx-surface, #1e293b);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .ctb-stat-card:hover {
+  border-color: #6366f1;
+}
+
+[data-theme='dark'] .ctb-stat-card--active {
+  border-color: #6366f1;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%);
+}
+
+[data-theme='dark'] .ctb-stat-card--central {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+[data-theme='dark'] .ctb-stat-card--central.ctb-stat-card--active {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(217, 119, 6, 0.08) 100%);
+}
+
+[data-theme='dark'] .ctb-stat-count {
+  color: #f1f5f9;
+}
+
+[data-theme='dark'] .ctb-stat-label {
+  color: #94a3b8;
+}
+
+[data-theme='dark'] .ctb-info-banner {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(99, 102, 241, 0.08) 100%);
+  border-color: rgba(59, 130, 246, 0.25);
+  color: #93c5fd;
+}
+
+[data-theme='dark'] .ctb-info-route {
+  background: linear-gradient(135deg, rgba(22, 163, 74, 0.12) 0%, rgba(21, 128, 61, 0.08) 100%);
+  border-color: rgba(34, 197, 94, 0.25);
+  color: #86efac;
+}
+
+[data-theme='dark'] .ctb-result-count {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+}
+
+[data-theme='dark'] .ctb-team-cell {
+  color: #94a3b8;
+}
+
+[data-theme='dark'] .ctb-current-team {
+  color: #a5b4fc;
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme='dark'] .btn-action-table.pickup {
+  background: rgba(5, 150, 105, 0.15);
+  color: #34d399;
+  border-color: rgba(52, 211, 153, 0.25);
+}
+
+[data-theme='dark'] .btn-action-table.pickup:hover:not(:disabled) {
+  background: #059669;
+  color: #fff;
+  border-color: #059669;
+}
+
+[data-theme='dark'] .btn-action-table.route {
+  background: rgba(79, 70, 229, 0.15);
+  color: #a5b4fc;
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme='dark'] .btn-action-table.route:hover {
+  background: #4f46e5;
+  color: #fff;
+  border-color: #4f46e5;
+}
+
+/* Modal dark mode */
+[data-theme='dark'] .tbk-modal {
+  background: var(--nx-surface, #1e293b);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .tbk-modal__header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .tbk-modal__header h2 {
+  color: #f1f5f9;
+}
+
+[data-theme='dark'] .tbk-modal__close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+}
+
+[data-theme='dark'] .tbk-modal__ticket-info {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+}
+
+[data-theme='dark'] .tbk-alert--error {
+  background: rgba(220, 38, 38, 0.15);
+  border-color: rgba(220, 38, 38, 0.3);
+  color: #fca5a5;
+}
+
+[data-theme='dark'] .tbk-field label {
+  color: #94a3b8;
+}
+
+[data-theme='dark'] .tbk-field select {
+  background: var(--nx-surface, #1e293b);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+}
+
+[data-theme='dark'] .tbk-field select:focus {
+  border-color: #6366f1;
+}
+
+[data-theme='dark'] .tbk-modal__footer {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .tbk-btn--ghost {
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+}
+
+[data-theme='dark'] .tbk-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #f1f5f9;
+}
