@@ -123,19 +123,24 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--db-surface);
+  border-radius: var(--db-radius);
+  border: 1px solid var(--db-border);
+  box-shadow: var(--db-shadow);
 }
 
 .db-welcome-left { flex: 1; min-width: 200px; }
 
 .db-greeting {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--db-text);
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .db-wave {
@@ -153,9 +158,9 @@
 }
 
 .db-subtitle {
-  font-size: 14px;
+  font-size: 12px;
   color: var(--db-text-secondary);
-  margin: 4px 0 0;
+  margin: 2px 0 0;
 }
 
 .db-subtitle strong { color: var(--db-primary); }
@@ -164,9 +169,9 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--db-muted);
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .db-welcome-right {
@@ -205,7 +210,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 18px;
+  padding: 7px 14px;
   background: var(--db-primary);
   color: #fff;
   border: none;
@@ -1494,6 +1499,44 @@
    CR (CHANGE REQUEST) DASHBOARD SECTION
    ============================================ */
 
+/* Ticket Section Wrapper (mirrors CR section) */
+.db-ticket-section {
+  background: var(--db-surface);
+  border-radius: var(--db-radius);
+  box-shadow: var(--db-shadow);
+  padding: 16px 20px;
+  border-left: 3px solid var(--db-primary);
+}
+
+.db-ticket-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.db-ticket-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--db-text);
+}
+
+.db-ticket-section-title h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.db-ticket-section-title svg {
+  color: var(--db-primary);
+}
+
+/* Ticket stat cards get a blue left accent */
+.db-ticket-section .db-stats-row .db-stat-card {
+  border-left: 2px solid transparent;
+}
+
 /* CR Section Wrapper */
 .db-cr-section {
   background: var(--db-surface);
@@ -1568,5 +1611,16 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+  .db-ticket-section {
+    padding: 12px 14px;
+  }
+  .db-ticket-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .db-welcome {
+    padding: 10px 12px;
   }
 }

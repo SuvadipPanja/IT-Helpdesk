@@ -270,34 +270,46 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* ═══ PRIMARY STATS ROW ═══ */}
-        <div className="db-stats-row">
-          <StatCard
-            icon={<Ticket size={22} />} label="Total Tickets" value={s.totalTickets}
-            className="db-stat-total" onClick={() => navigate('/tickets')}
-            trend={s.trendDirection} trendPct={s.trendPercent}
-            sub={`${s.todayCreated || 0} today`}
-          />
-          <StatCard
-            icon={<AlertCircle size={22} />} label="Open" value={s.openTickets}
-            className="db-stat-open" onClick={() => navigate('/tickets?status=OPEN')}
-          />
-          <StatCard
-            icon={<Activity size={22} />} label="In Progress" value={s.inProgressTickets}
-            className="db-stat-progress" onClick={() => navigate('/tickets?status=IN_PROGRESS')}
-          />
-          <StatCard
-            icon={<CheckCircle size={22} />} label="Closed" value={s.closedTickets}
-            className="db-stat-closed" onClick={() => navigate('/tickets?status=CLOSED')}
-          />
-          <StatCard
-            icon={<ArrowUp size={22} />} label="Escalated" value={s.escalatedTickets}
-            className="db-stat-escalated" onClick={() => navigate('/tickets?is_escalated=true')}
-          />
-        </div>
+        {/* ═══ TICKETS SECTION ═══ */}
+        <div className="db-ticket-section">
+          <div className="db-ticket-section-header">
+            <div className="db-ticket-section-title">
+              <Ticket size={18} />
+              <h3>Tickets</h3>
+            </div>
+            <button className="db-card-link" onClick={() => navigate('/tickets')}>
+              View All <ChevronRight size={14} />
+            </button>
+          </div>
 
-        {/* ═══ SECONDARY STATS ═══ */}
-        <div className="db-stats-row db-stats-secondary">
+          {/* PRIMARY STATS ROW */}
+          <div className="db-stats-row">
+            <StatCard
+              icon={<Ticket size={22} />} label="Total Tickets" value={s.totalTickets}
+              className="db-stat-total" onClick={() => navigate('/tickets')}
+              trend={s.trendDirection} trendPct={s.trendPercent}
+              sub={`${s.todayCreated || 0} today`}
+            />
+            <StatCard
+              icon={<AlertCircle size={22} />} label="Open" value={s.openTickets}
+              className="db-stat-open" onClick={() => navigate('/tickets?status=OPEN')}
+            />
+            <StatCard
+              icon={<Activity size={22} />} label="In Progress" value={s.inProgressTickets}
+              className="db-stat-progress" onClick={() => navigate('/tickets?status=IN_PROGRESS')}
+            />
+            <StatCard
+              icon={<CheckCircle size={22} />} label="Closed" value={s.closedTickets}
+              className="db-stat-closed" onClick={() => navigate('/tickets?status=CLOSED')}
+            />
+            <StatCard
+              icon={<ArrowUp size={22} />} label="Escalated" value={s.escalatedTickets}
+              className="db-stat-escalated" onClick={() => navigate('/tickets?is_escalated=true')}
+            />
+          </div>
+
+          {/* SECONDARY STATS ROW */}
+          <div className="db-stats-row db-stats-secondary">
           <StatCard
             icon={<AlertTriangle size={20} />} label="Pending" value={s.pendingTickets}
             className="db-stat-pending" onClick={() => navigate('/tickets?status=PENDING')}
@@ -393,7 +405,8 @@ const Dashboard = () => {
               compact
             />
           )}
-        </div>
+          </div>
+        </div>{/* end db-ticket-section */}
 
         {/* ═══ CR STATS ROW ═══ */}
         {crStats && crStats.total > 0 && (
@@ -645,7 +658,7 @@ const Dashboard = () => {
             <div className="db-card-header">
               <div className="db-card-title">
                 <Layers size={18} />
-                <h3>By Status</h3>
+                <h3>Tickets by Status</h3>
               </div>
             </div>
             <div className="db-card-body db-chart-body db-chart-center">
@@ -676,7 +689,7 @@ const Dashboard = () => {
             <div className="db-card-header">
               <div className="db-card-title">
                 <AlertTriangle size={18} />
-                <h3>By Priority</h3>
+                <h3>Tickets by Priority</h3>
               </div>
             </div>
             <div className="db-card-body db-chart-body">
@@ -740,7 +753,7 @@ const Dashboard = () => {
             <div className="db-card-header">
               <div className="db-card-title">
                 <Tag size={18} />
-                <h3>By Category</h3>
+                <h3>Tickets by Category</h3>
               </div>
             </div>
             <div className="db-card-body db-chart-body db-chart-center">
