@@ -29,13 +29,14 @@ import {
   CheckCircle,
   Eye,
   User,
-  Calendar,
   Tag,
   AlertTriangle,
+  AlertCircle,
 } from 'lucide-react';
 import crService from '../../services/crService';
 import { formatDate as formatDateUtil, timeAgo } from '../../utils/dateUtils';
 import { useToast } from '../../context/ToastContext';
+import '../../styles/TicketsList.css';
 import '../../styles/CRList.css';
 
 const ChangeRequests = () => {
@@ -289,123 +290,164 @@ const ChangeRequests = () => {
   // RENDER
   // ==========================================
   return (
-    <div className="cr-list-page">
-      {/* Page Header */}
-      <div className="cr-list-header">
-        <div className="cr-list-header-left">
-          <GitPullRequest size={24} className="cr-list-icon" />
-          <div>
-            <h1 className="cr-list-title">{getPageTitle()}</h1>
-            <p className="cr-list-subtitle">
-              {totalRecords > 0 ? `${totalRecords} change request${totalRecords !== 1 ? 's' : ''} found` : 'No change requests'}
-            </p>
+    <div className="tickets-page">
+
+      {/* ── PAGE HEADER ── */}
+      <div className="page-header">
+        <div className="header-left">
+          <div className="page-title-wrapper">
+            <div className="page-icon-wrapper">
+              <GitPullRequest size={28} />
+            </div>
+            <div>
+              <h1 className="page-title">{getPageTitle()}</h1>
+              <p className="page-subtitle">
+                {totalRecords > 0
+                  ? `${totalRecords} change request${totalRecords !== 1 ? 's' : ''} found`
+                  : 'No change requests available'}
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Bucket Buttons — IT Staff Only */}
+        {/* ── ANIMATED BUCKET BUTTONS (IT Staff only) ── */}
         {isITStaff && (
-          <div className="cr-mini-buckets">
+          <div className="tl-mini-buckets">
+            {/* Created by Me */}
             <div
-              className={`cr-mini-bucket cr-mini-created ${activeBucket === 'created' ? 'active' : ''}`}
+              className={`tl-mini-bucket tl-mini-created ${activeBucket === 'created' ? 'active' : ''}`}
               onClick={() => handleBucketChange('created')}
               title="Created by Me"
             >
-              <div className="cr-mini-bucket-body">
-                <div className="cr-mini-bucket-fill" style={{ height: `${Math.min((bucketStats.created / 30) * 100, 100)}%` }} />
-                <div className="cr-mini-bucket-shine" />
+              <div className="tl-mini-bucket-body">
+                <div
+                  className="tl-mini-bucket-fill"
+                  style={{ height: `${Math.min((bucketStats.created / 30) * 100, 100)}%` }}
+                />
+                <div className="tl-mini-bucket-shine" />
               </div>
-              <div className="cr-mini-bucket-info">
-                <span className="cr-mini-count">{bucketLoading ? '…' : bucketStats.created}</span>
-                <span className="cr-mini-label">Created by Me</span>
+              <div className="tl-mini-bucket-info">
+                <span className="tl-mini-count">{bucketLoading ? '...' : bucketStats.created}</span>
+                <span className="tl-mini-label">Created by Me</span>
               </div>
-              {activeBucket === 'created' && <div className="cr-mini-check"><CheckCircle size={14} /></div>}
+              {activeBucket === 'created' && (
+                <div className="tl-mini-check"><CheckCircle size={14} /></div>
+              )}
             </div>
 
+            {/* Assigned to Me */}
             <div
-              className={`cr-mini-bucket cr-mini-assigned ${activeBucket === 'assigned' ? 'active' : ''}`}
+              className={`tl-mini-bucket tl-mini-assigned ${activeBucket === 'assigned' ? 'active' : ''}`}
               onClick={() => handleBucketChange('assigned')}
               title="Assigned to Me"
             >
-              <div className="cr-mini-bucket-body">
-                <div className="cr-mini-bucket-fill" style={{ height: `${Math.min((bucketStats.assigned / 20) * 100, 100)}%` }} />
-                <div className="cr-mini-bucket-shine" />
+              <div className="tl-mini-bucket-body">
+                <div
+                  className="tl-mini-bucket-fill"
+                  style={{ height: `${Math.min((bucketStats.assigned / 20) * 100, 100)}%` }}
+                />
+                <div className="tl-mini-bucket-shine" />
               </div>
-              <div className="cr-mini-bucket-info">
-                <span className="cr-mini-count">{bucketLoading ? '…' : bucketStats.assigned}</span>
-                <span className="cr-mini-label">Assigned to Me</span>
+              <div className="tl-mini-bucket-info">
+                <span className="tl-mini-count">{bucketLoading ? '...' : bucketStats.assigned}</span>
+                <span className="tl-mini-label">Assigned to Me</span>
               </div>
-              {activeBucket === 'assigned' && <div className="cr-mini-check"><CheckCircle size={14} /></div>}
+              {activeBucket === 'assigned' && (
+                <div className="tl-mini-check"><CheckCircle size={14} /></div>
+              )}
             </div>
           </div>
         )}
 
-        <div className="cr-list-header-actions">
-          <button className="btn-cr-action" onClick={() => { fetchCRs(); if (isITStaff) fetchBucketStats(true); toast.info('Refreshing…'); }} disabled={loading} title="Refresh">
-            <RefreshCw size={18} className={loading ? 'cr-spinning' : ''} />
+        {/* ── HEADER ACTIONS ── */}
+        <div className="header-right">
+          <button
+            className="btn-icon-action"
+            onClick={() => { fetchCRs(); if (isITStaff) fetchBucketStats(true); toast.info('Refreshing...'); }}
+            disabled={loading}
+            title="Refresh"
+          >
+            <RefreshCw size={18} className={loading ? 'spinning' : ''} />
           </button>
-          <button className="btn-cr-action" onClick={exportCSV} disabled={loading || !crs.length} title="Export CSV">
+          <button
+            className="btn-icon-action"
+            onClick={exportCSV}
+            disabled={loading || !crs.length}
+            title="Export CSV"
+          >
             <Download size={18} />
           </button>
           {user?.permissions?.can_create_cr && (
-            <button className="btn-cr-primary" onClick={() => navigate('/cr/create')}>
-              <Plus size={16} />
+            <button className="btn-primary-action" onClick={() => navigate('/cr/create')}>
+              <Plus size={20} />
               <span>New CR</span>
             </button>
           )}
         </div>
       </div>
 
-      {/* Search & Filter Bar */}
-      <div className="cr-list-toolbar">
-        <div className="cr-search-box">
-          <Search size={16} />
+      {/* ── SEARCH & FILTER BAR ── */}
+      <div className="filter-section">
+        <div className="search-wrapper">
+          <Search size={18} className="search-icon" />
           <input
             type="text"
-            placeholder="Search by CR number, title…"
+            placeholder="Search by CR number, title..."
+            className="search-input-large"
             value={filters.search}
             onChange={(e) => handleFilterChange('search', e.target.value)}
           />
           {filters.search && (
-            <button className="cr-search-clear" onClick={() => handleFilterChange('search', '')}>
-              <X size={14} />
+            <button className="search-clear-btn" onClick={() => handleFilterChange('search', '')}>
+              <X size={16} />
             </button>
           )}
         </div>
 
-        <button
-          className={`btn-cr-action ${showFilters ? 'active' : ''}`}
-          onClick={() => setShowFilters(!showFilters)}
-        >
-          <Filter size={16} />
-          Filters
-          {getActiveFilterCount() > 0 && (
-            <span className="cr-filter-badge">{getActiveFilterCount()}</span>
-          )}
-        </button>
-
-        {getActiveFilterCount() > 0 && (
-          <button className="btn-cr-action" onClick={clearFilters} title="Clear filters">
-            <X size={16} /> Clear
+        <div className="filter-actions">
+          <button
+            className={`btn-filter ${showFilters ? 'active' : ''}`}
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            <Filter size={18} />
+            <span>Filters</span>
+            {getActiveFilterCount() > 0 && (
+              <span className="filter-count">{getActiveFilterCount()}</span>
+            )}
           </button>
-        )}
+          {getActiveFilterCount() > 0 && (
+            <button className="btn-clear-filters" onClick={clearFilters}>
+              <X size={16} />
+              Clear All
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* Filters Panel */}
+      {/* ── FILTERS PANEL ── */}
       {showFilters && (
-        <div className="cr-filters-panel">
-          <div className="cr-filters-grid">
-            <div className="cr-filter-item">
-              <label><Tag size={13} /> Status</label>
-              <select value={filters.status} onChange={(e) => handleFilterChange('status', e.target.value)}>
+        <div className="filters-panel">
+          <div className="filters-grid">
+            <div className="filter-item">
+              <label className="filter-label"><Tag size={14} /> Status</label>
+              <select
+                className="filter-select"
+                value={filters.status}
+                onChange={(e) => handleFilterChange('status', e.target.value)}
+              >
                 <option value="">All Statuses</option>
                 {crStatuses.map(s => (
                   <option key={s.status_id} value={s.status_code}>{s.status_name}</option>
                 ))}
               </select>
             </div>
-            <div className="cr-filter-item">
-              <label><AlertTriangle size={13} /> Risk Level</label>
-              <select value={filters.risk_level} onChange={(e) => handleFilterChange('risk_level', e.target.value)}>
+            <div className="filter-item">
+              <label className="filter-label"><AlertTriangle size={14} /> Risk Level</label>
+              <select
+                className="filter-select"
+                value={filters.risk_level}
+                onChange={(e) => handleFilterChange('risk_level', e.target.value)}
+              >
                 <option value="">All Risk Levels</option>
                 <option value="LOW">Low</option>
                 <option value="MEDIUM">Medium</option>
@@ -413,9 +455,13 @@ const ChangeRequests = () => {
                 <option value="CRITICAL">Critical</option>
               </select>
             </div>
-            <div className="cr-filter-item">
-              <label><GitPullRequest size={13} /> CR Type</label>
-              <select value={filters.type} onChange={(e) => handleFilterChange('type', e.target.value)}>
+            <div className="filter-item">
+              <label className="filter-label"><GitPullRequest size={14} /> CR Type</label>
+              <select
+                className="filter-select"
+                value={filters.type}
+                onChange={(e) => handleFilterChange('type', e.target.value)}
+              >
                 <option value="">All Types</option>
                 {crTypes.map(t => (
                   <option key={t.type_id} value={t.type_code}>{t.type_name}</option>
@@ -426,142 +472,229 @@ const ChangeRequests = () => {
         </div>
       )}
 
-      {/* Error */}
+      {/* ── ERROR BANNER ── */}
       {error && (
-        <div className="cr-error-banner">
-          <AlertTriangle size={16} /> {error}
-          <button onClick={fetchCRs}>Retry</button>
+        <div className="alert alert-error">
+          <AlertCircle size={20} />
+          <span>{error}</span>
+          <button className="alert-close" onClick={() => setError('')}><X size={16} /></button>
         </div>
       )}
 
-      {/* Table */}
-      <div className="cr-table-wrapper">
-        <table className="cr-table">
-          <thead>
-            <tr>
-              <th onClick={() => handleSort('cr_number')} className="cr-th-sortable">
-                CR # {sortBy === 'cr_number' && <span>{sortOrder === 'ASC' ? '↑' : '↓'}</span>}
-              </th>
-              <th onClick={() => handleSort('title')} className="cr-th-sortable">
-                Title {sortBy === 'title' && <span>{sortOrder === 'ASC' ? '↑' : '↓'}</span>}
-              </th>
-              <th>Status</th>
-              <th>Risk</th>
-              <th>Type</th>
-              <th><User size={13} /> Requester</th>
-              {isITStaff && <th><User size={13} /> Assigned To</th>}
-              <th onClick={() => handleSort('created_at')} className="cr-th-sortable">
-                <Calendar size={13} /> Created {sortBy === 'created_at' && <span>{sortOrder === 'ASC' ? '↑' : '↓'}</span>}
-              </th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              Array.from({ length: 6 }).map((_, i) => (
-                <tr key={i} className="cr-skeleton-row">
-                  {Array.from({ length: isITStaff ? 9 : 8 }).map((_, j) => (
-                    <td key={j}><div className="cr-skeleton-cell" /></td>
-                  ))}
-                </tr>
-              ))
-            ) : crs.length === 0 ? (
-              <tr>
-                <td colSpan={isITStaff ? 9 : 8} className="cr-empty-row">
-                  <div className="cr-empty">
-                    <GitPullRequest size={40} />
-                    <h3>No change requests found</h3>
-                    <p>{activeBucket ? 'No CRs in this view' : 'Create your first change request'}</p>
-                    {user?.permissions?.can_create_cr && !activeBucket && (
-                      <button className="btn-cr-primary" onClick={() => navigate('/cr/create')}>
-                        <Plus size={16} /> New CR
-                      </button>
-                    )}
-                  </div>
-                </td>
-              </tr>
-            ) : (
-              crs.map(cr => {
-                const statusStyle = getStatusStyle(cr.status_code);
-                return (
-                  <tr
-                    key={cr.cr_id}
-                    className="cr-table-row"
-                    onClick={() => navigate(`/cr/${cr.cr_id}`)}
-                  >
-                    <td className="cr-number-cell">
-                      <span className="cr-number-badge">{cr.cr_number}</span>
-                    </td>
-                    <td className="cr-title-cell">
-                      <span className="cr-title-text">{cr.title}</span>
-                    </td>
-                    <td>
-                      <span
-                        className="cr-status-badge"
-                        style={{ background: statusStyle.bg, color: statusStyle.text }}
-                      >
-                        {cr.status_name || cr.status_code}
-                      </span>
-                    </td>
-                    <td>
-                      {cr.risk_level && (
-                        <span className={`cr-risk-badge ${getRiskClass(cr.risk_level)}`}>
-                          {cr.risk_level}
-                        </span>
-                      )}
-                    </td>
-                    <td>
-                      <span className="cr-type-cell">{cr.type_name || '—'}</span>
-                    </td>
-                    <td className="cr-user-cell">{cr.requester_name || '—'}</td>
-                    {isITStaff && (
-                      <td className="cr-user-cell">
-                        {cr.assigned_to_name ? (
-                          <span className="cr-assigned-badge">{cr.assigned_to_name}</span>
-                        ) : (
-                          <span className="cr-unassigned">Unassigned</span>
-                        )}
+      {/* ── TABLE ── */}
+      <div className="table-container">
+        {loading ? (
+          <div className="table-wrapper">
+            <table className="tickets-table">
+              <tbody>
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <tr key={i}>
+                    {Array.from({ length: isITStaff ? 9 : 8 }).map((_, j) => (
+                      <td key={j}>
+                        <div className="cr-skeleton-cell" />
                       </td>
-                    )}
-                    <td className="cr-date-cell">
-                      <span title={formatDate(cr.created_at)}>{timeAgo(cr.created_at)}</span>
-                    </td>
-                    <td onClick={(e) => { e.stopPropagation(); navigate(`/cr/${cr.cr_id}`); }}>
-                      <button className="cr-view-btn" title="View CR">
-                        <Eye size={15} />
-                      </button>
-                    </td>
+                    ))}
                   </tr>
-                );
-              })
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : crs.length === 0 ? (
+          <div className="empty-state">
+            <div className="empty-icon-wrapper">
+              <GitPullRequest size={64} className="empty-icon" />
+            </div>
+            <h3>No change requests found</h3>
+            <p className="empty-description">
+              {getActiveFilterCount() > 0
+                ? 'No CRs match your current filters.'
+                : activeBucket
+                ? 'No CRs in this view.'
+                : 'Create your first change request.'}
+            </p>
+            {user?.permissions?.can_create_cr && !activeBucket && (
+              <button className="btn-primary-action" onClick={() => navigate('/cr/create')}>
+                <Plus size={20} /><span>New CR</span>
+              </button>
             )}
-          </tbody>
-        </table>
-      </div>
+          </div>
+        ) : (
+          <div className="table-wrapper">
+            <table className="tickets-table">
+              <thead>
+                <tr>
+                  <th className="sortable cr-th-number" onClick={() => handleSort('cr_number')}>
+                    <div className="th-content">
+                      <span>CR #</span>
+                      {sortBy === 'cr_number' && <span className="sort-indicator">{sortOrder === 'ASC' ? '↑' : '↓'}</span>}
+                    </div>
+                  </th>
+                  <th className="sortable cr-th-title" onClick={() => handleSort('title')}>
+                    <div className="th-content">
+                      <span>Title</span>
+                      {sortBy === 'title' && <span className="sort-indicator">{sortOrder === 'ASC' ? '↑' : '↓'}</span>}
+                    </div>
+                  </th>
+                  <th className="cr-th-status">Status</th>
+                  <th className="cr-th-risk">Risk</th>
+                  <th className="cr-th-type">Type</th>
+                  <th className="th-requester">
+                    <div className="th-content"><User size={12} /><span>Requester</span></div>
+                  </th>
+                  {isITStaff && (
+                    <th className="th-assigned">
+                      <div className="th-content"><User size={12} /><span>Assigned To</span></div>
+                    </th>
+                  )}
+                  <th className="sortable th-created" onClick={() => handleSort('created_at')}>
+                    <div className="th-content">
+                      <span>Created</span>
+                      {sortBy === 'created_at' && <span className="sort-indicator">{sortOrder === 'ASC' ? '↑' : '↓'}</span>}
+                    </div>
+                  </th>
+                  <th className="th-actions" />
+                </tr>
+              </thead>
+              <tbody>
+                {crs.map(cr => {
+                  const statusStyle = getStatusStyle(cr.status_code);
+                  return (
+                    <tr
+                      key={cr.cr_id}
+                      onClick={() => navigate(`/cr/${cr.cr_id}`)}
+                    >
+                      {/* CR Number */}
+                      <td>
+                        <span className="ticket-number">{cr.cr_number}</span>
+                      </td>
 
-      {/* Pagination */}
-      {!loading && totalPages > 1 && (
-        <div className="cr-pagination">
-          <button
-            className="cr-page-btn"
-            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-            disabled={currentPage === 1}
-          >
-            <ChevronLeft size={16} />
-          </button>
-          <span className="cr-page-info">
-            Page {currentPage} of {totalPages}
-            <span className="cr-total-count"> — {totalRecords} total</span>
-          </span>
-          <button
-            className="cr-page-btn"
-            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-            disabled={currentPage === totalPages}
-          >
-            <ChevronRight size={16} />
-          </button>
-        </div>
-      )}
+                      {/* Title */}
+                      <td className="title-cell">
+                        <div className="ticket-title-content">
+                          <span className="ticket-title-link">{cr.title || '—'}</span>
+                        </div>
+                      </td>
+
+                      {/* Status */}
+                      <td>
+                        <span
+                          className="status-badge"
+                          style={{ background: statusStyle.bg, color: statusStyle.text }}
+                        >
+                          {cr.status_name || cr.status_code}
+                        </span>
+                      </td>
+
+                      {/* Risk */}
+                      <td>
+                        {cr.risk_level ? (
+                          <span className={`cr-risk-badge ${getRiskClass(cr.risk_level)}`}>
+                            {cr.risk_level}
+                          </span>
+                        ) : <span className="text-muted">—</span>}
+                      </td>
+
+                      {/* Type */}
+                      <td>
+                        <span className="category-badge">{cr.type_name || '—'}</span>
+                      </td>
+
+                      {/* Requester */}
+                      <td>
+                        <div className="user-info">
+                          <div className="user-avatar"><User size={14} /></div>
+                          <span className="user-name">{cr.requester_name || '—'}</span>
+                        </div>
+                      </td>
+
+                      {/* Assigned To (IT Staff only) */}
+                      {isITStaff && (
+                        <td>
+                          {cr.assigned_to_name ? (
+                            <div className="user-info">
+                              <div className="user-avatar assigned"><User size={14} /></div>
+                              <span className="user-name">{cr.assigned_to_name}</span>
+                            </div>
+                          ) : (
+                            <span className="text-muted">Unassigned</span>
+                          )}
+                        </td>
+                      )}
+
+                      {/* Created */}
+                      <td>
+                        <div className="date-info">
+                          <span className="date-relative">{timeAgo(cr.created_at)}</span>
+                          <span className="date-full">{formatDate(cr.created_at)}</span>
+                        </div>
+                      </td>
+
+                      {/* View Action */}
+                      <td className="actions-cell" onClick={(e) => { e.stopPropagation(); navigate(`/cr/${cr.cr_id}`); }}>
+                        <div className="action-buttons">
+                          <button className="btn-action-table view" title="View CR">
+                            <Eye size={15} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {/* ── PAGINATION ── */}
+        {!loading && totalPages > 1 && (
+          <div className="pagination-container">
+            <p className="pagination-info">
+              Showing{' '}
+              <strong>{(currentPage - 1) * limit + 1}–{Math.min(currentPage * limit, totalRecords)}</strong>{' '}
+              of <strong>{totalRecords}</strong> change requests
+            </p>
+            <div className="pagination-controls">
+              <div className="pagination-buttons">
+                <button
+                  className="btn-pagination"
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                {Array.from({ length: Math.min(7, totalPages) }, (_, i) => {
+                  let page;
+                  if (totalPages <= 7) {
+                    page = i + 1;
+                  } else if (currentPage <= 4) {
+                    page = i + 1;
+                  } else if (currentPage >= totalPages - 3) {
+                    page = totalPages - 6 + i;
+                  } else {
+                    page = currentPage - 3 + i;
+                  }
+                  return (
+                    <button
+                      key={page}
+                      className={`btn-pagination ${currentPage === page ? 'active' : ''}`}
+                      onClick={() => setCurrentPage(page)}
+                    >
+                      {page}
+                    </button>
+                  );
+                })}
+                <button
+                  className="btn-pagination"
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
