@@ -1,0 +1,328 @@
+/**
+ * ============================================
+ * CR QUEUE PAGE — CRQueue.css
+ * ============================================
+ * Page-specific styles layered on top of
+ * TicketsList.css + CRList.css base classes.
+ * ============================================
+ */
+
+/* --------------------------------------------------
+   Queue tab strip
+   -------------------------------------------------- */
+.crq-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 0 0 12px 0;
+  flex-wrap: wrap;
+}
+
+.crq-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 20px;
+  background: var(--background-secondary, #f8fafc);
+  color: var(--text-secondary, #64748b);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.crq-tab:hover {
+  background: #e0e7ff;
+  border-color: #c7d2fe;
+  color: #4f46e5;
+}
+
+.crq-tab--active {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: #fff;
+  font-weight: 600;
+}
+
+.crq-tab--active:hover {
+  background: #4338ca;
+  border-color: #4338ca;
+  color: #fff;
+}
+
+/* --------------------------------------------------
+   Result count badge next to search bar
+   -------------------------------------------------- */
+.crq-result-count {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary, #64748b);
+  white-space: nowrap;
+  padding: 0 4px;
+}
+
+/* --------------------------------------------------
+   Pending approvals section
+   -------------------------------------------------- */
+.crq-approval-section {
+  margin-bottom: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #fde68a;
+}
+
+.crq-approval-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #fffbeb;
+  color: #92400e;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease;
+}
+
+.crq-approval-banner:hover {
+  background: #fef3c7;
+}
+
+.crq-approval-banner svg {
+  flex-shrink: 0;
+  color: #d97706;
+}
+
+.crq-approval-toggle {
+  margin-left: auto;
+  font-size: 12px;
+  color: #b45309;
+}
+
+.crq-approval-list {
+  padding: 0 16px 16px;
+  background: var(--background-primary, #fff);
+}
+
+.crq-approval-card {
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 10px;
+  background: var(--background-primary, #fff);
+}
+
+.crq-approval-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.crq-approval-title {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary, #1a202c);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.crq-approval-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary, #64748b);
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.crq-approval-comment {
+  margin-bottom: 8px;
+}
+
+.crq-approval-textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color, #e2e8f0);
+  font-size: 13px;
+  resize: vertical;
+  min-height: 56px;
+  background: var(--background-secondary, #f8fafc);
+  color: var(--text-primary, #1a202c);
+  box-sizing: border-box;
+}
+
+.crq-approval-textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.crq-approval-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Approve / Reject / Comment action buttons */
+.btn-action-table.crq-btn-approve {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  width: auto;
+  height: auto;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #d1fae5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.btn-action-table.crq-btn-approve:hover:not(:disabled) {
+  background: #059669;
+  color: #fff;
+  border-color: #059669;
+}
+
+.btn-action-table.crq-btn-approve:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-action-table.crq-btn-reject {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  width: auto;
+  height: auto;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+}
+
+.btn-action-table.crq-btn-reject:hover:not(:disabled) {
+  background: #dc2626;
+  color: #fff;
+  border-color: #dc2626;
+}
+
+.btn-action-table.crq-btn-reject:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-action-table.crq-btn-comment {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  width: auto;
+  height: auto;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  color: var(--text-secondary, #64748b);
+  border: 1px solid var(--border-color, #e2e8f0);
+}
+
+.btn-action-table.crq-btn-comment:hover {
+  background: var(--background-secondary, #f1f5f9);
+  border-color: var(--text-secondary, #94a3b8);
+}
+
+/* --------------------------------------------------
+   Dark mode
+   -------------------------------------------------- */
+.dark .crq-tab {
+  background: var(--dark-bg-secondary, #1e293b);
+  border-color: var(--dark-border, #334155);
+  color: var(--dark-text-secondary, #94a3b8);
+}
+
+.dark .crq-tab:hover {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: #6366f1;
+  color: #818cf8;
+}
+
+.dark .crq-tab--active {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: #fff;
+}
+
+.dark .crq-approval-section {
+  border-color: #78350f;
+}
+
+.dark .crq-approval-banner {
+  background: #292109;
+  color: #fde68a;
+}
+
+.dark .crq-approval-banner:hover {
+  background: #3b2a0f;
+}
+
+.dark .crq-approval-toggle {
+  color: #f59e0b;
+}
+
+.dark .crq-approval-list {
+  background: var(--dark-bg-primary, #0f172a);
+}
+
+.dark .crq-approval-card {
+  border-color: var(--dark-border, #334155);
+  background: var(--dark-bg-card, #1e293b);
+}
+
+.dark .crq-approval-title {
+  color: var(--dark-text-primary, #e2e8f0);
+}
+
+.dark .crq-approval-textarea {
+  background: var(--dark-bg-secondary, #1e293b);
+  border-color: var(--dark-border, #334155);
+  color: var(--dark-text-primary, #e2e8f0);
+}
+
+.dark .crq-approval-textarea:focus {
+  border-color: #6366f1;
+}
+
+.dark .btn-action-table.crq-btn-comment {
+  background: transparent;
+  border-color: var(--dark-border, #334155);
+  color: var(--dark-text-secondary, #94a3b8);
+}
+
+.dark .btn-action-table.crq-btn-comment:hover {
+  background: var(--dark-bg-secondary, #1e293b);
+}
+
+.dark .crq-result-count {
+  color: var(--dark-text-secondary, #94a3b8);
+}

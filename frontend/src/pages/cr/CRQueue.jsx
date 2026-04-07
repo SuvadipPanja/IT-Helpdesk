@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ============================================
  * CR QUEUE PAGE - REVIEW / IMPLEMENTATION QUEUE
  * ============================================
@@ -17,19 +17,23 @@ import {
   Eye,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
+  ChevronDown,
   Loader,
-  ArrowUpDown,
   Shield,
   X,
   CheckCircle,
-  Clock,
   AlertTriangle,
   XCircle,
   MessageSquare,
+  User,
 } from 'lucide-react';
 import crService from '../../services/crService';
 import { formatDate as formatDateUtil, timeAgo } from '../../utils/dateUtils';
+import { API_BASE_URL } from '../../utils/constants';
+import '../../styles/TicketsList.css';
 import '../../styles/CRList.css';
+import '../../styles/CRQueue.css';
 
 // Status color map
 const STATUS_COLORS = {
@@ -50,13 +54,11 @@ const STATUS_COLORS = {
 
 const getStatusStyle = (code) => STATUS_COLORS[code] || STATUS_COLORS.DRAFT;
 
-const RISK_COLORS = {
-  LOW: { bg: '#d1fae5', text: '#059669' },
-  MEDIUM: { bg: '#fef3c7', text: '#d97706' },
-  HIGH: { bg: '#fee2e2', text: '#dc2626' },
-  CRITICAL: { bg: '#fecdd3', text: '#991b1b' },
-};
-const getRiskStyle = (level) => RISK_COLORS[level] || RISK_COLORS.MEDIUM;
+const RISK_CLASS = { LOW: 'cr-risk-low', MEDIUM: 'cr-risk-medium', HIGH: 'cr-risk-high', CRITICAL: 'cr-risk-critical' };
+
+const RiskBadge = ({ level }) => level
+  ? <span className={`cr-risk-badge ${RISK_CLASS[level] || 'cr-risk-medium'}`}>{level}</span>
+  : null;
 
 const PAGE_LIMIT = 15;
 
@@ -177,142 +179,166 @@ const CRQueue = () => {
     }
   };
 
+  const getProfilePictureUrl = (pic) => {
+    if (!pic) return null;
+    if (pic.startsWith('http://') || pic.startsWith('https://')) return pic;
+    const base = API_BASE_URL.replace('/api/v1', '');
+    const clean = pic.startsWith('/') ? pic : `/${pic}`;
+    return `${base}${clean}`;
+  };
+
+  const formatDate = (d) => formatDateUtil ? formatDateUtil(d) : (d ? new Date(d).toLocaleDateString() : 'â€”');
+
   return (
-    <div className="cr-list-page">
-      {/* Header */}
-      <div className="cr-list-header">
-        <div className="cr-list-header-left">
-          <Shield size={24} className="cr-list-icon" />
-          <div>
-            <h1 className="cr-list-title">CR Queue</h1>
-            <p className="cr-list-subtitle">
-              {totalRecords} assigned • {approvalStats.pending || 0} pending approvals
-            </p>
+    <div className="tickets-page">
+
+      {/* â”€â”€ PAGE HEADER â”€â”€ */}
+      <div className="page-header">
+        <div className="header-left">
+          <div className="page-title-wrapper">
+            <div className="page-icon-wrapper" style={{ background: 'linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)' }}>
+              <Shield size={28} />
+            </div>
+            <div>
+              <h1 className="page-title">CR Queue</h1>
+              <p className="page-subtitle">
+                {totalRecords} assigned â€¢ {approvalStats.pending || 0} pending approval{approvalStats.pending !== 1 ? 's' : ''}
+              </p>
+            </div>
           </div>
         </div>
-        <div className="cr-list-header-actions">
-          <button className="btn-cr-action" onClick={() => { fetchQueue(); fetchApprovalData(); }} title="Refresh">
-            <RefreshCw size={16} />
+        <div className="header-right">
+          <button
+            className="btn-icon-action"
+            onClick={() => { fetchQueue(); fetchApprovalData(); toast.info('Refreshingâ€¦'); }}
+            disabled={loading}
+            title="Refresh"
+          >
+            <RefreshCw size={18} className={loading ? 'spinning' : ''} />
           </button>
         </div>
       </div>
 
-      {/* Queue Tabs */}
-      <div className="cr-stat-tabs">
+      {/* â”€â”€ QUEUE TABS â”€â”€ */}
+      <div className="crq-tabs">
         {QUEUE_TABS.map(tab => (
           <button
             key={tab.key}
-            className={`cr-stat-tab ${activeTab === tab.key ? 'active' : ''}`}
+            className={`crq-tab${activeTab === tab.key ? ' crq-tab--active' : ''}`}
             onClick={() => { setActiveTab(tab.key); setCurrentPage(1); }}
           >
-            <span className="cr-stat-tab-label">{tab.label}</span>
+            {tab.label}
           </button>
         ))}
       </div>
 
-      {/* Search */}
-      <div className="cr-list-toolbar">
-        <div className="cr-search-box">
-          <Search size={16} />
+      {/* â”€â”€ SEARCH BAR â”€â”€ */}
+      <div className="filter-section">
+        <div className="search-wrapper">
+          <Search size={18} className="search-icon" />
           <input
             type="text"
-            placeholder="Search by CR number, title..."
+            className="search-input-large"
+            placeholder="Search by CR number, titleâ€¦"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
           {search && (
-            <button className="cr-search-clear" onClick={() => setSearch('')}>
-              <X size={14} />
+            <button className="search-clear-btn" onClick={() => setSearch('')}>
+              <X size={16} />
             </button>
           )}
         </div>
+        <span className="crq-result-count">
+          {totalRecords} CR{totalRecords !== 1 ? 's' : ''}
+        </span>
       </div>
 
-      {/* Pending Approvals Section */}
+      {/* â”€â”€ PENDING APPROVALS BANNER â”€â”€ */}
       {pendingApprovals.length > 0 && (
-        <div className="cr-approval-section">
-          <div className="cr-approval-banner" onClick={() => setExpandApprovals(prev => !prev)} style={{ cursor: 'pointer' }}>
-            <AlertTriangle size={16} />
+        <div className="crq-approval-section">
+          <div
+            className="crq-approval-banner"
+            onClick={() => setExpandApprovals(prev => !prev)}
+          >
+            <AlertTriangle size={15} />
             <span>You have <strong>{pendingApprovals.length}</strong> change request(s) awaiting your approval decision.</span>
-            <span style={{ marginLeft: 'auto', fontSize: '12px' }}>{expandApprovals ? '▲ Collapse' : '▼ Expand'}</span>
+            <span className="crq-approval-toggle">
+              {expandApprovals ? 'â–² Collapse' : 'â–¼ Expand'}
+            </span>
           </div>
+
           {expandApprovals && (
-            <div className="cr-approval-list" style={{ padding: '0 16px 16px' }}>
+            <div className="crq-approval-list">
               {pendingApprovals.map(pa => {
                 const statusStyle = getStatusStyle(pa.status_code);
-                const riskStyle = getRiskStyle(pa.risk_level);
                 const action = approvalActions[pa.cr_id] || {};
                 return (
-                  <div key={pa.approval_id} className="cr-approval-card" style={{
-                    border: '1px solid var(--nx-border, #e2e8f0)',
-                    borderRadius: '8px',
-                    padding: '12px 16px',
-                    marginBottom: '8px',
-                    background: 'var(--nx-bg-card, #fff)',
-                  }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                      <span className="cr-number" style={{ cursor: 'pointer', fontWeight: 600 }} onClick={() => navigate(`/cr/${pa.cr_id}`)}>
+                  <div key={pa.approval_id} className="crq-approval-card">
+                    <div className="crq-approval-card-top">
+                      <span
+                        className="ticket-number"
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => navigate(`/cr/${pa.cr_id}`)}
+                      >
                         {pa.cr_number}
                       </span>
-                      <span style={{ flex: 1, fontWeight: 500 }}>{pa.title}</span>
-                      <span className="cr-status-badge" style={{ background: statusStyle.bg, color: statusStyle.text }}>
+                      <span className="crq-approval-title">{pa.title}</span>
+                      <span
+                        className="status-badge"
+                        style={{ background: statusStyle.bg, color: statusStyle.text }}
+                      >
                         {pa.status_name}
                       </span>
-                      {pa.risk_level && (
-                        <span className="cr-risk-badge" style={{ background: riskStyle.bg, color: riskStyle.text }}>
-                          {pa.risk_level}
-                        </span>
-                      )}
+                      <RiskBadge level={pa.risk_level} />
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'var(--nx-text-secondary, #64748b)' }}>
+                    <div className="crq-approval-meta">
                       <span>By: {pa.requester_name}</span>
-                      <span>•</span>
+                      <span>â€¢</span>
                       <span>Type: {pa.type_name}</span>
-                      <span>•</span>
+                      <span>â€¢</span>
                       <span>Role: {pa.approver_role}</span>
                     </div>
                     {action.showComment && (
-                      <div style={{ marginTop: '8px' }}>
+                      <div className="crq-approval-comment">
                         <textarea
-                          className="crd-modal-textarea"
-                          style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid var(--nx-border, #e2e8f0)', fontSize: '13px', resize: 'vertical', minHeight: '60px' }}
+                          className="crq-approval-textarea"
                           value={action.comment || ''}
                           onChange={(e) => setApprovalActions(prev => ({ ...prev, [pa.cr_id]: { ...prev[pa.cr_id], comment: e.target.value } }))}
-                          placeholder="Add a comment (optional)..."
+                          placeholder="Add a comment (optional)â€¦"
                           rows={2}
                         />
                       </div>
                     )}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
+                    <div className="crq-approval-actions">
                       <button
-                        className="btn-cr-action"
-                        style={{ background: '#059669', color: '#fff', padding: '6px 14px', borderRadius: '6px', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '4px' }}
+                        className="btn-action-table crq-btn-approve"
                         onClick={() => handleApprovalDecision(pa.cr_id, 'APPROVED')}
                         disabled={action.loading}
                       >
-                        {action.loading ? <Loader size={12} className="spinner" /> : <CheckCircle size={12} />} Approve
+                        {action.loading ? <Loader size={12} className="spinning" /> : <CheckCircle size={12} />}
+                        Approve
                       </button>
                       <button
-                        className="btn-cr-action"
-                        style={{ background: '#dc2626', color: '#fff', padding: '6px 14px', borderRadius: '6px', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '4px' }}
+                        className="btn-action-table crq-btn-reject"
                         onClick={() => handleApprovalDecision(pa.cr_id, 'REJECTED')}
                         disabled={action.loading}
                       >
-                        {action.loading ? <Loader size={12} className="spinner" /> : <XCircle size={12} />} Reject
+                        {action.loading ? <Loader size={12} className="spinning" /> : <XCircle size={12} />}
+                        Reject
                       </button>
                       <button
-                        className="btn-cr-action"
-                        style={{ background: 'transparent', color: 'var(--nx-text-secondary, #64748b)', padding: '6px 14px', borderRadius: '6px', fontSize: '13px', border: '1px solid var(--nx-border, #e2e8f0)', display: 'flex', alignItems: 'center', gap: '4px' }}
+                        className="btn-action-table crq-btn-comment"
                         onClick={() => setApprovalActions(prev => ({ ...prev, [pa.cr_id]: { ...prev[pa.cr_id], showComment: !prev[pa.cr_id]?.showComment } }))}
                       >
                         <MessageSquare size={12} /> Comment
                       </button>
                       <button
-                        className="btn-cr-action"
-                        style={{ background: 'transparent', color: 'var(--nx-text-secondary, #64748b)', padding: '6px 14px', borderRadius: '6px', fontSize: '13px', border: '1px solid var(--nx-border, #e2e8f0)', display: 'flex', alignItems: 'center', gap: '4px' }}
+                        className="btn-action-table view"
                         onClick={() => navigate(`/cr/${pa.cr_id}`)}
+                        title="View details"
                       >
-                        <Eye size={12} /> View Details
+                        <Eye size={13} />
                       </button>
                     </div>
                   </div>
@@ -323,119 +349,169 @@ const CRQueue = () => {
         </div>
       )}
 
-      {/* Table */}
-      <div className="cr-table-container">
+      {/* â”€â”€ TABLE â”€â”€ */}
+      <div className="table-container">
         {loading ? (
-          <div className="cr-loading">
-            <Loader size={24} className="spinner" />
-            <span>Loading queue...</span>
+          <div className="table-wrapper">
+            <table className="tickets-table">
+              <tbody>
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <tr key={i}>
+                    {Array.from({ length: 8 }).map((_, j) => (
+                      <td key={j}><div className="cr-skeleton-cell" /></td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         ) : crs.length === 0 ? (
-          <div className="cr-empty">
-            <CheckCircle size={48} />
+          <div className="empty-state">
+            <div className="empty-icon-wrapper">
+              <Shield size={64} className="empty-icon" />
+            </div>
             <h3>Queue is empty</h3>
-            <p>No change requests assigned to you in this category</p>
+            <p className="empty-description">No change requests assigned to you in this category</p>
           </div>
         ) : (
-          <table className="cr-table">
-            <thead>
-              <tr>
-                <th className="sortable" onClick={() => handleSort('cr_number')}>
-                  CR # <ArrowUpDown size={12} />
-                </th>
-                <th className="sortable" onClick={() => handleSort('title')}>
-                  Title <ArrowUpDown size={12} />
-                </th>
-                <th>Type</th>
-                <th className="sortable" onClick={() => handleSort('status_code')}>
-                  Status <ArrowUpDown size={12} />
-                </th>
-                <th>Risk</th>
-                <th className="sortable" onClick={() => handleSort('created_at')}>
-                  Created <ArrowUpDown size={12} />
-                </th>
-                <th>Requester</th>
-                <th className="th-actions">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {crs.map(cr => {
-                const statusStyle = getStatusStyle(cr.status_code);
-                const riskStyle = getRiskStyle(cr.risk_level);
-                return (
-                  <tr key={cr.cr_id} onClick={() => navigate(`/cr/${cr.cr_id}`)} className="cr-row-clickable">
-                    <td className="cr-number-cell">
-                      <span className="cr-number">{cr.cr_number}</span>
-                    </td>
-                    <td className="cr-title-cell">
-                      <span className="cr-title-text">{cr.title}</span>
-                    </td>
-                    <td>
-                      <span className="cr-type-badge">{cr.type_name || '—'}</span>
-                    </td>
-                    <td>
-                      <span className="cr-status-badge" style={{ background: statusStyle.bg, color: statusStyle.text }}>
-                        {cr.status_name || cr.status_code}
-                      </span>
-                    </td>
-                    <td>
-                      {cr.risk_level && (
-                        <span className="cr-risk-badge" style={{ background: riskStyle.bg, color: riskStyle.text }}>
-                          {cr.risk_level}
+          <div className="table-wrapper">
+            <table className="tickets-table">
+              <thead>
+                <tr>
+                  <th className="sortable cr-th-number" onClick={() => handleSort('cr_number')}>
+                    <div className="th-content">
+                      <span>CR #</span>
+                      {sortBy === 'cr_number' && <span className="sort-indicator">{sortOrder === 'ASC' ? <ChevronUp size={12} /> : <ChevronDown size={12} />}</span>}
+                    </div>
+                  </th>
+                  <th className="sortable cr-th-title" onClick={() => handleSort('title')}>
+                    <div className="th-content">
+                      <span>Title</span>
+                      {sortBy === 'title' && <span className="sort-indicator">{sortOrder === 'ASC' ? <ChevronUp size={12} /> : <ChevronDown size={12} />}</span>}
+                    </div>
+                  </th>
+                  <th className="cr-th-type">Type</th>
+                  <th className="cr-th-status">Status</th>
+                  <th className="cr-th-risk">Risk</th>
+                  <th className="sortable th-created" onClick={() => handleSort('created_at')}>
+                    <div className="th-content">
+                      <span>Created</span>
+                      {sortBy === 'created_at' && <span className="sort-indicator">{sortOrder === 'ASC' ? <ChevronUp size={12} /> : <ChevronDown size={12} />}</span>}
+                    </div>
+                  </th>
+                  <th className="th-requester">
+                    <div className="th-content"><User size={12} /><span>Requester</span></div>
+                  </th>
+                  <th className="th-actions" />
+                </tr>
+              </thead>
+              <tbody>
+                {crs.map(cr => {
+                  const statusStyle = getStatusStyle(cr.status_code);
+                  return (
+                    <tr
+                      key={cr.cr_id}
+                      className="ticket-row"
+                      onClick={() => navigate(`/cr/${cr.cr_id}`)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <td>
+                        <span className="ticket-number">{cr.cr_number}</span>
+                      </td>
+                      <td>
+                        <div className="ticket-title-content">
+                          <span className="ticket-title-link">{cr.title}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="category-badge">{cr.type_name || 'â€”'}</span>
+                      </td>
+                      <td>
+                        <span
+                          className="status-badge"
+                          style={{ background: statusStyle.bg, color: statusStyle.text }}
+                        >
+                          {cr.status_name || cr.status_code}
                         </span>
-                      )}
-                    </td>
-                    <td className="cr-date-cell">
-                      <span title={formatDateUtil(cr.created_at)}>{timeAgo(cr.created_at)}</span>
-                    </td>
-                    <td className="cr-requester-cell">
-                      {cr.requester_name || '—'}
-                    </td>
-                    <td className="cr-actions-cell" onClick={(e) => e.stopPropagation()}>
-                      <button className="btn-cr-view" onClick={() => navigate(`/cr/${cr.cr_id}`)} title="View">
-                        <Eye size={14} />
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                      </td>
+                      <td><RiskBadge level={cr.risk_level} /></td>
+                      <td>
+                        <div className="date-info">
+                          <span className="date-relative">{timeAgo(cr.created_at)}</span>
+                          <span className="date-full">{formatDate(cr.created_at)}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="user-info" title={cr.requester_name}>
+                          <div className="user-avatar">
+                            {cr.requester_profile_picture ? (
+                              <img
+                                src={getProfilePictureUrl(cr.requester_profile_picture)}
+                                alt={cr.requester_name}
+                                className="avatar-image"
+                                onError={(e) => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'flex'; }}
+                              />
+                            ) : null}
+                            <User size={14} style={{ display: cr.requester_profile_picture ? 'none' : 'flex' }} />
+                          </div>
+                          <span className="user-name">{cr.requester_name || 'â€”'}</span>
+                        </div>
+                      </td>
+                      <td onClick={e => e.stopPropagation()}>
+                        <div className="action-buttons">
+                          <button
+                            className="btn-action-table view"
+                            onClick={() => navigate(`/cr/${cr.cr_id}`)}
+                            title="View CR"
+                          >
+                            <Eye size={13} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="cr-pagination">
-          <span className="cr-pagination-info">
-            Page {currentPage} of {totalPages} ({totalRecords} records)
-          </span>
-          <div className="cr-pagination-controls">
-            <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>
+      {/* â”€â”€ PAGINATION â”€â”€ */}
+      {!loading && totalPages > 1 && (
+        <div className="pagination-container">
+          <div className="pagination-info">
+            Showing {((currentPage - 1) * PAGE_LIMIT) + 1}â€“{Math.min(currentPage * PAGE_LIMIT, totalRecords)} of {totalRecords}
+          </div>
+          <div className="pagination-buttons">
+            <button
+              className="btn-pagination"
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+            >
               <ChevronLeft size={16} />
             </button>
-            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+            {Array.from({ length: Math.min(7, totalPages) }, (_, i) => {
               let page;
-              if (totalPages <= 5) {
-                page = i + 1;
-              } else if (currentPage <= 3) {
-                page = i + 1;
-              } else if (currentPage >= totalPages - 2) {
-                page = totalPages - 4 + i;
-              } else {
-                page = currentPage - 2 + i;
-              }
+              if (totalPages <= 7) page = i + 1;
+              else if (currentPage <= 4) page = i + 1;
+              else if (currentPage >= totalPages - 3) page = totalPages - 6 + i;
+              else page = currentPage - 3 + i;
               return (
                 <button
                   key={page}
-                  className={currentPage === page ? 'active' : ''}
+                  className={`btn-pagination${currentPage === page ? ' active' : ''}`}
                   onClick={() => setCurrentPage(page)}
                 >
                   {page}
                 </button>
               );
             })}
-            <button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>
+            <button
+              className="btn-pagination"
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+            >
               <ChevronRight size={16} />
             </button>
           </div>
