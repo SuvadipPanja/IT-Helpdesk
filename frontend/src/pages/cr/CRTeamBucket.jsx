@@ -36,6 +36,8 @@ import {
   Crown,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
+  ChevronDown,
   Building2,
   Info,
   GitPullRequest,
@@ -83,7 +85,7 @@ const RouteCRModal = ({ cr, teams, onClose, onRoute }) => {
         </div>
         <div className="tbk-modal__body">
           <div className="tbk-modal__ticket-info">
-            <strong>{cr?.cr_number}</strong> â€” {cr?.title}
+            <strong>{cr?.cr_number}</strong> — {cr?.title}
           </div>
           {error && (
             <div className="tbk-alert tbk-alert--error"><AlertCircle size={14} /> {error}</div>
@@ -94,7 +96,7 @@ const RouteCRModal = ({ cr, teams, onClose, onRoute }) => {
               <option value="">-- Select destination team --</option>
               {otherTeams.map(t => (
                 <option key={t.team_id} value={t.team_id}>
-                  {t.team_name} {t.is_central ? '(Central)' : ''} â€” {t.unassigned_count || 0} in queue
+                  {t.team_name} {t.is_central ? '(Central)' : ''} — {t.unassigned_count || 0} in queue
                 </option>
               ))}
             </select>
@@ -269,7 +271,7 @@ const CRTeamBucket = () => {
     setCurrentPage(1);
   };
 
-  const formatDate = (d) => formatDateUtil ? formatDateUtil(d) : (d ? new Date(d).toLocaleDateString() : 'â€”');
+  const formatDate = (d) => formatDateUtil ? formatDateUtil(d) : (d ? new Date(d).toLocaleDateString() : '—');
 
   const getProfilePictureUrl = (pic) => {
     if (!pic) return null;
@@ -320,7 +322,7 @@ const CRTeamBucket = () => {
               <p className="page-subtitle">
                 {isEngineer ? 'Pick up CRs assigned to your team' : ''}
                 {canRoute && !isEngineer ? 'Route CRs to specialist teams' : ''}
-                {isAdmin ? ' â€” View any team bucket' : ''}
+                {isAdmin ? ' — View any team bucket' : ''}
               </p>
             </div>
           </div>
@@ -329,7 +331,7 @@ const CRTeamBucket = () => {
         <div className="header-right">
           <button
             className="btn-icon-action"
-            onClick={() => { fetchCRs(); fetchStats(true); toast.info('Refreshingâ€¦'); }}
+            onClick={() => { fetchCRs(); fetchStats(true); toast.info('Refreshing…'); }}
             disabled={loading}
             title="Refresh"
           >
@@ -343,7 +345,7 @@ const CRTeamBucket = () => {
         {statsLoading ? (
           <div className="ctb-stat-card">
             <Loader size={16} className="spinning" />
-            <span>Loadingâ€¦</span>
+            <span>Loading…</span>
           </div>
         ) : (
           (isAdmin ? bucketStats.all_teams : bucketStats.my_teams).map(team => (
@@ -407,7 +409,7 @@ const CRTeamBucket = () => {
           <input
             type="text"
             className="search-input-large"
-            placeholder="Search by CR #, titleâ€¦"
+            placeholder="Search by CR #, title…"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
           />
@@ -463,13 +465,13 @@ const CRTeamBucket = () => {
                   <th className="sortable cr-th-number" onClick={() => handleSort('cr_number')}>
                     <div className="th-content">
                       <span>CR #</span>
-                      {sortBy === 'cr_number' && <span className="sort-indicator">{sortOrder === 'ASC' ? 'â†‘' : 'â†“'}</span>}
+                      {sortBy === 'cr_number' && <span className="sort-indicator">{sortOrder === 'ASC' ? <ChevronUp size={12} /> : <ChevronDown size={12} />}</span>}
                     </div>
                   </th>
                   <th className="sortable cr-th-title" onClick={() => handleSort('title')}>
                     <div className="th-content">
                       <span>Title</span>
-                      {sortBy === 'title' && <span className="sort-indicator">{sortOrder === 'ASC' ? 'â†‘' : 'â†“'}</span>}
+                      {sortBy === 'title' && <span className="sort-indicator">{sortOrder === 'ASC' ? <ChevronUp size={12} /> : <ChevronDown size={12} />}</span>}
                     </div>
                   </th>
                   <th className="cr-th-status">Status</th>
@@ -481,7 +483,7 @@ const CRTeamBucket = () => {
                   <th className="sortable th-created" onClick={() => handleSort('created_at')}>
                     <div className="th-content">
                       <span>Created</span>
-                      {sortBy === 'created_at' && <span className="sort-indicator">{sortOrder === 'ASC' ? 'â†‘' : 'â†“'}</span>}
+                      {sortBy === 'created_at' && <span className="sort-indicator">{sortOrder === 'ASC' ? <ChevronUp size={12} /> : <ChevronDown size={12} />}</span>}
                     </div>
                   </th>
                   <th className="th-actions" />
@@ -537,7 +539,7 @@ const CRTeamBucket = () => {
                             ) : null}
                             <User size={14} style={{ display: cr.requester_profile_picture ? 'none' : 'flex' }} />
                           </div>
-                          <span className="user-name">{cr.requester_name || 'â€”'}</span>
+                          <span className="user-name">{cr.requester_name || '—'}</span>
                         </div>
                       </td>
 
@@ -545,7 +547,7 @@ const CRTeamBucket = () => {
                       <td>
                         <div className="ctb-team-cell">
                           {cr.is_central && <Crown size={11} className="ctb-crown" />}
-                          <span>{cr.team_name || 'â€”'}</span>
+                          <span>{cr.team_name || '—'}</span>
                         </div>
                       </td>
 
@@ -602,7 +604,7 @@ const CRTeamBucket = () => {
       {!loading && totalPages > 1 && (
         <div className="pagination-container">
           <div className="pagination-info">
-            Showing {((currentPage - 1) * limit) + 1}â€“{Math.min(currentPage * limit, totalRecords)} of {totalRecords}
+            Showing {((currentPage - 1) * limit) + 1}–{Math.min(currentPage * limit, totalRecords)} of {totalRecords}
           </div>
           <div className="pagination-buttons">
             <button
