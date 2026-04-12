@@ -45,12 +45,12 @@
 }
 
 .db-content {
-  padding: 24px;
+  padding: 12px 24px 24px;
   max-width: 1480px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 
 /* ============================================
@@ -123,8 +123,8 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 10px;
-  padding: 12px 16px;
+  gap: 8px;
+  padding: 8px 14px;
   background: var(--db-surface);
   border-radius: var(--db-radius);
   border: 1px solid var(--db-border);
@@ -231,21 +231,22 @@
 .db-stats-row {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  gap: 10px;
 }
 
 .db-stats-secondary {
   grid-template-columns: repeat(5, 1fr);
+  margin-top: 8px;
 }
 
 .db-stat-card {
   background: var(--db-surface);
   border: 1px solid var(--db-border);
   border-radius: var(--db-radius);
-  padding: 18px;
+  padding: 12px 14px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   cursor: pointer;
   transition: all .2s ease;
   box-shadow: var(--db-shadow);
@@ -303,8 +304,8 @@
 .db-stat-closure-wait .db-stat-icon { background: rgba(14, 165, 233, 0.12); color: #0ea5e9; }
 
 .db-stat-icon {
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -347,7 +348,7 @@
 }
 
 .db-stat-value {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--db-text);
   line-height: 1.2;
@@ -384,17 +385,17 @@
 }
 
 .db-stat-compact {
-  padding: 14px;
+  padding: 10px 12px;
 }
 
 .db-stat-compact .db-stat-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
 }
 
 .db-stat-compact .db-stat-value {
-  font-size: 20px;
+  font-size: 17px;
 }
 
 /* ============================================
@@ -1504,7 +1505,7 @@
   background: var(--db-surface);
   border-radius: var(--db-radius);
   box-shadow: var(--db-shadow);
-  padding: 16px 20px;
+  padding: 10px 14px;
   border-left: 3px solid var(--db-primary);
 }
 
@@ -1512,7 +1513,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .db-ticket-section-title {

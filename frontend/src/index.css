@@ -835,7 +835,7 @@ html[data-theme='dark'] option {
   flex: 1;
   min-width: 0;
   overflow-y: auto;
-  padding: clamp(16px, 2vw, 22px);
+  padding: clamp(8px, 1.5vw, 14px) clamp(16px, 2vw, 22px);
   background: var(--nx-bg);
 }
 

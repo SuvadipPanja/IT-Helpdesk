@@ -42,9 +42,25 @@
     When -Export is used, skip re-building the Ollama image (speeds up export
     when the LLM models have not changed).
 
+.PARAMETER CleanBuild
+    During the DB image commit workflow, run docker/db/seed/clean-for-release.sql
+    against the restored database BEFORE the SHUTDOWN WITH NOWAIT / docker commit.
+    This removes all development and test data (tickets, CRs, license records,
+    sessions, logs, non-admin users) while preserving schema and seed data.
+    The resulting image is a factory-fresh "ready to sell" state:
+        - All tables, views, stored procedures, indexes intact
+        - Seed data intact (KB, snippets, email templates, settings, roles)
+        - Single admin user: username=admin, email=admin@company.com, password=Admin@123
+        - No tickets, no users, no license, no sessions, no analytics
+    ALWAYS use -CleanBuild when building images for production release.
+    Do NOT use -CleanBuild together with -SkipDbBuild (nothing to clean).
+
 .EXAMPLE
-    # Full workflow: live backup → build all → test → export
-    .\docker\build-and-test.ps1 -Export
+    # Full workflow: live backup → clean build → test → export (use for every release)
+    .\docker\build-and-test.ps1 -CleanBuild -Export -SkipOllamaExport
+
+    # Full workflow including Ollama tar (only when models changed)
+    .\docker\build-and-test.ps1 -CleanBuild -Export
 
     # Build and test only; keep containers running for manual QA
     .\docker\build-and-test.ps1 -KeepTestRunning
@@ -53,7 +69,7 @@
     .\docker\build-and-test.ps1 -SkipLiveBackup -Export -SkipOllamaExport
 
     # Rebuild app images only (db schema unchanged), then export
-    .\docker\build-and-test.ps1 -SkipDbBuild -Export
+    .\docker\build-and-test.ps1 -SkipDbBuild -Export -SkipOllamaExport
 #>
 param(
     [switch]$SkipLiveBackup,
@@ -62,7 +78,8 @@ param(
     [switch]$SkipTest,
     [switch]$KeepTestRunning,
     [switch]$Export,
-    [switch]$SkipOllamaExport
+    [switch]$SkipOllamaExport,
+    [switch]$CleanBuild
 )
 
 $ErrorActionPreference = "Stop"
@@ -81,6 +98,7 @@ $SA_PASSWORD    = "ItHelpdeskDb@2026!"
 $VOLUME_NAME    = "ithelpdesk_sqlserver_data"
 $TEST_PROJECT   = "helpdesktest"
 $TEMP_CONTAINER = "helpdesk-db-backup-temp"
+$SCRUB_SQL      = Join-Path $DB_DIR "seed\clean-for-release.sql"
 
 # ── Helpers ────────────────────────────────────────────────────────────────
 function Write-Step { param([string]$n, [string]$msg)
@@ -129,62 +147,115 @@ if ($SkipLiveBackup) {
     } else {
         Write-Host "  Found volume: $VOLUME_NAME"
 
-        # Remove any leftover temp container from a prior failed run
-        # Note: | Out-Null without 2>&1 - avoids PS5.1 error-record termination
-        docker rm -f $TEMP_CONTAINER | Out-Null
+        # ── Strategy: prefer the already-running production DB container ──────
+        # If ithelpdesk-db-1 is currently running, execute the backup directly
+        # against it — no temp container needed, no image pull required.
+        # Fall back to a temp container only when the production DB is not up.
+        $PROD_DB_CONTAINER = "ithelpdesk-db-1"
+        $prodRunning = (docker inspect $PROD_DB_CONTAINER --format "{{.State.Running}}" 2>$null) -eq "true"
 
-        Write-Host "  Starting temporary SQL Server container (read-only access to existing data)..."
-        docker run -d `
-            --name $TEMP_CONTAINER `
-            -e ACCEPT_EULA=Y `
-            -e "MSSQL_SA_PASSWORD=$SA_PASSWORD" `
-            -v "${VOLUME_NAME}:/var/opt/mssql" `
-            -v "${BACKUP_DIR}:/host-backup" `
-            mcr.microsoft.com/mssql/server:2022-latest | Out-Null
+        $ts             = Get-Date -Format "yyyyMMdd_HHmmss"
+        $backupFileName = "DOCKER_BASELINE_${ts}.bak"
+        $hostPath       = Join-Path $BACKUP_DIR $backupFileName
 
-        if ($LASTEXITCODE -ne 0) {
-            Write-Fail "Failed to start temporary SQL Server container"
-            exit 1
-        }
+        if ($prodRunning) {
+            Write-Host "  Production container '$PROD_DB_CONTAINER' is running - backing up directly..."
 
-        # Wait for SQL Server to accept connections (up to 90 s)
-        Write-Host "  Waiting for SQL Server to be ready (up to 90 s)..."
-        $ready = $false
-        for ($i = 1; $i -le 45; $i++) {
-            Start-Sleep -Seconds 2
+            # Check if /host-backup is mounted on the DB container.
+            # If not, stage inside the container then docker cp to host.
+            # Wrap in try/catch: PowerShell 5.1 with ErrorActionPreference=Stop
+            # throws a terminating error when a native command writes to stderr.
+            $hostBackupOk = $false
+            try { docker exec $PROD_DB_CONTAINER ls /host-backup 2>&1 | Out-Null; $hostBackupOk = ($LASTEXITCODE -eq 0) } catch { $hostBackupOk = $false }
+            if ($hostBackupOk) {
+                $containerPath = "/host-backup/$backupFileName"
+            } else {
+                $stagingPath   = "/var/opt/mssql/backup"
+                try { docker exec $PROD_DB_CONTAINER mkdir -p $stagingPath 2>&1 | Out-Null } catch { }
+                $containerPath = "${stagingPath}/${backupFileName}"
+                Write-Host "  (/host-backup not mounted - staging at $stagingPath)"
+            }
+
+            Write-Host "  Backing up [ITHelpdesk] → $backupFileName ..."
+            docker exec $PROD_DB_CONTAINER `
+                /opt/mssql-tools18/bin/sqlcmd -C -S "localhost,1433" `
+                -U sa -P "$SA_PASSWORD" `
+                -Q "BACKUP DATABASE [ITHelpdesk] TO DISK = N'$containerPath' WITH FORMAT, INIT, COMPRESSION, STATS = 10;" `
+                2>&1
+            $backupExitCode = $LASTEXITCODE
+
+            # If staged inside the container, copy to host now
+            if ($containerPath -notlike "/host-backup/*") {
+                Write-Host "  Copying backup from container to host..."
+                docker cp "${PROD_DB_CONTAINER}:${containerPath}" $hostPath
+                docker exec $PROD_DB_CONTAINER rm -f $containerPath 2>&1 | Out-Null
+            }
+        } else {
+            # Production DB is not running — spin up a temp container using the MCR
+            # image if cached locally, otherwise fall back to helpdesk-db:restore-stage
+            # (which is FROM helpdesk-db:latest and has full tooling + fresh init scripts).
+            docker rm -f $TEMP_CONTAINER | Out-Null
+
+            $mcrImage  = "mcr.microsoft.com/mssql/server:2022-latest"
+            $allImages = @(docker images --format "{{.Repository}}:{{.Tag}}" 2>$null)
+            if ($allImages -contains $mcrImage) {
+                $backupImage = $mcrImage
+            } else {
+                # Build a lightweight restore-stage image from the local helpdesk-db:latest.
+                # It has entrypoint.sh which starts sqlservr + handles volume init properly.
+                $dockerfileName = if ($allImages -contains "helpdesk-db:latest") { "Dockerfile.patch" } else { "Dockerfile" }
+                Write-Host "  MCR image not cached. Building temporary restore-stage from $dockerfileName ..."
+                docker build -f (Join-Path $DB_DIR $dockerfileName) -t helpdesk-db:restore-stage $DB_DIR | Out-Null
+                if ($LASTEXITCODE -ne 0) { Write-Fail "Could not build restore-stage for backup"; exit 1 }
+                $backupImage = "helpdesk-db:restore-stage"
+            }
+
+            Write-Host "  Starting temporary SQL Server container (image: $backupImage)..."
+            docker run -d `
+                --name $TEMP_CONTAINER `
+                -e ACCEPT_EULA=Y `
+                -e "MSSQL_SA_PASSWORD=$SA_PASSWORD" `
+                -v "${VOLUME_NAME}:/var/opt/mssql" `
+                -v "${BACKUP_DIR}:/host-backup" `
+                $backupImage | Out-Null
+
+            if ($LASTEXITCODE -ne 0) {
+                Write-Fail "Failed to start temporary SQL Server container"
+                exit 1
+            }
+
+            Write-Host "  Waiting for SQL Server to be ready (up to 90 s)..."
+            $ready = $false
+            for ($i = 1; $i -le 45; $i++) {
+                Start-Sleep -Seconds 2
+                docker exec $TEMP_CONTAINER `
+                    /opt/mssql-tools18/bin/sqlcmd -C -S "localhost,1433" `
+                    -U sa -P "$SA_PASSWORD" -Q "SELECT 1" | Out-Null
+                if ($LASTEXITCODE -eq 0) { $ready = $true; break }
+                if ($i % 5 -eq 0) { Write-Host "  Still waiting... ($($i * 2) s)" }
+            }
+            if (-not $ready) {
+                docker rm -f $TEMP_CONTAINER | Out-Null
+                Write-Fail "SQL Server did not become ready within 90 seconds."
+                exit 1
+            }
+            Write-OK "SQL Server is ready"
+
+            $containerPath = "/host-backup/$backupFileName"
+            Write-Host "  Backing up [ITHelpdesk] → $backupFileName ..."
             docker exec $TEMP_CONTAINER `
                 /opt/mssql-tools18/bin/sqlcmd -C -S "localhost,1433" `
-                -U sa -P "$SA_PASSWORD" -Q "SELECT 1" | Out-Null
-            if ($LASTEXITCODE -eq 0) { $ready = $true; break }
-            if ($i % 5 -eq 0) { Write-Host "  Still waiting... ($($i * 2) s)" }
+                -U sa -P "$SA_PASSWORD" `
+                -Q "BACKUP DATABASE [ITHelpdesk] TO DISK = N'$containerPath' WITH FORMAT, INIT, COMPRESSION, STATS = 10;" `
+                2>&1
+            $backupExitCode = $LASTEXITCODE
+
+            docker stop $TEMP_CONTAINER | Out-Null
+            docker rm   $TEMP_CONTAINER | Out-Null
+            Write-OK "Temp container stopped and removed"
         }
 
-        if (-not $ready) {
-            docker rm -f $TEMP_CONTAINER | Out-Null
-            Write-Fail "SQL Server did not become ready within 90 seconds."
-            exit 1
-        }
-        Write-OK "SQL Server is ready"
-
-        # Take a compressed backup
-        $ts = Get-Date -Format "yyyyMMdd_HHmmss"
-        $backupFileName  = "DOCKER_BASELINE_${ts}.bak"
-        $containerPath   = "/host-backup/$backupFileName"   # inside container
-        $hostPath        = Join-Path $BACKUP_DIR $backupFileName
-
-        Write-Host "  Backing up [ITHelpdesk] → $backupFileName ..."
-        docker exec $TEMP_CONTAINER `
-            /opt/mssql-tools18/bin/sqlcmd -C -S "localhost,1433" `
-            -U sa -P "$SA_PASSWORD" `
-            -Q "BACKUP DATABASE [ITHelpdesk] TO DISK = N'$containerPath' WITH FORMAT, INIT, COMPRESSION, STATS = 10;" `
-            2>&1
-
-        $backupExitCode = $LASTEXITCODE
-
-        # Always stop and remove the temp container
-        docker stop $TEMP_CONTAINER | Out-Null
-        docker rm   $TEMP_CONTAINER | Out-Null
-        Write-OK "Temp container stopped and removed"
+        $backupExitCode = if ($null -eq $backupExitCode) { $LASTEXITCODE } else { $backupExitCode }
 
         if ($backupExitCode -ne 0) {
             Write-Fail "BACKUP DATABASE command failed (exit $backupExitCode)"
@@ -250,11 +321,16 @@ if (-not $SkipDbBuild) {
 
     # Step 2: run the restore-stage container WITHOUT a volume mount
     # (data files go directly into the container's writable layer)
+    # DB_FORCE_RESTORE=1 ensures the entrypoint always restores the backup file even when
+    # the base image (helpdesk-db:latest) already has DB data files baked in from a prior build.
+    # Without this, new settings (API keys, etc.) added to the running dev container would be
+    # silently omitted from the committed production image.
     docker rm -f $COMMIT_CONTAINER | Out-Null
     Write-Host "  Starting restore container (no volume - data goes into container layer) ..."
     docker run -d `
         --name $COMMIT_CONTAINER `
         -e ACCEPT_EULA=Y `
+        -e DB_FORCE_RESTORE=1 `
         helpdesk-db:restore-stage
     if ($LASTEXITCODE -ne 0) { Write-Fail "Failed to start restore container"; exit 1 }
 
@@ -283,6 +359,29 @@ if (-not $SkipDbBuild) {
     #  all idempotent migrations have finished executing).
     Write-Host "  Waiting 10 s for migrations to complete ..."
     Start-Sleep -Seconds 10
+
+    # Step 3b: run production scrub (only when -CleanBuild is set)
+    if ($CleanBuild) {
+        if (-not (Test-Path $SCRUB_SQL)) {
+            Write-Fail "clean-for-release.sql not found at: $SCRUB_SQL"
+            docker rm -f $COMMIT_CONTAINER | Out-Null
+            exit 1
+        }
+        Write-Host "  (-CleanBuild) Running production scrub to remove dev/test data ..."
+        docker cp $SCRUB_SQL "${COMMIT_CONTAINER}:/tmp/clean-for-release.sql" | Out-Null
+        docker exec $COMMIT_CONTAINER `
+            /opt/mssql-tools18/bin/sqlcmd -C -S "localhost,1433" `
+            -U sa -P "$SA_PASSWORD" `
+            -d ITHelpdesk `
+            -i "/tmp/clean-for-release.sql" `
+            2>&1
+        if ($LASTEXITCODE -ne 0) {
+            Write-Fail "Production scrub failed (exit $LASTEXITCODE). Aborting."
+            docker rm -f $COMMIT_CONTAINER | Out-Null
+            exit 1
+        }
+        Write-OK "Production scrub complete - DB is factory-fresh"
+    }
 
     # Step 4: shut SQL Server down cleanly so data files are consistent
     Write-Host "  Shutting down SQL Server cleanly ..."

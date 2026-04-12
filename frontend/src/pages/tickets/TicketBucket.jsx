@@ -39,6 +39,7 @@ import {
   Filter,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   AlertCircle,
   Clock,
   CheckCircle,
@@ -108,6 +109,10 @@ const TicketBucket = () => {
   const [assigningTicketId, setAssigningTicketId] = useState(null);
   const [confirmPickup, setConfirmPickup] = useState(null);
 
+  // Location dropdown
+  const [locationDropdownOpen, setLocationDropdownOpen] = useState(false);
+  const locationDropdownRef = useRef(null);
+
   // Cache
   const statsCache = useRef({ data: null, timestamp: 0 });
 
@@ -120,6 +125,17 @@ const TicketBucket = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, [searchQuery]);
+
+  // Close location dropdown on outside click
+  useEffect(() => {
+    const handleOutside = (e) => {
+      if (locationDropdownRef.current && !locationDropdownRef.current.contains(e.target)) {
+        setLocationDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutside);
+    return () => document.removeEventListener('mousedown', handleOutside);
+  }, []);
 
   // ============================================
   // EFFECTS
@@ -473,25 +489,41 @@ const TicketBucket = () => {
           )}
         </div>
 
-        <div className="tb-filter-location">
-          <MapPin size={16} />
-          <select
-            value={selectedLocation}
-            onChange={(e) => handleLocationChange(e.target.value)}
+        <div className="tb-filter-location" ref={locationDropdownRef}>
+          <MapPin size={16} className="tb-location-pin-icon" />
+          <button
             className="tb-location-select"
+            onClick={() => setLocationDropdownOpen(o => !o)}
+            type="button"
           >
-            <option value="all">All Locations</option>
-            {userLocationId && (
-              <option value="my-location">
-                My Location ({locations.find(l => l.location_id === userLocationId)?.location_name || '...'})
-              </option>
-            )}
-            {locations.map(loc => (
-              <option key={loc.location_id} value={String(loc.location_id)}>
-                {loc.location_name}
-              </option>
-            ))}
-          </select>
+            <span>{getSelectedLocationName()}</span>
+            <ChevronDown size={14} className={`tb-location-chevron${locationDropdownOpen ? ' open' : ''}`} />
+          </button>
+          {locationDropdownOpen && (
+            <div className="tb-location-dropdown">
+              <div
+                className={`tb-location-option${selectedLocation === 'all' ? ' selected' : ''}`}
+                onClick={() => { handleLocationChange('all'); setLocationDropdownOpen(false); }}
+              >All Locations</div>
+              {userLocationId && (
+                <div
+                  className={`tb-location-option${selectedLocation === 'my-location' ? ' selected' : ''}`}
+                  onClick={() => { handleLocationChange('my-location'); setLocationDropdownOpen(false); }}
+                >
+                  My Location ({locations.find(l => l.location_id === userLocationId)?.location_name || '...'})
+                </div>
+              )}
+              {locations.map(loc => (
+                <div
+                  key={loc.location_id}
+                  className={`tb-location-option${String(selectedLocation) === String(loc.location_id) ? ' selected' : ''}`}
+                  onClick={() => { handleLocationChange(String(loc.location_id)); setLocationDropdownOpen(false); }}
+                >
+                  {loc.location_name}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="tb-result-count">
