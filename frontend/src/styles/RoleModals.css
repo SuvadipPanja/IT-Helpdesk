@@ -1,36 +1,36 @@
-/* ============================================
+﻿/* ============================================
    ROLE MODALS - MODERN DESIGN WITH TOKENS
    ============================================ */
 
 /* ==================== CSS VARIABLES ==================== */
 .modal-overlay {
-  --rm-primary: #6366f1;
-  --rm-primary-dark: #4f46e5;
+  --rm-primary: var(--nx-primary);
+  --rm-primary-dark: var(--nx-primary-hover);
   --rm-primary-light: rgba(99, 102, 241, 0.1);
   --rm-primary-ring: rgba(99, 102, 241, 0.15);
-  --rm-danger: #dc2626;
+  --rm-danger: var(--nx-priority-critical);
   --rm-danger-dark: #b91c1c;
-  --rm-danger-light: #fef2f2;
-  --rm-danger-border: #fecaca;
-  --rm-warning: #d97706;
-  --rm-warning-light: #fffbeb;
+  --rm-danger-light: var(--nx-danger-light);
+  --rm-danger-border: var(--nx-danger-light5);
+  --rm-warning: var(--nx-warning-dark);
+  --rm-warning-light: var(--nx-warning-light);
   --rm-warning-border: #fde68a;
-  --rm-info: #1e40af;
-  --rm-info-light: #eff6ff;
+  --rm-info: var(--nx-info-dark2);
+  --rm-info-light: var(--nx-info-light);
   --rm-info-border: #bfdbfe;
-  --rm-text-primary: #0f172a;
-  --rm-text-secondary: #475569;
-  --rm-text-muted: #94a3b8;
-  --rm-text-label: #64748b;
-  --rm-bg: #ffffff;
-  --rm-bg-alt: #f8fafc;
-  --rm-bg-input: #ffffff;
+  --rm-text-primary: var(--nx-text);
+  --rm-text-secondary: var(--nx-text-secondary);
+  --rm-text-muted: var(--nx-muted);
+  --rm-text-label: var(--nx-text-secondary);
+  --rm-bg: var(--nx-surface);
+  --rm-bg-alt: var(--nx-surface-hover);
+  --rm-bg-input: var(--nx-surface);
   --rm-bg-hover: #f0f4ff;
   --rm-bg-purple-hover: #ede9fe;
-  --rm-border: #e2e8f0;
-  --rm-border-light: #f1f5f9;
-  --rm-scrollbar-track: #f1f5f9;
-  --rm-scrollbar-thumb: #cbd5e1;
+  --rm-border: var(--nx-border);
+  --rm-border-light: var(--nx-bg);
+  --rm-scrollbar-track: var(--nx-bg);
+  --rm-scrollbar-thumb: var(--nx-border-strong);
   --rm-overlay: rgba(15, 23, 42, 0.7);
   --rm-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
   --rm-radius: 14px;
@@ -41,19 +41,19 @@
 
 /* ==================== DARK MODE ==================== */
 [data-theme="dark"] .modal-overlay {
-  --rm-text-primary: #f1f5f9;
-  --rm-text-secondary: #cbd5e1;
-  --rm-text-muted: #64748b;
-  --rm-text-label: #94a3b8;
-  --rm-bg: #1e293b;
+  --rm-text-primary: var(--nx-bg);
+  --rm-text-secondary: var(--nx-border-strong);
+  --rm-text-muted: var(--nx-text-secondary);
+  --rm-text-label: var(--nx-muted);
+  --rm-bg: var(--nx-surface-dark);
   --rm-bg-alt: #162032;
-  --rm-bg-input: #0f172a;
+  --rm-bg-input: var(--nx-text);
   --rm-bg-hover: rgba(99, 102, 241, 0.12);
   --rm-bg-purple-hover: rgba(139, 92, 246, 0.15);
-  --rm-border: #334155;
-  --rm-border-light: #1e293b;
-  --rm-scrollbar-track: #0f172a;
-  --rm-scrollbar-thumb: #475569;
+  --rm-border: var(--nx-gray-700);
+  --rm-border-light: var(--nx-surface-dark);
+  --rm-scrollbar-track: var(--nx-text);
+  --rm-scrollbar-thumb: var(--nx-text-secondary);
   --rm-overlay: rgba(0, 0, 0, 0.75);
   --rm-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
   --rm-danger-light: rgba(220, 38, 38, 0.12);
@@ -199,9 +199,9 @@
 }
 
 .warning-text {
-  color: var(--rm-danger) !important;
-  font-weight: 600 !important;
-  margin-top: 16px !important;
+  color: var(--rm-danger);
+  font-weight: 600;
+  margin-top: 16px;
 }
 
 /* ==================== ROLE FORM ==================== */

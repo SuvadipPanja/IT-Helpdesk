@@ -1,5 +1,5 @@
-/* ============================================
-   NOTIFICATIONS CENTER — Industrial-Grade Redesign
+ï»¿/* ============================================
+   NOTIFICATIONS CENTER ï¿½ Industrial-Grade Redesign
    CSS Custom Properties & Design Tokens
    ============================================ */
 
@@ -37,6 +37,7 @@
   padding: 0;
   margin: 0;
   min-height: calc(100vh - 64px);
+  min-height: calc(100dvh - 64px);
   background: var(--np-bg);
   font-family: var(--np-font);
 }
@@ -46,7 +47,7 @@
    ============================================ */
 
 .np-header {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
+  background: linear-gradient(135deg, var(--nx-primary) 0%, var(--nx-purple) 50%, #a78bfa 100%);
   padding: 28px 32px 24px;
   position: relative;
   overflow: hidden;
@@ -971,7 +972,7 @@
 }
 
 [data-theme="dark"] .np-header {
-  background: linear-gradient(135deg, #4338ca 0%, #6d28d9 50%, #7c3aed 100%);
+  background: linear-gradient(135deg, #4338ca 0%, var(--nx-purple-darker) 50%, var(--nx-purple-dark) 100%);
 }
 
 [data-theme="dark"] .np-item.unread {
@@ -1000,7 +1001,7 @@
    ============================================ */
 
 @media print {
-  .np-header { background: #f1f5f9 !important; color: #000 !important; }
+  .np-header { background: var(--nx-bg) !important; color: #000 !important; }
   .np-header * { color: #000 !important; }
   .np-header-right,
   .np-toolbar,

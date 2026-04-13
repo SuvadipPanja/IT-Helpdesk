@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ============================================
  * CR QUEUE PAGE — CRQueue.css
  * ============================================
@@ -23,24 +23,24 @@
   padding: 6px 16px;
   font-size: 13px;
   font-weight: 500;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 20px;
-  background: var(--background-secondary, #f8fafc);
-  color: var(--text-secondary, #64748b);
+  background: var(--background-secondary, var(--nx-surface-hover));
+  color: var(--text-secondary, var(--nx-text-secondary));
   cursor: pointer;
   transition: all 0.18s ease;
   white-space: nowrap;
 }
 
 .crq-tab:hover {
-  background: #e0e7ff;
-  border-color: #c7d2fe;
-  color: #4f46e5;
+  background: var(--nx-primary-100);
+  border-color: var(--nx-primary-200);
+  color: var(--nx-primary-hover);
 }
 
 .crq-tab--active {
-  background: #4f46e5;
-  border-color: #4f46e5;
+  background: var(--nx-primary-hover);
+  border-color: var(--nx-primary-hover);
   color: #fff;
   font-weight: 600;
 }
@@ -57,7 +57,7 @@
 .crq-result-count {
   font-size: 13px;
   font-weight: 500;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
   white-space: nowrap;
   padding: 0 4px;
 }
@@ -77,8 +77,8 @@
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  background: #fffbeb;
-  color: #92400e;
+  background: var(--nx-warning-light);
+  color: var(--nx-warning-darker);
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
@@ -87,12 +87,12 @@
 }
 
 .crq-approval-banner:hover {
-  background: #fef3c7;
+  background: var(--nx-warning-amber100);
 }
 
 .crq-approval-banner svg {
   flex-shrink: 0;
-  color: #d97706;
+  color: var(--nx-warning-dark);
 }
 
 .crq-approval-toggle {
@@ -107,7 +107,7 @@
 }
 
 .crq-approval-card {
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 8px;
   padding: 12px 16px;
   margin-top: 10px;
@@ -138,7 +138,7 @@
   align-items: center;
   gap: 6px;
   font-size: 12px;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
   flex-wrap: wrap;
   margin-bottom: 8px;
 }
@@ -151,18 +151,18 @@
   width: 100%;
   padding: 8px 10px;
   border-radius: 6px;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   font-size: 13px;
   resize: vertical;
   min-height: 56px;
-  background: var(--background-secondary, #f8fafc);
+  background: var(--background-secondary, var(--nx-surface-hover));
   color: var(--text-primary, #1a202c);
   box-sizing: border-box;
 }
 
 .crq-approval-textarea:focus {
   outline: none;
-  border-color: #6366f1;
+  border-color: var(--nx-primary);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
@@ -187,14 +187,14 @@
   cursor: pointer;
   transition: all 0.2s ease;
   background: #d1fae5;
-  color: #059669;
+  color: var(--nx-success-dark);
   border: 1px solid #a7f3d0;
 }
 
 .btn-action-table.crq-btn-approve:hover:not(:disabled) {
-  background: #059669;
+  background: var(--nx-success-dark);
   color: #fff;
-  border-color: #059669;
+  border-color: var(--nx-success-dark);
 }
 
 .btn-action-table.crq-btn-approve:disabled {
@@ -214,15 +214,15 @@
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
-  background: #fee2e2;
-  color: #dc2626;
-  border: 1px solid #fca5a5;
+  background: var(--nx-danger-light4);
+  color: var(--nx-priority-critical);
+  border: 1px solid var(--nx-danger-light2);
 }
 
 .btn-action-table.crq-btn-reject:hover:not(:disabled) {
-  background: #dc2626;
+  background: var(--nx-priority-critical);
   color: #fff;
-  border-color: #dc2626;
+  border-color: var(--nx-priority-critical);
 }
 
 .btn-action-table.crq-btn-reject:disabled {
@@ -243,38 +243,38 @@
   cursor: pointer;
   transition: all 0.2s ease;
   background: transparent;
-  color: var(--text-secondary, #64748b);
-  border: 1px solid var(--border-color, #e2e8f0);
+  color: var(--text-secondary, var(--nx-text-secondary));
+  border: 1px solid var(--border-color, var(--nx-border));
 }
 
 .btn-action-table.crq-btn-comment:hover {
-  background: var(--background-secondary, #f1f5f9);
-  border-color: var(--text-secondary, #94a3b8);
+  background: var(--background-secondary, var(--nx-bg));
+  border-color: var(--text-secondary, var(--nx-muted));
 }
 
 /* --------------------------------------------------
    Dark mode
    -------------------------------------------------- */
 .dark .crq-tab {
-  background: var(--dark-bg-secondary, #1e293b);
-  border-color: var(--dark-border, #334155);
-  color: var(--dark-text-secondary, #94a3b8);
+  background: var(--dark-bg-secondary, var(--nx-surface-dark));
+  border-color: var(--dark-border, var(--nx-gray-700));
+  color: var(--dark-text-secondary, var(--nx-muted));
 }
 
 .dark .crq-tab:hover {
   background: rgba(99, 102, 241, 0.15);
-  border-color: #6366f1;
-  color: #818cf8;
+  border-color: var(--nx-primary);
+  color: var(--nx-primary-400);
 }
 
 .dark .crq-tab--active {
-  background: #4f46e5;
-  border-color: #4f46e5;
+  background: var(--nx-primary-hover);
+  border-color: var(--nx-primary-hover);
   color: #fff;
 }
 
 .dark .crq-approval-section {
-  border-color: #78350f;
+  border-color: var(--nx-warning-darkest);
 }
 
 .dark .crq-approval-banner {
@@ -287,42 +287,42 @@
 }
 
 .dark .crq-approval-toggle {
-  color: #f59e0b;
+  color: var(--nx-warning);
 }
 
 .dark .crq-approval-list {
-  background: var(--dark-bg-primary, #0f172a);
+  background: var(--dark-bg-primary, var(--nx-text));
 }
 
 .dark .crq-approval-card {
-  border-color: var(--dark-border, #334155);
-  background: var(--dark-bg-card, #1e293b);
+  border-color: var(--dark-border, var(--nx-gray-700));
+  background: var(--dark-bg-card, var(--nx-surface-dark));
 }
 
 .dark .crq-approval-title {
-  color: var(--dark-text-primary, #e2e8f0);
+  color: var(--dark-text-primary, var(--nx-border));
 }
 
 .dark .crq-approval-textarea {
-  background: var(--dark-bg-secondary, #1e293b);
-  border-color: var(--dark-border, #334155);
-  color: var(--dark-text-primary, #e2e8f0);
+  background: var(--dark-bg-secondary, var(--nx-surface-dark));
+  border-color: var(--dark-border, var(--nx-gray-700));
+  color: var(--dark-text-primary, var(--nx-border));
 }
 
 .dark .crq-approval-textarea:focus {
-  border-color: #6366f1;
+  border-color: var(--nx-primary);
 }
 
 .dark .btn-action-table.crq-btn-comment {
   background: transparent;
-  border-color: var(--dark-border, #334155);
-  color: var(--dark-text-secondary, #94a3b8);
+  border-color: var(--dark-border, var(--nx-gray-700));
+  color: var(--dark-text-secondary, var(--nx-muted));
 }
 
 .dark .btn-action-table.crq-btn-comment:hover {
-  background: var(--dark-bg-secondary, #1e293b);
+  background: var(--dark-bg-secondary, var(--nx-surface-dark));
 }
 
 .dark .crq-result-count {
-  color: var(--dark-text-secondary, #94a3b8);
+  color: var(--dark-text-secondary, var(--nx-muted));
 }

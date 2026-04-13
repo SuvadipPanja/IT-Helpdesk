@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    TICKET RATING SYSTEM STYLES
    Modern star-rating UI with multi-criteria feedback
    Developer: Suvadip Panja
@@ -30,7 +30,7 @@
    RATING MODAL
    ============================================ */
 .rating-modal {
-  background: var(--bg-primary, #ffffff);
+  background: var(--bg-primary, var(--nx-surface));
   border-radius: 16px;
   width: 100%;
   max-width: 520px;
@@ -55,7 +55,7 @@
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #f59e0b, #f97316);
+  background: linear-gradient(135deg, var(--nx-warning), var(--nx-orange));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,7 +73,7 @@
 .rating-modal-header p {
   margin: 0;
   font-size: 0.88rem;
-  color: var(--text-secondary, #6b7280);
+  color: var(--text-secondary, var(--nx-status-closed));
   line-height: 1.5;
 }
 
@@ -93,7 +93,7 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+  background: linear-gradient(135deg, var(--nx-purple), var(--nx-primary));
   color: #fff;
   display: flex;
   align-items: center;
@@ -141,7 +141,7 @@
 .rating-criteria-value {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #f59e0b;
+  color: var(--nx-warning);
   min-width: 30px;
   text-align: right;
 }
@@ -170,11 +170,11 @@
 }
 
 .star-rating-btn.active {
-  color: #f59e0b;
+  color: var(--nx-warning);
 }
 
 .star-rating-btn.hovered {
-  color: #fbbf24;
+  color: var(--nx-warning-light3);
 }
 
 /* ============================================
@@ -204,14 +204,14 @@
   resize: vertical;
   min-height: 80px;
   max-height: 160px;
-  background: var(--bg-primary, #ffffff);
+  background: var(--bg-primary, var(--nx-surface));
   color: var(--text-primary, #111827);
   transition: border-color 0.2s ease;
 }
 
 .rating-feedback-textarea:focus {
   outline: none;
-  border-color: #f59e0b;
+  border-color: var(--nx-warning);
   box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
 }
 
@@ -237,19 +237,19 @@
 .rating-overall-score {
   font-size: 2rem;
   font-weight: 800;
-  color: #f59e0b;
+  color: var(--nx-warning);
   line-height: 1;
 }
 
 .rating-overall-label {
   font-size: 0.8rem;
-  color: var(--text-secondary, #6b7280);
+  color: var(--text-secondary, var(--nx-status-closed));
 }
 
 .rating-overall-stars {
   display: flex;
   gap: 2px;
-  color: #f59e0b;
+  color: var(--nx-warning);
 }
 
 /* ============================================
@@ -267,7 +267,7 @@
   padding: 12px 20px;
   border: 1px solid var(--border-color, #d1d5db);
   border-radius: 8px;
-  background: var(--bg-primary, #ffffff);
+  background: var(--bg-primary, var(--nx-surface));
   color: var(--text-primary, #374151);
   font-size: 0.9rem;
   font-weight: 600;
@@ -284,8 +284,8 @@
   padding: 12px 24px;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(135deg, #f59e0b, #f97316);
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--nx-warning), var(--nx-orange));
+  color: var(--nx-surface);
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
@@ -314,7 +314,7 @@
   border: 1px solid var(--border-color, #e5e7eb);
   border-radius: 12px;
   overflow: hidden;
-  background: var(--bg-primary, #ffffff);
+  background: var(--bg-primary, var(--nx-surface));
 }
 
 .td-rating-header {
@@ -327,7 +327,7 @@
 }
 
 .td-rating-header svg {
-  color: #f59e0b;
+  color: var(--nx-warning);
 }
 
 .td-rating-header h3 {
@@ -353,14 +353,14 @@
 .td-rating-score-lg {
   font-size: 2.2rem;
   font-weight: 800;
-  color: #f59e0b;
+  color: var(--nx-warning);
   line-height: 1;
 }
 
 .td-rating-stars-lg {
   display: flex;
   gap: 3px;
-  color: #f59e0b;
+  color: var(--nx-warning);
   font-size: 1.2rem;
 }
 
@@ -391,7 +391,7 @@
 .td-rating-criteria-name {
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--text-secondary, #6b7280);
+  color: var(--text-secondary, var(--nx-status-closed));
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
@@ -399,7 +399,7 @@
 .td-rating-criteria-stars {
   display: flex;
   gap: 2px;
-  color: #f59e0b;
+  color: var(--nx-warning);
 }
 
 .td-rating-criteria-stars .star-empty {
@@ -411,13 +411,13 @@
   padding: 12px 14px;
   background: var(--bg-secondary, #f9fafb);
   border-radius: 8px;
-  border-left: 3px solid #f59e0b;
+  border-left: 3px solid var(--nx-warning);
 }
 
 .td-rating-feedback-label {
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--text-secondary, #6b7280);
+  color: var(--text-secondary, var(--nx-status-closed));
   text-transform: uppercase;
   margin-bottom: 6px;
 }
@@ -443,9 +443,9 @@
    RATE BUTTON (Ticket Detail header area)
    ============================================ */
 .td-btn-rate {
-  background: linear-gradient(135deg, #f59e0b, #f97316) !important;
-  color: #ffffff !important;
-  border: none !important;
+  background: linear-gradient(135deg, var(--nx-warning), var(--nx-orange));
+  color: var(--nx-surface);
+  border: none;
   animation: ratePulse 2s ease-in-out infinite;
 }
 

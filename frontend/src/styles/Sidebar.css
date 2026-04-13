@@ -23,7 +23,7 @@
   min-width: var(--sb-collapsed-w);
   max-width: var(--sb-collapsed-w);
   overflow: visible;
-  z-index: 140;
+  z-index: var(--nx-z-sidebar, 140);
   /* Shell stays fixed — no width transition; inner .sidebar handles the expand */
 }
 
@@ -68,8 +68,7 @@
               box-shadow 0.24s ease,
               background 0.24s ease,
               border-color 0.24s ease;
-  backdrop-filter: blur(18px);
-  will-change: width, min-width, max-width;
+  will-change: width;
 }
 
 .sidebar::before {

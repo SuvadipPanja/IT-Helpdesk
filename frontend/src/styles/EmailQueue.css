@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    EMAIL QUEUE PAGE - SCOPED STYLES
    All styles prefixed with .email-queue-page
    to avoid conflicts with other pages
@@ -21,6 +21,7 @@
   --eq-radius: var(--nx-radius-sm);
 
   min-height: 100vh;
+  min-height: 100dvh;
   background-color: var(--eq-bg);
   padding: 2rem 0;
   color: var(--eq-text);
@@ -59,20 +60,20 @@
    ============================================ */
 .email-queue-page .stats-grid {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 1023px) {
   .email-queue-page .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 767px) {
   .email-queue-page .stats-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
@@ -131,13 +132,13 @@
 
 .email-queue-page .filters-row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1rem;
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 1023px) {
   .email-queue-page .filters-row {
-    flex-direction: row;
+    flex-direction: column;
   }
 }
 
@@ -170,7 +171,7 @@
 
 .email-queue-page .search-input:focus {
   outline: none;
-  border-color: #6366f1;
+  border-color: var(--nx-primary);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
@@ -187,7 +188,7 @@
 
 .email-queue-page .filter-select:focus {
   outline: none;
-  border-color: #6366f1;
+  border-color: var(--nx-primary);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
@@ -196,8 +197,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background-color: #6366f1;
-  color: #ffffff;
+  background-color: var(--nx-primary);
+  color: var(--nx-surface);
   border: none;
   border-radius: 0.5rem;
   font-size: 0.875rem;
@@ -208,7 +209,7 @@
 }
 
 .email-queue-page .refresh-btn:hover:not(:disabled) {
-  background-color: #4f46e5;
+  background-color: var(--nx-primary-hover);
 }
 
 .email-queue-page .refresh-btn:disabled {
@@ -243,7 +244,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: #ffffff;
+  color: var(--nx-surface);
 }
 
 .email-queue-page .bulk-action-btn:disabled {
@@ -252,19 +253,19 @@
 }
 
 .email-queue-page .bulk-action-btn.retry-all {
-  background-color: #10b981;
+  background-color: var(--nx-success);
 }
 
 .email-queue-page .bulk-action-btn.retry-all:hover:not(:disabled) {
-  background-color: #059669;
+  background-color: var(--nx-success-dark);
 }
 
 .email-queue-page .bulk-action-btn.clear-old {
-  background-color: #ef4444;
+  background-color: var(--nx-danger);
 }
 
 .email-queue-page .bulk-action-btn.clear-old:hover:not(:disabled) {
-  background-color: #dc2626;
+  background-color: var(--nx-priority-critical);
 }
 
 /* ============================================
@@ -359,17 +360,17 @@
 
 .email-queue-page .status-badge.sent {
   background-color: var(--nx-success-light);
-  color: #059669;
+  color: var(--nx-success-dark);
 }
 
 .email-queue-page .status-badge.pending {
   background-color: var(--nx-warning-light);
-  color: #d97706;
+  color: var(--nx-warning-dark);
 }
 
 .email-queue-page .status-badge.failed {
   background-color: var(--nx-danger-light);
-  color: #dc2626;
+  color: var(--nx-priority-critical);
 }
 
 .email-queue-page .retry-info {
@@ -478,7 +479,7 @@
    EMPTY STATE
    ============================================ */
 .email-queue-page .empty-state {
-  background-color: #ffffff;
+  background-color: var(--nx-surface);
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   padding: 3rem;
@@ -508,11 +509,11 @@
 }
 
 .dark .email-queue-page .empty-title {
-  color: #ffffff;
+  color: var(--nx-surface);
 }
 
 .email-queue-page .empty-description {
-  color: #6b7280;
+  color: var(--nx-status-closed);
 }
 
 .dark .email-queue-page .empty-description {

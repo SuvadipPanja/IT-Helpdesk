@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    COMPLETE HEADER.CSS
    Full-width ticker + Profile picture support
    Developer: Suvadip Panja
@@ -12,53 +12,54 @@
   height: var(--nx-header-h);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.9) 100%);
   border-bottom: 1px solid rgba(148, 163, 184, 0.16);
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  padding: 0 18px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: var(--nx-z-header, 100);
   box-shadow: 0 12px 26px rgba(15, 23, 42, 0.05), inset 0 -1px 0 rgba(255, 255, 255, 0.68);
   backdrop-filter: blur(18px);
-  gap: 14px !important;
+  gap: 14px;
 }
 
 /* ============================================
-   HEADER SECTIONS - FORCED FLEX
+   HEADER SECTIONS — scoped to avoid collision
+   with same-named classes in page CSS files
    ============================================ */
 
-.header-left {
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-  flex: 0 0 auto !important;
-  flex-shrink: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
+.header .header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
 }
 
-.header-center {
-  flex: 1 1 100% !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: none !important;
+.header .header-center {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
 }
 
-.header-right {
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  flex: 0 0 auto !important;
-  flex-shrink: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
+.header .header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
 }
 
 /* ============================================
@@ -100,7 +101,7 @@
   height: 24px;
   border-radius: 8px;
   background: rgba(245, 158, 11, 0.15);
-  color: #d97706;
+  color: var(--nx-warning-dark);
 }
 
 .header .announcement-banner-text {
@@ -113,7 +114,7 @@
   display: block;
   font-size: 12px;
   font-weight: 600;
-  color: #92400e;
+  color: var(--nx-warning-darker);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -129,7 +130,7 @@
   border-radius: 6px;
   border: none;
   background: transparent;
-  color: #92400e;
+  color: var(--nx-warning-darker);
   cursor: pointer;
   opacity: 0.6;
   transition: all 0.15s ease;
@@ -148,15 +149,15 @@
 
 [data-theme="dark"] .header .announcement-banner-icon {
   background: rgba(245, 158, 11, 0.12);
-  color: #fbbf24;
+  color: var(--nx-warning-light3);
 }
 
 [data-theme="dark"] .header .announcement-banner-text span {
-  color: #fcd34d;
+  color: var(--nx-warning-light2);
 }
 
 [data-theme="dark"] .header .announcement-banner-close {
-  color: #fcd34d;
+  color: var(--nx-warning-light2);
 }
 
 [data-theme="dark"] .header .announcement-banner-close:hover {
@@ -192,7 +193,7 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: #475569;
+  color: var(--nx-text-secondary);
   position: relative;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
 }
@@ -200,7 +201,7 @@
 .header .btn-icon-header:hover {
   background: rgba(248, 250, 252, 0.96);
   border-color: rgba(99, 102, 241, 0.2);
-  color: #0f172a;
+  color: var(--nx-text);
   transform: translateY(-1px);
 }
 
@@ -235,7 +236,7 @@
   position: absolute;
   top: -4px;
   right: -4px;
-  background: #ef4444;
+  background: var(--nx-danger);
   color: white;
   font-size: 10px;
   font-weight: 700;
@@ -292,7 +293,7 @@
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, var(--nx-primary) 0%, var(--nx-purple) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -318,7 +319,7 @@
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, var(--nx-primary) 0%, var(--nx-purple) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -337,18 +338,18 @@
 .header .user-name {
   font-size: 12px;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--nx-surface-dark);
   line-height: 1.2;
 }
 
 .header .user-role {
   font-size: 11px;
-  color: #64748b;
+  color: var(--nx-text-secondary);
   line-height: 1.2;
 }
 
 .header .chevron-icon {
-  color: #94a3b8;
+  color: var(--nx-muted);
   transition: transform 0.2s ease;
 }
 
@@ -414,14 +415,14 @@
 .header .dropdown-header h3 {
   font-size: 16px;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--nx-surface-dark);
   margin: 0;
 }
 
 .header .btn-text-small {
   background: none;
   border: none;
-  color: #6366f1;
+  color: var(--nx-primary);
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -434,8 +435,8 @@
 }
 
 .header .btn-text-small:hover {
-  color: #8b5cf6;
-  background: #f1f5f9;
+  color: var(--nx-purple);
+  background: var(--nx-bg);
 }
 
 .header .dropdown-body {
@@ -452,12 +453,12 @@
 }
 
 .header .dropdown-body::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: var(--nx-border-strong);
   border-radius: 3px;
 }
 
 .header .dropdown-body::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: var(--nx-muted);
 }
 
 /* ============================================
@@ -511,14 +512,14 @@
 .header .notification-content h4 {
   font-size: 14px;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--nx-surface-dark);
   margin: 0 0 4px 0;
   line-height: 1.3;
 }
 
 .header .notification-content p {
   font-size: 13px;
-  color: #64748b;
+  color: var(--nx-text-secondary);
   margin: 0 0 6px 0;
   line-height: 1.4;
 }
@@ -532,13 +533,13 @@
 
 .header .notification-time {
   font-size: 11px;
-  color: #94a3b8;
+  color: var(--nx-muted);
 }
 
 .header .notification-ticket {
   font-size: 11px;
   font-weight: 600;
-  color: #6366f1;
+  color: var(--nx-primary);
   background: rgba(99, 102, 241, 0.1);
   padding: 2px 6px;
   border-radius: 4px;
@@ -560,22 +561,22 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #64748b;
+  color: var(--nx-text-secondary);
   transition: all 0.2s ease;
 }
 
 .header .btn-icon-tiny:hover {
   background: rgba(148, 163, 184, 0.22);
-  color: #1e293b;
+  color: var(--nx-surface-dark);
 }
 
 .header .btn-danger-tiny {
-  color: #ef4444;
+  color: var(--nx-danger);
 }
 
 .header .btn-danger-tiny:hover {
-  background: #fee2e2;
-  color: #dc2626;
+  background: var(--nx-danger-light4);
+  color: var(--nx-priority-critical);
 }
 
 .header .notification-dot {
@@ -584,7 +585,7 @@
   right: 14px;
   width: 8px;
   height: 8px;
-  background: #3b82f6;
+  background: var(--nx-info);
   border-radius: 50%;
   border: 2px solid var(--nx-surface);
 }
@@ -599,7 +600,7 @@
 }
 
 .header .empty-notifications .empty-icon {
-  color: #cbd5e1;
+  color: var(--nx-border-strong);
   margin-bottom: 12px;
 }
 
@@ -609,25 +610,25 @@
 
 .header .empty-notifications .disabled-title {
   font-weight: 600;
-  color: #475569;
+  color: var(--nx-text-secondary);
 }
 
 .header .empty-notifications .disabled-copy {
-  color: #94a3b8;
+  color: var(--nx-muted);
   text-align: center;
   display: block;
   padding: 0 20px;
 }
 
 .header .empty-notifications p {
-  color: #64748b;
+  color: var(--nx-text-secondary);
   font-size: 14px;
   font-weight: 600;
   margin: 0 0 4px 0;
 }
 
 .header .empty-notifications small {
-  color: #94a3b8;
+  color: var(--nx-muted);
   font-size: 12px;
 }
 
@@ -646,7 +647,7 @@
   width: 100%;
   background: none;
   border: none;
-  color: #6366f1;
+  color: var(--nx-primary);
   font-size: 13px;
   font-weight: 600;
   padding: 8px;
@@ -656,8 +657,8 @@
 }
 
 .header .btn-text-dropdown:hover {
-  color: #8b5cf6;
-  background: #f1f5f9;
+  color: var(--nx-purple);
+  background: var(--nx-bg);
 }
 
 /* ============================================
@@ -670,7 +671,7 @@
 
 .header .dropdown-header-user {
   padding: 20px;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, var(--nx-primary) 0%, var(--nx-purple) 100%);
   border-radius: 16px 16px 0 0;
   color: white;
 }
@@ -767,47 +768,47 @@
   border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
-  color: #475569;
+  color: var(--nx-text-secondary);
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
 }
 
 .header .dropdown-item:hover {
-  background: #f8fafc;
-  color: #1e293b;
+  background: var(--nx-surface-hover);
+  color: var(--nx-surface-dark);
 }
 
 .header .dropdown-item svg {
-  color: #94a3b8;
+  color: var(--nx-muted);
   transition: color 0.2s ease;
 }
 
 .header .dropdown-item:hover svg {
-  color: #6366f1;
+  color: var(--nx-primary);
 }
 
 .header .dropdown-divider {
   height: 1px;
-  background: #f1f5f9;
+  background: var(--nx-bg);
   margin: 8px 0;
 }
 
 .header .logout-item {
-  color: #ef4444;
+  color: var(--nx-danger);
 }
 
 .header .logout-item:hover {
-  background: #fef2f2;
-  color: #dc2626;
+  background: var(--nx-danger-light);
+  color: var(--nx-priority-critical);
 }
 
 .header .logout-item svg {
-  color: #ef4444;
+  color: var(--nx-danger);
 }
 
 .header .logout-item:hover svg {
-  color: #dc2626;
+  color: var(--nx-priority-critical);
 }
 
 /* ============================================
@@ -822,8 +823,8 @@
 
 @media (max-width: 768px) {
   .header {
-    padding: 0 16px !important;
-    gap: 10px !important;
+    padding: 0 16px;
+    gap: 10px;
   }
 
   .header .notifications-menu {
@@ -851,12 +852,12 @@
 
 @media (max-width: 480px) {
   .header {
-    padding: 0 12px !important;
-    gap: 8px !important;
+    padding: 0 12px;
+    gap: 8px;
   }
 
   .header .header-right {
-    gap: 8px !important;
+    gap: 8px;
   }
 
   .header .user-info-header {
@@ -925,7 +926,7 @@
 [data-theme="dark"] .header .btn-icon-header.is-active {
   background: rgba(129, 140, 248, 0.16);
   border-color: rgba(129, 140, 248, 0.3);
-  color: #c7d2fe;
+  color: var(--nx-primary-200);
 }
 
 [data-theme="dark"] .header .notification-badge {

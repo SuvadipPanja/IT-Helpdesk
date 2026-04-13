@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    JOB MONITOR PANEL - PRODUCTION UI
    Matches the app design system exactly
    (Settings.css / UsersList.css pattern)
@@ -12,7 +12,7 @@
   --jm-primary-hover: var(--nx-primary-hover);
   --jm-primary-light: var(--nx-primary-light);
   --jm-primary-ultra: rgba(99, 102, 241, 0.08);
-  --jm-primary-grad: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%);
+  --jm-primary-grad: linear-gradient(135deg, #1e1b4b 0%, var(--nx-primary-900) 40%, #4338ca 100%);
   --jm-bg: var(--nx-bg);
   --jm-card: var(--nx-surface);
   --jm-border: var(--nx-border);
@@ -45,6 +45,7 @@
 /* ── Page Layout ───────────────────────────── */
 .jm-page {
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--jm-bg);
   font-family: var(--nx-font);
 }
@@ -110,7 +111,7 @@
 .jm-header-title {
   font-size: 22px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--nx-surface);
   margin: 0;
   letter-spacing: -0.3px;
 }
@@ -362,31 +363,31 @@
 
 .jm-badge--active {
   background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-  color: #065f46;
+  color: var(--nx-success-darker);
   border-color: var(--jm-success-border);
 }
 
 .jm-badge--running {
-  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-  color: #1d4ed8;
+  background: linear-gradient(135deg, var(--nx-info-light3), #bfdbfe);
+  color: var(--nx-info-darker);
   border-color: var(--jm-info-border);
 }
 
 .jm-badge--disabled {
-  background: linear-gradient(135deg, #fef3c7, #fde68a);
-  color: #92400e;
+  background: linear-gradient(135deg, var(--nx-warning-amber100), #fde68a);
+  color: var(--nx-warning-darker);
   border-color: var(--jm-warning-border);
 }
 
 .jm-badge--inactive {
   background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
-  color: #6b7280;
+  color: var(--nx-status-closed);
   border-color: #d1d5db;
 }
 
 .jm-badge--error {
-  background: linear-gradient(135deg, #fee2e2, #fecaca);
-  color: #991b1b;
+  background: linear-gradient(135deg, var(--nx-danger-light4), var(--nx-danger-light5));
+  color: var(--nx-danger-darker);
   border-color: var(--jm-danger-border);
 }
 
@@ -472,7 +473,7 @@
 }
 
 .jm-failed-count {
-  color: var(--jm-danger) !important;
+  color: var(--jm-danger);
   font-weight: 600;
 }
 
@@ -503,25 +504,25 @@
 
 .jm-exec--success {
   background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-  color: #065f46;
+  color: var(--nx-success-darker);
   border-color: #a7f3d0;
 }
 
 .jm-exec--failed {
-  background: linear-gradient(135deg, #fee2e2, #fecaca);
-  color: #991b1b;
-  border-color: #fecaca;
+  background: linear-gradient(135deg, var(--nx-danger-light4), var(--nx-danger-light5));
+  color: var(--nx-danger-darker);
+  border-color: var(--nx-danger-light5);
 }
 
 .jm-exec--running {
-  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-  color: #1d4ed8;
+  background: linear-gradient(135deg, var(--nx-info-light3), #bfdbfe);
+  color: var(--nx-info-darker);
   border-color: #bfdbfe;
 }
 
 .jm-exec--partial {
-  background: linear-gradient(135deg, #fef3c7, #fde68a);
-  color: #92400e;
+  background: linear-gradient(135deg, var(--nx-warning-amber100), #fde68a);
+  color: var(--nx-warning-darker);
   border-color: #fde68a;
 }
 
@@ -537,10 +538,10 @@
   align-items: center;
   gap: 8px;
   padding: 10px 14px;
-  background: linear-gradient(135deg, var(--jm-danger-bg), #fee2e2);
+  background: linear-gradient(135deg, var(--jm-danger-bg), var(--nx-danger-light4));
   border: 1px solid var(--jm-danger-border);
   border-radius: var(--jm-radius-xs);
-  color: #991b1b;
+  color: var(--nx-danger-darker);
   font-size: 12.5px;
   font-weight: 500;
 }
@@ -572,13 +573,13 @@
 .jm-trigger-msg--success {
   background: linear-gradient(135deg, var(--jm-success-bg), #d1fae5);
   border: 1px solid var(--jm-success-border);
-  color: #065f46;
+  color: var(--nx-success-darker);
 }
 
 .jm-trigger-msg--error {
-  background: linear-gradient(135deg, var(--jm-danger-bg), #fee2e2);
+  background: linear-gradient(135deg, var(--jm-danger-bg), var(--nx-danger-light4));
   border: 1px solid var(--jm-danger-border);
-  color: #991b1b;
+  color: var(--nx-danger-darker);
 }
 
 /* ── Card Footer (Run Now + Start/Stop) ──────────────────── */
@@ -616,23 +617,23 @@
 
 .jm-btn-toggle--start {
   background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-  border-color: #10b981;
-  color: #065f46;
+  border-color: var(--nx-success);
+  color: var(--nx-success-darker);
 }
 
 .jm-btn-toggle--start:hover:not(:disabled) {
-  background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
+  background: linear-gradient(135deg, #a7f3d0, var(--nx-success-light2));
   transform: translateY(-1px);
 }
 
 .jm-btn-toggle--stop {
-  background: linear-gradient(135deg, #fef3c7, #fde68a);
-  border-color: #f59e0b;
-  color: #92400e;
+  background: linear-gradient(135deg, var(--nx-warning-amber100), #fde68a);
+  border-color: var(--nx-warning);
+  color: var(--nx-warning-darker);
 }
 
 .jm-btn-toggle--stop:hover:not(:disabled) {
-  background: linear-gradient(135deg, #fde68a, #fcd34d);
+  background: linear-gradient(135deg, #fde68a, var(--nx-warning-light2));
   transform: translateY(-1px);
 }
 
@@ -651,7 +652,7 @@
   border-radius: var(--jm-radius-xs);
   border: none;
   background: var(--jm-primary-grad);
-  color: #ffffff;
+  color: var(--nx-surface);
   font-size: 13.5px;
   font-weight: 600;
   cursor: pointer;
@@ -791,7 +792,7 @@
 }
 
 [data-theme="dark"] .jm-header {
-  background: linear-gradient(135deg, #020617 0%, #172554 40%, #312e81 100%);
+  background: linear-gradient(135deg, #020617 0%, #172554 40%, var(--nx-primary-900) 100%);
 }
 
 [data-theme="dark"] .jm-card-header,
@@ -803,7 +804,7 @@
 
 [data-theme="dark"] .jm-badge--inactive {
   background: linear-gradient(135deg, rgba(71, 85, 105, 0.72), rgba(51, 65, 85, 0.92));
-  color: #cbd5e1;
+  color: var(--nx-border-strong);
   border-color: rgba(148, 163, 184, 0.22);
 }
 

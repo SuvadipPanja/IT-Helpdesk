@@ -4,7 +4,7 @@
 // FILE: frontend/src/pages/email/EmailTemplates.jsx
 // ============================================
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { 
   Plus, 
   Search, 
@@ -20,7 +20,9 @@ import {
 } from 'lucide-react';
 import RefreshButton from '../../components/shared/RefreshButton';
 import emailTemplatesService from '../../services/emailTemplates.service';
-import { TemplateEditorWithRef } from '../../components/email/TemplateEditor';
+const TemplateEditorWithRef = React.lazy(() =>
+  import('../../components/email/TemplateEditor').then(m => ({ default: m.TemplateEditorWithRef }))
+);
 import TemplateVariables from '../../components/email/TemplateVariables';
 import TemplatePreview from '../../components/email/TemplatePreview';
 import '../../styles/EmailTemplates.css';
@@ -557,12 +559,14 @@ const EmailTemplates = () => {
                   <p className="form-hint form-hint-spaced">
                     The rich editor shows headings, colors, and layout. <strong>Quick layout blocks</strong> below paste as HTML so you see the real layout—not a code string.
                   </p>
+                  <Suspense fallback={<div style={{ height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--nx-text-secondary)', fontSize: '13px' }}>Loading editor…</div>}>
                   <TemplateEditorWithRef
                     ref={editorRef}
                     value={formData.body_template}
                     onChange={(value) => handleFormChange('body_template', value)}
                     placeholder="Type here or insert merge tags / quick blocks from the panel below…"
                   />
+                  </Suspense>
                 </div>
 
                 {/* Insert target + Template Variables */}

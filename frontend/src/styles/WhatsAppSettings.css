@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    WHATSAPP SETTINGS TAB STYLES
    Scoped under .wa-settings-container
    ============================================ */
@@ -236,12 +236,12 @@
 }
 
 .wa-btn-danger {
-  background: #fee2e2;
-  color: #dc2626;
+  background: var(--nx-danger-light4);
+  color: var(--nx-priority-critical);
 }
 
 .wa-btn-danger:hover:not(:disabled) {
-  background: #fecaca;
+  background: var(--nx-danger-light5);
 }
 
 /* --- Alert --- */
@@ -255,9 +255,9 @@
   margin-bottom: 16px;
 }
 
-.wa-alert.success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
-.wa-alert.error   { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-.wa-alert.info    { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+.wa-alert.success { background: #dcfce7; color: #166534; border: 1px solid var(--nx-success-light3); }
+.wa-alert.error   { background: var(--nx-danger-light4); color: var(--nx-danger-darker); border: 1px solid var(--nx-danger-light5); }
+.wa-alert.info    { background: var(--nx-info-light3); color: var(--nx-info-dark2); border: 1px solid #bfdbfe; }
 .wa-alert.warning { background: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
 
 /* --- Token Field --- */
@@ -299,18 +299,18 @@
   font-weight: 600;
 }
 
-.wa-badge-in  { background: #dbeafe; color: #1e40af; }
+.wa-badge-in  { background: var(--nx-info-light3); color: var(--nx-info-dark2); }
 .wa-badge-out { background: #dcfce7; color: #166534; }
-.wa-badge-failed  { background: #fee2e2; color: #dc2626; }
-.wa-badge-sent    { background: #dbeafe; color: #1e40af; }
+.wa-badge-failed  { background: var(--nx-danger-light4); color: var(--nx-priority-critical); }
+.wa-badge-sent    { background: var(--nx-info-light3); color: var(--nx-info-dark2); }
 .wa-badge-delivered { background: #ccfbf1; color: #0f766e; }
 .wa-badge-read    { background: #f3e8ff; color: #7e22ce; }
 .wa-badge-pending { background: #fef9c3; color: #854d0e; }
-.wa-badge-muted   { background: var(--bg-tertiary, #f1f5f9); color: var(--text-muted); }
+.wa-badge-muted   { background: var(--bg-tertiary, var(--nx-bg)); color: var(--text-muted); }
 
 /* Message type badges */
-.wa-badge-type-text        { background: #f0fdf4; color: #15803d; }
-.wa-badge-type-interactive { background: #eff6ff; color: #1d4ed8; }
+.wa-badge-type-text        { background: var(--nx-success-light4); color: #15803d; }
+.wa-badge-type-interactive { background: var(--nx-info-light); color: var(--nx-info-darker); }
 .wa-badge-type-media       { background: #fdf4ff; color: #9333ea; }
 
 /* Spinner */
@@ -324,10 +324,10 @@
 
 /* --- Icon colour helpers --- */
 .wa-icon-green  { color: #25D366; }
-.wa-icon-blue   { color: #3b82f6; }
-.wa-icon-amber  { color: #f59e0b; }
+.wa-icon-blue   { color: var(--nx-info); }
+.wa-icon-amber  { color: var(--nx-warning); }
 .wa-icon-purple { color: #9333ea; }
-.wa-icon-red    { color: #ef4444; }
+.wa-icon-red    { color: var(--nx-danger); }
 
 /* --- Status pill (section header) --- */
 .wa-status-pill {
@@ -340,7 +340,7 @@
   font-weight: 600;
 }
 .wa-status-pill--on  { background: #dcfce7; color: #166534; }
-.wa-status-pill--off { background: var(--bg-tertiary, #f1f5f9); color: var(--text-muted); }
+.wa-status-pill--off { background: var(--bg-tertiary, var(--nx-bg)); color: var(--text-muted); }
 
 /* --- Section header hint --- */
 .wa-section-header-hint {
@@ -361,13 +361,13 @@
 
 /* --- Stat card accent colours --- */
 .wa-stat-value--messages { color: #25D366; }
-.wa-stat-value--users    { color: #3b82f6; }
-.wa-stat-value--notif    { color: #f59e0b; }
+.wa-stat-value--users    { color: var(--nx-info); }
+.wa-stat-value--notif    { color: var(--nx-warning); }
 .wa-stat-value--24h      { color: #9333ea; }
 
 /* --- Danger solid button --- */
 .wa-btn-danger-solid {
-  background: #dc2626;
+  background: var(--nx-priority-critical);
   color: white;
 }
 .wa-btn-danger-solid:hover:not(:disabled) {
@@ -378,7 +378,7 @@
 .wa-btn-copied {
   background: #dcfce7;
   color: #166534;
-  border: 1px solid #bbf7d0;
+  border: 1px solid var(--nx-success-light3);
 }
 
 /* --- Broadcast confirm text --- */
@@ -433,12 +433,12 @@
 }
 
 .wa-provider-tab.active {
-  background: #7c3aed;
+  background: var(--nx-purple-dark);
   color: #fff;
 }
 
 .wa-icon-purple {
-  color: #7c3aed;
+  color: var(--nx-purple-dark);
 }
 
 /* ============================================

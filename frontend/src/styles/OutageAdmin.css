@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
  * OUTAGE ADMIN & PUBLISH SHARED STYLES
  * Uses global --nx-* design system variables
  * ============================================ */
@@ -325,7 +325,7 @@
 }
 .outage-bool-btn-no {
   background: rgba(239,68,68,0.12);
-  color: #f87171;
+  color: var(--nx-danger-light3);
 }
 .outage-bool-btn:hover:not(.outage-bool-btn-yes):not(.outage-bool-btn-no) {
   background: var(--nx-surface);

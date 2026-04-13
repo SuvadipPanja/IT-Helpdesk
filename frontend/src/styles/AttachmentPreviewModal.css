@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    ATTACHMENT PREVIEW MODAL — CSS
    Premium modal overlay for file previews:
    images (zoom/rotate), PDFs (iframe), text
@@ -32,7 +32,7 @@
 
 /* ---- Modal Shell ---- */
 .apm-modal {
-    background: #ffffff;
+    background: var(--nx-surface);
     border-radius: 16px;
     box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.06);
     display: flex;
@@ -61,8 +61,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 14px 16px;
-    border-bottom: 1px solid #e2e8f0;
-    background: #f8fafc;
+    border-bottom: 1px solid var(--nx-border);
+    background: var(--nx-surface-hover);
     border-radius: 16px 16px 0 0;
     gap: 12px;
     min-height: 60px;
@@ -95,7 +95,7 @@
 .apm-filetype-label {
     font-size: 8px;
     font-weight: 700;
-    color: var(--icon-color, #64748b);
+    color: var(--icon-color, var(--nx-text-secondary));
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
@@ -110,7 +110,7 @@
 .apm-header-filename {
     font-weight: 600;
     font-size: 14px;
-    color: #1e293b;
+    color: var(--nx-surface-dark);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -119,12 +119,12 @@
 
 .apm-header-size {
     font-size: 12px;
-    color: #64748b;
+    color: var(--nx-text-secondary);
 }
 
 .apm-header-uploader {
     font-size: 11px;
-    color: #94a3b8;
+    color: var(--nx-muted);
 }
 
 /* ---- Header Actions ---- */
@@ -138,7 +138,7 @@
 .apm-header-divider {
     width: 1px;
     height: 24px;
-    background: #e2e8f0;
+    background: var(--nx-border);
     margin: 0 4px;
 }
 
@@ -147,10 +147,10 @@
     align-items: center;
     gap: 5px;
     padding: 6px 10px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--nx-border);
     border-radius: 8px;
-    background: #ffffff;
-    color: #475569;
+    background: var(--nx-surface);
+    color: var(--nx-text-secondary);
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;
@@ -159,15 +159,15 @@
 }
 
 .apm-tool-btn:hover {
-    background: #f1f5f9;
-    border-color: #cbd5e1;
-    color: #1e293b;
+    background: var(--nx-bg);
+    border-color: var(--nx-border-strong);
+    color: var(--nx-surface-dark);
 }
 
 .apm-tool-btn-save {
-    background: #f0fdf4;
-    border-color: #bbf7d0;
-    color: #059669;
+    background: var(--nx-success-light4);
+    border-color: var(--nx-success-light3);
+    color: var(--nx-success-dark);
 }
 
 .apm-tool-btn-save:hover {
@@ -182,18 +182,18 @@
     justify-content: center;
     width: 34px;
     height: 34px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--nx-border);
     border-radius: 8px;
-    background: #ffffff;
-    color: #64748b;
+    background: var(--nx-surface);
+    color: var(--nx-text-secondary);
     cursor: pointer;
     transition: all 0.15s ease;
 }
 
 .apm-close-btn:hover {
-    background: #fee2e2;
-    border-color: #fca5a5;
-    color: #dc2626;
+    background: var(--nx-danger-light4);
+    border-color: var(--nx-danger-light2);
+    color: var(--nx-priority-critical);
 }
 
 /* ---- Body ---- */
@@ -203,7 +203,7 @@
     display: flex;
     flex-direction: column;
     min-height: 0;
-    background: #f1f5f9;
+    background: var(--nx-bg);
     position: relative;
 }
 
@@ -215,12 +215,12 @@
     align-items: center;
     justify-content: center;
     padding: 24px;
-    background: #0f172a;
+    background: var(--nx-text);
     background-image:
-        linear-gradient(45deg, #1e293b 25%, transparent 25%),
-        linear-gradient(-45deg, #1e293b 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, #1e293b 75%),
-        linear-gradient(-45deg, transparent 75%, #1e293b 75%);
+        linear-gradient(45deg, var(--nx-surface-dark) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--nx-surface-dark) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--nx-surface-dark) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--nx-surface-dark) 75%);
     background-size: 20px 20px;
     background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
     min-height: 400px;
@@ -249,7 +249,7 @@
     height: 100%;
     border: none;
     min-height: 500px;
-    background: #ffffff;
+    background: var(--nx-surface);
 }
 
 /* ---- Text Viewer ---- */
@@ -268,8 +268,8 @@
     font-family: 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
     font-size: 13px;
     line-height: 1.7;
-    color: #1e293b;
-    background: #ffffff;
+    color: var(--nx-surface-dark);
+    background: var(--nx-surface);
     overflow: auto;
     white-space: pre-wrap;
     word-break: break-all;
@@ -284,12 +284,12 @@
     font-family: 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
     font-size: 13px;
     line-height: 1.7;
-    color: #1e293b;
+    color: var(--nx-surface-dark);
     background: #fffbf0;
     border: none;
     outline: none;
     min-height: 300px;
-    border-top: 2px solid #f59e0b;
+    border-top: 2px solid var(--nx-warning);
 }
 
 /* ---- Center State (loading / error / no-preview) ---- */
@@ -301,7 +301,7 @@
     justify-content: center;
     gap: 12px;
     padding: 40px 24px;
-    color: #64748b;
+    color: var(--nx-text-secondary);
     text-align: center;
     min-height: 300px;
 }
@@ -312,16 +312,16 @@
 }
 
 .apm-error-state {
-    color: #dc2626;
+    color: var(--nx-priority-critical);
 }
 
 .apm-error-state p {
-    color: #64748b;
+    color: var(--nx-text-secondary);
 }
 
 /* ---- No Preview (Office / Archive) ---- */
 .apm-no-preview {
-    background: #ffffff;
+    background: var(--nx-surface);
 }
 
 .apm-no-preview-icon {
@@ -333,13 +333,13 @@
 .apm-no-preview h3 {
     font-size: 18px;
     font-weight: 700;
-    color: #1e293b;
+    color: var(--nx-surface-dark);
     margin: 0;
 }
 
 .apm-no-preview-hint {
-    font-size: 13px !important;
-    color: #94a3b8 !important;
+    font-size: 13px;
+    color: var(--nx-muted);
     max-width: 340px;
 }
 
@@ -348,8 +348,8 @@
     align-items: center;
     gap: 8px;
     padding: 10px 22px;
-    background: #3b82f6;
-    color: #ffffff;
+    background: var(--nx-info);
+    color: var(--nx-surface);
     border: none;
     border-radius: 8px;
     font-size: 14px;
@@ -360,7 +360,7 @@
 }
 
 .apm-download-main-btn:hover {
-    background: #2563eb;
+    background: var(--nx-info-dark);
     transform: translateY(-1px);
     box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
 }
@@ -371,7 +371,7 @@
     align-items: center;
     gap: 12px;
     padding: 8px 16px;
-    background: #0f172a;
+    background: var(--nx-text);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 0 0 16px 16px;
 }
@@ -379,19 +379,19 @@
 .apm-zoom-label {
     font-size: 12px;
     font-weight: 600;
-    color: #94a3b8;
+    color: var(--nx-muted);
     min-width: 40px;
 }
 
 .apm-footer-hint {
     font-size: 11px;
-    color: #475569;
+    color: var(--nx-text-secondary);
 }
 
 /* ---- Spinner ---- */
 .apm-spinner {
     animation: apm-spin 1s linear infinite;
-    color: #3b82f6;
+    color: var(--nx-info);
 }
 
 @keyframes apm-spin {
@@ -419,12 +419,12 @@
 }
 
 .apm-btn-primary {
-    background: #3b82f6;
-    color: #ffffff;
+    background: var(--nx-info);
+    color: var(--nx-surface);
 }
 
 .apm-btn-primary:hover {
-    background: #2563eb;
+    background: var(--nx-info-dark);
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
 }
 

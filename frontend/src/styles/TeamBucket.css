@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    TEAM BUCKET PAGE STYLES
    Team Ticket Queue Interface
    ============================================ */
@@ -6,6 +6,7 @@
 .tbk-page {
   padding: 24px;
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--background-primary, #f8f9fa);
   max-width: 100%;
   overflow-x: hidden;
@@ -44,7 +45,7 @@
 .tbk-title {
   font-size: 22px;
   font-weight: 700;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   margin: 0;
   display: flex;
   align-items: center;
@@ -57,14 +58,14 @@
   font-weight: 600;
   padding: 3px 9px;
   border-radius: 16px;
-  background: #fef3c7;
-  color: #92400e;
+  background: var(--nx-warning-amber100);
+  color: var(--nx-warning-darker);
   border: 1px solid #fde68a;
 }
 
 .tbk-subtitle {
   font-size: 13px;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
   margin: 3px 0 0;
 }
 
@@ -84,14 +85,14 @@
   gap: 8px;
   padding: 8px 14px;
   background: var(--surface-primary, white);
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 8px;
   font-size: 13px;
 }
 
 .tbk-team-selector label {
   font-weight: 500;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
   white-space: nowrap;
 }
 
@@ -100,7 +101,7 @@
   outline: none;
   background: transparent;
   font-size: 13px;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   cursor: pointer;
   min-width: 160px;
 }
@@ -121,7 +122,7 @@
   gap: 12px;
   padding: 14px 18px;
   background: var(--surface-primary, white);
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 12px;
   min-width: 150px;
   flex: 1;
@@ -134,12 +135,12 @@
 
 .tbk-stat-card--active {
   border-color: #3b82f644;
-  background: #eff6ff;
+  background: var(--nx-info-light);
 }
 
 .tbk-stat-card--central {
   border-color: #f59e0b44;
-  background: #fffbeb;
+  background: var(--nx-warning-light);
 }
 
 .tbk-stat-card__icon {
@@ -161,13 +162,13 @@
 .tbk-stat-card__count {
   font-size: 20px;
   font-weight: 700;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   line-height: 1.2;
 }
 
 .tbk-stat-card__label {
   font-size: 12px;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
 }
 
 /* ============================================
@@ -189,9 +190,9 @@
   min-width: 200px;
   padding: 9px 14px;
   background: var(--surface-primary, white);
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 8px;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
 }
 
 .tbk-search-wrapper input {
@@ -200,7 +201,7 @@
   outline: none;
   background: transparent;
   font-size: 14px;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
 }
 
 .tbk-search-wrapper button {
@@ -221,17 +222,17 @@
 
 .tbk-filter-select {
   padding: 9px 12px;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 9px;
   font-size: 13px;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   background-color: var(--surface-primary, white);
   cursor: pointer;
   outline: none;
 }
 
 .tbk-filter-select:focus {
-  border-color: var(--primary-color, #6366f1);
+  border-color: var(--primary-color, var(--nx-primary));
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
@@ -243,7 +244,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
   padding: 50px;
   font-size: 14px;
 }
@@ -253,8 +254,8 @@
   align-items: center;
   gap: 10px;
   padding: 14px 18px;
-  background: #fef2f2;
-  color: #dc2626;
+  background: var(--nx-danger-light);
+  color: var(--nx-priority-critical);
   border-radius: 8px;
   font-size: 14px;
   margin-bottom: 16px;
@@ -266,10 +267,10 @@
   align-items: center;
   gap: 12px;
   padding: 60px;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
   text-align: center;
   background: var(--surface-primary, white);
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 12px;
 }
 
@@ -283,7 +284,7 @@
    ============================================ */
 .tbk-table-wrapper {
   background: var(--surface-primary, white);
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 12px;
   overflow: hidden;
 }
@@ -295,7 +296,7 @@
 }
 
 .tbk-table thead tr {
-  background: var(--background-secondary, #f8fafc);
+  background: var(--background-secondary, var(--nx-surface-hover));
 }
 
 .tbk-table th {
@@ -303,17 +304,17 @@
   text-align: left;
   font-size: 11px;
   font-weight: 600;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-bottom: 1px solid var(--border-color, #e2e8f0);
+  border-bottom: 1px solid var(--border-color, var(--nx-border));
   white-space: nowrap;
 }
 
 .tbk-table td {
   padding: 12px 14px;
-  border-bottom: 1px solid var(--border-color, #f1f5f9);
-  color: var(--text-primary, #1e293b);
+  border-bottom: 1px solid var(--border-color, var(--nx-bg));
+  color: var(--text-primary, var(--nx-surface-dark));
   vertical-align: middle;
 }
 
@@ -326,12 +327,12 @@
 }
 
 /* Overdue row highlight */
-.tbk-tr--overdue td {
-  background: #fff7f7 !important;
+.tbk-table tbody tr.tbk-tr--overdue td {
+  background: #fff7f7;
 }
 
-.tbk-tr--overdue:hover td {
-  background: #fef2f2 !important;
+.tbk-table tbody tr.tbk-tr--overdue:hover td {
+  background: var(--nx-danger-light);
 }
 
 /* ============================================
@@ -340,7 +341,7 @@
 .tbk-ticket-num {
   font-family: monospace;
   font-size: 12px;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
 }
 
 .tbk-td-subject {
@@ -352,7 +353,7 @@
 
 .tbk-td-subject__title {
   font-weight: 500;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -366,7 +367,7 @@
   align-items: center;
   padding: 2px 8px;
   background: rgba(99, 102, 241, 0.09);
-  color: #6366f1;
+  color: var(--nx-primary);
   border-radius: 4px;
   font-size: 11px;
   font-weight: 500;
@@ -383,19 +384,19 @@
 }
 
 .tbk-priority-badge[data-priority="critical"] {
-  background: #fef2f2;
-  color: #dc2626;
+  background: var(--nx-danger-light);
+  color: var(--nx-priority-critical);
 }
 .tbk-priority-badge[data-priority="high"] {
-  background: #fff7ed;
-  color: #ea580c;
+  background: var(--nx-orange-light);
+  color: var(--nx-orange-600);
 }
 .tbk-priority-badge[data-priority="medium"] {
-  background: #fffbeb;
-  color: #d97706;
+  background: var(--nx-warning-light);
+  color: var(--nx-warning-dark);
 }
 .tbk-priority-badge[data-priority="low"] {
-  background: #f0fdf4;
+  background: var(--nx-success-light4);
   color: #16a34a;
 }
 
@@ -404,7 +405,7 @@
   align-items: center;
   gap: 5px;
   padding: 3px 10px;
-  background: #f0fdf4;
+  background: var(--nx-success-light4);
   color: #16a34a;
   border-radius: 16px;
   font-size: 11px;
@@ -414,12 +415,12 @@
 
 .tbk-td-date {
   font-size: 12px;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
   white-space: nowrap;
 }
 
 .tbk-td-date--overdue {
-  color: #dc2626;
+  color: var(--nx-priority-critical);
   font-weight: 600;
 }
 
@@ -444,7 +445,7 @@
 }
 
 .tbk-overdue-icon {
-  color: #dc2626;
+  color: var(--nx-priority-critical);
 }
 
 .tbk-sort-btn {
@@ -456,14 +457,14 @@
   cursor: pointer;
   font-size: 11px;
   font-weight: 600;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 0;
 }
 
 .tbk-sort-btn:hover {
-  color: var(--primary-color, #6366f1);
+  color: var(--primary-color, var(--nx-primary));
 }
 
 /* ============================================
@@ -495,20 +496,20 @@
 }
 
 .tbk-action-btn--assign {
-  background: #eff6ff;
-  color: #2563eb;
+  background: var(--nx-info-light);
+  color: var(--nx-info-dark);
   border-color: #bfdbfe;
 }
 .tbk-action-btn--assign:hover:not(:disabled) {
-  background: #2563eb;
+  background: var(--nx-info-dark);
   color: white;
-  border-color: #2563eb;
+  border-color: var(--nx-info-dark);
 }
 
 .tbk-action-btn--route {
-  background: #f0fdf4;
+  background: var(--nx-success-light4);
   color: #16a34a;
-  border-color: #bbf7d0;
+  border-color: var(--nx-success-light3);
 }
 .tbk-action-btn--route:hover:not(:disabled) {
   background: #16a34a;
@@ -517,14 +518,14 @@
 }
 
 .tbk-action-btn--priority {
-  background: #fffbeb;
-  color: #d97706;
+  background: var(--nx-warning-light);
+  color: var(--nx-warning-dark);
   border-color: #fde68a;
 }
 .tbk-action-btn--priority:hover:not(:disabled) {
-  background: #d97706;
+  background: var(--nx-warning-dark);
   color: white;
-  border-color: #d97706;
+  border-color: var(--nx-warning-dark);
 }
 
 /* ============================================
@@ -535,14 +536,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 20px;
-  border-top: 1px solid var(--border-color, #e2e8f0);
+  border-top: 1px solid var(--border-color, var(--nx-border));
   gap: 12px;
   flex-wrap: wrap;
 }
 
 .tbk-pagination__info {
   font-size: 13px;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
 }
 
 .tbk-pagination__pages {
@@ -564,18 +565,18 @@
   min-width: 32px;
   height: 32px;
   padding: 0 4px;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   background: var(--surface-primary, white);
   border-radius: 7px;
   font-size: 13px;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
   cursor: pointer;
   transition: all 0.15s;
 }
 
 .tbk-page-btn:hover:not(:disabled) {
-  border-color: var(--primary-color, #6366f1);
-  color: var(--primary-color, #6366f1);
+  border-color: var(--primary-color, var(--nx-primary));
+  color: var(--primary-color, var(--nx-primary));
   background: rgba(99, 102, 241, 0.06);
 }
 
@@ -585,13 +586,13 @@
 }
 
 .tbk-page-btn--active {
-  background: var(--primary-color, #6366f1);
+  background: var(--primary-color, var(--nx-primary));
   color: white;
-  border-color: var(--primary-color, #6366f1);
+  border-color: var(--primary-color, var(--nx-primary));
 }
 
-.tbk-page-btn--active:hover {
-  background: var(--primary-dark, #4f46e5) !important;
+.tbk-page-btn.tbk-page-btn--active:hover {
+  background: var(--primary-dark, var(--nx-primary-hover));
 }
 
 /* ============================================
@@ -628,7 +629,7 @@
 .tbk-modal__header h2 {
   font-size: 18px;
   font-weight: 600;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   margin: 0;
 }
 
@@ -638,24 +639,24 @@
   justify-content: center;
   width: 30px;
   height: 30px;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   background: none;
   border-radius: 7px;
   cursor: pointer;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
 }
 
 .tbk-modal__ticket-info {
   margin: 14px 24px 0;
   padding: 10px 14px;
-  background: var(--background-secondary, #f8fafc);
+  background: var(--background-secondary, var(--nx-surface-hover));
   border-radius: 9px;
   font-size: 13px;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
 }
 
 .tbk-modal__ticket-info strong {
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
 }
 
 .tbk-modal__body {
@@ -671,7 +672,7 @@
   justify-content: flex-end;
   gap: 10px;
   padding: 14px 24px 20px;
-  border-top: 1px solid var(--border-color, #f1f5f9);
+  border-top: 1px solid var(--border-color, var(--nx-bg));
 }
 
 /* ============================================
@@ -686,17 +687,17 @@
 .tbk-field label {
   font-size: 13px;
   font-weight: 500;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
 }
 
 .tbk-field select,
 .tbk-field textarea,
 .tbk-field input {
   padding: 9px 12px;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 8px;
   font-size: 14px;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   background: var(--surface-primary, white);
   transition: border-color 0.2s;
   outline: none;
@@ -706,7 +707,7 @@
 
 .tbk-field select:focus,
 .tbk-field textarea:focus {
-  border-color: var(--primary-color, #6366f1);
+  border-color: var(--primary-color, var(--nx-primary));
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
@@ -723,8 +724,8 @@
   line-height: 1.5;
 }
 
-.tbk-alert--error { background: #fef2f2; color: #dc2626; }
-.tbk-alert--info  { background: #eff6ff; color: #1d4ed8; }
+.tbk-alert--error { background: var(--nx-danger-light); color: var(--nx-priority-critical); }
+.tbk-alert--info  { background: var(--nx-info-light); color: var(--nx-info-darker); }
 
 /* ============================================
    MODAL BUTTONS
@@ -750,22 +751,22 @@
 }
 
 .tbk-btn--primary {
-  background: var(--primary-color, #6366f1);
+  background: var(--primary-color, var(--nx-primary));
   color: white;
-  border-color: var(--primary-color, #6366f1);
+  border-color: var(--primary-color, var(--nx-primary));
 }
 .tbk-btn--primary:hover:not(:disabled) {
-  background: var(--primary-dark, #4f46e5);
+  background: var(--primary-dark, var(--nx-primary-hover));
 }
 
 .tbk-btn--ghost {
   background: var(--surface-primary, white);
-  color: var(--text-secondary, #64748b);
-  border-color: var(--border-color, #e2e8f0);
+  color: var(--text-secondary, var(--nx-text-secondary));
+  border-color: var(--border-color, var(--nx-border));
 }
 .tbk-btn--ghost:hover:not(:disabled) {
-  background: var(--background-hover, #f1f5f9);
-  color: var(--text-primary, #1e293b);
+  background: var(--background-hover, var(--nx-bg));
+  color: var(--text-primary, var(--nx-surface-dark));
 }
 
 /* ============================================

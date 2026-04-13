@@ -1,7 +1,53 @@
 const { executeQuery } = require('../config/database');
 const logger = require('../utils/logger');
 
+// ── Intent Pattern Cache ─────────────────────────────────────────────────────
+// Compiles regex patterns once and keeps them in memory (TTL: 5 minutes).
+// Without this, every chat message creates new RegExp objects for every intent.
+// Invalidated by calling BotPhase2Service.invalidateIntentCache() after any
+// create / update / delete / toggle operation.
+const INTENT_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+let _intentCache = null;       // [{ intent_id, intent_name, compiled [], ... }]
+let _intentCacheLoadedAt = 0;  // epoch ms
+
 class BotPhase2Service {
+  // ── Cache helpers ──────────────────────────────────────────────────────────
+  _isCacheValid() {
+    return _intentCache !== null && (Date.now() - _intentCacheLoadedAt) < INTENT_CACHE_TTL_MS;
+  }
+
+  invalidateIntentCache() {
+    _intentCache = null;
+    _intentCacheLoadedAt = 0;
+  }
+
+  async _loadIntentCache() {
+    if (this._isCacheValid()) return _intentCache;
+
+    const result = await executeQuery(`
+      SELECT intent_id, intent_name, trigger_patterns, response_template, action_type, action_config
+      FROM bot_custom_intents
+      WHERE enabled = 1
+      ORDER BY updated_at DESC, created_at DESC
+    `);
+
+    _intentCache = (result.recordset || []).map((intent) => {
+      const rawPatterns = this.safeJsonParse(intent.trigger_patterns, []);
+      const compiled = rawPatterns.map((p) => {
+        try { return new RegExp(p, 'i'); } catch { return null; }
+      }).filter(Boolean);
+      return {
+        intent_id: intent.intent_id,
+        intent_name: intent.intent_name,
+        response_template: intent.response_template,
+        action_type: intent.action_type,
+        action_config: this.safeJsonParse(intent.action_config, {}),
+        compiled,
+      };
+    });
+    _intentCacheLoadedAt = Date.now();
+    return _intentCache;
+  }
   async listCustomIntents() {
     const query = `
       SELECT intent_id, intent_name, intent_description, trigger_patterns, response_template,
@@ -37,6 +83,7 @@ class BotPhase2Service {
       createdBy: userId,
     });
 
+    this.invalidateIntentCache();
     return result.recordset?.[0]?.intent_id;
   }
 
@@ -66,11 +113,13 @@ class BotPhase2Service {
       enabled: payload.enabled ? 1 : 0,
     });
 
+    this.invalidateIntentCache();
     return result.rowsAffected?.[0] || 0;
   }
 
   async deleteCustomIntent(intentId) {
     const result = await executeQuery('DELETE FROM bot_custom_intents WHERE intent_id = @intentId', { intentId });
+    this.invalidateIntentCache();
     return result.rowsAffected?.[0] || 0;
   }
 
@@ -79,41 +128,25 @@ class BotPhase2Service {
       'UPDATE bot_custom_intents SET enabled = @enabled, updated_at = GETDATE() WHERE intent_id = @intentId',
       { intentId, enabled: enabled ? 1 : 0 }
     );
+    this.invalidateIntentCache();
     return result.rowsAffected?.[0] || 0;
   }
 
   async matchCustomIntent(message) {
-    const query = `
-      SELECT intent_id, intent_name, trigger_patterns, response_template, action_type, action_config
-      FROM bot_custom_intents
-      WHERE enabled = 1
-      ORDER BY updated_at DESC, created_at DESC
-    `;
-
-    const result = await executeQuery(query);
-    const intents = result.recordset || [];
+    const intents = await this._loadIntentCache();
 
     for (const intent of intents) {
-      const patterns = this.safeJsonParse(intent.trigger_patterns, []);
-      const matched = patterns.some((pattern) => {
-        try {
-          return new RegExp(pattern, 'i').test(message);
-        } catch (error) {
-          return false;
-        }
-      });
-
+      const matched = intent.compiled.some((rx) => rx.test(message));
       if (matched) {
         return {
           intent_id: intent.intent_id,
           intent_name: intent.intent_name,
           response_template: intent.response_template,
           action_type: intent.action_type,
-          action_config: this.safeJsonParse(intent.action_config, {}),
+          action_config: intent.action_config,
         };
       }
     }
-
     return null;
   }
 

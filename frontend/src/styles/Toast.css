@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    TOAST NOTIFICATION STYLES
    Developer: Suvadip Panja
    Date: February 04, 2026
@@ -9,7 +9,7 @@
   position: fixed;
   top: 80px;
   right: 24px;
-  z-index: 99999;
+  z-index: var(--nx-z-toast, 300);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -51,39 +51,39 @@
 
 /* Toast Types */
 .toast-success {
-  border-left-color: #10b981;
-  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+  border-left-color: var(--nx-success);
+  background: linear-gradient(135deg, var(--nx-surface) 0%, var(--nx-success-light4) 100%);
 }
 
 .toast-success .toast-icon {
-  color: #10b981;
+  color: var(--nx-success);
 }
 
 .toast-error {
-  border-left-color: #ef4444;
-  background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+  border-left-color: var(--nx-danger);
+  background: linear-gradient(135deg, var(--nx-surface) 0%, var(--nx-danger-light) 100%);
 }
 
 .toast-error .toast-icon {
-  color: #ef4444;
+  color: var(--nx-danger);
 }
 
 .toast-warning {
-  border-left-color: #f59e0b;
-  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
+  border-left-color: var(--nx-warning);
+  background: linear-gradient(135deg, var(--nx-surface) 0%, var(--nx-warning-light) 100%);
 }
 
 .toast-warning .toast-icon {
-  color: #f59e0b;
+  color: var(--nx-warning);
 }
 
 .toast-info {
-  border-left-color: #3b82f6;
-  background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+  border-left-color: var(--nx-info);
+  background: linear-gradient(135deg, var(--nx-surface) 0%, var(--nx-info-light) 100%);
 }
 
 .toast-info .toast-icon {
-  color: #3b82f6;
+  color: var(--nx-info);
 }
 
 /* Toast Content */
@@ -115,7 +115,7 @@
   background: transparent;
   border: none;
   border-radius: 6px;
-  color: #6b7280;
+  color: var(--nx-status-closed);
   font-size: 24px;
   font-weight: 300;
   line-height: 1;
@@ -136,19 +136,19 @@
 }
 
 [data-theme="dark"] .toast-success {
-  background: linear-gradient(135deg, #1f2937 0%, #064e3b 100%);
+  background: linear-gradient(135deg, #1f2937 0%, var(--nx-success-darkest) 100%);
 }
 
 [data-theme="dark"] .toast-error {
-  background: linear-gradient(135deg, #1f2937 0%, #7f1d1d 100%);
+  background: linear-gradient(135deg, #1f2937 0%, var(--nx-danger-darkest) 100%);
 }
 
 [data-theme="dark"] .toast-warning {
-  background: linear-gradient(135deg, #1f2937 0%, #78350f 100%);
+  background: linear-gradient(135deg, #1f2937 0%, var(--nx-warning-darkest) 100%);
 }
 
 [data-theme="dark"] .toast-info {
-  background: linear-gradient(135deg, #1f2937 0%, #1e3a8a 100%);
+  background: linear-gradient(135deg, #1f2937 0%, var(--nx-info-darkest) 100%);
 }
 
 [data-theme="dark"] .toast-message {

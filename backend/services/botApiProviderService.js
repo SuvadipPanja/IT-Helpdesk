@@ -13,6 +13,14 @@ const crypto = require('crypto');
 const ENCRYPTION_KEY = process.env.BOT_API_KEY_ENCRYPTION || 'bot-api-key-encryption-key-256bit!!';
 const ALGORITHM = 'aes-256-cbc';
 
+// In-process caches to avoid repeated DB + crypto hits on every bot message
+const API_KEY_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+const _apiKeyCache = new Map(); // Map<providerId, { record, cachedAt }>
+
+let _enabledProvidersCache = null;
+let _enabledProvidersCachedAt = 0;
+const PROVIDERS_CACHE_TTL_MS = 5 * 60 * 1000;
+
 class BotApiProviderService {
   /**
    * Encrypt API key
@@ -154,6 +162,10 @@ class BotApiProviderService {
    */
   async getEnabledProviders() {
     try {
+      if (_enabledProvidersCache && (Date.now() - _enabledProvidersCachedAt) < PROVIDERS_CACHE_TTL_MS) {
+        return _enabledProvidersCache;
+      }
+
       const result = await db.executeQuery(`
         SELECT 
           provider_id,
@@ -170,14 +182,24 @@ class BotApiProviderService {
         ORDER BY priority DESC, provider_name
       `);
       
-      return (result.recordset || []).map(p => ({
+      const providers = (result.recordset || []).map(p => ({
         ...p,
         capabilities: p.capabilities ? JSON.parse(p.capabilities) : []
       }));
+
+      _enabledProvidersCache = providers;
+      _enabledProvidersCachedAt = Date.now();
+      return providers;
     } catch (error) {
       logger.error('Error fetching enabled providers:', error);
       throw error;
     }
+  }
+
+  _invalidateProviderCaches(providerId) {
+    if (providerId != null) _apiKeyCache.delete(providerId);
+    _enabledProvidersCache = null;
+    _enabledProvidersCachedAt = 0;
   }
 
   /**
@@ -213,7 +235,8 @@ class BotApiProviderService {
         SET is_configured = 1, updated_by = @userId, updated_at = GETDATE()
         WHERE provider_id = @providerId
       `, { providerId, userId });
-      
+
+      this._invalidateProviderCaches(providerId);
       return result.recordset?.[0] || null;
     } catch (error) {
       logger.error('Error setting API key:', error);
@@ -226,6 +249,11 @@ class BotApiProviderService {
    */
   async getActiveApiKey(providerId) {
     try {
+      const cached = _apiKeyCache.get(providerId);
+      if (cached && (Date.now() - cached.cachedAt) < API_KEY_CACHE_TTL_MS) {
+        return cached.record;
+      }
+
       const result = await db.executeQuery(`
         SELECT 
           key_id,
@@ -247,6 +275,8 @@ class BotApiProviderService {
           logger.warn('Failed to decrypt API key for provider:', providerId);
         }
       }
+
+      _apiKeyCache.set(providerId, { record: keyRecord || null, cachedAt: Date.now() });
       return keyRecord || null;
     } catch (error) {
       logger.error('Error fetching active API key:', error);
@@ -264,7 +294,8 @@ class BotApiProviderService {
         SET is_active = 0
         WHERE provider_id = @providerId AND is_active = 1
       `, { providerId });
-      
+
+      this._invalidateProviderCaches(providerId);
       return { success: true };
     } catch (error) {
       logger.error('Error deactivating old keys:', error);
@@ -305,6 +336,7 @@ class BotApiProviderService {
         WHERE provider_id = @providerId
       `, params);
       
+      this._invalidateProviderCaches(providerId);
       return result.recordset?.[0] || null;
     } catch (error) {
       logger.error('Error updating provider:', error);

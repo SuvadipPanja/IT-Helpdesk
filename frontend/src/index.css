@@ -16,6 +16,9 @@
   --nx-info-light:     #eff6ff;
   --nx-purple:         #8b5cf6;
   --nx-purple-light:   #f5f3ff;
+  /* ── Brand gradients ── */
+  --nx-brand-gradient:       linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  --nx-brand-gradient-vivid: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   --nx-orange:         #f97316;
   --nx-orange-light:   #fff7ed;
 
@@ -40,6 +43,11 @@
   --nx-shadow:         0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
   --nx-shadow-md:      0 4px 12px rgba(0,0,0,.07);
   --nx-shadow-lg:      0 8px 24px rgba(0,0,0,.09);
+  /* ── Depth / lift scale (box-shadow + translateY) ── */
+  --nx-depth-1: 0 1px 3px rgba(0,0,0,.06);
+  --nx-depth-2: 0 4px 12px rgba(0,0,0,.10);
+  --nx-depth-3: 0 8px 24px rgba(0,0,0,.14);
+  --nx-depth-4: 0 16px 40px rgba(0,0,0,.18);
 
   /* ── Radii ── */
   --nx-radius-xs:      4px;
@@ -99,7 +107,7 @@
   /* ── Typography scale ── */
   --nx-font-xs:    11px;
   --nx-font-sm:    12px;
-  --nx-font-base:  13px;
+  --nx-font-base:  14px;
   --nx-font-md:    14px;
   --nx-font-lg:    16px;
   --nx-font-xl:    18px;
@@ -117,10 +125,25 @@
   --nx-primary-50:  #eef2ff;
   --nx-primary-100: #e0e7ff;
   --nx-primary-200: #c7d2fe;
+  --nx-primary-300: #a5b4fc;
+  --nx-primary-400: #818cf8;
   --nx-primary-500: #6366f1;
   --nx-primary-600: #4f46e5;
   --nx-primary-700: #4338ca;
+  --nx-primary-800: #3730a3;
   --nx-primary-900: #312e81;
+
+  /* ── Semantic surface shades ── */
+  --nx-surface-dark:  #1e293b;   /* slate-800 — dark surface in dark mode */
+  --nx-gray-700:      #334155;   /* slate-700 — mid-dark border/divider   */
+
+  /* ── Additional status + accent shades ── */
+  --nx-warning-amber100: #fef3c7;
+  --nx-info-dark2:       #1e40af;   /* blue-800 */
+  --nx-info-light3:      #dbeafe;   /* blue-100 */
+  --nx-danger-light5:    #fecaca;   /* red-200  */
+  --nx-orange-400:       #fb923c;
+  --nx-orange-600:       #ea580c;
 
   /* ── Focus rings ── */
   --nx-focus-ring:        0 0 0 3px rgba(99,102,241,.15);
@@ -165,12 +188,92 @@
   --nx-priority-medium:        #f59e0b;
   --nx-priority-low:           #10b981;
 
+  /* ── Extended shade scale (for accessible text on colored backgrounds) ── */
+  --nx-success-dark:    #059669;   /* emerald-600   */
+  --nx-success-darker:  #065f46;   /* emerald-800   */
+  --nx-success-darkest: #064e3b;   /* emerald-900   */
+  --nx-success-light2:  #6ee7b7;   /* emerald-300   */
+  --nx-success-light3:  #bbf7d0;   /* emerald-200   */
+  --nx-success-light4:  #f0fdf4;   /* emerald-50    */
+  --nx-warning-dark:    #d97706;   /* amber-600     */
+  --nx-warning-darker:  #92400e;   /* amber-800     */
+  --nx-warning-darkest: #78350f;   /* amber-900     */
+  --nx-warning-light2:  #fcd34d;   /* amber-300     */
+  --nx-warning-light3:  #fbbf24;   /* amber-400     */
+  --nx-danger-dark:     #b91c1c;   /* red-700       */
+  --nx-danger-darker:   #991b1b;   /* red-800       */
+  --nx-danger-darkest:  #7f1d1d;   /* red-900       */
+  --nx-danger-extreme:  #450a0a;   /* red-950       */
+  --nx-danger-light2:   #fca5a5;   /* red-300       */
+  --nx-danger-light3:   #f87171;   /* red-400       */
+  --nx-danger-light4:   #fee2e2;   /* red-100       */
+  --nx-info-dark:       #2563eb;   /* blue-600      */
+  --nx-info-darker:     #1d4ed8;   /* blue-700      */
+  --nx-info-darkest:    #1e3a8a;   /* blue-900      */
+  --nx-info-light2:     #93c5fd;   /* blue-300      */
+  --nx-purple-dark:     #7c3aed;   /* violet-600    */
+  --nx-purple-darker:   #6d28d9;   /* violet-700    */
+  --nx-purple-darkest:  #5b21b6;   /* violet-800    */
+  --nx-purple-light2:   #c4b5fd;   /* violet-300    */
+  --nx-orange-dark:     #c2410c;   /* orange-700    */
+  --nx-orange-darker:   #9a3412;   /* orange-800    */
+  --nx-orange-light2:   #fdba74;   /* orange-300    */
+  --nx-orange-extreme1: #431407;   /* orange-950    */
+  --nx-orange-extreme2: #422006;   /* amber-950     */
+  --nx-orange-extreme3: #451a03;   /* orange-950b   */
+
   /* ── Layout ── */
   --nx-sidebar-w: 272px;
   --nx-sidebar-compact-w: 88px;
   --nx-sidebar-expanded-w: 280px;
   --nx-header-h:  62px;
   --nx-content-max: 1480px;
+
+  /* ── Z-index layer system ── */
+  --nx-z-base:      1;
+  --nx-z-sticky:    10;
+  --nx-z-header:    100;
+  --nx-z-bot-fab:   115;
+  --nx-z-bot-chat:  120;
+  --nx-z-sidebar:   140;
+  --nx-z-modal:     200;
+  --nx-z-toast:     300;
+
+  /* ── Modal backdrop ── */
+  --nx-modal-backdrop:      rgba(0, 0, 0, 0.50);
+  --nx-modal-backdrop-blur: rgba(15, 23, 42, 0.40);
+
+  /* ── Glass morphism ── */
+  --nx-glass-bg:           rgba(255, 255, 255, 0.72);
+  --nx-glass-bg-strong:    rgba(255, 255, 255, 0.88);
+  --nx-glass-border:       rgba(255, 255, 255, 0.55);
+  --nx-glass-shadow:       0 8px 32px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(15, 23, 42, 0.06);
+  --nx-glass-blur:         blur(16px) saturate(180%);
+
+  /* ── 3D card depth system ── */
+  --nx-card-shadow-rest:   0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --nx-card-shadow-hover:  0 8px 24px rgba(99,102,241,.12), 0 3px 8px rgba(0,0,0,.06);
+  --nx-card-shadow-active: 0 2px 6px rgba(0,0,0,.08);
+  --nx-card-lift-y:        -3px;
+  --nx-card-lift-scale:    1.005;
+
+  /* ── Spring / easing curves ── */
+  --nx-spring:          cubic-bezier(.34, 1.56, .64, 1);    /* with overshoot */
+  --nx-spring-snappy:   cubic-bezier(.4,  0,    .2, 1);     /* material MD3   */
+  --nx-spring-gentle:   cubic-bezier(.22, 1,    .36, 1);    /* soft decel     */
+  --nx-ease-in-out:     cubic-bezier(.4,  0,    .6, 1);     /* symmetric      */
+  --nx-duration-instant:  80ms;
+  --nx-duration-fast:     150ms;
+  --nx-duration-base:     220ms;
+  --nx-duration-slow:     380ms;
+  --nx-duration-enter:    200ms;
+  --nx-duration-leave:    150ms;
+
+  /* ── Stat card 3D hover preset ── */
+  --nx-stat-hover-transform: translateY(var(--nx-card-lift-y)) scale(var(--nx-card-lift-scale));
+  --nx-stat-hover-shadow:    var(--nx-card-shadow-hover);
+  --nx-stat-transition:      transform var(--nx-duration-base) var(--nx-spring-snappy),
+                              box-shadow var(--nx-duration-base) var(--nx-spring-snappy);
 }
 
 /* ── Dark theme tokens ── */
@@ -310,6 +413,36 @@ html[data-theme='dark'] body {
   }
 }
 
+/* ── Focus rings (keyboard-only, not mouse) ── */
+:focus-visible {
+  outline: 2px solid var(--nx-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Skip-to-content link (accessibility) ── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: var(--nx-sp-4);
+  z-index: var(--nx-z-toast);
+  padding: var(--nx-sp-2) var(--nx-sp-4);
+  background: var(--nx-primary);
+  color: #fff;
+  border-radius: var(--nx-radius-sm);
+  font-size: var(--nx-font-base);
+  font-weight: var(--nx-weight-semibold);
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: var(--nx-shadow-md);
+}
+.skip-link:focus {
+  left: var(--nx-sp-4);
+}
+
 /* ==========================================================================
    GLOBAL BUTTON PRIMITIVES
    ========================================================================== */
@@ -428,13 +561,17 @@ html[data-theme='dark'] body {
   background: var(--nx-surface);
   border: 1px solid var(--nx-border);
   border-radius: var(--nx-radius);
-  box-shadow: var(--nx-shadow);
+  box-shadow: var(--nx-depth-1);
   padding: var(--nx-sp-6);
   transition: box-shadow var(--nx-ease), transform var(--nx-ease);
 }
 .nx-card--hover:hover {
-  box-shadow: var(--nx-shadow-md);
-  transform: translateY(-2px);
+  box-shadow: var(--nx-depth-3);
+  transform: translateY(-3px);
+}
+.nx-card--lift:hover {
+  box-shadow: var(--nx-depth-4);
+  transform: translateY(-5px);
 }
 
 /* ==========================================================================
@@ -757,8 +894,8 @@ html[data-theme='dark'] option {
    ============================================ */
 .dashboard-container {
   display: flex;
-  min-height: 100vh;
-  height: 100vh;
+  min-height: 100dvh;
+  height: 100dvh;
   background: var(--nx-bg);
   isolation: isolate;
 }
@@ -783,7 +920,7 @@ html[data-theme='dark'] option {
   box-shadow: var(--nx-shadow-xs);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: var(--nx-z-header, 100);
 }
 
 .header-title {
@@ -793,7 +930,7 @@ html[data-theme='dark'] option {
   letter-spacing: -0.02em;
 }
 
-.header-right {
+.header .header-right {
   display: flex;
   align-items: center;
   gap: 20px;

@@ -1,10 +1,10 @@
-.nbot-fab {
+﻿.nbot-fab {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 90;
+  z-index: var(--nx-z-bot-fab, 115);
   border: none;
-  background: linear-gradient(135deg, var(--primary-color, #6366f1), #7c3aed);
+  background: linear-gradient(135deg, var(--primary-color, var(--nx-primary)), var(--nx-purple-dark));
   border-radius: 50%;
   width: 46px;
   height: 46px;
@@ -44,7 +44,7 @@
   position: absolute;
   inset: -3px;
   border-radius: 50%;
-  border: 2px solid var(--primary-color, #6366f1);
+  border: 2px solid var(--primary-color, var(--nx-primary));
   animation: nbotPulse 2s infinite;
 }
 
@@ -58,11 +58,11 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 100;
-  width: 380px;
+  z-index: var(--nx-z-bot-chat, 120);
+  width: min(380px, calc(100vw - 24px));
   height: 520px;
-  background: var(--card-bg, #ffffff);
-  border: 1px solid var(--border-color, #e2e8f0);
+  background: var(--card-bg, var(--nx-surface));
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 16px;
   box-shadow: 0 12px 50px rgba(0, 0, 0, 0.18);
   display: flex;
@@ -86,7 +86,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px;
-  background: linear-gradient(135deg, var(--primary-color, #6366f1) 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, var(--primary-color, var(--nx-primary)) 0%, var(--nx-purple-dark) 100%);
   color: #fff;
   flex-shrink: 0;
 }
@@ -151,7 +151,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background: var(--bg-color, #f8fafc);
+  background: var(--bg-color, var(--nx-surface-hover));
 }
 
 .nbot-msg {
@@ -175,13 +175,13 @@
 }
 
 .nbot-msg--bot .nbot-msg-avatar {
-  background: linear-gradient(135deg, var(--primary-color, #6366f1), #7c3aed);
+  background: linear-gradient(135deg, var(--primary-color, var(--nx-primary)), var(--nx-purple-dark));
   color: #fff;
 }
 
 .nbot-msg--user .nbot-msg-avatar {
   background: var(--secondary-bg, #eef2ff);
-  color: var(--text-color, #334155);
+  color: var(--text-color, var(--nx-gray-700));
 }
 
 .nbot-msg-content { display: flex; flex-direction: column; gap: 6px; }
@@ -195,14 +195,14 @@
 }
 
 .nbot-msg--bot .nbot-msg-bubble {
-  background: var(--card-bg, #ffffff);
-  border: 1px solid var(--border-color, #e2e8f0);
-  color: var(--text-color, #0f172a);
+  background: var(--card-bg, var(--nx-surface));
+  border: 1px solid var(--border-color, var(--nx-border));
+  color: var(--text-color, var(--nx-text));
   border-top-left-radius: 4px;
 }
 
 .nbot-msg--user .nbot-msg-bubble {
-  background: var(--primary-color, #6366f1);
+  background: var(--primary-color, var(--nx-primary));
   color: #fff;
   border-top-right-radius: 4px;
 }
@@ -216,7 +216,7 @@
 
 .nbot-msg-time {
   font-size: 10px;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
   padding: 0 4px;
 }
 
@@ -254,8 +254,8 @@
 }
 
 .nbot-feedback-btn:hover:not(:disabled) {
-  background: var(--secondary-bg, #f1f5f9);
-  border-color: var(--border-color, #e2e8f0);
+  background: var(--secondary-bg, var(--nx-bg));
+  border-color: var(--border-color, var(--nx-border));
 }
 
 .nbot-feedback-btn:disabled {
@@ -265,12 +265,12 @@
 
 .nbot-feedback-btn--active-pos {
   background: #d1fae5;
-  border-color: #6ee7b7;
+  border-color: var(--nx-success-light2);
 }
 
 .nbot-feedback-btn--active-neg {
-  background: #fee2e2;
-  border-color: #fca5a5;
+  background: var(--nx-danger-light4);
+  border-color: var(--nx-danger-light2);
 }
 
 .nbot-confidence {
@@ -279,7 +279,7 @@
   gap: 4px;
   padding: 2px 8px;
   font-size: 10px;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
   background: var(--secondary-bg, #eef2ff);
   border-radius: 999px;
   margin-top: 2px;
@@ -304,17 +304,17 @@
   align-items: center;
   gap: 4px;
   padding: 5px 10px;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 999px;
-  background: var(--card-bg, #ffffff);
+  background: var(--card-bg, var(--nx-surface));
   font-size: 11px;
   font-weight: 500;
-  color: var(--primary-color, #6366f1);
+  color: var(--primary-color, var(--nx-primary));
   cursor: pointer;
 }
 
 .nbot-chip:hover {
-  background: var(--primary-color, #6366f1);
+  background: var(--primary-color, var(--nx-primary));
   color: #fff;
 }
 
@@ -322,8 +322,8 @@
   display: flex;
   gap: 4px;
   padding: 12px 16px;
-  background: var(--card-bg, #ffffff);
-  border: 1px solid var(--border-color, #e2e8f0);
+  background: var(--card-bg, var(--nx-surface));
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 12px;
   border-top-left-radius: 4px;
 }
@@ -332,7 +332,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--text-muted, #94a3b8);
+  background: var(--text-muted, var(--nx-muted));
   animation: nbotDot 1.2s infinite;
 }
 
@@ -346,8 +346,8 @@
 
 .nbot-chat-footer {
   padding: 12px 14px 10px;
-  border-top: 1px solid var(--border-color, #e2e8f0);
-  background: var(--card-bg, #ffffff);
+  border-top: 1px solid var(--border-color, var(--nx-border));
+  background: var(--card-bg, var(--nx-surface));
 }
 
 .nbot-input-wrap {
@@ -355,12 +355,12 @@
   align-items: center;
   gap: 8px;
   background: var(--secondary-bg, #eef2ff);
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 8px;
   padding: 4px 6px 4px 14px;
 }
 
-.nbot-input-wrap:focus-within { border-color: var(--primary-color, #6366f1); }
+.nbot-input-wrap:focus-within { border-color: var(--primary-color, var(--nx-primary)); }
 
 .nbot-input-wrap input {
   flex: 1;
@@ -369,12 +369,12 @@
   background: transparent;
   font-size: 13px;
   padding: 6px 0;
-  color: var(--text-color, #0f172a);
+  color: var(--text-color, var(--nx-text));
 }
 
 .nbot-send {
   border: none;
-  background: var(--primary-color, #6366f1);
+  background: var(--primary-color, var(--nx-primary));
   color: #fff;
   border-radius: 8px;
   padding: 7px;
@@ -388,7 +388,7 @@
 .nbot-disclaimer {
   margin: 6px 0 0;
   font-size: 10px;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
   text-align: center;
 }
 
@@ -423,7 +423,7 @@
 .nbot-voice-btn {
   border: none;
   background: transparent;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
   cursor: pointer;
   padding: 6px;
   border-radius: 8px;
@@ -435,12 +435,12 @@
 }
 
 .nbot-voice-btn:hover {
-  color: var(--primary-color, #6366f1);
+  color: var(--primary-color, var(--nx-primary));
   background: var(--primary-bg, rgba(99, 102, 241, 0.1));
 }
 
 .nbot-voice-btn--active {
-  color: #ef4444;
+  color: var(--nx-danger);
   background: rgba(239, 68, 68, 0.1);
   animation: nbot-voice-glow 1.5s ease-in-out infinite;
 }
@@ -449,7 +449,7 @@
   position: absolute;
   inset: -3px;
   border-radius: 50%;
-  border: 2px solid #ef4444;
+  border: 2px solid var(--nx-danger);
   opacity: 0;
   animation: nbot-pulse-ring 1.2s ease-out infinite;
   pointer-events: none;
@@ -472,7 +472,7 @@
   gap: 3px;
   font-size: 10px;
   font-weight: 600;
-  color: var(--primary-color, #6366f1);
+  color: var(--primary-color, var(--nx-primary));
   background: var(--primary-bg, rgba(99, 102, 241, 0.08));
   padding: 2px 7px;
   border-radius: 6px;
@@ -492,7 +492,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-muted, #64748b);
+  color: var(--text-muted, var(--nx-text-secondary));
 }
 
 .nbot-sources-list {
@@ -506,9 +506,9 @@
   align-items: center;
   gap: 6px;
   max-width: 100%;
-  border: 1px solid var(--border-color, #e2e8f0);
-  background: var(--card-bg, #ffffff);
-  color: var(--text-color, #0f172a);
+  border: 1px solid var(--border-color, var(--nx-border));
+  background: var(--card-bg, var(--nx-surface));
+  color: var(--text-color, var(--nx-text));
   border-radius: 999px;
   padding: 6px 10px;
   font-size: 11px;
@@ -516,7 +516,7 @@
 }
 
 .nbot-source-chip:hover {
-  border-color: var(--primary-color, #6366f1);
+  border-color: var(--primary-color, var(--nx-primary));
   background: rgba(99, 102, 241, 0.06);
 }
 
@@ -535,7 +535,7 @@
   background: rgba(15, 23, 42, 0.08);
   font-size: 10px;
   font-weight: 700;
-  color: var(--text-muted, #475569);
+  color: var(--text-muted, var(--nx-text-secondary));
 }
 
 .nbot-source-chip-title {

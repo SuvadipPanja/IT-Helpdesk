@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    TICKET CONFIGURATION MANAGEMENT STYLES
    Sub-Categories, Custom Fields, Locations, Processes
    Developer: Suvadip Panja
@@ -253,7 +253,7 @@
 }
 
 .tc-subcategory-item:hover {
-  border-color: var(--primary-light, #c7d2fe);
+  border-color: var(--primary-light, var(--nx-primary-200));
 }
 
 .tc-subcategory-item.tc-inactive {
@@ -557,7 +557,7 @@
 }
 
 .tc-checkbox-label {
-  display: flex !important;
+  display: flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
@@ -634,7 +634,7 @@
 }
 
 [data-theme="dark"] .tc-subcategory-item:hover {
-  border-color: var(--primary-light, #6366f1);
+  border-color: var(--primary-light, var(--nx-primary));
 }
 
 [data-theme="dark"] .tc-field-item {

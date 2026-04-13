@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    BOT SETTINGS TAB STYLES
    Scoped under .bot-settings-container
    ============================================ */
@@ -51,7 +51,7 @@
 .bot-settings-container .form-select:focus,
 .bot-settings-container .form-textarea:focus {
   outline: none;
-  border-color: var(--primary, #6366f1);
+  border-color: var(--primary, var(--nx-primary));
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
@@ -108,15 +108,15 @@
 }
 
 .bot-settings-container .settings-alert.success {
-  background-color: #f0fdf4;
+  background-color: var(--nx-success-light4);
   border-left-color: #22c55e;
   color: #166534;
 }
 
 .bot-settings-container .settings-alert.error {
-  background-color: #fef2f2;
-  border-left-color: #ef4444;
-  color: #7f1d1d;
+  background-color: var(--nx-danger-light);
+  border-left-color: var(--nx-danger);
+  color: var(--nx-danger-darkest);
 }
 
 .bot-settings-container .settings-alert button {
@@ -157,7 +157,7 @@
   height: 48px;
   background: var(--primary-light, rgba(99, 102, 241, 0.1));
   border-radius: 8px;
-  color: var(--primary, #6366f1);
+  color: var(--primary, var(--nx-primary));
   flex-shrink: 0;
 }
 
@@ -196,7 +196,7 @@
 }
 
 .bot-settings-container .feature-item:hover {
-  border-color: var(--primary, #6366f1);
+  border-color: var(--primary, var(--nx-primary));
 }
 
 .bot-settings-container .feature-info h4 {
@@ -281,7 +281,7 @@
 }
 
 .bot-settings-container .training-stats-grid .stat-card:nth-child(1) .stat-value {
-  color: var(--primary-color, #6366f1);
+  color: var(--primary-color, var(--nx-primary));
 }
 
 .bot-settings-container .training-stats-grid .stat-card:nth-child(2) .stat-value {
@@ -289,11 +289,11 @@
 }
 
 .bot-settings-container .training-stats-grid .stat-card:nth-child(3) .stat-value {
-  color: var(--info-color, #3b82f6);
+  color: var(--info-color, var(--nx-info));
 }
 
 .bot-settings-container .training-stats-grid .stat-card:nth-child(4) .stat-value {
-  color: var(--warning-color, #f59e0b);
+  color: var(--warning-color, var(--nx-warning));
 }
 
 .bot-settings-container .training-categories {
@@ -425,7 +425,7 @@
 
 .bot-settings-container .detail-row .badge.unconfigured {
   background-color: rgba(239, 68, 68, 0.1);
-  color: var(--danger-color, #ef4444);
+  color: var(--danger-color, var(--nx-danger));
 }
 
 .bot-settings-container .capabilities-list {
@@ -437,7 +437,7 @@
 .bot-settings-container .capability-badge {
   padding: 2px 6px;
   background: var(--primary-light, rgba(99, 102, 241, 0.1));
-  color: var(--primary, #6366f1);
+  color: var(--primary, var(--nx-primary));
   border-radius: 3px;
   font-size: 11px;
   font-weight: 500;
@@ -463,7 +463,7 @@
   padding: 16px;
   background: var(--bg-secondary);
   border-radius: 8px;
-  border: 1px solid var(--primary, #6366f1);
+  border: 1px solid var(--primary, var(--nx-primary));
 }
 
 .bot-settings-container .provider-stats-panel h4 {
@@ -488,7 +488,7 @@
 }
 
 .bot-settings-container .stat-row strong {
-  color: var(--primary, #6366f1);
+  color: var(--primary, var(--nx-primary));
   font-size: 14px;
 }
 
@@ -597,8 +597,8 @@
 
 .bot-settings-container .alert.error {
   background: rgba(239, 68, 68, 0.1);
-  color: var(--danger-color, #ef4444);
-  border: 1px solid var(--danger-color, #ef4444);
+  color: var(--danger-color, var(--nx-danger));
+  border: 1px solid var(--danger-color, var(--nx-danger));
 }
 
 /* --- Password / API Key input --- */
@@ -650,7 +650,7 @@
 }
 
 .bot-settings-container .btn-primary {
-  background-color: var(--primary, #6366f1);
+  background-color: var(--primary, var(--nx-primary));
   color: white;
 }
 

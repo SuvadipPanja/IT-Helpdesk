@@ -1,4 +1,4 @@
-.incident-page {
+﻿.incident-page {
   max-width: 980px;
   padding: 24px;
   margin: 0 auto;
@@ -36,7 +36,7 @@
   justify-content: center;
   border-radius: 14px;
   background: linear-gradient(135deg, rgba(249, 115, 22, 0.16) 0%, rgba(239, 68, 68, 0.14) 100%);
-  color: #ea580c;
+  color: var(--nx-orange-600);
   box-shadow: 0 10px 24px rgba(234, 88, 12, 0.12);
 }
 
@@ -94,7 +94,7 @@
 
 .incident-btn--primary {
   border-color: transparent;
-  background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
+  background: linear-gradient(135deg, var(--nx-danger) 0%, var(--nx-orange) 100%);
   color: #fff;
   box-shadow: 0 14px 28px rgba(239, 68, 68, 0.22);
 }
@@ -105,7 +105,7 @@
 
 .incident-btn--accent {
   border-color: transparent;
-  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+  background: linear-gradient(135deg, var(--nx-info-dark) 0%, var(--nx-primary-hover) 100%);
   color: #fff;
   box-shadow: 0 14px 28px rgba(37, 99, 235, 0.22);
 }
@@ -218,7 +218,7 @@
 .incident-pill--critical,
 .incident-pill--high {
   background: rgba(239, 68, 68, 0.12);
-  color: #dc2626;
+  color: var(--nx-priority-critical);
   border-color: rgba(239, 68, 68, 0.24);
 }
 
@@ -230,7 +230,7 @@
 
 .incident-pill--low {
   background: rgba(59, 130, 246, 0.12);
-  color: #2563eb;
+  color: var(--nx-info-dark);
   border-color: rgba(59, 130, 246, 0.24);
 }
 
@@ -242,13 +242,13 @@
 
 .incident-pill--active {
   background: rgba(249, 115, 22, 0.12);
-  color: #ea580c;
+  color: var(--nx-orange-600);
   border-color: rgba(249, 115, 22, 0.22);
 }
 
 .incident-pill--monitoring {
   background: rgba(59, 130, 246, 0.12);
-  color: #2563eb;
+  color: var(--nx-info-dark);
   border-color: rgba(59, 130, 246, 0.22);
 }
 
@@ -274,13 +274,13 @@
 }
 
 .incident-icon-btn--edit {
-  color: #2563eb;
+  color: var(--nx-info-dark);
   background: rgba(59, 130, 246, 0.08);
   border-color: rgba(59, 130, 246, 0.18);
 }
 
 .incident-icon-btn--delete {
-  color: #dc2626;
+  color: var(--nx-priority-critical);
   background: rgba(239, 68, 68, 0.08);
   border-color: rgba(239, 68, 68, 0.18);
 }
@@ -394,7 +394,7 @@
 
 .incident-empty-icon {
   margin-bottom: 12px;
-  color: #10b981;
+  color: var(--nx-success);
 }
 
 .incident-empty-title {
@@ -411,7 +411,7 @@
 
 [data-theme='dark'] .incident-title-icon {
   background: linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(239, 68, 68, 0.18) 100%);
-  color: #fdba74;
+  color: var(--nx-orange-light2);
 }
 
 [data-theme='dark'] .incident-card,
@@ -432,7 +432,7 @@
 
 [data-theme='dark'] .incident-btn--resolve {
   background: rgba(16, 185, 129, 0.12);
-  color: #6ee7b7;
+  color: var(--nx-success-light2);
 }
 
 [data-theme='dark'] .incident-empty-state {

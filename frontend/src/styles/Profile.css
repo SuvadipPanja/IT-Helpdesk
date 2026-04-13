@@ -1,4 +1,4 @@
-/* ══════════════════════════════════════════════════════════════
+﻿/* ══════════════════════════════════════════════════════════════
    PROFILE & CHANGE PASSWORD — Modern Production Stylesheet
    Self-contained --pf-* design tokens with dark mode support.
    ══════════════════════════════════════════════════════════════ */
@@ -17,22 +17,22 @@
   --pf-text-muted: var(--nx-muted);
   --pf-primary: var(--nx-primary);
   --pf-primary-dark: var(--nx-primary-hover);
-  --pf-primary-light: #818cf8;
+  --pf-primary-light: var(--nx-primary-400);
   --pf-primary-bg: var(--nx-primary-light);
   --pf-primary-ring: rgba(99, 102, 241, 0.18);
   --pf-success: var(--nx-success);
   --pf-success-bg: var(--nx-success-light);
-  --pf-success-text: #059669;
+  --pf-success-text: var(--nx-success-dark);
   --pf-success-border: rgba(16, 185, 129, 0.25);
   --pf-warning-bg: var(--nx-warning-light);
-  --pf-warning-text: #d97706;
+  --pf-warning-text: var(--nx-warning-dark);
   --pf-warning-border: rgba(245, 158, 11, 0.25);
   --pf-error: var(--nx-danger);
   --pf-error-bg: var(--nx-danger-light);
-  --pf-error-text: #dc2626;
+  --pf-error-text: var(--nx-priority-critical);
   --pf-error-border: rgba(239, 68, 68, 0.25);
   --pf-info-bg: var(--nx-info-light);
-  --pf-info-text: #2563eb;
+  --pf-info-text: var(--nx-info-dark);
   --pf-info-border: rgba(59, 130, 246, 0.2);
   --pf-shadow-sm: var(--nx-shadow);
   --pf-shadow-md: var(--nx-shadow-md);
@@ -40,8 +40,8 @@
   --pf-radius: var(--nx-radius);
   --pf-radius-sm: var(--nx-radius-sm);
   --pf-radius-lg: var(--nx-radius-lg);
-  --pf-gradient: linear-gradient(135deg, #6366f1 0%, #7c3aed 60%, #a855f7 100%);
-  --pf-avatar-gradient: linear-gradient(135deg, #6366f1, #a855f7);
+  --pf-gradient: linear-gradient(135deg, var(--nx-primary, var(--nx-primary)) 0%, var(--nx-purple-dark) 60%, #a855f7 100%);
+  --pf-avatar-gradient: linear-gradient(135deg, var(--nx-primary, var(--nx-primary)), #a855f7);
 }
 
 /* ── Page Base ── */
@@ -486,17 +486,17 @@
 }
 .profile-page .role-admin {
   background: rgba(239, 68, 68, 0.1);
-  color: #dc2626;
+  color: var(--nx-priority-critical);
 }
 .profile-page .role-manager {
   background: rgba(245, 158, 11, 0.1);
-  color: #d97706;
+  color: var(--nx-warning-dark);
 }
 .profile-page .role-engineer,
 .profile-page .role-it_engineer,
 .profile-page .role-support_engineer {
   background: rgba(59, 130, 246, 0.1);
-  color: #2563eb;
+  color: var(--nx-info-dark);
 }
 .profile-page .role-user {
   background: rgba(107, 114, 128, 0.1);
@@ -645,7 +645,7 @@
   box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
 }
 .profile-page .pwd-expiry-btn-urgent {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: linear-gradient(135deg, var(--nx-danger) 0%, var(--nx-priority-critical) 100%);
   animation: pf-pulse-btn 2s ease-in-out infinite;
 }
 .profile-page .pwd-expiry-btn-urgent:hover {

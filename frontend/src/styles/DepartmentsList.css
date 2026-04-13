@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ============================================
  * DEPARTMENTS LIST PAGE - MODERN STYLES
  * ============================================
@@ -54,6 +54,7 @@
   max-width: 1600px;
   margin: 0 auto;
   min-height: calc(100vh - 80px);
+  min-height: calc(100dvh - 80px);
   background: var(--dept-bg-page);
   font-family: var(--nx-font);
 }
@@ -67,7 +68,7 @@
   align-items: center;
   margin-bottom: 22px;
   padding: 26px 28px;
-  background: linear-gradient(135deg, var(--dept-primary) 0%, #7c3aed 60%, #a855f7 100%);
+  background: linear-gradient(135deg, var(--dept-primary) 0%, var(--nx-purple-dark) 60%, #a855f7 100%);
   border-radius: var(--dept-radius-lg);
   color: white;
   box-shadow: var(--dept-shadow-lg);
@@ -150,7 +151,7 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.dept-btn.primary:hover {
+.dept-btn.primary:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
@@ -169,7 +170,7 @@
 .dept-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  transform: none !important;
+  transform: none;
 }
 
 /* Spinner Animation */

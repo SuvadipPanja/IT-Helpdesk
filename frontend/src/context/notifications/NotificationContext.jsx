@@ -321,16 +321,26 @@ export const NotificationProvider = ({ children }) => {
 
   // ============================================
   // VISIBILITY CHANGE HANDLER
+  // Pauses polling when tab is hidden, resumes when visible
   // ============================================
   useEffect(() => {
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible' && notificationsEnabled) {
+      if (document.hidden) {
+        // Tab hidden — stop polling to save resources
+        if (pollingIntervalRef.current) {
+          clearInterval(pollingIntervalRef.current);
+          pollingIntervalRef.current = null;
+        }
+      } else if (notificationsEnabled && !!localStorage.getItem('user')) {
+        // Tab visible again — do an immediate fetch then restart interval
         const now = Date.now();
-        const timeSinceLastPoll = now - lastPollTimeRef.current;
-        
-        // Only fetch if it's been more than 5 seconds
-        if (timeSinceLastPoll > 5000) {
+        if (now - lastPollTimeRef.current > 5000) {
           fetchUnreadCount();
+        }
+        if (!pollingIntervalRef.current) {
+          pollingIntervalRef.current = setInterval(() => {
+            fetchUnreadCount();
+          }, POLL_INTERVAL);
         }
       }
     };

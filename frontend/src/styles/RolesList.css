@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ============================================
  * ROLES LIST PAGE - MODERN STYLES
  * ============================================
@@ -21,7 +21,7 @@
   --role-success-light: var(--nx-success-light);
   --role-warning: var(--nx-warning);
   --role-warning-light: var(--nx-warning-light);
-  --role-warning-text: #92400e;
+  --role-warning-text: var(--nx-warning-darker);
   --role-danger: var(--nx-danger);
   --role-danger-light: var(--nx-danger-light);
   --role-info: var(--nx-info);
@@ -55,6 +55,7 @@
   max-width: 1600px;
   margin: 0 auto;
   min-height: calc(100vh - 80px);
+  min-height: calc(100dvh - 80px);
   background: var(--role-bg-page);
   font-family: var(--nx-font);
 }
@@ -68,7 +69,7 @@
   align-items: center;
   margin-bottom: 22px;
   padding: 26px 28px;
-  background: linear-gradient(135deg, var(--role-primary) 0%, #7c3aed 60%, #a855f7 100%);
+  background: linear-gradient(135deg, var(--role-primary) 0%, var(--nx-purple-dark) 60%, #a855f7 100%);
   border-radius: var(--role-radius-lg);
   color: white;
   box-shadow: var(--role-shadow-lg);
@@ -150,7 +151,7 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.role-btn.primary:hover {
+.role-btn.primary:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
@@ -169,7 +170,7 @@
 .role-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  transform: none !important;
+  transform: none;
 }
 
 /* Spinner Animation */
@@ -404,7 +405,7 @@
 }
 
 .role-card.system::before {
-  background: linear-gradient(90deg, var(--role-warning) 0%, #ea580c 100%);
+  background: linear-gradient(90deg, var(--role-warning) 0%, var(--nx-orange-600) 100%);
 }
 
 /* System Role Ribbon */
@@ -655,11 +656,11 @@
 
 /* Status Colors */
 .status-active {
-  color: var(--role-success) !important;
+  color: var(--role-success);
 }
 
 .status-inactive {
-  color: var(--role-danger) !important;
+  color: var(--role-danger);
 }
 
 /* ============================================

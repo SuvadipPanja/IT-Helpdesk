@@ -42,6 +42,8 @@ const Layout = ({ children }) => {
 
   return (
     <div className="dashboard-container">
+      {/* Skip navigation link — keyboard users jump straight to content */}
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="main-content">
         <Header toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
@@ -53,7 +55,7 @@ const Layout = ({ children }) => {
         <IncidentBanner />
         
         {/* Main content area */}
-        <main className="dashboard-content">
+        <main id="main-content" className="dashboard-content">
           {children}
         </main>
 

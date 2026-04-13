@@ -1,32 +1,32 @@
-/* ============================================
+﻿/* ============================================
    DEPARTMENT MODALS - MODERN DESIGN WITH TOKENS
    ============================================ */
 
 /* ==================== CSS VARIABLES ==================== */
 .modal-overlay {
-  --dm-primary: #6366f1;
-  --dm-primary-dark: #4f46e5;
+  --dm-primary: var(--nx-primary);
+  --dm-primary-dark: var(--nx-primary-hover);
   --dm-primary-light: rgba(99, 102, 241, 0.1);
   --dm-primary-ring: rgba(99, 102, 241, 0.15);
-  --dm-danger: #dc2626;
+  --dm-danger: var(--nx-priority-critical);
   --dm-danger-dark: #b91c1c;
-  --dm-danger-light: #fef2f2;
-  --dm-danger-border: #fecaca;
-  --dm-warning: #d97706;
-  --dm-warning-light: #fffbeb;
+  --dm-danger-light: var(--nx-danger-light);
+  --dm-danger-border: var(--nx-danger-light5);
+  --dm-warning: var(--nx-warning-dark);
+  --dm-warning-light: var(--nx-warning-light);
   --dm-warning-border: #fde68a;
-  --dm-text-primary: #0f172a;
-  --dm-text-secondary: #475569;
-  --dm-text-muted: #94a3b8;
-  --dm-text-label: #64748b;
-  --dm-bg: #ffffff;
-  --dm-bg-alt: #f8fafc;
-  --dm-bg-input: #ffffff;
+  --dm-text-primary: var(--nx-text);
+  --dm-text-secondary: var(--nx-text-secondary);
+  --dm-text-muted: var(--nx-muted);
+  --dm-text-label: var(--nx-text-secondary);
+  --dm-bg: var(--nx-surface);
+  --dm-bg-alt: var(--nx-surface-hover);
+  --dm-bg-input: var(--nx-surface);
   --dm-bg-hover: #ede9fe;
-  --dm-border: #e2e8f0;
-  --dm-border-light: #f1f5f9;
-  --dm-scrollbar-track: #f1f5f9;
-  --dm-scrollbar-thumb: #cbd5e1;
+  --dm-border: var(--nx-border);
+  --dm-border-light: var(--nx-bg);
+  --dm-scrollbar-track: var(--nx-bg);
+  --dm-scrollbar-thumb: var(--nx-border-strong);
   --dm-overlay: rgba(15, 23, 42, 0.7);
   --dm-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
   --dm-radius: 14px;
@@ -37,18 +37,18 @@
 
 /* ==================== DARK MODE ==================== */
 [data-theme="dark"] .modal-overlay {
-  --dm-text-primary: #f1f5f9;
-  --dm-text-secondary: #cbd5e1;
-  --dm-text-muted: #64748b;
-  --dm-text-label: #94a3b8;
-  --dm-bg: #1e293b;
+  --dm-text-primary: var(--nx-bg);
+  --dm-text-secondary: var(--nx-border-strong);
+  --dm-text-muted: var(--nx-text-secondary);
+  --dm-text-label: var(--nx-muted);
+  --dm-bg: var(--nx-surface-dark);
   --dm-bg-alt: #162032;
-  --dm-bg-input: #0f172a;
+  --dm-bg-input: var(--nx-text);
   --dm-bg-hover: rgba(139, 92, 246, 0.15);
-  --dm-border: #334155;
-  --dm-border-light: #1e293b;
-  --dm-scrollbar-track: #0f172a;
-  --dm-scrollbar-thumb: #475569;
+  --dm-border: var(--nx-gray-700);
+  --dm-border-light: var(--nx-surface-dark);
+  --dm-scrollbar-track: var(--nx-text);
+  --dm-scrollbar-thumb: var(--nx-text-secondary);
   --dm-overlay: rgba(0, 0, 0, 0.75);
   --dm-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
   --dm-danger-light: rgba(220, 38, 38, 0.12);
@@ -192,9 +192,9 @@
 }
 
 .warning-text {
-  color: var(--dm-danger) !important;
-  font-weight: 600 !important;
-  margin-top: 16px !important;
+  color: var(--dm-danger);
+  font-weight: 600;
+  margin-top: 16px;
 }
 
 /* ==================== DEPARTMENT FORM ==================== */

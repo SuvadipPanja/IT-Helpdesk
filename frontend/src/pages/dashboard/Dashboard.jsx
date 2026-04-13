@@ -1297,7 +1297,14 @@ const Dashboard = () => {
    STAT CARD COMPONENT
    ══════════════════════════════════════ */
 const StatCard = ({ icon, label, value, className, onClick, trend, trendPct, sub, compact }) => (
-  <div className={`db-stat-card ${className} ${compact ? 'db-stat-compact' : ''}`} onClick={onClick}>
+  <div
+    className={`db-stat-card ${className} ${compact ? 'db-stat-compact' : ''}`}
+    onClick={onClick}
+    role={onClick ? 'button' : undefined}
+    tabIndex={onClick ? 0 : undefined}
+    aria-label={onClick ? `${label}: ${value ?? 0}${sub ? `, ${sub}` : ''} — click to view` : undefined}
+    onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } } : undefined}
+  >
     <div className="db-stat-icon">{icon}</div>
     <div className="db-stat-info">
       <span className="db-stat-label">{label}</span>

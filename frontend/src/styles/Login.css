@@ -14,20 +14,22 @@
    ============================================ */
 .login-page-container {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('/images/login-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 15%, rgba(99, 102, 241, 0.40) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 55% at 90% 85%, rgba(139, 92, 246, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 70% at 55% 30%, rgba(59, 130, 246, 0.20) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 90% at 50% 50%, rgba(30, 27, 75, 0.60) 0%, transparent 100%),
+    linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
   padding: 20px;
   position: relative;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-family: var(--nx-font);
 }
 
-/* Overlay for better contrast */
+/* Subtle depth overlay */
 .login-page-container::before {
   content: '';
   position: absolute;
@@ -35,8 +37,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: radial-gradient(ellipse 60% 40% at 70% 60%, rgba(99, 102, 241, 0.12) 0%, transparent 60%);
   z-index: 0;
+  pointer-events: none;
 }
 
 /* ============================================
@@ -106,8 +109,8 @@
    ERROR MESSAGE - SCOPED
    ============================================ */
 .login-error-message {
-  background: rgba(239, 68, 68, 0.95) !important;
-  color: #ffffff !important;
+  background: rgba(239, 68, 68, 0.95);
+  color: #ffffff;
   padding: 14px 16px;
   border-radius: 8px;
   font-size: 14px;
@@ -124,12 +127,12 @@
 
 .login-error-message svg {
   flex-shrink: 0;
-  color: #ffffff !important;
+  color: #ffffff;
 }
 
 .login-error-message span {
   flex: 1;
-  color: #ffffff !important;
+  color: #ffffff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -317,7 +320,7 @@
   cursor: not-allowed;
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.15);
-  transform: none !important;
+  transform: none;
 }
 
 /* ============================================
@@ -425,8 +428,8 @@
   color: white;
 }
 
-.login-otp-expired {
-  color: #fca5a5 !important;
+.login-otp-timer .login-otp-expired {
+  color: #fca5a5;
   font-weight: 600;
 }
 
@@ -678,10 +681,10 @@
    ============================================ */
 
 /* Password Expired Error - Enhanced */
-.login-error-password-expired {
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.95) 0%, rgba(239, 68, 68, 0.95) 100%) !important;
-  border-left: 4px solid #991b1b !important;
-  padding: 16px 18px !important;
+.login-error-message.login-error-password-expired {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.95) 0%, rgba(239, 68, 68, 0.95) 100%);
+  border-left: 4px solid #991b1b;
+  padding: 16px 18px;
 }
 
 .login-error-content {
@@ -691,11 +694,11 @@
   width: 100%;
 }
 
-.login-error-text {
+.login-error-message .login-error-text {
   font-weight: 600;
   font-size: 15px;
   line-height: 1.5;
-  color: #ffffff !important;
+  color: #ffffff;
 }
 
 /* Password Expired Days - Clean Display */
@@ -722,8 +725,8 @@
    RESPONSIVE ADJUSTMENTS
    ============================================ */
 @media (max-width: 480px) {
-  .login-error-password-expired {
-    padding: 14px 16px !important;
+  .login-error-message.login-error-password-expired {
+    padding: 14px 16px;
   }
 
   .login-error-text {

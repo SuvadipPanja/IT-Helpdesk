@@ -638,6 +638,11 @@ const TicketDetail = () => {
     const Icon = map[code] || AlertCircle;
     return <Icon size={16} />;
   };
+  const getPriorityIcon = (code) => {
+    const map = { CRITICAL: AlertTriangle, HIGH: TrendingUp, MEDIUM: Activity, LOW: ChevronDown, PLANNING: Calendar };
+    const Icon = map[code] || Tag;
+    return <Icon size={14} />;
+  };
 
   // ---- Permissions ----
   const isAdminOrManager = () => {
@@ -987,7 +992,7 @@ const TicketDetail = () => {
             <span>{ticket.status_name}</span>
           </div>
           <div className={`td-priority-pill td-priority-${getPriorityClass(ticket.priority_code)}`}>
-            {(ticket.priority_code === 'CRITICAL' || ticket.priority_code === 'HIGH') && <AlertTriangle size={14} />}
+            {getPriorityIcon(ticket.priority_code)}
             <span>{ticket.priority_name}</span>
           </div>
           {(sla.status !== 'none' || ticket.sla_paused) && (
@@ -1026,6 +1031,7 @@ const TicketDetail = () => {
               className={`td-btn-icon ${refreshing ? 'spinning' : ''}`}
               onClick={() => fetchTicketDetails(true)}
               title="Refresh"
+              aria-label="Refresh ticket"
             >
               <RefreshCw size={16} />
             </button>
@@ -1729,6 +1735,7 @@ const TicketDetail = () => {
                           className="td-btn-icon td-att-preview-btn"
                           onClick={() => setPreviewAtt({ ...att, ticket_id: id })}
                           title="Preview"
+                          aria-label={`Preview ${att.file_name}`}
                         >
                           <Eye size={15} />
                         </button>
@@ -1736,6 +1743,7 @@ const TicketDetail = () => {
                           className="td-btn-icon"
                           onClick={() => handleDownloadAttachment(att.attachment_id, att.file_name)}
                           title="Download"
+                          aria-label={`Download ${att.file_name}`}
                         >
                           <Download size={16} />
                         </button>}

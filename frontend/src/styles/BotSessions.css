@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    BOT SESSIONS PAGE STYLES
    Session viewer, transcript, and analytics
    Uses CSS variables for consistent theming
@@ -27,7 +27,7 @@
 .bot-sessions-page .page-header h1 {
   font-size: 24px;
   font-weight: 700;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   display: flex;
   align-items: center;
   gap: 10px;
@@ -35,7 +35,7 @@
 }
 
 .bot-sessions-page .page-header h1 svg {
-  color: var(--primary-color, #6366f1);
+  color: var(--primary-color, var(--nx-primary));
 }
 
 .bot-sessions-page .header-actions {
@@ -48,19 +48,19 @@
   align-items: center;
   gap: 6px;
   padding: 8px 16px;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 8px;
-  background: var(--bg-primary, #ffffff);
-  color: var(--text-secondary, #64748b);
+  background: var(--bg-primary, var(--nx-surface));
+  color: var(--text-secondary, var(--nx-text-secondary));
   font-size: 13px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .bot-sessions-page .header-actions button:hover {
-  background: var(--bg-hover, #f1f5f9);
-  border-color: var(--primary-color, #6366f1);
-  color: var(--primary-color, #6366f1);
+  background: var(--bg-hover, var(--nx-bg));
+  border-color: var(--primary-color, var(--nx-primary));
+  color: var(--primary-color, var(--nx-primary));
 }
 
 /* Stats Cards */
@@ -72,8 +72,8 @@
 }
 
 .bot-sessions-page .overview-stat-card {
-  background: var(--bg-primary, #ffffff);
-  border: 1px solid var(--border-color, #e2e8f0);
+  background: var(--bg-primary, var(--nx-surface));
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 12px;
   padding: 20px;
   display: flex;
@@ -83,7 +83,7 @@
 }
 
 .bot-sessions-page .overview-stat-card:hover {
-  border-color: var(--primary-color, #6366f1);
+  border-color: var(--primary-color, var(--nx-primary));
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
 }
@@ -102,13 +102,13 @@
 .bot-sessions-page .overview-stat-card .stat-number {
   font-size: 24px;
   font-weight: 700;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   line-height: 1;
 }
 
 .bot-sessions-page .overview-stat-card .stat-text {
   font-size: 12px;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
   margin-top: 4px;
 }
 
@@ -119,20 +119,20 @@
   margin-bottom: 20px;
   flex-wrap: wrap;
   align-items: center;
-  background: var(--bg-primary, #ffffff);
+  background: var(--bg-primary, var(--nx-surface));
   padding: 16px;
   border-radius: 12px;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
 }
 
 .bot-sessions-page .filters-bar .search-input {
   flex: 1;
   min-width: 200px;
   padding: 8px 12px 8px 36px;
-  background: var(--bg-secondary, #f8fafc);
-  border: 1px solid var(--border-color, #e2e8f0);
+  background: var(--bg-secondary, var(--nx-surface-hover));
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 8px;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   font-size: 13px;
   position: relative;
 }
@@ -148,24 +148,24 @@
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
   pointer-events: none;
 }
 
 .bot-sessions-page .filters-bar select,
 .bot-sessions-page .filters-bar input[type="date"] {
   padding: 8px 12px;
-  background: var(--bg-secondary, #f8fafc);
-  border: 1px solid var(--border-color, #e2e8f0);
+  background: var(--bg-secondary, var(--nx-surface-hover));
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 8px;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   font-size: 13px;
 }
 
 /* Sessions Table */
 .bot-sessions-page .sessions-table-wrap {
-  background: var(--bg-primary, #ffffff);
-  border: 1px solid var(--border-color, #e2e8f0);
+  background: var(--bg-primary, var(--nx-surface));
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 12px;
   overflow: hidden;
 }
@@ -180,24 +180,24 @@
   padding: 12px 16px;
   font-size: 12px;
   font-weight: 600;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background: var(--bg-secondary, #f8fafc);
-  border-bottom: 1px solid var(--border-color, #e2e8f0);
+  background: var(--bg-secondary, var(--nx-surface-hover));
+  border-bottom: 1px solid var(--border-color, var(--nx-border));
   white-space: nowrap;
 }
 
 .bot-sessions-page .sessions-table td {
   padding: 12px 16px;
   font-size: 13px;
-  color: var(--text-primary, #1e293b);
-  border-bottom: 1px solid var(--border-color, #e2e8f0);
+  color: var(--text-primary, var(--nx-surface-dark));
+  border-bottom: 1px solid var(--border-color, var(--nx-border));
   vertical-align: middle;
 }
 
 .bot-sessions-page .sessions-table tr:hover td {
-  background: var(--bg-secondary, #f8fafc);
+  background: var(--bg-secondary, var(--nx-surface-hover));
 }
 
 .bot-sessions-page .sessions-table .user-cell {
@@ -210,7 +210,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: var(--primary-color, #6366f1);
+  background: var(--primary-color, var(--nx-primary));
   color: white;
   display: flex;
   align-items: center;
@@ -222,12 +222,12 @@
 
 .bot-sessions-page .sessions-table .user-info .user-name {
   font-weight: 500;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
 }
 
 .bot-sessions-page .sessions-table .user-info .user-role {
   font-size: 11px;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
 }
 
 .bot-sessions-page .status-badge {
@@ -242,12 +242,12 @@
 
 .bot-sessions-page .status-badge.active {
   background: rgba(16, 185, 129, 0.12);
-  color: #10b981;
+  color: var(--nx-success);
 }
 
 .bot-sessions-page .status-badge.ended {
   background: rgba(100, 116, 139, 0.12);
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
 }
 
 .bot-sessions-page .msg-count {
@@ -264,10 +264,10 @@
 
 .bot-sessions-page .action-btns button {
   padding: 6px;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 6px;
   background: transparent;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
   cursor: pointer;
   transition: all 0.2s;
   display: flex;
@@ -276,9 +276,9 @@
 }
 
 .bot-sessions-page .action-btns button:hover {
-  background: var(--bg-secondary, #f8fafc);
-  color: var(--primary-color, #6366f1);
-  border-color: var(--primary-color, #6366f1);
+  background: var(--bg-secondary, var(--nx-surface-hover));
+  color: var(--primary-color, var(--nx-primary));
+  border-color: var(--primary-color, var(--nx-primary));
 }
 
 /* Pagination */
@@ -287,13 +287,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  background: var(--bg-secondary, #f8fafc);
-  border-top: 1px solid var(--border-color, #e2e8f0);
+  background: var(--bg-secondary, var(--nx-surface-hover));
+  border-top: 1px solid var(--border-color, var(--nx-border));
 }
 
 .bot-sessions-page .pagination-bar .page-info {
   font-size: 13px;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
 }
 
 .bot-sessions-page .pagination-bar .page-btns {
@@ -303,18 +303,18 @@
 
 .bot-sessions-page .pagination-bar .page-btns button {
   padding: 6px 12px;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 6px;
   background: transparent;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   font-size: 13px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .bot-sessions-page .pagination-bar .page-btns button:hover:not(:disabled) {
-  background: var(--primary-color, #6366f1);
-  border-color: var(--primary-color, #6366f1);
+  background: var(--primary-color, var(--nx-primary));
+  border-color: var(--primary-color, var(--nx-primary));
   color: #fff;
 }
 
@@ -324,8 +324,8 @@
 }
 
 .bot-sessions-page .pagination-bar .page-btns button.active {
-  background: var(--primary-color, #6366f1);
-  border-color: var(--primary-color, #6366f1);
+  background: var(--primary-color, var(--nx-primary));
+  border-color: var(--primary-color, var(--nx-primary));
   color: #fff;
 }
 
@@ -342,8 +342,8 @@
 }
 
 .session-detail-modal {
-  background: var(--bg-primary, #ffffff);
-  border: 1px solid var(--border-color, #e2e8f0);
+  background: var(--bg-primary, var(--nx-surface));
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 16px;
   width: 100%;
   max-width: 900px;
@@ -359,14 +359,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 24px;
-  border-bottom: 1px solid var(--border-color, #e2e8f0);
-  background: var(--bg-secondary, #f8fafc);
+  border-bottom: 1px solid var(--border-color, var(--nx-border));
+  background: var(--bg-secondary, var(--nx-surface-hover));
 }
 
 .session-detail-modal .modal-header h2 {
   font-size: 18px;
   font-weight: 600;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   display: flex;
   align-items: center;
   gap: 8px;
@@ -383,31 +383,31 @@
   align-items: center;
   gap: 4px;
   padding: 6px 12px;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 6px;
   background: transparent;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
   font-size: 12px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .session-detail-modal .modal-header .modal-actions button:hover {
-  background: var(--bg-hover, #f1f5f9);
-  color: var(--primary-color, #6366f1);
+  background: var(--bg-hover, var(--nx-bg));
+  color: var(--primary-color, var(--nx-primary));
 }
 
 .session-detail-modal .modal-header .close-btn {
   padding: 6px;
   border: none;
   background: transparent;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
   cursor: pointer;
   border-radius: 6px;
 }
 
 .session-detail-modal .modal-header .close-btn:hover {
-  color: #ef4444;
+  color: var(--nx-danger);
   background: rgba(239, 68, 68, 0.08);
 }
 
@@ -417,8 +417,8 @@
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 12px;
   padding: 16px 24px;
-  background: var(--bg-secondary, #f8fafc);
-  border-bottom: 1px solid var(--border-color, #e2e8f0);
+  background: var(--bg-secondary, var(--nx-surface-hover));
+  border-bottom: 1px solid var(--border-color, var(--nx-border));
 }
 
 .session-detail-modal .info-item {
@@ -427,7 +427,7 @@
 
 .session-detail-modal .info-item .info-label {
   font-size: 11px;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -435,27 +435,27 @@
 .session-detail-modal .info-item .info-value {
   font-size: 16px;
   font-weight: 600;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   margin-top: 2px;
 }
 
 /* Summary Section */
 .session-detail-modal .session-summary {
   padding: 16px 24px;
-  border-bottom: 1px solid var(--border-color, #e2e8f0);
+  border-bottom: 1px solid var(--border-color, var(--nx-border));
   background: rgba(99, 102, 241, 0.04);
 }
 
 .session-detail-modal .session-summary h4 {
   font-size: 13px;
   font-weight: 600;
-  color: var(--primary-color, #6366f1);
+  color: var(--primary-color, var(--nx-primary));
   margin: 0 0 8px 0;
 }
 
 .session-detail-modal .session-summary p {
   font-size: 13px;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary, var(--nx-text-secondary));
   margin: 0;
   line-height: 1.6;
 }
@@ -491,12 +491,12 @@
 }
 
 .session-detail-modal .chat-message.user-msg .msg-avatar {
-  background: var(--primary-color, #6366f1);
+  background: var(--primary-color, var(--nx-primary));
   color: white;
 }
 
 .session-detail-modal .chat-message.bot-msg .msg-avatar {
-  background: #8b5cf6;
+  background: var(--nx-purple);
   color: white;
 }
 
@@ -515,12 +515,12 @@
 .session-detail-modal .chat-message .msg-sender {
   font-size: 13px;
   font-weight: 600;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
 }
 
 .session-detail-modal .chat-message .msg-time {
   font-size: 11px;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
 }
 
 .session-detail-modal .chat-message .msg-meta-badges {
@@ -538,22 +538,22 @@
 
 .session-detail-modal .meta-badge.intent {
   background: rgba(99, 102, 241, 0.1);
-  color: #6366f1;
+  color: var(--nx-primary);
 }
 
 .session-detail-modal .meta-badge.category {
   background: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
+  color: var(--nx-info);
 }
 
 .session-detail-modal .meta-badge.confidence {
   background: rgba(16, 185, 129, 0.1);
-  color: #10b981;
+  color: var(--nx-success);
 }
 
 .session-detail-modal .meta-badge.ai-enhanced {
   background: rgba(249, 115, 22, 0.1);
-  color: #f97316;
+  color: var(--nx-orange);
 }
 
 .session-detail-modal .meta-badge.action {
@@ -562,12 +562,12 @@
 }
 
 .session-detail-modal .chat-message .msg-content {
-  background: var(--bg-secondary, #f8fafc);
-  border: 1px solid var(--border-color, #e2e8f0);
+  background: var(--bg-secondary, var(--nx-surface-hover));
+  border: 1px solid var(--border-color, var(--nx-border));
   border-radius: 12px;
   padding: 12px 16px;
   font-size: 13px;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   line-height: 1.6;
   white-space: pre-wrap;
   word-break: break-word;
@@ -587,23 +587,23 @@
 .bot-sessions-page .empty-state {
   text-align: center;
   padding: 60px 20px;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
 }
 
 .bot-sessions-page .empty-state svg {
-  color: var(--border-color, #e2e8f0);
+  color: var(--border-color, var(--nx-border));
   margin-bottom: 16px;
 }
 
 .bot-sessions-page .empty-state h3 {
   font-size: 18px;
-  color: var(--text-primary, #1e293b);
+  color: var(--text-primary, var(--nx-surface-dark));
   margin-bottom: 8px;
 }
 
 .bot-sessions-page .empty-state p {
   font-size: 14px;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
 }
 
 /* Loading */
@@ -613,7 +613,7 @@
   align-items: center;
   justify-content: center;
   padding: 60px;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, var(--nx-muted));
   gap: 12px;
 }
 

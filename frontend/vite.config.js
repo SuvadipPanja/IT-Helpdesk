@@ -10,6 +10,17 @@ export default defineConfig(({ mode }) => {
       sourcemap: false,
       minify: 'esbuild',
       target: 'es2019',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-react':  ['react', 'react-dom', 'react-router-dom'],
+            'vendor-charts': ['recharts'],
+            'vendor-export': ['exceljs', 'jspdf', 'jspdf-autotable'],
+            'vendor-editor': ['react-quill'],
+            'vendor-icons':  ['lucide-react'],
+          },
+        },
+      },
     },
     esbuild: isProduction
       ? {

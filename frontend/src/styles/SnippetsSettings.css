@@ -1,4 +1,4 @@
-.snippets-page {
+﻿.snippets-page {
   max-width: 1040px;
   margin: 0 auto;
   padding: 24px;
@@ -116,7 +116,7 @@
 
 .snippets-btn--primary {
   border-color: transparent;
-  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+  background: linear-gradient(135deg, var(--nx-info-dark) 0%, var(--nx-primary-hover) 100%);
   color: #fff;
   box-shadow: 0 14px 28px rgba(37, 99, 235, 0.22);
 }
@@ -252,7 +252,7 @@
 .snippet-pill--shared {
   background: rgba(37, 99, 235, 0.12);
   border-color: rgba(37, 99, 235, 0.18);
-  color: #1d4ed8;
+  color: var(--nx-info-darker);
 }
 
 .snippet-pill--private {
@@ -283,7 +283,7 @@
 }
 
 .snippet-icon-btn--danger {
-  color: #dc2626;
+  color: var(--nx-priority-critical);
   background: rgba(239, 68, 68, 0.08);
   border-color: rgba(239, 68, 68, 0.16);
 }
@@ -403,7 +403,7 @@
 }
 
 [data-theme='dark'] .snippets-banner--error {
-  color: #fca5a5;
+  color: var(--nx-danger-light2);
 }
 
 [data-theme='dark'] .snippets-empty-state {

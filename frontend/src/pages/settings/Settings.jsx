@@ -860,12 +860,16 @@ const Settings = () => {
       {/* Main Content */}
       <div className="settings-container">
         {/* Sidebar Tabs */}
-        <div className="settings-tabs">
+        <div className="settings-tabs" role="tablist" aria-label="Settings sections">
           {tabs.map(tab => {
             const Icon = tab.icon;
             return (
               <button
                 key={tab.id}
+                id={`settings-tab-${tab.id}`}
+                role="tab"
+                aria-selected={activeTab === tab.id}
+                aria-controls={`settings-panel-${tab.id}`}
                 className={`settings-tab ${activeTab === tab.id ? 'active' : ''}`}
                 onClick={() => setActiveTab(tab.id)}
               >
@@ -880,7 +884,13 @@ const Settings = () => {
         </div>
 
         {/* Tab Content */}
-        <div className="settings-content">
+        <div
+          className="settings-content"
+          role="tabpanel"
+          id={`settings-panel-${activeTab}`}
+          aria-labelledby={`settings-tab-${activeTab}`}
+          tabIndex={0}
+        >
           {loading ? (
             <div className="settings-loading">
               <Loader size={32} className="spinner" />
