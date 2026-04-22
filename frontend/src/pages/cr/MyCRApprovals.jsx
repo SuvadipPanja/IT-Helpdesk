@@ -235,20 +235,35 @@ const MyCRApprovals = () => {
         </button>
       </div>
 
-      {/* ── Stats bar ── */}
+      {/* ── Stats bar (clickable filters) ── */}
       <div className="mcra-stats-bar">
-        <div className="mcra-stat mcra-stat--pending">
+        <button
+          type="button"
+          className={`mcra-stat mcra-stat--pending ${activeStatus === 'PENDING_APPROVAL' ? 'mcra-stat--active' : ''}`}
+          onClick={() => { setActiveStatus('PENDING_APPROVAL'); setCurrentPage(1); }}
+          title="Show CRs awaiting your decision"
+        >
           <span className="mcra-stat-value">{stats.pending_count ?? 0}</span>
           <span className="mcra-stat-label">Awaiting Decision</span>
-        </div>
-        <div className="mcra-stat mcra-stat--approved">
+        </button>
+        <button
+          type="button"
+          className={`mcra-stat mcra-stat--approved ${activeStatus === 'APPROVED' ? 'mcra-stat--active' : ''}`}
+          onClick={() => { setActiveStatus('APPROVED'); setCurrentPage(1); }}
+          title="Show approved CRs"
+        >
           <span className="mcra-stat-value">{stats.approved_count ?? 0}</span>
           <span className="mcra-stat-label">Approved</span>
-        </div>
-        <div className="mcra-stat mcra-stat--rejected">
+        </button>
+        <button
+          type="button"
+          className={`mcra-stat mcra-stat--rejected ${activeStatus === 'REJECTED' ? 'mcra-stat--active' : ''}`}
+          onClick={() => { setActiveStatus('REJECTED'); setCurrentPage(1); }}
+          title="Show rejected or cancelled CRs"
+        >
           <span className="mcra-stat-value">{stats.rejected_count ?? 0}</span>
           <span className="mcra-stat-label">Rejected / Cancelled</span>
-        </div>
+        </button>
       </div>
 
       {/* ── Toolbar ── */}
@@ -285,7 +300,12 @@ const MyCRApprovals = () => {
       ) : rows.length === 0 ? (
         <div className="mcra-empty">
           <CheckCircle2 size={48} className="mcra-empty-icon" />
-          <h3>{activeStatus === 'PENDING_APPROVAL' ? 'No CRs awaiting your decision' : 'No approval history'}</h3>
+          <h3>
+            {activeStatus === 'PENDING_APPROVAL' ? 'No CRs awaiting your decision'
+              : activeStatus === 'APPROVED'      ? 'No approved CRs'
+              : activeStatus === 'REJECTED'      ? 'No rejected or cancelled CRs'
+              : 'No approval history'}
+          </h3>
           <p>{search ? 'Nothing matches your search.' : 'Change requests assigned to you for approval will appear here.'}</p>
         </div>
       ) : (

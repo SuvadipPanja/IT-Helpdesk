@@ -87,18 +87,21 @@ const getMyCRApprovals = async (req, res, next) => {
     const limit  = Math.min(50, parseInt(req.query.limit) || 20);
     const offset = (page - 1) * limit;
     const search = req.query.search?.trim() || '';
-    const statusFilter = req.query.status || 'PENDING_APPROVAL'; // PENDING_APPROVAL | ALL
+    const statusFilter = req.query.status || 'PENDING_APPROVAL'; // PENDING_APPROVAL | APPROVED | REJECTED | ALL
 
-    // Base WHERE — admin sees all PENDING_APPROVAL; approver only sees ones routed to them
-    let approverWhere = isAdmin
-      ? `cs.status_code = 'PENDING_APPROVAL'`
-      : `cs.status_code = 'PENDING_APPROVAL' AND (cr.requested_approver_id = @userId OR cr.assigned_to = @userId)`;
+    // Map status filter to list of status codes
+    const statusMap = {
+      PENDING_APPROVAL: [`'PENDING_APPROVAL'`],
+      APPROVED:         [`'APPROVED'`],
+      REJECTED:         [`'REJECTED'`, `'CANCELLED'`],
+      ALL:              [`'PENDING_APPROVAL'`, `'APPROVED'`, `'REJECTED'`, `'CANCELLED'`]
+    };
+    const statusCodes = (statusMap[statusFilter] || statusMap.PENDING_APPROVAL).join(',');
 
-    if (statusFilter === 'ALL') {
-      approverWhere = isAdmin
-        ? `cs.status_code IN ('PENDING_APPROVAL','APPROVED','REJECTED','CANCELLED')`
-        : `(cr.requested_approver_id = @userId OR cr.assigned_to = @userId) AND cs.status_code IN ('PENDING_APPROVAL','APPROVED','REJECTED','CANCELLED')`;
-    }
+    // Base WHERE — admin sees all matching statuses; approver only sees ones routed to them
+    const approverWhere = isAdmin
+      ? `cs.status_code IN (${statusCodes})`
+      : `cs.status_code IN (${statusCodes}) AND (cr.requested_approver_id = @userId OR cr.assigned_to = @userId)`;
 
     let searchWhere = '';
     const params = { userId, limit, offset };
