@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import api from '../../services/api';
 import { formatShortDateTime, timeAgo, getGreeting } from '../../utils/dateUtils';
+import { getTicketPriorityBadgeClassName, getTicketStatusBadgeClassName } from '../../utils/ticketBadges';
 import RefreshButton from '../../components/shared/RefreshButton';
 import '../../styles/Dashboard.css';
 
@@ -163,17 +164,6 @@ const Dashboard = () => {
   }, [fetchData]);
 
   // ── Helpers ──
-
-  const statusColor = (code) => ({
-    OPEN: 'status-open', IN_PROGRESS: 'status-progress', PENDING: 'status-pending',
-    CLOSED: 'status-closed', ON_HOLD: 'status-hold', CANCELLED: 'status-cancelled',
-    ESCALATED: 'status-escalated', REOPENED: 'status-reopened',
-  }[code] || 'status-default');
-
-  const priorityColor = (code) => ({
-    CRITICAL: 'priority-critical', HIGH: 'priority-high', MEDIUM: 'priority-medium',
-    LOW: 'priority-low', PLANNING: 'priority-planning',
-  }[code] || 'priority-default');
 
   // ── Activity icon ──
   const activityIcon = (type) => {
@@ -1070,8 +1060,8 @@ const Dashboard = () => {
                       <div className="db-ticket-main">
                         <div className="db-ticket-top">
                           <span className="db-ticket-number">{t.ticket_number}</span>
-                          <span className={`db-badge ${statusColor(t.status_code)}`}>{t.status_name}</span>
-                          <span className={`db-badge ${priorityColor(t.priority_code)}`}>{t.priority_name}</span>
+                          <span className={getTicketStatusBadgeClassName(t.status_code)}>{t.status_name}</span>
+                          <span className={getTicketPriorityBadgeClassName(t.priority_code)}>{t.priority_name}</span>
                         </div>
                         <span className="db-ticket-title">{t.subject}</span>
                         <div className="db-ticket-bottom">

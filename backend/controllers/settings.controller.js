@@ -6,11 +6,50 @@
 const settingsService = require('../services/settings.service');
 const logger = require('../utils/logger');
 const { validateAppPublicUrlInput } = require('../utils/publicUrlCore');
+const {
+  normalizePasswordPolicySettingEntry,
+  normalizePasswordPolicySettingValue,
+  validatePasswordMinLengthSetting,
+} = require('../utils/passwordPolicy');
 const { executeQuery } = require('../config/database');
 const { createBulkNotifications } = require('./notifications.controller');
 
 const hasSettingPermission = (req, permission) =>
   Boolean(req.user?.permissions?.can_manage_system || req.user?.permissions?.[permission]);
+
+const isUnsafeUploadedSvgAsset = (value) => (
+  typeof value === 'string'
+  && /^\/uploads\//i.test(value)
+  && /\.svg(?:$|[?#])/i.test(value)
+);
+
+const normalizeAssetSettingValue = (key, value) => {
+  if (!isUnsafeUploadedSvgAsset(value)) {
+    return value;
+  }
+
+  if (key === 'logo_url') {
+    return '/logo.svg';
+  }
+
+  if (key === 'bot_icon_url') {
+    return '';
+  }
+
+  return value;
+};
+
+const normalizeSettingEntryValue = (key, value) => {
+  return normalizeAssetSettingValue(key, normalizePasswordPolicySettingValue(key, value));
+};
+
+const normalizeSettingEntry = (key, setting) => {
+  const normalizedSetting = normalizePasswordPolicySettingEntry(key, setting);
+  return {
+    ...normalizedSetting,
+    value: normalizeAssetSettingValue(key, normalizedSetting?.value),
+  };
+};
 
 // ============================================
 // HELPER: Notify all active users about system events
@@ -46,7 +85,7 @@ const getPublicSettings = async (req, res) => {
     const publicSettings = {};
     Object.keys(allSettings).forEach(key => {
       if (allSettings[key].is_public === 1 || allSettings[key].is_public === true || alwaysPublicKeys.includes(key)) {
-        publicSettings[key] = allSettings[key].value;
+        publicSettings[key] = normalizeAssetSettingValue(key, allSettings[key].value);
       }
     });
 
@@ -103,7 +142,7 @@ const getAllSettings = async (req, res) => {
         groupedSettings[category] = {};
       }
       
-      groupedSettings[category][key] = setting;
+      groupedSettings[category][key] = normalizeSettingEntry(key, setting);
     });
 
     logger.success('All settings retrieved', { 
@@ -143,6 +182,10 @@ const getSettingsByCategory = async (req, res) => {
     });
 
     const categorySettings = await settingsService.getByCategory(category);
+    const normalizedCategorySettings = Object.keys(categorySettings).reduce((accumulator, key) => {
+      accumulator[key] = normalizeSettingEntryValue(key, categorySettings[key]);
+      return accumulator;
+    }, {});
 
     logger.success('Category settings retrieved', { 
       category,
@@ -154,7 +197,7 @@ const getSettingsByCategory = async (req, res) => {
       success: true,
       data: {
         category,
-        settings: categorySettings
+        settings: normalizedCategorySettings
       }
     });
   } catch (error) {
@@ -180,7 +223,7 @@ const getSetting = async (req, res) => {
       userId: req.user.user_id 
     });
 
-    const value = await settingsService.get(key);
+    const value = normalizeSettingEntryValue(key, await settingsService.get(key));
 
     if (value === null) {
       return res.status(404).json({
@@ -232,6 +275,18 @@ const updateSetting = async (req, res) => {
     }
 
     let storedValue = value;
+    if (key === 'password_min_length') {
+      const validation = validatePasswordMinLengthSetting(value);
+      if (!validation.valid) {
+        return res.status(400).json({
+          success: false,
+          message: validation.error,
+        });
+      }
+
+      storedValue = validation.value;
+    }
+
     if (key === 'app_public_url') {
       const v = validateAppPublicUrlInput(value);
       if (!v.ok) {
@@ -243,7 +298,7 @@ const updateSetting = async (req, res) => {
       storedValue = v.normalized;
       await settingsService.set(key, storedValue, req.user.user_id);
     } else {
-      await settingsService.set(key, value, req.user.user_id);
+      await settingsService.set(key, storedValue, req.user.user_id);
     }
 
     // ============================================
@@ -326,6 +381,18 @@ const updateMultipleSettings = async (req, res) => {
       if (PROTECTED_PREFIXES.some(prefix => key.startsWith(prefix))) return;
       safeSettings[key] = settings[key];
     });
+
+    if (Object.prototype.hasOwnProperty.call(safeSettings, 'password_min_length')) {
+      const validation = validatePasswordMinLengthSetting(safeSettings.password_min_length);
+      if (!validation.valid) {
+        return res.status(400).json({
+          success: false,
+          message: validation.error,
+        });
+      }
+
+      safeSettings.password_min_length = validation.value;
+    }
 
     await settingsService.setMany(safeSettings, req.user.user_id);
 
@@ -660,7 +727,7 @@ const getBotConfig = async (req, res) => {
       success: true,
       data: {
         bot_name: map.bot_name || 'NamoSathi AI',
-        bot_icon_url: map.bot_icon_url || ''
+        bot_icon_url: normalizeAssetSettingValue('bot_icon_url', map.bot_icon_url || '')
       }
     });
   } catch (error) {
@@ -837,7 +904,7 @@ const getFullBotConfig = async (req, res) => {
       success: true,
       data: {
         bot_name: map.bot_name || 'Nexus',
-        bot_icon_url: map.bot_icon_url || '',
+        bot_icon_url: normalizeAssetSettingValue('bot_icon_url', map.bot_icon_url || ''),
         bot_greeting: map.bot_greeting || 'Hello [UserName]! 👋 I\'m [BotName], your IT support assistant. How can I help you today?',
         bot_default_context: map.bot_default_context || 'I can work using your login context and fetch your own ticket updates from backend when needed.',
         bot_enable_intelligence: map.bot_enable_intelligence !== 'false' && map.bot_enable_intelligence !== '0',

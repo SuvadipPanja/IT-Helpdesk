@@ -284,7 +284,8 @@ app.use('/uploads/branding', express.static(path.join(uploadDir, 'branding'), {
     res.set('Cross-Origin-Resource-Policy', 'cross-origin');
     res.set('Cache-Control', 'no-cache, must-revalidate');
     if (filePath.endsWith('.svg')) {
-      res.set('Content-Type', 'image/svg+xml');
+      res.set('Content-Type', 'application/octet-stream');
+      res.set('Content-Disposition', 'attachment');
     } else if (filePath.endsWith('.jpg') || filePath.endsWith('.jpeg')) {
       res.set('Content-Type', 'image/jpeg');
     } else if (filePath.endsWith('.png')) {
@@ -314,16 +315,24 @@ app.use('/uploads/profiles', express.static(path.join(uploadDir, 'profiles'), {
 
 // Ticket attachments & documents — require authentication
 app.use('/uploads/tickets', staticAuth, express.static(path.join(uploadDir, 'tickets'), {
-  setHeaders: (res) => {
+  setHeaders: (res, filePath) => {
     res.set('Cross-Origin-Resource-Policy', 'cross-origin');
     res.set('Cache-Control', 'private, no-cache');
+    if (filePath.endsWith('.svg')) {
+      res.set('Content-Type', 'application/octet-stream');
+      res.set('Content-Disposition', 'attachment');
+    }
   }
 }));
 
 app.use('/uploads/documents', staticAuth, express.static(path.join(uploadDir, 'documents'), {
-  setHeaders: (res) => {
+  setHeaders: (res, filePath) => {
     res.set('Cross-Origin-Resource-Policy', 'cross-origin');
     res.set('Cache-Control', 'private, no-cache');
+    if (filePath.endsWith('.svg')) {
+      res.set('Content-Type', 'application/octet-stream');
+      res.set('Content-Disposition', 'attachment');
+    }
   }
 }));
 

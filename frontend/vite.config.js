@@ -15,7 +15,6 @@ export default defineConfig(({ mode }) => {
           manualChunks: {
             'vendor-react':  ['react', 'react-dom', 'react-router-dom'],
             'vendor-charts': ['recharts'],
-            'vendor-export': ['exceljs', 'jspdf', 'jspdf-autotable'],
             'vendor-editor': ['react-quill'],
             'vendor-icons':  ['lucide-react'],
           },

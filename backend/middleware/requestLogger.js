@@ -6,6 +6,49 @@
 const logger = require('../utils/logger');
 const { getClientIp } = require('../utils/clientIp');
 
+const REDACTED_VALUE = '***HIDDEN***';
+const SENSITIVE_KEY_FRAGMENTS = [
+  'password',
+  'secret',
+  'token',
+  'apikey',
+  'authkey',
+  'authorization',
+  'cookie',
+  'privatekey',
+  'publickey',
+  'recoverykey',
+  'licensekey',
+  'clientsecret',
+  'sessionkey',
+];
+
+const isSensitiveKey = (key) => {
+  const normalizedKey = String(key || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  return SENSITIVE_KEY_FRAGMENTS.some((fragment) => normalizedKey.includes(fragment));
+};
+
+const sanitizeForLogging = (value) => {
+  if (Array.isArray(value)) {
+    return value.map((entry) => sanitizeForLogging(entry));
+  }
+
+  if (Buffer.isBuffer(value)) {
+    return `[Buffer ${value.length} bytes]`;
+  }
+
+  if (!value || typeof value !== 'object') {
+    return value;
+  }
+
+  return Object.entries(value).reduce((sanitized, [key, entryValue]) => {
+    sanitized[key] = isSensitiveKey(key)
+      ? REDACTED_VALUE
+      : sanitizeForLogging(entryValue);
+    return sanitized;
+  }, {});
+};
+
 /**
  * Log incoming HTTP requests
  */
@@ -24,17 +67,7 @@ const requestLogger = (req, res, next) => {
 
   // Log request body for non-GET requests (exclude sensitive fields)
   if (req.method !== 'GET' && req.body && Object.keys(req.body).length > 0) {
-    const sanitizedBody = { ...req.body };
-    
-    // Remove sensitive fields from logs
-    const sensitiveFields = ['password', 'password_hash', 'token', 'secret'];
-    sensitiveFields.forEach((field) => {
-      if (sanitizedBody[field]) {
-        sanitizedBody[field] = '***HIDDEN***';
-      }
-    });
-
-    logger.debug('Request Body', sanitizedBody);
+    logger.debug('Request Body', sanitizeForLogging(req.body));
   }
 
   // Log response when finished

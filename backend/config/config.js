@@ -8,6 +8,8 @@
 
 require('dotenv').config();
 
+const { resolveCredential } = require('../utils/credentialCrypto');
+
 const writeFatalError = (message) => {
   process.stderr.write(`${message}\n`);
 };
@@ -131,11 +133,14 @@ const config = {
   apiPrefix: process.env.API_PREFIX || '/api/v1',
 
   // Database Configuration
+  // DB_PASSWORD may be AES-256-GCM encrypted (prefix "ENC:").
+  // DB_CREDENTIAL_KEY (64-char hex) is required to decrypt it at startup.
+  // Plain-text passwords are accepted in development (no DB_CREDENTIAL_KEY needed).
   database: {
     server: process.env.DB_SERVER || 'localhost\\SQLEXPRESS',
     database: process.env.DB_NAME || 'ITHelpdesk',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD,
+    user: process.env.DB_USER || 'suvadip',
+    password: resolveCredential(process.env.DB_PASSWORD, process.env.DB_CREDENTIAL_KEY),
     port: parseInt(process.env.DB_PORT, 10) || 1433,
     options: {
       encrypt: process.env.DB_ENCRYPT === 'true',

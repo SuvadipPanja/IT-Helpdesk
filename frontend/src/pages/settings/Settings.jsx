@@ -63,6 +63,54 @@ import settingsLoader from '../../utils/settingsLoader';
 import { formatDateTime } from '../../utils/dateUtils';
 import '../../styles/Settings.css';
 
+const PASSWORD_MIN_LENGTH_LIMITS = Object.freeze({
+  min: 6,
+  max: 20,
+  fallback: 8,
+});
+
+const sanitizePasswordMinLengthInput = (value) =>
+  String(value ?? '').replace(/\D/g, '');
+
+const normalizePasswordMinLengthValue = (value, fallback = PASSWORD_MIN_LENGTH_LIMITS.fallback) => {
+  const parsed = Number.parseInt(String(value ?? '').trim(), 10);
+  if (!Number.isInteger(parsed)) {
+    return String(fallback);
+  }
+
+  return String(
+    Math.min(PASSWORD_MIN_LENGTH_LIMITS.max, Math.max(PASSWORD_MIN_LENGTH_LIMITS.min, parsed))
+  );
+};
+
+const normalizePasswordPolicySettingsState = (settingsState, fallback = PASSWORD_MIN_LENGTH_LIMITS.min) => {
+  const currentValue = settingsState?.security?.password_min_length?.value;
+  if (currentValue === undefined) {
+    return settingsState;
+  }
+
+  const normalizedValue = normalizePasswordMinLengthValue(currentValue, fallback);
+  if (String(currentValue) === normalizedValue) {
+    return settingsState;
+  }
+
+  return {
+    ...settingsState,
+    security: {
+      ...settingsState.security,
+      password_min_length: {
+        ...settingsState.security.password_min_length,
+        value: normalizedValue,
+      },
+    },
+  };
+};
+
+const getSlaPriorityBadgeClassName = (priorityCode) => {
+  const normalizedCode = String(priorityCode || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  return `sla-matrix__priority-badge ${normalizedCode ? `sla-matrix__priority-badge--${normalizedCode}` : 'sla-matrix__priority-badge--default'}`;
+};
+
 const Settings = () => {
   const { user, hasLicensedFeature } = useAuth();
   const navigate = useNavigate();
@@ -308,16 +356,24 @@ const Settings = () => {
   // HANDLE SETTING CHANGE
   // ============================================
   const handleSettingChange = (category, key, value) => {
+    const nextValue = category === 'security' && key === 'password_min_length'
+      ? sanitizePasswordMinLengthInput(value)
+      : value;
+
     setSettings(prev => ({
       ...prev,
       [category]: {
         ...prev[category],
         [key]: {
           ...prev[category]?.[key],
-          value: value
+          value: nextValue
         }
       }
     }));
+  };
+
+  const handlePasswordMinLengthBlur = () => {
+    setSettings((prev) => normalizePasswordPolicySettingsState(prev, PASSWORD_MIN_LENGTH_LIMITS.min));
   };
 
   // ============================================
@@ -331,15 +387,20 @@ const Settings = () => {
       return;
     }
 
+    const normalizedSettings = normalizePasswordPolicySettingsState(settings, PASSWORD_MIN_LENGTH_LIMITS.min);
+    if (normalizedSettings !== settings) {
+      setSettings(normalizedSettings);
+    }
+
     setSaving(true);
     setMessage({ type: '', text: '' });
 
     try {
       const settingsToUpdate = {};
       
-      Object.keys(settings).forEach(category => {
-        Object.keys(settings[category]).forEach(key => {
-          settingsToUpdate[key] = settings[category][key].value;
+      Object.keys(normalizedSettings).forEach(category => {
+        Object.keys(normalizedSettings[category]).forEach(key => {
+          settingsToUpdate[key] = normalizedSettings[category][key].value;
         });
       });
 
@@ -408,9 +469,9 @@ const Settings = () => {
     if (!file) return;
 
     // Validate file type
-    const allowed = ['image/jpeg', 'image/jpg', 'image/png', 'image/svg+xml', 'image/webp', 'image/gif'];
+    const allowed = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
     if (!allowed.includes(file.type)) {
-      setMessage({ type: 'error', text: 'Only image files are allowed (JPEG, PNG, SVG, WebP, GIF)' });
+      setMessage({ type: 'error', text: 'Only image files are allowed (JPEG, PNG, WebP, GIF)' });
       return;
     }
 
@@ -1134,7 +1195,7 @@ const Settings = () => {
                       <div className="logo-preview-info">
                         <h4>Current Logo</h4>
                         <p>Displayed on login page, sidebar, and browser tab.</p>
-                        <p className="logo-hint">Recommended: Square image, at least 128×128px. Supports PNG, SVG, JPG, WebP.</p>
+                        <p className="logo-hint">Recommended: Square image, at least 128x128px. Supports PNG, JPG, WebP, GIF.</p>
                       </div>
                     </div>
 
@@ -1142,7 +1203,7 @@ const Settings = () => {
                       <input
                         ref={logoInputRef}
                         type="file"
-                        accept="image/png,image/jpeg,image/svg+xml,image/webp,image/gif"
+                        accept="image/png,image/jpeg,image/webp,image/gif"
                         onChange={handleLogoSelect}
                         style={{ display: 'none' }}
                         id="logo-file-input"
@@ -2712,7 +2773,7 @@ const Settings = () => {
                 </div>
                 <div className="settings-section-content">
 
-                  <div className="settings-info-box info" style={{ marginBottom: '16px' }}>
+                  <div className="settings-info-box info sla-matrix__callout">
                     <HelpCircle size={18} />
                     <p>
                       <strong>Per-Category SLA Thresholds:</strong> Set custom response and resolution
@@ -2724,26 +2785,26 @@ const Settings = () => {
                   </div>
 
                   {loadingSlaMatrix ? (
-                    <div style={{ textAlign: 'center', padding: '32px' }}>
+                    <div className="sla-matrix__loading">
                       <Loader size={24} className="spin" />
-                      <p style={{ marginTop: '8px', color: '#64748b' }}>Loading threshold matrix…</p>
+                      <p>Loading threshold matrix…</p>
                     </div>
                   ) : (
                     <>
                       {/* Scrollable matrix table */}
-                      <div style={{ overflowX: 'auto', marginBottom: '16px' }}>
-                        <table style={{ borderCollapse: 'collapse', minWidth: '100%', fontSize: '13px' }}>
+                      <div className="sla-matrix__scroll">
+                        <table className="sla-matrix__table">
                           <thead>
-                            <tr style={{ background: '#f1f5f9' }}>
-                              <th style={{ padding: '10px 14px', textAlign: 'left', whiteSpace: 'nowrap', border: '1px solid #e2e8f0', minWidth: '110px' }}>
+                            <tr>
+                              <th className="sla-matrix__corner">
                                 Priority
                               </th>
-                              <th style={{ padding: '10px 14px', textAlign: 'center', whiteSpace: 'nowrap', border: '1px solid #e2e8f0', background: '#e0f2fe', minWidth: '130px' }}>
+                              <th className="sla-matrix__column sla-matrix__column--default">
                                 Default<br />
-                                <small style={{ fontWeight: 400, color: '#64748b' }}>(All Categories)</small>
+                                <small className="sla-matrix__column-meta">(All Categories)</small>
                               </th>
                               {slaMatrixMeta.categories.map(cat => (
-                                <th key={cat.category_id} style={{ padding: '10px 14px', textAlign: 'center', whiteSpace: 'nowrap', border: '1px solid #e2e8f0', minWidth: '130px' }}>
+                                <th key={cat.category_id} className="sla-matrix__column">
                                   {cat.category_name}
                                 </th>
                               ))}
@@ -2751,28 +2812,23 @@ const Settings = () => {
                           </thead>
                           <tbody>
                             {slaMatrixMeta.priorities.map(pr => (
-                              <tr key={pr.priority_id}>
-                                <td style={{ padding: '10px 14px', fontWeight: 600, border: '1px solid #e2e8f0', whiteSpace: 'nowrap' }}>
-                                  <span style={{
-                                    display: 'inline-block', padding: '2px 8px', borderRadius: '9999px',
-                                    fontSize: '11px', fontWeight: 700,
-                                    background: pr.priority_code === 'CRITICAL' ? '#fee2e2' : pr.priority_code === 'HIGH' ? '#ffedd5' : pr.priority_code === 'MEDIUM' ? '#fef9c3' : '#f0fdf4',
-                                    color: pr.priority_code === 'CRITICAL' ? '#dc2626' : pr.priority_code === 'HIGH' ? '#ea580c' : pr.priority_code === 'MEDIUM' ? '#ca8a04' : '#16a34a',
-                                  }}>
+                              <tr key={pr.priority_id} className="sla-matrix__row">
+                                <td className="sla-matrix__priority-cell">
+                                  <span className={getSlaPriorityBadgeClassName(pr.priority_code)}>
                                     {pr.priority_name}
                                   </span>
                                 </td>
                                 {/* Default column */}
                                 {['default', ...slaMatrixMeta.categories.map(c => c.category_id)].map(colKey => (
-                                  <td key={colKey} style={{ padding: '8px 10px', border: '1px solid #e2e8f0', background: colKey === 'default' ? '#f0f9ff' : 'transparent' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                                      <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                                        <span style={{ fontSize: '11px', color: '#64748b', width: '44px', flexShrink: 0 }}>Resp:</span>
+                                  <td key={colKey} className={`sla-matrix__cell ${colKey === 'default' ? 'sla-matrix__cell--default' : ''}`}>
+                                    <div className="sla-matrix__field-group">
+                                      <div className="sla-matrix__field-row">
+                                        <span className="sla-matrix__field-label">Resp:</span>
                                         <input
                                           type="number"
                                           min="0.5"
                                           step="0.5"
-                                          style={{ width: '64px', padding: '3px 6px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '12px' }}
+                                          className="sla-matrix__input"
                                           value={slaMatrix[pr.priority_id]?.[colKey]?.response_time_hours ?? ''}
                                           onChange={e => setSlaMatrix(prev => ({
                                             ...prev,
@@ -2785,15 +2841,15 @@ const Settings = () => {
                                             }
                                           }))}
                                         />
-                                        <span style={{ fontSize: '11px', color: '#94a3b8' }}>h</span>
+                                        <span className="sla-matrix__unit">h</span>
                                       </div>
-                                      <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                                        <span style={{ fontSize: '11px', color: '#64748b', width: '44px', flexShrink: 0 }}>Resol:</span>
+                                      <div className="sla-matrix__field-row">
+                                        <span className="sla-matrix__field-label">Resol:</span>
                                         <input
                                           type="number"
                                           min="0.5"
                                           step="0.5"
-                                          style={{ width: '64px', padding: '3px 6px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '12px' }}
+                                          className="sla-matrix__input"
                                           value={slaMatrix[pr.priority_id]?.[colKey]?.resolution_time_hours ?? ''}
                                           onChange={e => setSlaMatrix(prev => ({
                                             ...prev,
@@ -2806,7 +2862,7 @@ const Settings = () => {
                                             }
                                           }))}
                                         />
-                                        <span style={{ fontSize: '11px', color: '#94a3b8' }}>h</span>
+                                        <span className="sla-matrix__unit">h</span>
                                       </div>
                                     </div>
                                   </td>
@@ -2819,29 +2875,27 @@ const Settings = () => {
 
                       {/* Status message */}
                       {slaMatrixMsg.text && (
-                        <div className={`settings-info-box ${slaMatrixMsg.type === 'success' ? 'success' : 'danger'}`} style={{ marginBottom: '12px' }}>
+                        <div className={`settings-info-box sla-matrix__status ${slaMatrixMsg.type === 'success' ? 'success' : 'danger'}`}>
                           {slaMatrixMsg.type === 'success' ? <CheckCircle size={16} /> : <AlertCircle size={16} />}
                           <p>{slaMatrixMsg.text}</p>
                         </div>
                       )}
 
                       {/* Action buttons */}
-                      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
+                      <div className="sla-matrix__actions">
                         <button
-                          className="btn btn-primary"
+                          className="btn btn-primary sla-matrix__action-button"
                           onClick={saveSlaMatrix}
                           disabled={savingSlaMatrix || recalculating}
-                          style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
                         >
                           {savingSlaMatrix ? <Loader size={15} className="spin" /> : <Save size={15} />}
                           {savingSlaMatrix ? 'Saving…' : 'Save Threshold Matrix'}
                         </button>
 
                         <button
-                          className="btn btn-secondary"
+                          className="btn btn-secondary sla-matrix__action-button"
                           onClick={recalculateSlaTickets}
                           disabled={savingSlaMatrix || recalculating}
-                          style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
                           title="Recalculates due_date for all currently open tickets using the latest SLA policies"
                         >
                           {recalculating ? <Loader size={15} className="spin" /> : <RotateCcw size={15} />}
@@ -2849,10 +2903,9 @@ const Settings = () => {
                         </button>
 
                         <button
-                          className="btn btn-secondary"
+                          className="btn btn-secondary sla-matrix__action-button"
                           onClick={loadSlaMatrix}
                           disabled={loadingSlaMatrix || savingSlaMatrix || recalculating}
-                          style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
                         >
                           <RefreshCw size={15} />
                           Refresh
@@ -2886,10 +2939,13 @@ const Settings = () => {
                         className="form-input"
                         value={settings.security?.password_min_length?.value || '8'}
                         onChange={(e) => handleSettingChange('security', 'password_min_length', e.target.value)}
+                        onBlur={handlePasswordMinLengthBlur}
                         min="6"
                         max="20"
+                        step="1"
+                        inputMode="numeric"
                       />
-                      <small className="form-help">Minimum characters required</small>
+                      <small className="form-help">Minimum characters required. Allowed range: 6 to 20.</small>
                     </div>
 
                     <div className="form-group">

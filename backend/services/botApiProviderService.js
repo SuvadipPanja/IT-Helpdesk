@@ -10,8 +10,37 @@ const logger = require('../utils/logger');
 const crypto = require('crypto');
 
 // Simple encryption for API keys (in production, use AWS KMS or Azure Key Vault)
-const ENCRYPTION_KEY = process.env.BOT_API_KEY_ENCRYPTION || 'bot-api-key-encryption-key-256bit!!';
 const ALGORITHM = 'aes-256-cbc';
+const BOT_API_KEY_ENV = 'BOT_API_KEY_ENCRYPTION';
+const BOT_API_KEY_LEGACY_ENV = 'BOT_API_KEY_ENCRYPTION_LEGACY';
+
+const getEncryptionKey = (envName, { required = false } = {}) => {
+  const configuredKey = process.env[envName];
+
+  if (typeof configuredKey !== 'string' || configuredKey.trim().length === 0) {
+    if (required) {
+      throw new Error(`${envName} is not configured`);
+    }
+
+    return null;
+  }
+
+  const keyBuffer = Buffer.from(configuredKey.trim(), 'utf8');
+  if (keyBuffer.length < 32) {
+    throw new Error(`${envName} must be at least 32 bytes long`);
+  }
+
+  return keyBuffer.subarray(0, 32);
+};
+
+const decryptWithKey = (encryptedKey, encryptionKey) => {
+  const parts = encryptedKey.split(':');
+  const iv = Buffer.from(parts[0], 'hex');
+  const decipher = crypto.createDecipheriv(ALGORITHM, encryptionKey, iv);
+  let decrypted = decipher.update(parts[1], 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+};
 
 // In-process caches to avoid repeated DB + crypto hits on every bot message
 const API_KEY_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
@@ -22,13 +51,34 @@ let _enabledProvidersCachedAt = 0;
 const PROVIDERS_CACHE_TTL_MS = 5 * 60 * 1000;
 
 class BotApiProviderService {
+  decryptApiKeyWithMetadata(encryptedKey) {
+    const primaryKey = getEncryptionKey(BOT_API_KEY_ENV, { required: true });
+
+    try {
+      return {
+        apiKey: decryptWithKey(encryptedKey, primaryKey),
+        usedLegacyKey: false,
+      };
+    } catch (primaryError) {
+      const legacyKey = getEncryptionKey(BOT_API_KEY_LEGACY_ENV);
+      if (!legacyKey) {
+        throw primaryError;
+      }
+
+      return {
+        apiKey: decryptWithKey(encryptedKey, legacyKey),
+        usedLegacyKey: true,
+      };
+    }
+  }
+
   /**
    * Encrypt API key
    */
   encryptApiKey(apiKey) {
     try {
       const iv = crypto.randomBytes(16);
-      const cipher = crypto.createCipheriv(ALGORITHM, Buffer.from(ENCRYPTION_KEY.slice(0, 32)), iv);
+      const cipher = crypto.createCipheriv(ALGORITHM, getEncryptionKey(BOT_API_KEY_ENV, { required: true }), iv);
       let encrypted = cipher.update(apiKey, 'utf8', 'hex');
       encrypted += cipher.final('hex');
       return iv.toString('hex') + ':' + encrypted;
@@ -43,15 +93,37 @@ class BotApiProviderService {
    */
   decryptApiKey(encryptedKey) {
     try {
-      const parts = encryptedKey.split(':');
-      const iv = Buffer.from(parts[0], 'hex');
-      const decipher = crypto.createDecipheriv(ALGORITHM, Buffer.from(ENCRYPTION_KEY.slice(0, 32)), iv);
-      let decrypted = decipher.update(parts[1], 'hex', 'utf8');
-      decrypted += decipher.final('utf8');
-      return decrypted;
+      return this.decryptApiKeyWithMetadata(encryptedKey).apiKey;
     } catch (error) {
       logger.error('Error decrypting API key:', error);
       throw new Error('Failed to decrypt API key');
+    }
+  }
+
+  async rotateLegacyEncryptedApiKey(keyRecord) {
+    try {
+      const reencryptedKey = this.encryptApiKey(keyRecord.api_key);
+      await db.executeQuery(`
+        UPDATE bot_api_keys
+        SET api_key_encrypted = @encryptedKey
+        WHERE key_id = @keyId
+      `, {
+        keyId: keyRecord.key_id,
+        encryptedKey: reencryptedKey,
+      });
+
+      keyRecord.api_key_encrypted = reencryptedKey;
+      this._invalidateProviderCaches(keyRecord.provider_id);
+      logger.info('Rotated bot API key encryption to BOT_API_KEY_ENCRYPTION', {
+        providerId: keyRecord.provider_id,
+        keyId: keyRecord.key_id,
+      });
+    } catch (error) {
+      logger.warn('Failed to rotate legacy bot API key encryption', {
+        providerId: keyRecord.provider_id,
+        keyId: keyRecord.key_id,
+        error: error.message,
+      });
     }
   }
 
@@ -269,7 +341,11 @@ class BotApiProviderService {
       const keyRecord = result.recordset?.[0];
       if (keyRecord) {
         try {
-          keyRecord.api_key = this.decryptApiKey(keyRecord.api_key_encrypted);
+          const decryptionResult = this.decryptApiKeyWithMetadata(keyRecord.api_key_encrypted);
+          keyRecord.api_key = decryptionResult.apiKey;
+          if (decryptionResult.usedLegacyKey) {
+            await this.rotateLegacyEncryptedApiKey(keyRecord);
+          }
           delete keyRecord.api_key_encrypted;
         } catch (e) {
           logger.warn('Failed to decrypt API key for provider:', providerId);

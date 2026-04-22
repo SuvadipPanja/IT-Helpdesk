@@ -771,7 +771,6 @@ const login = async (req, res, next) => {
     setAuthCookie(res, token);
     return res.status(200).json(
       createResponse(true, 'Login successful', {
-        token,
         user: userData,
       })
     );
@@ -1100,7 +1099,6 @@ const verifyTwoFactorLogin = async (req, res, next) => {
     setAuthCookie(res, token);
     return res.status(200).json(
       createResponse(true, 'Login successful', {
-        token,
         user: userData,
       })
     );

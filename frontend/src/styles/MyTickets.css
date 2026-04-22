@@ -372,41 +372,6 @@
   border: 1px solid var(--nx-purple-light2);
 }
 
-.status-badge {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.status-open {
-  background: var(--nx-warning-amber100);
-  color: var(--nx-warning-dark);
-}
-
-.status-progress {
-  background: var(--nx-info-light3);
-  color: var(--nx-info-dark);
-}
-
-.status-resolved {
-  background: #d1fae5;
-  color: var(--nx-success-dark);
-}
-
-.status-closed {
-  background: var(--nx-border);
-  color: var(--nx-text-secondary);
-}
-
-.status-reopened {
-  background: var(--nx-orange-light);
-  color: var(--nx-orange-600);
-}
-
 .ticket-card-content {
   flex: 1;
 }

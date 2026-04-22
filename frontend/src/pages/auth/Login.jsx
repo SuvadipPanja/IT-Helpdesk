@@ -476,9 +476,11 @@ const Login = () => {
       }
 
       // Handle successful login (no 2FA)
-      if (result.success && result.data?.token) {
+      if (result.success && result.data?.user) {
         secureStorage.clear();
         // P1 #51 FIX: Use SPA navigation instead of full page reload
+        // refreshUser() hydrates AuthContext with full user data from /auth/me
+        await refreshUser();
         navigate('/dashboard');
         return;
       }
@@ -533,7 +535,7 @@ const Login = () => {
 
       if (!isMounted.current) return;
 
-      if (response.data.success && response.data.data?.token) {
+      if (response.data.success && response.data.data?.user) {
         // Store minimal user info (token is in HttpOnly cookie)
         const { user_id, username, first_name, last_name } = response.data.data.user;
         localStorage.setItem('user', JSON.stringify({ user_id, username, first_name, last_name }));

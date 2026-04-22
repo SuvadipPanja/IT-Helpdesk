@@ -451,9 +451,9 @@ const BotSettingsTab = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const allowed = ['image/jpeg', 'image/jpg', 'image/png', 'image/svg+xml', 'image/webp', 'image/gif'];
+    const allowed = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
     if (!allowed.includes(file.type)) {
-      setMessage({ type: 'error', text: 'Only image files are allowed (JPEG, PNG, SVG, WebP, GIF)' });
+      setMessage({ type: 'error', text: 'Only image files are allowed (JPEG, PNG, WebP, GIF)' });
       return;
     }
 
@@ -641,7 +641,7 @@ const BotSettingsTab = () => {
               <div className="logo-preview-info">
                 <h4>Current Bot Icon</h4>
                 <p>Displayed in the floating FAB button, chat header, and message avatars.</p>
-                <p className="logo-hint">Recommended: 128Ã—128px or larger, transparent PNG or SVG for best quality.</p>
+                <p className="logo-hint">Recommended: 128x128px or larger, transparent PNG or WebP for best quality.</p>
               </div>
             </div>
 
@@ -649,7 +649,7 @@ const BotSettingsTab = () => {
               <input
                 ref={botIconInputRef}
                 type="file"
-                accept="image/png,image/jpeg,image/svg+xml,image/webp,image/gif"
+                accept="image/png,image/jpeg,image/webp,image/gif"
                 onChange={handleBotIconSelect}
                 style={{ display: 'none' }}
                 id="bot-icon-file-input"

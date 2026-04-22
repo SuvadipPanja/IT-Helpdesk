@@ -16,12 +16,10 @@ export const authService = {
       const response = await api.post('/auth/login', { username, password });
       
       // ⭐ Successful login - store minimal user data only (token is in HttpOnly cookie)
-      if (response.data.success) {
-        if (response.data.data.token) {
-          // Only store minimal user info in localStorage for UI state
-          const { user_id, username: uname, first_name, last_name } = response.data.data.user;
-          localStorage.setItem('user', JSON.stringify({ user_id, username: uname, first_name, last_name }));
-        }
+      if (response.data.success && response.data.data?.user) {
+        // Only store minimal user info in localStorage for UI state
+        const { user_id, username: uname, first_name, last_name } = response.data.data.user;
+        localStorage.setItem('user', JSON.stringify({ user_id, username: uname, first_name, last_name }));
       }
       
       return response.data;

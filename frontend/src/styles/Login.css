@@ -18,12 +18,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(ellipse 80% 60% at 10% 15%, rgba(99, 102, 241, 0.40) 0%, transparent 55%),
-    radial-gradient(ellipse 70% 55% at 90% 85%, rgba(139, 92, 246, 0.35) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 70% at 55% 30%, rgba(59, 130, 246, 0.20) 0%, transparent 55%),
-    radial-gradient(ellipse 90% 90% at 50% 50%, rgba(30, 27, 75, 0.60) 0%, transparent 100%),
-    linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+  background-color: #06132b;
+  background-image:
+    linear-gradient(135deg, rgba(4, 12, 32, 0.40) 0%, rgba(3, 19, 53, 0.24) 50%, rgba(4, 12, 32, 0.45) 100%),
+    url('/images/login-bg.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   padding: 20px;
   position: relative;
   font-family: var(--nx-font);
@@ -37,7 +38,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(ellipse 60% 40% at 70% 60%, rgba(99, 102, 241, 0.12) 0%, transparent 60%);
+  background: linear-gradient(180deg, rgba(2, 8, 24, 0.16) 0%, rgba(2, 8, 24, 0.34) 100%);
   z-index: 0;
   pointer-events: none;
 }

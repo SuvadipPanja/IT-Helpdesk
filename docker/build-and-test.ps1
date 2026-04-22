@@ -92,9 +92,9 @@ $SEED_DIR     = Join-Path $DB_DIR "seed"
 $BASELINE_BAK = Join-Path $SEED_DIR "ITHelpdesk-baseline.bak"
 $BACKUP_DIR   = Join-Path $ROOT "Data_Backup"
 $TEST_COMPOSE = Join-Path $DOCKER_DIR "docker-compose.test.yml"
+$TEST_ENV_FILE = Join-Path (Join-Path $DOCKER_DIR "production-release") ".env"
 
 # ── Constants ──────────────────────────────────────────────────────────────
-$SA_PASSWORD    = "ItHelpdeskDb@2026!"
 $VOLUME_NAME    = "ithelpdesk_sqlserver_data"
 $TEST_PROJECT   = "helpdesktest"
 $TEMP_CONTAINER = "helpdesk-db-backup-temp"
@@ -109,6 +109,31 @@ function Write-Step { param([string]$n, [string]$msg)
 function Write-OK   { Write-Host "  [OK]   $args" -ForegroundColor Green }
 function Write-Warn { Write-Host "  [WARN] $args" -ForegroundColor Yellow }
 function Write-Fail { Write-Host "  [FAIL] $args" -ForegroundColor Red }
+function Get-EnvFileValue {
+    param([string]$EnvFilePath, [string]$Name)
+
+    $envItem = Get-Item "Env:$Name" -ErrorAction SilentlyContinue
+    if ($envItem -and -not [string]::IsNullOrWhiteSpace($envItem.Value)) {
+        return $envItem.Value
+    }
+
+    if (-not (Test-Path $EnvFilePath)) {
+        return $null
+    }
+
+    $line = Get-Content $EnvFilePath | Where-Object { $_ -match "^$Name=(.*)$" } | Select-Object -First 1
+    if (-not $line) {
+        return $null
+    }
+
+    return ($line -replace "^$Name=", '').Trim()
+}
+
+$SA_PASSWORD = Get-EnvFileValue -EnvFilePath $TEST_ENV_FILE -Name 'MSSQL_SA_PASSWORD'
+if ([string]::IsNullOrWhiteSpace($SA_PASSWORD)) {
+    Write-Fail "MSSQL_SA_PASSWORD is required. Set it in $TEST_ENV_FILE or the current environment before running this script."
+    exit 1
+}
 
 $scriptStart = Get-Date
 Write-Host ""
@@ -152,7 +177,8 @@ if ($SkipLiveBackup) {
         # against it — no temp container needed, no image pull required.
         # Fall back to a temp container only when the production DB is not up.
         $PROD_DB_CONTAINER = "ithelpdesk-db-1"
-        $prodRunning = (docker inspect $PROD_DB_CONTAINER --format "{{.State.Running}}" 2>$null) -eq "true"
+        $prodRunning = $false
+        try { $prodRunning = (docker inspect $PROD_DB_CONTAINER --format "{{.State.Running}}" 2>&1) -eq "true" } catch { $prodRunning = $false }
 
         $ts             = Get-Date -Format "yyyyMMdd_HHmmss"
         $backupFileName = "DOCKER_BASELINE_${ts}.bak"
@@ -330,6 +356,7 @@ if (-not $SkipDbBuild) {
     docker run -d `
         --name $COMMIT_CONTAINER `
         -e ACCEPT_EULA=Y `
+        -e "MSSQL_SA_PASSWORD=$SA_PASSWORD" `
         -e DB_FORCE_RESTORE=1 `
         helpdesk-db:restore-stage
     if ($LASTEXITCODE -ne 0) { Write-Fail "Failed to start restore container"; exit 1 }
@@ -339,6 +366,12 @@ if (-not $SkipDbBuild) {
     $dbReady = $false
     for ($i = 1; $i -le 60; $i++) {
         Start-Sleep -Seconds 5
+        # Exit early if container stopped (entrypoint failed — no point waiting 5 min)
+        $running = docker inspect $COMMIT_CONTAINER --format "{{.State.Running}}" 2>$null
+        if ($running -ne "true") {
+            Write-Warn "Restore container stopped unexpectedly after $($i * 5) s"
+            break
+        }
         docker exec $COMMIT_CONTAINER `
             /opt/mssql-tools18/bin/sqlcmd -C -S "localhost,1433" `
             -U sa -P "$SA_PASSWORD" -Q "SELECT 1" | Out-Null
@@ -354,11 +387,26 @@ if (-not $SkipDbBuild) {
     }
     Write-OK "Database restored and ready"
 
-    # Extra wait: let the entrypoint finish running all migration .sql files
-    # (the healthcheck above only confirms SQL Server is answering, not that
-    #  all idempotent migrations have finished executing).
-    Write-Host "  Waiting 10 s for migrations to complete ..."
-    Start-Sleep -Seconds 10
+    # Wait for migrations: poll for the signal file written by entrypoint.sh
+    # AFTER all migration .sql files have run (instead of a fixed sleep).
+    # This guarantees migration 09_Production_App_User.sql has completed before
+    # the clean-build scrub or docker commit is attempted.
+    Write-Host "  Waiting for all migrations to complete (signal file) ..."
+    $migrationsReady = $false
+    for ($i = 1; $i -le 60; $i++) {
+        Start-Sleep -Seconds 3
+        $fileCheck = docker exec $COMMIT_CONTAINER test -f /tmp/migrations-done 2>&1
+        if ($LASTEXITCODE -eq 0) { $migrationsReady = $true; break }
+        if ($i % 10 -eq 0) { Write-Host "  Still waiting for migrations... ($($i * 3) s)" }
+    }
+    if (-not $migrationsReady) {
+        Write-Host "  Logs from restore container:"
+        docker logs $COMMIT_CONTAINER --tail 40
+        docker rm -f $COMMIT_CONTAINER | Out-Null
+        Write-Fail "Migrations did not complete within 3 minutes."
+        exit 1
+    }
+    Write-OK "All migrations complete"
 
     # Step 3b: run production scrub (only when -CleanBuild is set)
     if ($CleanBuild) {
@@ -385,6 +433,13 @@ if (-not $SkipDbBuild) {
 
     # Step 4: shut SQL Server down cleanly so data files are consistent
     Write-Host "  Shutting down SQL Server cleanly ..."
+    # Checkpoint master FIRST to flush server-level principals (logins, like suvadip)
+    # from in-memory pages to master.mdf on disk.  SHUTDOWN WITH NOWAIT skips
+    # checkpointing, which means newly created logins are NOT written to master.mdf
+    # before the process exits, and docker commit would capture them missing.
+    docker exec $COMMIT_CONTAINER `
+        /opt/mssql-tools18/bin/sqlcmd -C -S "localhost,1433" `
+        -U sa -P "$SA_PASSWORD" -Q "USE master; CHECKPOINT;" | Out-Null
     docker exec $COMMIT_CONTAINER `
         /opt/mssql-tools18/bin/sqlcmd -C -S "localhost,1433" `
         -U sa -P "$SA_PASSWORD" -Q "SHUTDOWN WITH NOWAIT" | Out-Null
@@ -403,19 +458,23 @@ if (-not $SkipDbBuild) {
     Write-OK "SQL Server stopped cleanly"
 
     # Step 5: commit the stopped container as helpdesk-db:latest
-    # Override the ENTRYPOINT so the committed image ONLY runs sqlservr
-    # (no restore logic, no MSSQL_SA_PASSWORD dependency at runtime).
+    # Keep the original ENTRYPOINT (helpdesk-db-entrypoint.sh) in the committed image.
+    # The entrypoint.sh is idempotent: it skips the .bak restore when the DB already
+    # exists (DB_FORCE_RESTORE=0), but it DOES run migrations on every start.
+    # This is intentional - it guarantees server-level logins (like suvadip) are
+    # created even if docker commit could not reliably flush master.mdf before the
+    # container was snapshotted (a known Docker-on-Windows limitation with SQL Server).
+    # Clear MSSQL_SA_PASSWORD from the image ENV so the build secret is not baked in.
     Write-Host "  Committing container as helpdesk-db:latest ..."
     docker commit `
-        --change 'ENTRYPOINT [\"/opt/mssql/bin/sqlservr\"]' `
-        --change 'CMD []' `
+        --change 'ENV MSSQL_SA_PASSWORD=' `
         $COMMIT_CONTAINER helpdesk-db:latest
     if ($LASTEXITCODE -ne 0) {
         docker rm -f $COMMIT_CONTAINER | Out-Null
         Write-Fail "docker commit failed"
         exit 1
     }
-    Write-OK "helpdesk-db:latest committed (DB data baked in, restore-free)"
+    Write-OK "helpdesk-db:latest committed (DB data + entrypoint baked in)"
 
     # Step 6: clean up
     docker rm $COMMIT_CONTAINER | Out-Null
@@ -450,10 +509,10 @@ if ($SkipTest) {
     Write-Step 3 "Start Test Environment"
 
     # Tear down any leftover test containers/volumes from a previous run
-    docker compose -f $TEST_COMPOSE -p $TEST_PROJECT down -v | Out-Null
+    docker compose --env-file $TEST_ENV_FILE -f $TEST_COMPOSE -p $TEST_PROJECT down -v | Out-Null
 
     Write-Host "  Starting db, backend, frontend (project: $TEST_PROJECT) ..."
-    docker compose -f $TEST_COMPOSE -p $TEST_PROJECT up -d
+    docker compose --env-file $TEST_ENV_FILE -f $TEST_COMPOSE -p $TEST_PROJECT up -d
     if ($LASTEXITCODE -ne 0) {
         Write-Fail "docker compose up failed"
         exit 1
@@ -484,12 +543,12 @@ if ($SkipTest) {
         Write-Fail "Backend health check failed after 3 minutes."
         Write-Host ""
         Write-Host "  ── Backend logs (last 50 lines) ──" -ForegroundColor DarkYellow
-        docker compose -f $TEST_COMPOSE -p $TEST_PROJECT logs backend --tail 50
+        docker compose --env-file $TEST_ENV_FILE -f $TEST_COMPOSE -p $TEST_PROJECT logs backend --tail 50
         Write-Host ""
         Write-Host "  ── DB logs (last 30 lines) ──" -ForegroundColor DarkYellow
-        docker compose -f $TEST_COMPOSE -p $TEST_PROJECT logs db --tail 30
+        docker compose --env-file $TEST_ENV_FILE -f $TEST_COMPOSE -p $TEST_PROJECT logs db --tail 30
         if (-not $KeepTestRunning) {
-            docker compose -f $TEST_COMPOSE -p $TEST_PROJECT down -v | Out-Null
+            docker compose --env-file $TEST_ENV_FILE -f $TEST_COMPOSE -p $TEST_PROJECT down -v | Out-Null
         }
         exit 1
     }
@@ -511,10 +570,10 @@ if ($SkipTest) {
         Write-Host "  Test environment is still running." -ForegroundColor Yellow
         Write-Host "  Browse to: http://localhost:8081  (admin / Admin@123)" -ForegroundColor Cyan
         Write-Host "  When done, run:" -ForegroundColor DarkGray
-        Write-Host "    docker compose -f docker\docker-compose.test.yml -p helpdesktest down -v" -ForegroundColor DarkGray
+        Write-Host "    docker compose --env-file docker\production-release\.env -f docker\docker-compose.test.yml -p helpdesktest down -v" -ForegroundColor DarkGray
     } else {
         Write-Step 5 "Teardown Test Environment"
-        docker compose -f $TEST_COMPOSE -p $TEST_PROJECT down -v | Out-Null
+        docker compose --env-file $TEST_ENV_FILE -f $TEST_COMPOSE -p $TEST_PROJECT down -v | Out-Null
         Write-OK "Test containers and volumes removed"
     }
 }

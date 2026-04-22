@@ -90,7 +90,7 @@ const PASSWORD_STEPS = {
 /* ────────────────────────────────────────────
    COMPONENT
    ──────────────────────────────────────────── */
-const AIAssistant = () => {
+const AIAssistant = ({ initialOpen = false }) => {
   const navigate = useNavigate();
   const { user, licenseState, hasLicensedFeature } = useAuth();
   const assistantLicensed = !licenseState?.loaded || hasLicensedFeature('ai_assistant');
@@ -390,6 +390,15 @@ const AIAssistant = () => {
       }]);
     }
   }, [hasGreeted, getGreetingText]);
+
+  const handledInitialOpenRef = useRef(false);
+
+  useEffect(() => {
+    if (initialOpen && !handledInitialOpenRef.current) {
+      handledInitialOpenRef.current = true;
+      openChat();
+    }
+  }, [initialOpen, openChat]);
 
   /* ── Call backend AI engine ── */
   const queryAI = useCallback(async (message) => {

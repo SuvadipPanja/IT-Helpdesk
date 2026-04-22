@@ -109,13 +109,46 @@ const Header = ({ toggleSidebar, sidebarOpen = false }) => {
   }, []);
 
   useEffect(() => {
-    // Initial fetch after 2 seconds, then every 30 seconds
-    const initialTimer = setTimeout(refreshAnnouncement, 2000);
-    announcementPollRef.current = setInterval(refreshAnnouncement, 30000);
+    const stopAnnouncementPolling = () => {
+      if (announcementPollRef.current) {
+        clearInterval(announcementPollRef.current);
+        announcementPollRef.current = null;
+      }
+    };
+
+    const startAnnouncementPolling = () => {
+      if (announcementPollRef.current || document.hidden) {
+        return;
+      }
+
+      announcementPollRef.current = setInterval(refreshAnnouncement, 30000);
+    };
+
+    // Initial fetch after 2 seconds, then poll only while the tab is visible.
+    const initialTimer = setTimeout(() => {
+      if (!document.hidden) {
+        refreshAnnouncement();
+      }
+    }, 2000);
+
+    startAnnouncementPolling();
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopAnnouncementPolling();
+        return;
+      }
+
+      refreshAnnouncement();
+      startAnnouncementPolling();
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     
     return () => {
       clearTimeout(initialTimer);
-      if (announcementPollRef.current) clearInterval(announcementPollRef.current);
+      stopAnnouncementPolling();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [refreshAnnouncement]);
   

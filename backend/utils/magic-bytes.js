@@ -28,7 +28,7 @@ const WEBP_RIFF = Buffer.from('RIFF');
 const WEBP_MARKER = Buffer.from('WEBP');
 
 // Extensions that are text-based (no binary magic bytes to check)
-const TEXT_EXTENSIONS = new Set(['.txt', '.csv', '.svg']);
+const TEXT_EXTENSIONS = new Set(['.txt', '.csv']);
 
 /**
  * Validate that a file's magic bytes match its claimed extension.

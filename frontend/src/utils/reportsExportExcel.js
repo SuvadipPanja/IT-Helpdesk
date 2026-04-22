@@ -1,7 +1,6 @@
 /**
- * Styled Excel export — lazy-loaded with exceljs (~900kb) only when user exports.
+ * Styled Excel export — loads exceljs only when the user triggers Excel export.
  */
-import ExcelJS from 'exceljs';
 import { formatReportCell } from './dateUtils';
 
 const BRAND = { argb: 'FF4F46E5' };
@@ -25,6 +24,7 @@ function cellStr(v) {
 }
 
 export async function downloadStyledExcel({ reportTitle, metaLines = [], columns, rows, filenameBase = 'report' }) {
+  const { default: ExcelJS } = await import('exceljs');
   const wb = new ExcelJS.Workbook();
   wb.creator = 'IT Helpdesk Reports';
   const ws = wb.addWorksheet('Data', {

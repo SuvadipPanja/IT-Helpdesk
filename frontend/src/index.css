@@ -637,6 +637,37 @@ html[data-theme='dark'] body {
 .nx-badge--danger   { background: var(--nx-danger-light);  color: var(--nx-danger); }
 .nx-badge--info     { background: var(--nx-info-light);    color: var(--nx-info); }
 .nx-badge--muted    { background: var(--nx-divider);       color: var(--nx-muted); }
+.nx-badge--status-open       { background: var(--nx-status-open-bg);        color: var(--nx-warning-darker); }
+.nx-badge--status-progress   { background: var(--nx-status-in-progress-bg); color: var(--nx-info-darker); }
+.nx-badge--status-pending    { background: var(--nx-status-pending-bg);     color: var(--nx-purple-dark); }
+.nx-badge--status-on-hold    { background: var(--nx-primary-light);         color: var(--nx-primary-800); }
+.nx-badge--status-closed     { background: var(--nx-status-closed-bg);      color: var(--nx-status-closed); }
+.nx-badge--status-escalated  { background: var(--nx-danger-light4);         color: var(--nx-danger-darker); }
+.nx-badge--status-cancelled  { background: var(--nx-status-closed-bg);      color: var(--nx-status-closed); }
+.nx-badge--status-reopened   { background: var(--nx-orange-light);          color: var(--nx-orange-600); }
+.nx-badge--status-default    { background: var(--nx-divider);               color: var(--nx-muted); }
+.nx-badge--priority-critical { background: var(--nx-danger-light4);         color: var(--nx-priority-critical); }
+.nx-badge--priority-high     { background: var(--nx-danger-light);          color: var(--nx-priority-high); }
+.nx-badge--priority-medium   { background: var(--nx-warning-light);         color: var(--nx-warning-darker); }
+.nx-badge--priority-low      { background: var(--nx-success-light);         color: var(--nx-priority-low); }
+.nx-badge--priority-planning { background: var(--nx-primary-light);         color: var(--nx-primary-800); }
+.nx-badge--priority-default  { background: var(--nx-divider);               color: var(--nx-muted); }
+
+[data-theme='dark'] .nx-badge--status-open       { background: rgba(245, 158, 11, 0.18); color: var(--nx-warning-light2); }
+[data-theme='dark'] .nx-badge--status-progress   { background: rgba(59, 130, 246, 0.18); color: var(--nx-info-light2); }
+[data-theme='dark'] .nx-badge--status-pending    { background: rgba(139, 92, 246, 0.18); color: var(--nx-primary-300); }
+[data-theme='dark'] .nx-badge--status-on-hold    { background: rgba(99, 102, 241, 0.18); color: var(--nx-primary-300); }
+[data-theme='dark'] .nx-badge--status-closed,
+[data-theme='dark'] .nx-badge--status-cancelled,
+[data-theme='dark'] .nx-badge--status-default    { background: rgba(148, 163, 184, 0.18); color: var(--nx-text-secondary); }
+[data-theme='dark'] .nx-badge--status-escalated  { background: rgba(239, 68, 68, 0.18); color: var(--nx-danger-light2); }
+[data-theme='dark'] .nx-badge--status-reopened   { background: rgba(249, 115, 22, 0.18); color: var(--nx-orange-light2); }
+[data-theme='dark'] .nx-badge--priority-critical { background: rgba(239, 68, 68, 0.18); color: var(--nx-danger-light2); }
+[data-theme='dark'] .nx-badge--priority-high     { background: rgba(239, 68, 68, 0.14); color: var(--nx-danger-light3); }
+[data-theme='dark'] .nx-badge--priority-medium   { background: rgba(245, 158, 11, 0.18); color: var(--nx-warning-light2); }
+[data-theme='dark'] .nx-badge--priority-low      { background: rgba(16, 185, 129, 0.18); color: var(--nx-success-light2); }
+[data-theme='dark'] .nx-badge--priority-planning { background: rgba(99, 102, 241, 0.18); color: var(--nx-primary-300); }
+[data-theme='dark'] .nx-badge--priority-default  { background: rgba(148, 163, 184, 0.18); color: var(--nx-text-secondary); }
 
 /* ==========================================================================
    GLOBAL STAT CARD

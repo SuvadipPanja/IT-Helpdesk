@@ -621,95 +621,6 @@
   max-width: 100%;
 }
 
-/* Priority Badge */
-.priority-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.priority-critical {
-  background: var(--nx-danger-light4);
-  color: var(--nx-danger-darker);
-}
-
-.priority-high {
-  background: #fed7aa;
-  color: #9a3412;
-}
-
-.priority-medium {
-  background: var(--nx-warning-amber100);
-  color: var(--nx-warning-darker);
-}
-
-.priority-low {
-  background: var(--nx-info-light3);
-  color: var(--nx-info-dark2);
-}
-
-.priority-planning {
-  background: var(--nx-primary-100);
-  color: var(--nx-primary-800);
-}
-
-/* Status Badge */
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.status-open {
-  background: var(--nx-info-light3);
-  color: var(--nx-info-dark2);
-}
-
-.status-progress {
-  background: var(--nx-warning-amber100);
-  color: var(--nx-warning-darker);
-}
-
-.status-pending {
-  background: #fed7aa;
-  color: #9a3412;
-}
-
-.status-hold {
-  background: var(--nx-primary-100);
-  color: var(--nx-primary-800);
-}
-
-.status-resolved {
-  background: #d1fae5;
-  color: var(--nx-success-darker);
-}
-
-.status-closed {
-  background: #f3f4f6;
-  color: #374151;
-}
-
-.status-cancelled {
-  background: var(--nx-danger-light4);
-  color: var(--nx-danger-darker);
-}
-
-.status-reopened {
-  background: var(--nx-orange-light);
-  color: var(--nx-orange-600);
-}
-
 /* User Info */
 .user-info {
   display: flex;
@@ -2018,22 +1929,6 @@ a,
 [data-theme="dark"] .tickets-table tbody tr.escalated:hover {
   background: rgba(234, 88, 12, 0.18);
 }
-
-/* Badge dark mode — lower opacity, readable on dark bg */
-[data-theme="dark"] .priority-critical { background: rgba(239, 68, 68, 0.18); color: var(--nx-danger-light2); }
-[data-theme="dark"] .priority-high     { background: rgba(249, 115, 22, 0.18); color: var(--nx-orange-light2); }
-[data-theme="dark"] .priority-medium   { background: rgba(245, 158, 11, 0.18); color: var(--nx-warning-light2); }
-[data-theme="dark"] .priority-low      { background: rgba(59, 130, 246, 0.18); color: var(--nx-info-light2); }
-[data-theme="dark"] .priority-planning { background: rgba(99, 102, 241, 0.18); color: var(--nx-primary-300); }
-
-[data-theme="dark"] .status-open      { background: rgba(59, 130, 246, 0.18); color: var(--nx-info-light2); }
-[data-theme="dark"] .status-progress  { background: rgba(245, 158, 11, 0.18); color: var(--nx-warning-light2); }
-[data-theme="dark"] .status-pending   { background: rgba(249, 115, 22, 0.18); color: var(--nx-orange-light2); }
-[data-theme="dark"] .status-hold      { background: rgba(99, 102, 241, 0.18); color: var(--nx-primary-300); }
-[data-theme="dark"] .status-resolved  { background: rgba(16, 185, 129, 0.18); color: var(--nx-success-light2); }
-[data-theme="dark"] .status-closed    { background: rgba(148, 163, 184, 0.15); color: var(--nx-muted); }
-[data-theme="dark"] .status-cancelled { background: rgba(239, 68, 68, 0.18); color: var(--nx-danger-light2); }
-[data-theme="dark"] .status-reopened  { background: rgba(234, 88, 12, 0.18); color: var(--nx-orange-400); }
 
 [data-theme="dark"] .category-badge {
   background: var(--nx-surface-hover);

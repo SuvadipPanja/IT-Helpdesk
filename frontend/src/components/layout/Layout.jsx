@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import PasswordExpiryBanner from '../passwordExpiry/PasswordExpiryBanner';
-import AIAssistant from '../helpdesk/AIAssistant';
+import LazyAIAssistant from '../helpdesk/LazyAIAssistant';
 import IncidentBanner from '../common/IncidentBanner';
 
 const Layout = ({ children }) => {
@@ -59,7 +59,7 @@ const Layout = ({ children }) => {
           {children}
         </main>
 
-        <AIAssistant />
+        <LazyAIAssistant />
       </div>
     </div>
   );

@@ -76,7 +76,6 @@ const ALLOWED_MIME_TYPES = [
   'image/gif',
   'image/webp',
   'image/bmp',
-  'image/svg+xml',
   
   // Text files
   'text/plain',
@@ -100,7 +99,7 @@ const ALLOWED_EXTENSIONS = [
   '.doc', '.docx',
   '.xls', '.xlsx',
   '.ppt', '.pptx',
-  '.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp', '.svg',
+  '.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp',
   '.txt', '.csv',
   '.zip', '.rar', '.7z'
 ];
@@ -143,7 +142,7 @@ const fileFilter = (req, file, cb) => {
 
   // Reject file
   logger.warn(`❌ File rejected: ${file.originalname} (MIME: ${mimeType}, Ext: ${ext})`);
-  cb(new Error(`File type not allowed. Accepted: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, Images, TXT, CSV, ZIP, RAR`), false);
+  cb(new Error('File type not allowed. Accepted: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, JPG, PNG, GIF, WebP, BMP, TXT, CSV, ZIP, RAR, 7Z'), false);
 };
 
 // ============================================

@@ -37,6 +37,7 @@ import {
 } from 'lucide-react';
 import api from '../../services/api';
 import { formatDate as formatDateUtil, timeAgo } from '../../utils/dateUtils';
+import { getTicketPriorityBadgeClassName, getTicketStatusBadgeClassName } from '../../utils/ticketBadges';
 import '../../styles/MyTickets.css';
 
 const MyTickets = () => {
@@ -194,34 +195,6 @@ const MyTickets = () => {
   // Format date using centralized utility
   const formatDate = (dateString) => formatDateUtil(dateString);
   const formatRelativeTime = (dateString) => timeAgo(dateString) || 'N/A';
-
-  // Get status color - Keep RESOLVED for backward compatibility
-  const getStatusColor = (statusCode) => {
-    const colors = {
-      'OPEN': 'status-open',
-      'IN_PROGRESS': 'status-progress',
-      'PENDING': 'status-pending',
-      'PENDING_INFO': 'status-hold',
-      'ON_HOLD': 'status-hold',
-      'RESOLVED': 'status-closed',  // UPDATED: Map RESOLVED to closed styling
-      'CLOSED': 'status-closed',
-      'CANCELLED': 'status-cancelled',
-      'REOPENED': 'status-reopened'
-    };
-    return colors[statusCode] || 'status-default';
-  };
-
-  // Get priority color
-  const getPriorityColor = (priorityCode) => {
-    const colors = {
-      'CRITICAL': 'priority-critical',
-      'HIGH': 'priority-high',
-      'MEDIUM': 'priority-medium',
-      'LOW': 'priority-low',
-      'PLANNING': 'priority-planning'
-    };
-    return colors[priorityCode] || 'priority-default';
-  };
 
   // Get status icon - Keep RESOLVED for backward compatibility
   const getStatusIcon = (statusCode) => {
@@ -458,12 +431,12 @@ const MyTickets = () => {
                       {ticket.ticket_number}
                     </div>
                     <div className="ticket-badges">
-                      <span className={`status-badge ${getStatusColor(ticket.status_code)}`}>
+                      <span className={getTicketStatusBadgeClassName(ticket.status_code)}>
                         <StatusIcon size={14} />
-                        {ticket.status_name}
+                        {ticket.status_name || ticket.status_code || 'Unknown'}
                       </span>
                       {ticket.sla_paused && (
-                        <span className="status-badge need-details-badge">
+                        <span className="nx-badge need-details-badge">
                           <Flag size={14} />
                           Needs More Details
                         </span>
@@ -485,11 +458,11 @@ const MyTickets = () => {
                   {/* Card Meta */}
                   <div className="ticket-card-meta">
                     <div className="meta-row">
-                      <span className={`priority-badge ${getPriorityColor(ticket.priority_code)}`}>
+                      <span className={getTicketPriorityBadgeClassName(ticket.priority_code)}>
                         {ticket.priority_code === 'CRITICAL' || ticket.priority_code === 'HIGH' ? (
                           <AlertTriangle size={14} />
                         ) : null}
-                        {ticket.priority_name}
+                        {ticket.priority_name || ticket.priority_code || 'Normal'}
                       </span>
                       {ticket.category_name && (
                         <span className="category-badge">

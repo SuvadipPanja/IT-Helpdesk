@@ -42,6 +42,7 @@ import {
 import api from '../../services/api';
 import { API_BASE_URL } from '../../utils/constants';
 import { formatDate as formatDateUtil } from '../../utils/dateUtils';
+import { getTicketPriorityBadgeClassName } from '../../utils/ticketBadges';
 import '../../styles/TicketBucket.css';
 
 // ============================================
@@ -52,16 +53,6 @@ const PAGE_LIMIT = 15;
 // ============================================
 // HELPERS
 // ============================================
-const getPriorityBadgeClass = (priorityCode) => {
-  switch ((priorityCode || '').toUpperCase()) {
-    case 'CRITICAL': return 'tb-priority-critical';
-    case 'HIGH':     return 'tb-priority-high';
-    case 'MEDIUM':   return 'tb-priority-medium';
-    case 'LOW':      return 'tb-priority-low';
-    default:         return 'tb-priority-medium';
-  }
-};
-
 const getProfilePictureUrl = (path) => {
   if (!path) return null;
   if (path.startsWith('http')) return path;
@@ -306,7 +297,7 @@ const MyQueue = () => {
 
                   {/* Priority */}
                   <td className="tb-col-priority">
-                    <span className={`tb-priority-badge ${getPriorityBadgeClass(ticket.priority_code)}`}>
+                    <span className={getTicketPriorityBadgeClassName(ticket.priority_code)}>
                       {ticket.priority_name || 'Normal'}
                     </span>
                   </td>

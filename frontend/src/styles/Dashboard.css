@@ -796,36 +796,6 @@
 
 .db-ticket-arrow { color: var(--nx-muted); flex-shrink: 0; }
 
-/* Badges */
-.db-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: 16px;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .03em;
-  white-space: nowrap;
-}
-
-.status-open { background: var(--nx-info-light); color: var(--nx-info); }
-.status-progress { background: var(--nx-warning-light); color: var(--nx-warning); }
-.status-pending { background: rgba(249,115,22,.1); color: var(--nx-orange); }
-.status-closed { background: var(--nx-success-light); color: var(--nx-success); }
-.status-hold { background: rgba(148,163,184,.12); color: var(--nx-muted); }
-.status-cancelled { background: rgba(107,114,128,.1); color: var(--nx-status-closed); }
-.status-escalated { background: var(--nx-danger-light); color: var(--nx-danger); }
-.status-reopened { background: rgba(249,115,22,.12); color: var(--nx-orange); }
-.status-default { background: rgba(148,163,184,.12); color: var(--nx-muted); }
-
-.priority-critical { background: var(--nx-danger-light); color: var(--nx-danger); }
-.priority-high { background: rgba(249,115,22,.1); color: var(--nx-orange); }
-.priority-medium { background: var(--nx-warning-light); color: var(--nx-warning); }
-.priority-low { background: var(--nx-success-light); color: var(--nx-success); }
-.priority-planning { background: var(--nx-info-light); color: var(--nx-info); }
-.priority-default { background: rgba(148,163,184,.12); color: var(--nx-muted); }
-
 /* Empty State */
 .db-empty {
   display: flex;

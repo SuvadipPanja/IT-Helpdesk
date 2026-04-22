@@ -50,6 +50,7 @@ import { useToast } from '../../context/ToastContext';
 import SkeletonTable from '../../components/common/SkeletonLoader';
 import BulkActionsBar from '../../components/tickets/BulkActionsBar';
 import { formatDate as formatDateUtil, timeAgo } from '../../utils/dateUtils';
+import { getTicketPriorityBadgeClassName, getTicketStatusBadgeClassName } from '../../utils/ticketBadges';
 import '../../styles/TicketsList.css';
 
 const TicketsList = () => {
@@ -551,17 +552,6 @@ const TicketsList = () => {
   // ============================================
   // HELPERS
   // ============================================
-  const getStatusBadgeClass = (code) => ({
-    'OPEN': 'status-open', 'IN_PROGRESS': 'status-progress', 'PENDING': 'status-pending',
-    'ON_HOLD': 'status-on-hold', 'RESOLVED': 'status-closed', 'CLOSED': 'status-closed',
-    'ESCALATED': 'status-escalated', 'CANCELLED': 'status-cancelled', 'REOPENED': 'status-reopened'
-  }[code] || 'status-default');
-
-  const getPriorityBadgeClass = (code) => ({
-    'CRITICAL': 'priority-critical', 'HIGH': 'priority-high', 'MEDIUM': 'priority-medium',
-    'LOW': 'priority-low', 'PLANNING': 'priority-planning'
-  }[code] || 'priority-default');
-
   const formatDate = (dateString) => formatDateUtil(dateString);
 
   const formatRelativeTime = (dateString) => {
@@ -967,8 +957,8 @@ const TicketsList = () => {
                       </td>
                       
                       <td><span className="category-badge">{ticket.category_name || '-'}</span></td>
-                      <td><span className={`priority-badge ${getPriorityBadgeClass(ticket.priority_code)}`}>{ticket.priority_name}</span></td>
-                      <td><span className={`status-badge ${getStatusBadgeClass(ticket.status_code)}`}>{ticket.status_name}</span></td>
+                      <td><span className={getTicketPriorityBadgeClassName(ticket.priority_code)}>{ticket.priority_name}</span></td>
+                      <td><span className={getTicketStatusBadgeClassName(ticket.status_code)}>{ticket.status_name}</span></td>
                       
                       {/* Requester Cell */}
                       <td className="requester-cell">

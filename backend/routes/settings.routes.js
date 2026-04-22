@@ -49,14 +49,26 @@ const logoStorage = multer.diskStorage({
   }
 });
 
+const BRANDING_ALLOWED_EXTENSIONS = new Set(['.jpeg', '.jpg', '.png', '.webp', '.gif']);
+const BRANDING_ALLOWED_MIME_TYPES = new Set([
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+  'image/gif',
+]);
+
+const isAllowedBrandingImage = (file) => {
+  const extension = path.extname(file.originalname).toLowerCase();
+  const mimeType = String(file.mimetype || '').toLowerCase();
+  return BRANDING_ALLOWED_EXTENSIONS.has(extension) && BRANDING_ALLOWED_MIME_TYPES.has(mimeType);
+};
+
 const logoUpload = multer({
   storage: logoStorage,
   fileFilter: (req, file, cb) => {
-    const allowed = /jpeg|jpg|png|svg|webp|gif/;
-    const extOk = allowed.test(path.extname(file.originalname).toLowerCase());
-    const mimeOk = allowed.test(file.mimetype) || file.mimetype === 'image/svg+xml';
-    if (extOk && mimeOk) cb(null, true);
-    else cb(new Error('Only image files are allowed (jpeg, jpg, png, svg, webp, gif)'));
+    if (isAllowedBrandingImage(file)) cb(null, true);
+    else cb(new Error('Only image files are allowed (jpeg, jpg, png, webp, gif)'));
   },
   limits: { fileSize: 5 * 1024 * 1024 }
 });
@@ -72,11 +84,8 @@ const botIconStorage = multer.diskStorage({
 const botIconUpload = multer({
   storage: botIconStorage,
   fileFilter: (req, file, cb) => {
-    const allowed = /jpeg|jpg|png|svg|webp|gif/;
-    const extOk = allowed.test(path.extname(file.originalname).toLowerCase());
-    const mimeOk = allowed.test(file.mimetype) || file.mimetype === 'image/svg+xml';
-    if (extOk && mimeOk) cb(null, true);
-    else cb(new Error('Only image files are allowed (jpeg, jpg, png, svg, webp, gif)'));
+    if (isAllowedBrandingImage(file)) cb(null, true);
+    else cb(new Error('Only image files are allowed (jpeg, jpg, png, webp, gif)'));
   },
   limits: { fileSize: 5 * 1024 * 1024 }
 });

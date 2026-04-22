@@ -19,7 +19,7 @@ import '../../styles/AttachmentPreviewModal.css';
 // ============================================
 const getFileType = (fileName) => {
     const ext = (fileName || '').split('.').pop().toLowerCase();
-    if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp'].includes(ext)) return 'image';
+    if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'].includes(ext)) return 'image';
     if (ext === 'pdf') return 'pdf';
     if (['txt', 'csv', 'log', 'md', 'json', 'xml', 'html', 'css', 'js'].includes(ext)) return 'text';
     if (['doc', 'docx', 'rtf', 'odt'].includes(ext)) return 'word';

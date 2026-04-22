@@ -16,6 +16,7 @@
 const { executeQuery } = require('../config/database'); // ⭐ FIXED: Use executeQuery
 const logger = require('../utils/logger');
 const { createResponse } = require('../utils/helpers');
+const { normalizePasswordPolicyValues } = require('../utils/passwordPolicy');
 
 /**
  * Get all security settings from database
@@ -70,10 +71,12 @@ const getSecuritySettings = async (req, res) => {
       settings[row.setting_key] = row.setting_value;
     });
 
-    logger.success('Security settings fetched', { count: Object.keys(settings).length });
+    const normalizedSettings = normalizePasswordPolicyValues(settings);
+
+    logger.success('Security settings fetched', { count: Object.keys(normalizedSettings).length });
 
     // Check if password_history_count exists
-    if (!settings.password_history_count) {
+    if (!normalizedSettings.password_history_count) {
       logger.warn('password_history_count is missing from database settings');
     }
 
@@ -81,7 +84,7 @@ const getSecuritySettings = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: 'Security settings fetched successfully',
-      data: settings,
+      data: normalizedSettings,
       timestamp: new Date().toISOString()
     });
 
@@ -132,12 +135,14 @@ const getPasswordPolicy = async (req, res) => {
       policy[row.setting_key] = row.setting_value;
     });
 
-    logger.success('Password policy fetched', { count: Object.keys(policy).length });
+    const normalizedPolicy = normalizePasswordPolicyValues(policy);
+
+    logger.success('Password policy fetched', { count: Object.keys(normalizedPolicy).length });
 
     return res.status(200).json({
       success: true,
       message: 'Password policy fetched successfully',
-      data: policy,
+      data: normalizedPolicy,
       timestamp: new Date().toISOString()
     });
 

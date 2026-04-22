@@ -2,12 +2,8 @@ FROM node:20-bookworm-slim
 
 WORKDIR /app
 
-# DB credentials baked in — not needed in docker-compose or .env
 ENV NODE_ENV=production \
-    DB_SERVER=db \
-    DB_NAME=ITHelpdesk \
-    DB_USER=sa \
-    DB_PASSWORD=ItHelpdeskDb@2026!
+  DB_SERVER=db
 
 COPY package*.json ./
 RUN npm ci --omit=dev && npm cache clean --force

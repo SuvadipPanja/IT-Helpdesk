@@ -10,6 +10,7 @@ const { executeQuery } = require('../config/database');
 const bcrypt = require('bcryptjs');
 const logger = require('../utils/logger');
 const settingsService = require('./settings.service');
+const { clampPasswordMinLength } = require('../utils/passwordPolicy');
 
 class SecurityService {
   
@@ -25,7 +26,7 @@ class SecurityService {
       const errors = [];
 
       // Check minimum length
-      const minLength = parseInt(settings.password_min_length) || 8;
+      const minLength = clampPasswordMinLength(settings.password_min_length);
       if (password.length < minLength) {
         errors.push(`Password must be at least ${minLength} characters long`);
       }

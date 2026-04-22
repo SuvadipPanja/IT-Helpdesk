@@ -10,6 +10,7 @@
  */
 
 const sql = require('mssql');
+const { resolveCredential } = require('../utils/credentialCrypto');
 
 const MAX   = parseInt(process.env.DB_WAIT_ATTEMPTS, 10) || 60;
 const DELAY = parseInt(process.env.DB_WAIT_DELAY_MS,  10) || 5000;
@@ -18,7 +19,7 @@ const config = {
   server:   process.env.DB_SERVER   || 'db',
   database: process.env.DB_NAME     || 'ITHelpdesk',
   user:     process.env.DB_USER     || 'sa',
-  password: process.env.DB_PASSWORD || '',
+  password: resolveCredential(process.env.DB_PASSWORD, process.env.DB_CREDENTIAL_KEY),
   port:     parseInt(process.env.DB_PORT, 10) || 1433,
   options: {
     encrypt: process.env.DB_ENCRYPT === 'true',
