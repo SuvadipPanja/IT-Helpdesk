@@ -93,7 +93,7 @@ const Dashboard = () => {
   const [trendMode, setTrendMode] = useState('tickets'); // 'tickets' | 'crs' | 'both'
 
   // ── Fetch all dashboard data ──
-  const fetchData = useCallback(async (isRefresh = false) => {
+  const fetchData = useCallback(async (isRefresh = false, isManual = false) => {
     if (isRefresh) setRefreshing(true);
     else setLoading(true);
     setError('');
@@ -145,7 +145,7 @@ const Dashboard = () => {
         setActivity(activityRes.data.data);
       }
 
-      if (isRefresh && mountedRef.current) showToast('Dashboard refreshed', 'success');
+      if (isRefresh && isManual && mountedRef.current) showToast('Dashboard refreshed', 'success');
     } catch (err) {
       setError('Failed to load dashboard data');
       if (!isRefresh) showToast('Failed to load dashboard', 'error');
@@ -159,7 +159,7 @@ const Dashboard = () => {
   useEffect(() => {
     fetchData();
     mountedRef.current = true;
-    refreshTimerRef.current = setInterval(() => fetchData(true), 60000);
+    refreshTimerRef.current = setInterval(() => fetchData(true, false), 60000);
     return () => clearInterval(refreshTimerRef.current);
   }, [fetchData]);
 
@@ -244,7 +244,7 @@ const Dashboard = () => {
           </div>
           <div className="db-welcome-right">
             <RefreshButton
-              onClick={() => fetchData(true)}
+              onClick={() => fetchData(true, true)}
               loading={refreshing}
               variant="compact"
               size={18}
