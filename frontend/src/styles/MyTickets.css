@@ -737,3 +737,12 @@
 [data-theme="dark"] .table-container tr:hover td {
   background: var(--nx-surface-hover);
 }
+
+[data-theme="dark"] .stat-card.active {
+  background: var(--nx-primary-light);
+}
+
+[data-theme="dark"] .priority-high {
+  background: rgba(234, 88, 12, 0.18);
+  color: var(--nx-orange-light2);
+}

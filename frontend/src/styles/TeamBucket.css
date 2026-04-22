@@ -864,3 +864,7 @@
 [data-theme="dark"] .tbk-pagination button:hover:not(:disabled) {
   background: var(--nx-surface-hover);
 }
+
+[data-theme="dark"] .tbk-table tbody tr.tbk-tr--overdue td {
+  background: rgba(239, 68, 68, 0.08);
+}

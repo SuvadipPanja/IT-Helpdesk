@@ -41,18 +41,18 @@
 
 /* ==================== DARK MODE ==================== */
 [data-theme="dark"] .modal-overlay {
-  --rm-text-primary: var(--nx-bg);
-  --rm-text-secondary: var(--nx-border-strong);
+  --rm-text-primary: var(--nx-text);
+  --rm-text-secondary: var(--nx-text-secondary);
   --rm-text-muted: var(--nx-text-secondary);
   --rm-text-label: var(--nx-muted);
   --rm-bg: var(--nx-surface-dark);
   --rm-bg-alt: #162032;
-  --rm-bg-input: var(--nx-text);
+  --rm-bg-input: var(--nx-surface-dark);
   --rm-bg-hover: rgba(99, 102, 241, 0.12);
   --rm-bg-purple-hover: rgba(139, 92, 246, 0.15);
   --rm-border: var(--nx-gray-700);
   --rm-border-light: var(--nx-surface-dark);
-  --rm-scrollbar-track: var(--nx-text);
+  --rm-scrollbar-track: var(--nx-surface-dark);
   --rm-scrollbar-thumb: var(--nx-text-secondary);
   --rm-overlay: rgba(0, 0, 0, 0.75);
   --rm-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
