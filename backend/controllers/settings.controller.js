@@ -307,7 +307,7 @@ const updateSetting = async (req, res) => {
     if (key === 'announcement_enabled' && (value === 'true' || value === true)) {
       const announcementText = await settingsService.get('system_announcement');
       if (announcementText) {
-        await notifyAllUsers('SYSTEM', 'ðŸ“¢ System Announcement', announcementText);
+        await notifyAllUsers('SYSTEM', '📢 System Announcement', announcementText);
       }
     }
     
@@ -315,9 +315,9 @@ const updateSetting = async (req, res) => {
       if (value === 'true' || value === true) {
         const maintMsg = await settingsService.get('maintenance_message') 
           || 'System is under maintenance. Please check back later.';
-        await notifyAllUsers('SYSTEM', 'ðŸ”§ Maintenance Mode Activated', maintMsg);
+        await notifyAllUsers('SYSTEM', '🔧 Maintenance Mode Activated', maintMsg);
       } else {
-        await notifyAllUsers('SYSTEM', 'âœ… Maintenance Complete', 'System maintenance has ended. All services are now available.');
+        await notifyAllUsers('SYSTEM', '✅ Maintenance Complete', 'System maintenance has ended. All services are now available.');
       }
     }
 
@@ -403,7 +403,7 @@ const updateMultipleSettings = async (req, res) => {
       const announcementText = settings.system_announcement 
         || await settingsService.get('system_announcement');
       if (announcementText) {
-        await notifyAllUsers('SYSTEM', 'ðŸ“¢ System Announcement', announcementText);
+        await notifyAllUsers('SYSTEM', '📢 System Announcement', announcementText);
       }
     }
     
@@ -413,9 +413,9 @@ const updateMultipleSettings = async (req, res) => {
         const maintMsg = settings.maintenance_message 
           || await settingsService.get('maintenance_message')
           || 'System is under maintenance. Please check back later.';
-        await notifyAllUsers('SYSTEM', 'ðŸ”§ Maintenance Mode Activated', maintMsg);
+        await notifyAllUsers('SYSTEM', '🔧 Maintenance Mode Activated', maintMsg);
       } else {
-        await notifyAllUsers('SYSTEM', 'âœ… Maintenance Complete', 'System maintenance has ended. All services are now available.');
+        await notifyAllUsers('SYSTEM', '✅ Maintenance Complete', 'System maintenance has ended. All services are now available.');
       }
     }
 

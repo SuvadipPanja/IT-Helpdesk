@@ -19,7 +19,7 @@ const createTransporter = async () => {
   try {
     const emailSettings = await settingsService.getByCategory('email');
 
-    logger.info('ðŸ“§ Email settings loaded:', {
+    logger.info('📧 Email settings loaded:', {
       smtp_enabled: emailSettings.smtp_enabled,
       smtp_host: emailSettings.smtp_host,
       smtp_port: emailSettings.smtp_port,
@@ -35,12 +35,12 @@ const createTransporter = async () => {
                         emailSettings.smtp_enabled === '1';
 
     if (!smtpEnabled) {
-      logger.warn('âš ï¸ SMTP is disabled in settings');
+      logger.warn('⚠️ SMTP is disabled in settings');
       return null;
     }
 
     if (!emailSettings.smtp_host || !emailSettings.smtp_username || !emailSettings.smtp_password) {
-      logger.error('âŒ SMTP settings incomplete', {
+      logger.error('❌ SMTP settings incomplete', {
         has_host: !!emailSettings.smtp_host,
         has_username: !!emailSettings.smtp_username,
         has_password: !!emailSettings.smtp_password
@@ -64,7 +64,7 @@ const createTransporter = async () => {
       }
     };
 
-    logger.info('ðŸ“§ Creating transporter with config:', {
+    logger.info('📧 Creating transporter with config:', {
       host: transportConfig.host,
       port: transportConfig.port,
       secure: transportConfig.secure,
@@ -75,11 +75,11 @@ const createTransporter = async () => {
 
     // Verify transporter
     await transporter.verify();
-    logger.success('âœ… SMTP transporter created and verified successfully');
+    logger.success('✅ SMTP transporter created and verified successfully');
 
     return transporter;
   } catch (error) {
-    logger.error('âŒ Failed to create email transporter', error);
+    logger.error('❌ Failed to create email transporter', error);
     return null;
   }
 };
@@ -239,7 +239,7 @@ const processSingleEmail = async (emailId) => {
       to: email.recipient_email,
       subject: email.subject,
       html: email.body,
-      // âœ… FIXED: Add proper headers for HTML email
+      // ✅ FIXED: Add proper headers for HTML email
       headers: {
         'Content-Type': 'text/html; charset=UTF-8',
         'X-Priority': email.priority <= 2 ? '1' : '3'
@@ -428,7 +428,7 @@ const renderTemplate = (template, variables) => {
   let body = template.body_template;
 
   // Log variables being used
-  logger.info('ðŸ“ Rendering template with variables:', {
+  logger.info('📝 Rendering template with variables:', {
     templateKey: template.template_key,
     variablesProvided: Object.keys(variables),
     variableCount: Object.keys(variables).length
@@ -455,7 +455,7 @@ const renderTemplate = (template, variables) => {
     const bodyMatches = (body.match(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g')) || []).length;
     
     if (subjectMatches > 0 || bodyMatches > 0) {
-      logger.info(`âœ… Replacing '${placeholder}' with '${replacementValue}' (${subjectMatches + bodyMatches} occurrences)`);
+      logger.info(`✅ Replacing '${placeholder}' with '${replacementValue}' (${subjectMatches + bodyMatches} occurrences)`);
     }
 
     // Replace in subject and body (case-sensitive, global)
@@ -469,7 +469,7 @@ const renderTemplate = (template, variables) => {
   
   if (subjectUnreplaced.length > 0 || bodyUnreplaced.length > 0) {
     const allUnreplaced = [...new Set([...subjectUnreplaced, ...bodyUnreplaced])];
-    logger.warn('âš ï¸ Unreplaced variables found:', allUnreplaced);
+    logger.warn('⚠️ Unreplaced variables found:', allUnreplaced);
   }
 
   logger.success('Template rendered successfully');

@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // BOT SETTINGS TAB COMPONENT
 // Advanced bot configuration, API providers, features
 // Date: March 4, 2026
@@ -873,7 +873,7 @@ const BotSettingsTab = () => {
             style={{ marginLeft: 'auto', fontSize: '13px', color: '#3b82f6', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}
             onClick={(e) => { e.preventDefault(); window.location.href = '/analytics'; }}
           >
-            View All Sessions â†’
+            View All Sessions →
           </a>
         </div>
         <div className="settings-section-content">

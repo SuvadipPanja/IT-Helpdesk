@@ -9,7 +9,7 @@
 const nodemailer = require('nodemailer');
 const { getSettingsByCategory } = require('./settings.service');
 const { executeQuery } = require('../config/database');
-const emailTemplateContext = require('./emailTemplateContext.service'); // âœ… FIXED: Use executeQuery
+const emailTemplateContext = require('./emailTemplateContext.service'); // ✅ FIXED: Use executeQuery
 const dateUtils = require('../utils/dateUtils');
 const logger = require('../utils/logger');
 const { buildPublicAppUrl, getPublicAppUrl } = require('../utils/publicUrl');
@@ -219,7 +219,7 @@ class EmailService {
    */
   async getEmailTemplate(templateKey) {
     try {
-      // âœ… FIXED: Use executeQuery like the controller does
+      // ✅ FIXED: Use executeQuery like the controller does
       const result = await executeQuery(
         `
           SELECT 
@@ -271,7 +271,7 @@ class EmailService {
    */
   async getSystemName() {
     try {
-      // âœ… FIXED: Use executeQuery like the controller does
+      // ✅ FIXED: Use executeQuery like the controller does
       const result = await executeQuery(
         `
           SELECT setting_value 
@@ -432,7 +432,7 @@ class EmailService {
     return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
-          <h1 style="color: white; margin: 0; font-size: 24px;">ðŸŽ« New Ticket Created</h1>
+          <h1 style="color: white; margin: 0; font-size: 24px;">🎫 New Ticket Created</h1>
         </div>
         
         <div style="background: #f8fafc; padding: 30px; border-radius: 0 0 10px 10px;">
@@ -480,7 +480,7 @@ class EmailService {
     return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
-          <h1 style="color: white; margin: 0; font-size: 24px;">âœ… Ticket Assigned to You</h1>
+          <h1 style="color: white; margin: 0; font-size: 24px;">✅ Ticket Assigned to You</h1>
         </div>
         
         <div style="background: #f8fafc; padding: 30px; border-radius: 0 0 10px 10px;">
@@ -528,7 +528,7 @@ class EmailService {
     return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
-          <h1 style="color: white; margin: 0; font-size: 24px;">ðŸ”„ Ticket Updated</h1>
+          <h1 style="color: white; margin: 0; font-size: 24px;">🔄 Ticket Updated</h1>
         </div>
         
         <div style="background: #f8fafc; padding: 30px; border-radius: 0 0 10px 10px;">
@@ -568,7 +568,7 @@ class EmailService {
     return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
-          <h1 style="color: white; margin: 0; font-size: 24px;">ðŸ’¬ New Comment Added</h1>
+          <h1 style="color: white; margin: 0; font-size: 24px;">💬 New Comment Added</h1>
         </div>
         
         <div style="background: #f8fafc; padding: 30px; border-radius: 0 0 10px 10px;">

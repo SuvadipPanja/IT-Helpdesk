@@ -202,7 +202,7 @@ const CRQueue = () => {
             <div>
               <h1 className="page-title">CR Queue</h1>
               <p className="page-subtitle">
-                {totalRecords} assigned â€¢ {approvalStats.pending || 0} pending approval{approvalStats.pending !== 1 ? 's' : ''}
+                {totalRecords} assigned • {approvalStats.pending || 0} pending approval{approvalStats.pending !== 1 ? 's' : ''}
               </p>
             </div>
           </div>
@@ -210,7 +210,7 @@ const CRQueue = () => {
         <div className="header-right">
           <button
             className="btn-icon-action"
-            onClick={() => { fetchQueue(); fetchApprovalData(); toast.info('Refreshingâ€¦'); }}
+            onClick={() => { fetchQueue(); fetchApprovalData(); toast.info('Refreshing…'); }}
             disabled={loading}
             title="Refresh"
           >
@@ -239,7 +239,7 @@ const CRQueue = () => {
           <input
             type="text"
             className="search-input-large"
-            placeholder="Search by CR number, titleâ€¦"
+            placeholder="Search by CR number, title…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -264,7 +264,7 @@ const CRQueue = () => {
             <AlertTriangle size={15} />
             <span>You have <strong>{pendingApprovals.length}</strong> change request(s) awaiting your approval decision.</span>
             <span className="crq-approval-toggle">
-              {expandApprovals ? 'â–² Collapse' : 'â–¼ Expand'}
+              {expandApprovals ? '▲ Collapse' : '▼ Expand'}
             </span>
           </div>
 
@@ -294,9 +294,9 @@ const CRQueue = () => {
                     </div>
                     <div className="crq-approval-meta">
                       <span>By: {pa.requester_name}</span>
-                      <span>â€¢</span>
+                      <span>•</span>
                       <span>Type: {pa.type_name}</span>
-                      <span>â€¢</span>
+                      <span>•</span>
                       <span>Role: {pa.approver_role}</span>
                     </div>
                     {action.showComment && (
@@ -305,7 +305,7 @@ const CRQueue = () => {
                           className="crq-approval-textarea"
                           value={action.comment || ''}
                           onChange={(e) => setApprovalActions(prev => ({ ...prev, [pa.cr_id]: { ...prev[pa.cr_id], comment: e.target.value } }))}
-                          placeholder="Add a comment (optional)â€¦"
+                          placeholder="Add a comment (optional)…"
                           rows={2}
                         />
                       </div>
