@@ -11,6 +11,8 @@
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 ![Ollama](https://img.shields.io/badge/AI-Ollama-111827?style=flat-square)
 
+![License: MIT](https://img.shields.io/badge/License-MIT-22c55e?style=flat-square)
+
 </div>
 
 ---
@@ -65,6 +67,10 @@ Docker files for both parts are in `backend/`, `frontend/` and `docker/`.
 cd backend
 npm test
 ```
+
+## License
+
+MIT — see [LICENSE](LICENSE).
 
 ---
 
